@@ -1,0 +1,58 @@
+# ─── Dependensi ──────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+
+# ─── Build & cache Next.js ───────────────────────────────
+.next/
+out/
+build/
+next-env.d.ts
+
+# ─── Prisma ──────────────────────────────────────────────
+# schema.prisma dan migrasi TIDAK diabaikan — versikan.
+prisma/migrations/dev.db*
+
+# ─── Lingkungan & rahasia ────────────────────────────────
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+*.pem
+*.key
+
+# ─── Sistem operasi ──────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Editor ──────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ─── Log & temporer ──────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.cache/
+tmp/
+*.tsbuildinfo
+
+# ─── Tes & coverage ──────────────────────────────────────
+coverage/
+.nyc_output/
+
+# ─── Upload lokal (Fase 3 sebelum R2) ────────────────────
+public/uploads/
+uploads/
+
+# ─── Vercel ──────────────────────────────────────────────
+.vercel
+
+# Direktori build verifikasi (lihat next.config.ts distDir)
+.next-verify

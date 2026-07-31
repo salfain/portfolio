@@ -1,0 +1,298 @@
+// Draft schema. Adapt Better Auth tables according to the selected adapter.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+}
+
+enum PublishStatus {
+  DRAFT
+  IN_REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum KnowledgeType {
+  SOP
+  LAB
+  INCIDENT
+  ARTICLE
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  role      UserRole @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  knowledgeDocuments KnowledgeDocument[]
+  auditLogs          AuditLog[]
+}
+
+model SiteProfile {
+  id              String   @id @default(cuid())
+  name            String
+  roleId          String
+  roleEn          String
+  headlineId      String
+  headlineEn      String
+  summaryId       String
+  summaryEn       String
+  location        String?
+  email           String
+  phone           String?
+  whatsapp        String?
+  availabilityId  String?
+  availabilityEn  String?
+  profileImageUrl String?
+  cvIdUrl         String?
+  cvEnUrl         String?
+  githubUrl       String?
+  linkedinUrl     String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Experience {
+  id             String   @id @default(cuid())
+  company        String
+  positionId     String
+  positionEn     String
+  summaryId      String
+  summaryEn      String
+  location       String?
+  startDate      DateTime
+  endDate        DateTime?
+  isCurrent      Boolean  @default(false)
+  achievementsId Json?
+  achievementsEn Json?
+  tools          String[]
+  sortOrder      Int      @default(0)
+  isPublished    Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Skill {
+  id          String   @id @default(cuid())
+  name        String
+  category    String
+  level       String?
+  icon        String?
+  sortOrder   Int      @default(0)
+  isFeatured  Boolean  @default(false)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Project {
+  id            String        @id @default(cuid())
+  titleId       String
+  titleEn       String
+  slug          String        @unique
+  summaryId     String
+  summaryEn     String
+  problemId     String?
+  problemEn     String?
+  solutionId    String?
+  solutionEn    String?
+  resultId      String?
+  resultEn      String?
+  roleId        String?
+  roleEn        String?
+  tools         String[]
+  repositoryUrl String?
+  demoUrl       String?
+  coverUrl      String?
+  status        PublishStatus @default(DRAFT)
+  isFeatured    Boolean       @default(false)
+  sortOrder     Int           @default(0)
+  publishedAt   DateTime?
+  media         ProjectMedia[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model ProjectMedia {
+  id           String   @id @default(cuid())
+  projectId    String
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  fileUrl      String
+  thumbnailUrl String?
+  altId        String
+  altEn        String
+  captionId    String?
+  captionEn    String?
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+}
+
+model Certificate {
+  id            String   @id @default(cuid())
+  name          String
+  issuer        String
+  issueDate     DateTime?
+  expiryDate    DateTime?
+  credentialUrl String?
+  imageUrl      String?
+  skills        String[]
+  sortOrder     Int      @default(0)
+  isPublished   Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model KnowledgeCategory {
+  id            String              @id @default(cuid())
+  nameId        String
+  nameEn        String
+  slug          String              @unique
+  descriptionId String?
+  descriptionEn String?
+  icon          String?
+  color         String?
+  sortOrder     Int                 @default(0)
+  documents     KnowledgeDocument[]
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+}
+
+model KnowledgeDocument {
+  id               String             @id @default(cuid())
+  authorId         String
+  author           User               @relation(fields: [authorId], references: [id])
+  categoryId       String?
+  category         KnowledgeCategory? @relation(fields: [categoryId], references: [id])
+  type             KnowledgeType
+  status           PublishStatus      @default(DRAFT)
+  slug             String             @unique
+  documentCode     String?            @unique
+  version          String             @default("1.0")
+  titleId          String
+  titleEn          String?
+  summaryId        String
+  summaryEn        String?
+  contentIdJson    Json
+  contentEnJson    Json?
+  contentIdHtml    String?
+  contentEnHtml    String?
+  coverUrl         String?
+  difficulty       String?
+  estimatedMinutes Int?
+  tools            String[]
+  metadata         Json?
+  isFeatured       Boolean            @default(false)
+  viewCount        Int                @default(0)
+  publishedAt      DateTime?
+  evidences        KnowledgeEvidence[]
+  revisions        KnowledgeRevision[]
+  tags             KnowledgeDocumentTag[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  @@index([type, status])
+  @@index([categoryId, status])
+}
+
+model KnowledgeEvidence {
+  id                 String            @id @default(cuid())
+  documentId         String
+  document           KnowledgeDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  titleId            String
+  titleEn            String?
+  descriptionId      String?
+  descriptionEn      String?
+  evidenceType       String
+  fileUrl            String
+  thumbnailUrl       String?
+  altId              String
+  altEn              String?
+  captionId          String?
+  captionEn          String?
+  tool               String?
+  testDate           DateTime?
+  sortOrder          Int               @default(0)
+  isPublic           Boolean           @default(true)
+  redactionConfirmed Boolean           @default(false)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  @@index([documentId, sortOrder])
+}
+
+model KnowledgeRevision {
+  id            String            @id @default(cuid())
+  documentId    String
+  document      KnowledgeDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  version       String
+  changeSummary String
+  contentIdJson Json
+  contentEnJson Json?
+  contentIdHtml String?
+  contentEnHtml String?
+  metadata      Json?
+  createdAt     DateTime          @default(now())
+
+  @@index([documentId, createdAt])
+}
+
+model KnowledgeTag {
+  id        String                 @id @default(cuid())
+  name      String                 @unique
+  slug      String                 @unique
+  documents KnowledgeDocumentTag[]
+}
+
+model KnowledgeDocumentTag {
+  documentId String
+  tagId      String
+  document   KnowledgeDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  tag        KnowledgeTag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([documentId, tagId])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  subject   String?
+  message   String
+  locale    String   @default("id")
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id])
+  action     String
+  entityType String
+  entityId   String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
