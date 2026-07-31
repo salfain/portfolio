@@ -1,0 +1,46 @@
+# PostgreSQL lokal untuk pengembangan Fase 1+.
+# Pilihan Q1 phase-0: D. Docker Desktop (paling dekat produksi).
+#
+# Jalankan: docker compose up -d
+# Hentikan: docker compose down (data tetap di volume pgdata)
+# Reset total: docker compose down -v
+#
+# Kredensial dibaca dari `.env` di folder ini — diabaikan git, dimuat
+# otomatis oleh docker compose. Sebelumnya nilainya tertulis langsung di
+# berkas ini, melanggar docs/rules/06_SECURITY.md §1 yang melarang
+# kredensial apa pun masuk repositori.
+#
+# Salin `.env.example` menjadi `.env`, lalu isi POSTGRES_*.
+#
+# CATATAN: mengubah POSTGRES_* TIDAK mengubah kredensial database yang
+# volumenya sudah terlanjur dibuat — Postgres hanya memakainya saat initdb.
+# Untuk menerapkan kredensial baru: `docker compose down -v` (data hilang).
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: portfolio-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?wajib diisi di .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?wajib diisi di .env}
+      POSTGRES_DB: ${POSTGRES_DB:?wajib diisi di .env}
+    ports:
+      # Terikat ke loopback saja. Sebelumnya "5432:5432", yang di Docker
+      # Desktop mendengarkan seluruh antarmuka — database pengembangan
+      # jadi terbuka ke seluruh jaringan lokal.
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Init script jalan sekali saat DB pertama kali dibuat.
+      - ./docker/init-extensions.sql:/docker-entrypoint-initdb.d/10-extensions.sql:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  pgdata:
+    name: portfolio-pgdata
