@@ -1,4 +1,5 @@
 import { getAdminMessages } from '@/data/contact'
+import { toIsoString } from '@/lib/format'
 
 import { EmptyState } from '@/components/ui'
 import { AdminShell } from '@/components/admin/admin-shell'
@@ -62,7 +63,7 @@ export default async function AdminMessagesPage() {
                 </div>
 
                 <time
-                  dateTime={message.createdAt.toISOString()}
+                  dateTime={toIsoString(message.createdAt)}
                   className="shrink-0 text-sm text-muted"
                 >
                   {formatter.format(message.createdAt)}

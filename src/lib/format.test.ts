@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { formatFullDate, formatMonthYear, formatPeriod } from '@/lib/format'
+import {
+  formatFullDate,
+  formatMonthYear,
+  formatPeriod,
+  formatYear,
+  toIsoString,
+} from '@/lib/format'
 
 // Tanggal UTC yang, di Asia/Jakarta (UTC+7), jatuh pada 1 Januari 2024.
 // Dipilih sengaja: di UTC tanggalnya masih 31 Desember 2023, jadi tes ini
@@ -48,5 +54,38 @@ describe('formatPeriod', () => {
 
   it('label "sekarang" datang dari pemanggil, bukan dirakit di dalam', () => {
     expect(formatPeriod(start, null, 'en', 'Present')).toContain('Present')
+  })
+})
+
+describe('tanggal dari unstable_cache (string ISO)', () => {
+  // unstable_cache menyimpan hasilnya sebagai JSON: saat cache MISS nilainya
+  // Date asli, saat cache HIT nilainya string ISO. Tipe Prisma tetap bilang
+  // Date, jadi TypeScript tidak menangkapnya dan halaman baru rusak SETELAH
+  // cache terisi. Tes ini mengunci kedua bentuk. Lihat docs/phase-4/NOTES.md N1.
+  const iso = '2026-03-15T00:00:00.000Z'
+  const date = new Date(iso)
+
+  it('formatFullDate menerima Date maupun string', () => {
+    expect(formatFullDate(iso, 'id')).toBe(formatFullDate(date, 'id'))
+    expect(formatFullDate(iso, 'en')).toBe(formatFullDate(date, 'en'))
+  })
+
+  it('formatMonthYear menerima keduanya', () => {
+    expect(formatMonthYear(iso, 'id')).toBe(formatMonthYear(date, 'id'))
+  })
+
+  it('formatYear menerima keduanya', () => {
+    expect(formatYear(iso, 'id')).toBe(formatYear(date, 'id'))
+  })
+
+  it('formatPeriod menerima keduanya', () => {
+    expect(formatPeriod(iso, iso, 'id', 'Sekarang')).toBe(
+      formatPeriod(date, date, 'id', 'Sekarang'),
+    )
+  })
+
+  it('toIsoString mengembalikan ISO dari Date maupun string', () => {
+    expect(toIsoString(date)).toBe(iso)
+    expect(toIsoString(iso)).toBe(iso)
   })
 })

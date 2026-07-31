@@ -51,7 +51,8 @@
   },
   "home": {
     "whyWorkWithMe": "Why Work With Me",
-    "troubleshootingProcess": "How I Troubleshoot"
+    "troubleshootingProcess": "How I Troubleshoot",
+    "fromKnowledgeBase": "From the Knowledge Base"
   },
   "explore": {
     "title": "Explore My Work",
@@ -276,5 +277,96 @@
   },
   "auth": {
     "loginRequired": "Login required"
+  },
+  "knowledge": {
+    "title": "Knowledge Base",
+    "description": "SOPs, network labs, and incident reports I wrote myself. Every document can be followed step by step.",
+    "browseAll": "Browse all documents",
+    "code": "code",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Copy failed",
+    "types": {
+      "sop": {
+        "name": "SOP",
+        "plural": "SOPs",
+        "description": "Standard procedures anyone can repeat, not personal notes."
+      },
+      "labs": {
+        "name": "Lab",
+        "plural": "PNETLab Labs",
+        "description": "Network scenarios built and tested in PNETLab, with evidence."
+      },
+      "incidents": {
+        "name": "Incident",
+        "plural": "Incident Reports",
+        "description": "Handling outages from symptom to preventing recurrence."
+      },
+      "articles": {
+        "name": "Article",
+        "plural": "Technical Articles",
+        "description": "Explanations of concepts users ask about most."
+      }
+    },
+    "difficulty": {
+      "label": "Level",
+      "BEGINNER": "Beginner",
+      "INTERMEDIATE": "Intermediate",
+      "ADVANCED": "Advanced"
+    },
+    "filters": {
+      "heading": "Filter documents",
+      "search": "Search",
+      "searchPlaceholder": "Title, summary, or document code",
+      "category": "Category",
+      "tag": "Tag",
+      "all": "All",
+      "reset": "Clear filters",
+      "submit": "Apply",
+      "resultCount": "{count, plural, =0 {No documents} one {# document} other {# documents}}"
+    },
+    "card": {
+      "minutes": "{minutes} min",
+      "updated": "Updated {date}"
+    },
+    "detail": {
+      "onThisPage": "On this page",
+      "backToList": "Back to {type}",
+      "tools": "Tools used",
+      "category": "Category",
+      "tags": "Tags",
+      "version": "Version {version}",
+      "published": "Published {date}",
+      "updated": "Updated {date}",
+      "evidence": "Evidence",
+      "evidenceNote": "All evidence passed the redaction checklist before publication.",
+      "openImage": "Open full-size image",
+      "closeImage": "Close image",
+      "previousImage": "Previous image",
+      "nextImage": "Next image",
+      "imagePosition": "Image {current} of {total}",
+      "revisions": "Revision history",
+      "revisionsNote": "Every edit to a published document is recorded here.",
+      "relatedProjects": "Related projects",
+      "related": "Other documents",
+      "emptyContent": "The content of this document is not available yet.",
+      "readingProgress": "Reading progress"
+    },
+    "empty": {
+      "title": "No documents yet",
+      "description": "The Knowledge Base is being filled. The first document will appear here."
+    },
+    "emptyFiltered": {
+      "title": "Nothing matches",
+      "description": "Try loosening the filters or clearing the search term."
+    },
+    "category": {
+      "title": "Category: {name}",
+      "all": "All categories"
+    },
+    "tag": {
+      "title": "Tag: {name}",
+      "all": "All tags"
+    }
   }
 }

@@ -2,6 +2,7 @@ import { type ReactNode } from 'react'
 
 import { cn } from '@/lib/cn'
 import { Input, Label, Textarea } from '@/components/ui'
+import { toIsoString, type DateLike } from '@/lib/format'
 import {
   PUBLISH_STATUS_LABEL,
   type PublishStatusValue,
@@ -94,11 +95,9 @@ export function ListField({
 export function DateField({
   defaultValue,
   ...props
-}: BaseProps & { defaultValue?: Date | null }) {
+}: BaseProps & { defaultValue?: DateLike | null }) {
   // <input type="date"> menuntut format YYYY-MM-DD.
-  const value = defaultValue
-    ? defaultValue.toISOString().slice(0, 10)
-    : ''
+  const value = defaultValue ? toIsoString(defaultValue).slice(0, 10) : ''
 
   return (
     <FieldWrapper {...props}>

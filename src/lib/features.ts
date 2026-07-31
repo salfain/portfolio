@@ -8,6 +8,6 @@
  * Lihat docs/phase-0/05_ROUTE_AND_PRIORITY_MAP.md §2 (catatan Fase 3.5).
  */
 export const features = {
-  /** Nyalakan di akhir Fase 4. */
-  knowledgeBase: false,
+  /** Dinyalakan di akhir Fase 4 — rutenya sudah ada. */
+  knowledgeBase: true,
 } as const

@@ -51,7 +51,8 @@
   },
   "home": {
     "whyWorkWithMe": "Kenapa Bekerja dengan Saya",
-    "troubleshootingProcess": "Cara Saya Menangani Masalah"
+    "troubleshootingProcess": "Cara Saya Menangani Masalah",
+    "fromKnowledgeBase": "Dari Knowledge Base"
   },
   "explore": {
     "title": "Jelajahi Pekerjaan Saya",
@@ -276,5 +277,96 @@
   },
   "auth": {
     "loginRequired": "Masuk diperlukan"
+  },
+  "knowledge": {
+    "title": "Basis Pengetahuan",
+    "description": "SOP, lab jaringan, dan laporan insiden yang saya tulis sendiri. Setiap dokumen bisa ditelusuri langkah demi langkah.",
+    "browseAll": "Lihat semua dokumen",
+    "code": "kode",
+    "copy": "Salin",
+    "copied": "Tersalin",
+    "copyFailed": "Gagal menyalin",
+    "types": {
+      "sop": {
+        "name": "SOP",
+        "plural": "SOP",
+        "description": "Prosedur baku yang bisa diulang siapa pun, bukan catatan pribadi."
+      },
+      "labs": {
+        "name": "Lab",
+        "plural": "Lab PNETLab",
+        "description": "Skenario jaringan yang dibangun dan diuji di PNETLab, lengkap dengan bukti."
+      },
+      "incidents": {
+        "name": "Insiden",
+        "plural": "Laporan Insiden",
+        "description": "Penanganan gangguan dari gejala sampai pencegahan berulang."
+      },
+      "articles": {
+        "name": "Artikel",
+        "plural": "Artikel Teknis",
+        "description": "Penjelasan konsep yang sering ditanyakan pengguna."
+      }
+    },
+    "difficulty": {
+      "label": "Tingkat",
+      "BEGINNER": "Dasar",
+      "INTERMEDIATE": "Menengah",
+      "ADVANCED": "Mahir"
+    },
+    "filters": {
+      "heading": "Saring dokumen",
+      "search": "Cari",
+      "searchPlaceholder": "Judul, ringkasan, atau kode dokumen",
+      "category": "Kategori",
+      "tag": "Tag",
+      "all": "Semua",
+      "reset": "Hapus filter",
+      "submit": "Terapkan",
+      "resultCount": "{count, plural, =0 {Tidak ada dokumen} one {# dokumen} other {# dokumen}}"
+    },
+    "card": {
+      "minutes": "{minutes} menit",
+      "updated": "Diperbarui {date}"
+    },
+    "detail": {
+      "onThisPage": "Di halaman ini",
+      "backToList": "Kembali ke {type}",
+      "tools": "Alat yang dipakai",
+      "category": "Kategori",
+      "tags": "Tag",
+      "version": "Versi {version}",
+      "published": "Terbit {date}",
+      "updated": "Diperbarui {date}",
+      "evidence": "Bukti",
+      "evidenceNote": "Seluruh bukti sudah melalui checklist redaksi sebelum diterbitkan.",
+      "openImage": "Buka gambar ukuran penuh",
+      "closeImage": "Tutup gambar",
+      "previousImage": "Gambar sebelumnya",
+      "nextImage": "Gambar berikutnya",
+      "imagePosition": "Gambar {current} dari {total}",
+      "revisions": "Riwayat revisi",
+      "revisionsNote": "Setiap penyuntingan dokumen terbit tercatat di sini.",
+      "relatedProjects": "Proyek terkait",
+      "related": "Dokumen lain",
+      "emptyContent": "Isi dokumen ini belum tersedia.",
+      "readingProgress": "Kemajuan membaca"
+    },
+    "empty": {
+      "title": "Belum ada dokumen",
+      "description": "Knowledge Base sedang diisi. Dokumen pertama akan muncul di sini."
+    },
+    "emptyFiltered": {
+      "title": "Tidak ada yang cocok",
+      "description": "Coba longgarkan filter atau hapus kata kuncinya."
+    },
+    "category": {
+      "title": "Kategori: {name}",
+      "all": "Semua kategori"
+    },
+    "tag": {
+      "title": "Tag: {name}",
+      "all": "Semua tag"
+    }
   }
 }

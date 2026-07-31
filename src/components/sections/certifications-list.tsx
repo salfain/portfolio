@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
-import { formatFullDate } from '@/lib/format'
+import { formatFullDate, toIsoString } from '@/lib/format'
 import type { PublicCertificate } from '@/data/certificate'
 
 import { Badge, Card, CardBody, EmptyState } from '@/components/ui'
@@ -60,7 +60,7 @@ export async function CertificationsList({
                   {certificate.issueDate ? (
                     <p className="mt-3 text-sm text-muted">
                       <time
-                        dateTime={certificate.issueDate.toISOString()}
+                        dateTime={toIsoString(certificate.issueDate)}
                       >
                         {formatFullDate(certificate.issueDate, locale)}
                       </time>

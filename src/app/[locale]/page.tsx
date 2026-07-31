@@ -9,6 +9,7 @@ import { getPublishedSkills } from '@/data/skill'
 import { getPublishedCertificates } from '@/data/certificate'
 import { getCareerStats } from '@/data/stats'
 import { getNarrativeSection } from '@/data/settings'
+import { getLatestDocuments } from '@/data/knowledge'
 
 import {
   AtAGlance,
@@ -19,6 +20,7 @@ import {
   ExploreWork,
   FeaturedWork,
   Hero,
+  KnowledgePreview,
   Narrative,
 } from '@/components/sections'
 
@@ -45,6 +47,7 @@ export default async function HomePage({ params }: PageProps) {
     stats,
     whyWorkWithMe,
     troubleshooting,
+    latestDocuments,
   ] = await Promise.all([
     getPublishedProfile(),
     getFeaturedProjects(3),
@@ -54,10 +57,10 @@ export default async function HomePage({ params }: PageProps) {
     getCareerStats(),
     getNarrativeSection(NARRATIVE_KEYS.whyWorkWithMe),
     getNarrativeSection(NARRATIVE_KEYS.troubleshootingProcess),
+    getLatestDocuments(3),
   ])
 
   // Urutan bagian ditetapkan di docs/01_PHASES.md (Fase 3, "Homepage order").
-  // Bagian 10 (pratinjau Knowledge Base) baru ada di Fase 4.
   return (
     <>
       <Hero profile={profile} locale={locale} />
@@ -84,6 +87,7 @@ export default async function HomePage({ params }: PageProps) {
 
       <ExperienceTimeline experiences={experiences} locale={locale} limit={2} />
       <CertificationsList certificates={certificates} locale={locale} limit={3} />
+      <KnowledgePreview documents={latestDocuments} locale={locale} />
       <ContactCta profile={profile} locale={locale} />
     </>
   )
