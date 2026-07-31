@@ -1,0 +1,280 @@
+{
+  "common": {
+    "siteName": "Muhammad Sya'ban Alfain",
+    "toggleTheme": "Ganti tema",
+    "light": "Terang",
+    "dark": "Gelap",
+    "language": "Bahasa"
+  },
+  "theme": {
+    "toggleAriaLabel": "Beralih tema terang/gelap",
+    "toDark": "Beralih ke mode gelap",
+    "toLight": "Beralih ke mode terang"
+  },
+  "locale": {
+    "switchToId": "Lihat dalam Bahasa Indonesia",
+    "switchToEn": "View in English"
+  },
+  "nav": {
+    "siteName": "MSA",
+    "home": "Beranda",
+    "about": "Tentang",
+    "projects": "Proyek",
+    "experience": "Pengalaman",
+    "expertise": "Keahlian",
+    "certifications": "Sertifikasi",
+    "recruiter": "Mode Recruiter",
+    "knowledge": "Basis Pengetahuan",
+    "contact": "Kontak",
+    "privacy": "Kebijakan Privasi",
+    "terms": "Ketentuan",
+    "menu": "Menu",
+    "openMenu": "Buka menu navigasi",
+    "closeMenu": "Tutup menu navigasi"
+  },
+  "footer": {
+    "name": "Muhammad Sya'ban Alfain",
+    "role": "Dukungan IT",
+    "navLabel": "Navigasi footer",
+    "rights": "Hak cipta dilindungi."
+  },
+  "a11y": {
+    "skipToContent": "Lompat ke konten utama"
+  },
+  "hero": {
+    "fallbackRole": "IT Support · Dukungan Teknis · Dokumentasi",
+    "fallbackHeadline": "IT Support profesional yang membantu pengguna, menyelesaikan masalah operasional, dan mendokumentasikan solusinya.",
+    "viewPortfolio": "Lihat Portofolio",
+    "exploreKnowledge": "Jelajahi Knowledge Base",
+    "getInTouch": "Hubungi Saya",
+    "downloadCv": "Unduh CV"
+  },
+  "home": {
+    "whyWorkWithMe": "Kenapa Bekerja dengan Saya",
+    "troubleshootingProcess": "Cara Saya Menangani Masalah"
+  },
+  "explore": {
+    "title": "Jelajahi Pekerjaan Saya",
+    "description": "Jalur cepat ke setiap bagian situs ini.",
+    "items": {
+      "projects": {
+        "title": "Proyek",
+        "description": "Studi kasus lengkap: masalah, solusi, dan hasilnya."
+      },
+      "experience": {
+        "title": "Pengalaman",
+        "description": "Riwayat kerja beserta cakupan tanggung jawabnya."
+      },
+      "expertise": {
+        "title": "Keahlian",
+        "description": "Kemampuan teknis per kategori, dengan level yang jujur."
+      },
+      "certifications": {
+        "title": "Sertifikasi",
+        "description": "Sertifikat yang dimiliki beserta tautan verifikasinya."
+      },
+      "knowledge": {
+        "title": "Basis Pengetahuan",
+        "description": "SOP, lab jaringan, dan laporan penanganan insiden."
+      },
+      "recruiter": {
+        "title": "Mode Recruiter",
+        "description": "Ringkasan satu halaman yang siap dicetak."
+      }
+    }
+  },
+  "glance": {
+    "title": "Ringkasan",
+    "items": {
+      "projects": "Proyek terbit",
+      "sops": "SOP tertulis",
+      "labs": "Lab diselesaikan",
+      "incidents": "Laporan insiden",
+      "certificates": "Sertifikat"
+    }
+  },
+  "featured": {
+    "title": "Pekerjaan Pilihan",
+    "description": "Beberapa pekerjaan yang paling mewakili cara saya bekerja.",
+    "viewAll": "Lihat semua proyek",
+    "emptyTitle": "Belum ada proyek pilihan",
+    "emptyDescription": "Proyek akan tampil di sini setelah diterbitkan."
+  },
+  "capabilities": {
+    "title": "Kemampuan IT Support",
+    "description": "Level ditulis apa adanya — tanpa persentase, karena tidak pernah ada pengukurannya.",
+    "viewAll": "Lihat semua keahlian",
+    "emptyTitle": "Belum ada keahlian terbit",
+    "emptyDescription": "Daftar keahlian akan tampil di sini setelah diterbitkan."
+  },
+  "about": {
+    "title": "Tentang Saya",
+    "metaDescription": "Latar belakang, cara kerja, dan kemampuan teknis Muhammad Sya'ban Alfain.",
+    "storyTitle": "Perjalanan Saya"
+  },
+  "expertise": {
+    "title": "Keahlian",
+    "metaDescription": "Kemampuan teknis IT Support per kategori, lengkap dengan levelnya.",
+    "description": "Dikelompokkan per kategori. Level ditulis sebagai kata, bukan persentase."
+  },
+  "experience": {
+    "title": "Pengalaman",
+    "metaDescription": "Riwayat kerja Muhammad Sya'ban Alfain di bidang IT Support dan pengajaran.",
+    "description": "Riwayat kerja beserta cakupan tanggung jawab dan alat yang dipakai.",
+    "present": "Sekarang",
+    "viewAll": "Lihat seluruh pengalaman",
+    "emptyTitle": "Belum ada pengalaman terbit",
+    "emptyDescription": "Riwayat kerja akan tampil di sini setelah diterbitkan."
+  },
+  "certifications": {
+    "title": "Sertifikasi & Pembelajaran",
+    "metaDescription": "Sertifikat yang dimiliki Muhammad Sya'ban Alfain beserta tautan verifikasinya.",
+    "description": "Hanya sertifikat yang benar-benar dimiliki. Yang punya tautan kredensial bisa Anda verifikasi sendiri.",
+    "viewAll": "Lihat semua sertifikat",
+    "verify": "Verifikasi kredensial",
+    "emptyTitle": "Belum ada sertifikat terbit",
+    "emptyDescription": "Sertifikat akan tampil di sini setelah diterbitkan."
+  },
+  "projects": {
+    "title": "Proyek",
+    "metaDescription": "Studi kasus pekerjaan IT Support, lab jaringan, dan dokumentasi.",
+    "description": "Setiap proyek ditulis sebagai studi kasus: masalah, solusi, dan hasilnya.",
+    "readCaseStudy": "Baca studi kasus →",
+    "untranslatedLabel": "Belum diterjemahkan ke bahasa Inggris",
+    "emptyTitle": "Belum ada proyek terbit",
+    "emptyDescription": "Proyek akan tampil di sini setelah diterbitkan."
+  },
+  "projectDetail": {
+    "backToProjects": "Kembali ke daftar proyek",
+    "role": "Peran",
+    "repository": "Repositori",
+    "demo": "Demo",
+    "problem": "Masalah",
+    "solution": "Solusi",
+    "result": "Hasil"
+  },
+  "contactCta": {
+    "title": "Mari Bicara",
+    "description": "Terbuka untuk pertanyaan seputar peluang kerja, kolaborasi, atau sekadar diskusi teknis.",
+    "getInTouch": "Hubungi Saya",
+    "recruiterSummary": "Ringkasan untuk Recruiter",
+    "downloadCv": "Unduh CV"
+  },
+  "contact": {
+    "title": "Kontak",
+    "honeypot": "Situs web",
+    "metaDescription": "Kirim pesan ke Muhammad Sya'ban Alfain lewat form kontak.",
+    "description": "Isi form di bawah ini. Saya membalas lewat email yang Anda cantumkan.",
+    "name": "Nama",
+    "email": "Email",
+    "company": "Perusahaan",
+    "subject": "Subjek",
+    "message": "Pesan",
+    "submit": "Kirim pesan",
+    "successTitle": "Pesan terkirim",
+    "successDescription": "Terima kasih. Saya akan membalas lewat email yang Anda cantumkan.",
+    "privacyNote": "Data yang Anda kirim hanya dipakai untuk membalas pesan ini. Lihat Kebijakan Privasi.",
+    "errors": {
+      "nameTooShort": "Nama minimal 2 karakter.",
+      "nameTooLong": "Nama maksimal 100 karakter.",
+      "emailRequired": "Email wajib diisi.",
+      "emailInvalid": "Format email tidak valid.",
+      "emailTooLong": "Email maksimal 200 karakter.",
+      "companyTooLong": "Nama perusahaan maksimal 150 karakter.",
+      "subjectTooLong": "Subjek maksimal 200 karakter.",
+      "messageTooShort": "Pesan minimal 20 karakter.",
+      "messageTooLong": "Pesan maksimal 4000 karakter.",
+      "validation": "Periksa kembali isian yang ditandai.",
+      "rateLimited": "Terlalu banyak pesan dari alamat email ini. Coba lagi dalam satu jam.",
+      "server": "Pesan gagal dikirim. Coba beberapa saat lagi."
+    }
+  },
+  "recruiter": {
+    "title": "Ringkasan untuk Recruiter",
+    "metaDescription": "Ringkasan satu halaman: profil, pengalaman, keahlian, dan sertifikasi.",
+    "print": "Cetak",
+    "downloadCv": "Unduh CV",
+    "experience": "Pengalaman",
+    "present": "Sekarang",
+    "skills": "Keahlian",
+    "certifications": "Sertifikasi",
+    "projects": "Proyek Pilihan"
+  },
+  "privacy": {
+    "title": "Kebijakan Privasi",
+    "metaDescription": "Data apa yang dikumpulkan situs ini, untuk apa, dan berapa lama disimpan.",
+    "description": "Halaman ini menjelaskan apa yang benar-benar dilakukan situs ini terhadap data Anda.",
+    "lastUpdated": "Terakhir diperbarui: 31 Juli 2026.",
+    "sections": {
+      "dataCollected": {
+        "title": "Data yang dikumpulkan",
+        "body": "Hanya data yang Anda ketik sendiri di form kontak: nama, alamat email, nama perusahaan (opsional), subjek (opsional), isi pesan, dan bahasa halaman saat mengirim.\n\nAlamat IP pengunjung tidak disimpan."
+      },
+      "purpose": {
+        "title": "Kegunaan data",
+        "body": "Data form kontak hanya dipakai untuk membalas pesan Anda. Data tidak dijual, tidak dibagikan ke pihak ketiga, dan tidak dipakai untuk pemasaran."
+      },
+      "retention": {
+        "title": "Masa simpan",
+        "body": "Pesan tersimpan di database situs sampai dihapus oleh pemilik situs. Anda bisa meminta penghapusan kapan saja lewat form kontak."
+      },
+      "cookies": {
+        "title": "Cookie",
+        "body": "Situs ini hanya menyimpan preferensi tampilan Anda: pilihan bahasa dan pilihan tema terang/gelap. Tidak ada cookie pelacak dan tidak ada cookie pihak ketiga."
+      },
+      "analytics": {
+        "title": "Analitik",
+        "body": "Saat ini situs ini tidak memakai layanan analitik apa pun. Bila nanti dipasang, halaman ini diperbarui lebih dulu."
+      },
+      "rights": {
+        "title": "Hak Anda",
+        "body": "Anda berhak meminta salinan, koreksi, atau penghapusan data yang pernah Anda kirim lewat form kontak. Sampaikan permintaannya lewat form yang sama."
+      }
+    }
+  },
+  "terms": {
+    "title": "Ketentuan Penggunaan",
+    "metaDescription": "Ketentuan penggunaan isi situs portofolio dan Knowledge Base ini.",
+    "description": "Ketentuan singkat mengenai penggunaan isi situs ini.",
+    "lastUpdated": "Terakhir diperbarui: 31 Juli 2026.",
+    "sections": {
+      "usage": {
+        "title": "Penggunaan situs",
+        "body": "Situs ini berisi portofolio dan dokumentasi teknis untuk keperluan informasi. Anda boleh membaca, menyimpan, dan mengutip isinya untuk keperluan pribadi maupun evaluasi rekrutmen."
+      },
+      "content": {
+        "title": "Hak atas isi",
+        "body": "Seluruh teks, dokumen, dan gambar di situs ini adalah karya pemilik situs, kecuali dinyatakan lain. Penggunaan ulang untuk keperluan komersial memerlukan izin tertulis."
+      },
+      "labDisclaimer": {
+        "title": "Skenario lab dan konfigurasi",
+        "body": "Dokumen yang ditandai sebagai skenario lab dibuat di lingkungan simulasi, bukan catatan insiden produksi.\n\nSeluruh konfigurasi dan perintah yang ditampilkan adalah contoh untuk lingkungan uji. Menerapkannya di jaringan produksi adalah tanggung jawab Anda sendiri."
+      },
+      "liability": {
+        "title": "Batasan tanggung jawab",
+        "body": "Isi situs ini disediakan apa adanya, tanpa jaminan bahwa setiap langkah akan berhasil di lingkungan Anda. Pemilik situs tidak bertanggung jawab atas kerugian yang timbul dari penggunaan isi situs ini."
+      }
+    }
+  },
+  "translation": {
+    "pending": "Dokumen ini belum diterjemahkan ke bahasa Inggris. Versi bahasa Indonesia ditampilkan di bawah."
+  },
+  "error": {
+    "title": "Terjadi kesalahan",
+    "description": "Sesuatu tidak beres. Coba muat ulang halaman.",
+    "retry": "Coba lagi"
+  },
+  "notFound": {
+    "title": "Halaman tidak ditemukan",
+    "description": "Halaman yang Anda cari tidak ada atau telah dipindahkan.",
+    "backHome": "Kembali ke beranda"
+  },
+  "globalError": {
+    "title": "Kesalahan aplikasi",
+    "description": "Terjadi kesalahan tak terduga. Muat ulang untuk mencoba lagi.",
+    "retry": "Muat ulang"
+  },
+  "auth": {
+    "loginRequired": "Masuk diperlukan"
+  }
+}

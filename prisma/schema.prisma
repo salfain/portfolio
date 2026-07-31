@@ -1,0 +1,435 @@
+// Skema resmi: docs/phase-0/07_SCHEMA_DECISIONS.md
+// Menggantikan docs/04_DATABASE_DRAFT.prisma bila bertentangan.
+//
+// CATATAN: bentuk tabel Better Auth di bawah adalah PERKIRAAN.
+// Wajib diverifikasi dengan `npx @better-auth/cli generate` di Fase 1,
+// lalu sesuaikan dengan output CLI. Lihat 07_SCHEMA_DECISIONS.md §4.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enum ────────────────────────────────────────────────
+// Catatan: `role` Better Auth admin plugin bertipe String (bukan enum)
+// karena plugin menulis nilai "user"/"admin" secara dinamis.
+// Lihat docs/phase-1/NOTES.md (verifikasi skema Better Auth).
+
+enum PublishStatus {
+  DRAFT
+  IN_REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum KnowledgeType {
+  SOP
+  LAB
+  INCIDENT
+  ARTICLE
+}
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum MediaKind {
+  IMAGE
+  SCREENSHOT
+  DIAGRAM
+  TERMINAL_OUTPUT
+  DOCUMENT
+  ARCHIVE
+}
+
+// ─── Better Auth ─────────────────────────────────────────
+// Diverifikasi terhadap better-auth@1.6.25 + plugin admin.
+// Lihat docs/phase-1/NOTES.md (verifikasi skema Better Auth).
+// Field admin plugin: role, banned, banReason, banExpires (User),
+// impersonatedBy (Session).
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  role          String    @default("user") // admin plugin: "user" | "admin"
+  banned        Boolean   @default(false) // admin plugin
+  banReason     String? // admin plugin
+  banExpires    DateTime? // admin plugin
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  sessions           Session[]
+  accounts           Account[]
+  knowledgeDocuments KnowledgeDocument[]
+  auditLogs          AuditLog[]
+
+  @@map("user")
+}
+
+model Session {
+  id             String   @id @default(cuid())
+  token          String   @unique
+  expiresAt      DateTime
+  ipAddress      String?
+  userAgent      String?
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  impersonatedBy String? // admin plugin
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  password              String? // hash kredensial admin
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@unique([providerId, accountId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+// ─── Profil & portofolio ─────────────────────────────────
+
+model SiteProfile {
+  id              String   @id @default(cuid())
+  name            String
+  roleId          String
+  roleEn          String
+  headlineId      String
+  headlineEn      String
+  summaryId       String
+  summaryEn       String
+  location        String?
+  email           String
+  phone           String?
+  whatsapp        String?
+  availabilityId  String?
+  availabilityEn  String?
+  profileImageUrl String?
+  cvIdUrl         String?
+  cvEnUrl         String?
+  githubUrl       String?
+  linkedinUrl     String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Experience {
+  id             String        @id @default(cuid())
+  company        String
+  positionId     String
+  positionEn     String
+  summaryId      String
+  summaryEn      String
+  location       String?
+  startDate      DateTime
+  endDate        DateTime?
+  isCurrent      Boolean       @default(false)
+  achievementsId Json?
+  achievementsEn Json?
+  tools          String[]
+  sortOrder      Int           @default(0)
+  status         PublishStatus @default(DRAFT)
+  publishedAt    DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([status, sortOrder])
+}
+
+model Skill {
+  id          String        @id @default(cuid())
+  name        String
+  category    String
+  level       String?
+  icon        String?
+  sortOrder   Int           @default(0)
+  isFeatured  Boolean       @default(false)
+  status      PublishStatus @default(DRAFT)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([status, category, sortOrder])
+}
+
+model Certificate {
+  id            String        @id @default(cuid())
+  name          String
+  issuer        String
+  issueDate     DateTime?
+  expiryDate    DateTime?
+  credentialUrl String?
+  imageUrl      String?
+  skills        String[]
+  sortOrder     Int           @default(0)
+  status        PublishStatus @default(DRAFT)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([status, sortOrder])
+}
+
+model Project {
+  id            String             @id @default(cuid())
+  categoryId    String?
+  category      KnowledgeCategory? @relation(fields: [categoryId], references: [id])
+  titleId       String
+  titleEn       String?
+  slug          String             @unique
+  summaryId     String
+  summaryEn     String?
+  problemId     String?
+  problemEn     String?
+  solutionId    String?
+  solutionEn    String?
+  resultId      String?
+  resultEn      String?
+  roleId        String?
+  roleEn        String?
+  tools         String[]
+  repositoryUrl String?
+  demoUrl       String?
+  status        PublishStatus      @default(DRAFT)
+  isFeatured    Boolean            @default(false)
+  sortOrder     Int                @default(0)
+  publishedAt   DateTime?
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  media           MediaAsset[]
+  tags            ProjectTag[]
+  knowledgeLinks ProjectKnowledgeLink[]
+
+  @@index([status, isFeatured, sortOrder])
+}
+
+// ─── Knowledge Base ──────────────────────────────────────
+
+model KnowledgeCategory {
+  id            String              @id @default(cuid())
+  nameId        String
+  nameEn        String
+  slug          String              @unique
+  descriptionId String?
+  descriptionEn String?
+  icon          String?
+  color         String?
+  sortOrder     Int                 @default(0)
+  documents     KnowledgeDocument[]
+  projects      Project[]
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+}
+
+model KnowledgeDocument {
+  id               String             @id @default(cuid())
+  authorId         String
+  author           User               @relation(fields: [authorId], references: [id])
+  categoryId       String?
+  category         KnowledgeCategory? @relation(fields: [categoryId], references: [id])
+  type             KnowledgeType
+  status           PublishStatus      @default(DRAFT)
+  slug             String             @unique
+  documentCode     String?            @unique
+  version          String             @default("1.0")
+  titleId          String
+  titleEn          String?
+  summaryId        String
+  summaryEn        String?
+  contentIdJson    Json
+  contentEnJson    Json?
+  contentIdHtml    String? // hanya untuk indeks pencarian
+  contentEnHtml    String? // hanya untuk indeks pencarian
+  difficulty       Difficulty?
+  estimatedMinutes Int?
+  tools            String[]
+  metadata         Json?
+  isFeatured       Boolean            @default(false)
+  sortOrder        Int                @default(0)
+  publishedAt      DateTime?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  media         MediaAsset[]
+  revisions     KnowledgeRevision[]
+  tags          KnowledgeDocumentTag[]
+  projectLinks  ProjectKnowledgeLink[]
+
+  @@index([type, status, publishedAt])
+  @@index([categoryId, status])
+  @@index([status, isFeatured])
+}
+
+model KnowledgeRevision {
+  id            String            @id @default(cuid())
+  documentId    String
+  document      KnowledgeDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  version       String
+  changeSummary String
+  contentIdJson Json
+  contentEnJson Json?
+  metadata      Json?
+  createdById   String?
+  createdAt     DateTime          @default(now())
+
+  @@index([documentId, createdAt])
+}
+
+model KnowledgeTag {
+  id        String                 @id @default(cuid())
+  name      String                 @unique
+  slug      String                 @unique
+  documents KnowledgeDocumentTag[]
+  projects  ProjectTag[]
+}
+
+model KnowledgeDocumentTag {
+  documentId String
+  tagId      String
+  document   KnowledgeDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  tag        KnowledgeTag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([documentId, tagId])
+  @@index([tagId])
+}
+
+model ProjectTag {
+  projectId String
+  tagId     String
+  project   Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tag       KnowledgeTag @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, tagId])
+  @@index([tagId])
+}
+
+model ProjectKnowledgeLink {
+  projectId  String
+  documentId String
+  project    Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  document   KnowledgeDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  note       String?
+  sortOrder  Int               @default(0)
+
+  @@id([projectId, documentId])
+  @@index([documentId])
+}
+
+// ─── Media terpadu ───────────────────────────────────────
+
+model MediaAsset {
+  id    String    @id @default(cuid())
+  kind  MediaKind @default(IMAGE)
+
+  // Pemilik opsional. Keduanya null = aset bebas di pustaka media.
+  projectId  String?
+  project    Project?           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  documentId String?
+  document   KnowledgeDocument? @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  fileKey      String @unique // kunci objek di R2
+  fileUrl      String
+  thumbnailUrl String?
+  mimeType     String
+  fileSize     Int
+  width        Int?
+  height       Int?
+
+  titleId   String?
+  titleEn   String?
+  altId     String  // wajib
+  altEn     String?
+  captionId String?
+  captionEn String?
+
+  tool        String?
+  testDate    DateTime?
+  sourceNote  String? // ringkasan apa yang disunting saat redaksi
+
+  isCover            Boolean @default(false)
+  isPublic           Boolean @default(false) // default privat, disengaja
+  redactionConfirmed Boolean @default(false)
+
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([documentId, sortOrder])
+  @@index([projectId, sortOrder])
+  @@index([isPublic, kind])
+}
+
+// ─── Operasional ─────────────────────────────────────────
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  subject   String?
+  message   String
+  locale    String   @default("id")
+  isRead    Boolean  @default(false)
+  isSpam    Boolean  @default(false)
+  repliedAt DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([isRead, createdAt])
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  action     String
+  entityType String
+  entityId   String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}

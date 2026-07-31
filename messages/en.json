@@ -1,0 +1,280 @@
+{
+  "common": {
+    "siteName": "Muhammad Sya'ban Alfain",
+    "toggleTheme": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "language": "Language"
+  },
+  "theme": {
+    "toggleAriaLabel": "Switch light/dark theme",
+    "toDark": "Switch to dark mode",
+    "toLight": "Switch to light mode"
+  },
+  "locale": {
+    "switchToId": "Lihat dalam Bahasa Indonesia",
+    "switchToEn": "View in English"
+  },
+  "nav": {
+    "siteName": "MSA",
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "experience": "Experience",
+    "expertise": "Expertise",
+    "certifications": "Certifications",
+    "recruiter": "Recruiter Mode",
+    "knowledge": "Knowledge Base",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms",
+    "menu": "Menu",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu"
+  },
+  "footer": {
+    "name": "Muhammad Sya'ban Alfain",
+    "role": "IT Support",
+    "navLabel": "Footer navigation",
+    "rights": "All rights reserved."
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content"
+  },
+  "hero": {
+    "fallbackRole": "IT Support · Technical Support · Documentation",
+    "fallbackHeadline": "An IT Support professional who helps users, resolves operational issues, and documents the solution.",
+    "viewPortfolio": "View Portfolio",
+    "exploreKnowledge": "Explore Knowledge Base",
+    "getInTouch": "Get in Touch",
+    "downloadCv": "Download CV"
+  },
+  "home": {
+    "whyWorkWithMe": "Why Work With Me",
+    "troubleshootingProcess": "How I Troubleshoot"
+  },
+  "explore": {
+    "title": "Explore My Work",
+    "description": "A shortcut to every part of this site.",
+    "items": {
+      "projects": {
+        "title": "Projects",
+        "description": "Full case studies: the problem, the solution, and the outcome."
+      },
+      "experience": {
+        "title": "Experience",
+        "description": "Work history and the scope of each role."
+      },
+      "expertise": {
+        "title": "Expertise",
+        "description": "Technical skills by category, with honest levels."
+      },
+      "certifications": {
+        "title": "Certifications",
+        "description": "Certificates held, with verification links."
+      },
+      "knowledge": {
+        "title": "Knowledge Base",
+        "description": "SOPs, network labs, and incident reports."
+      },
+      "recruiter": {
+        "title": "Recruiter Mode",
+        "description": "A one-page summary, ready to print."
+      }
+    }
+  },
+  "glance": {
+    "title": "At a Glance",
+    "items": {
+      "projects": "Published projects",
+      "sops": "SOPs written",
+      "labs": "Labs completed",
+      "incidents": "Incident reports",
+      "certificates": "Certificates"
+    }
+  },
+  "featured": {
+    "title": "Featured Work",
+    "description": "The work that best represents how I approach problems.",
+    "viewAll": "View all projects",
+    "emptyTitle": "No featured projects yet",
+    "emptyDescription": "Projects will appear here once they are published."
+  },
+  "capabilities": {
+    "title": "IT Support Capabilities",
+    "description": "Levels are written as words — no percentages, because no measurement was ever taken.",
+    "viewAll": "View all skills",
+    "emptyTitle": "No published skills yet",
+    "emptyDescription": "Skills will appear here once they are published."
+  },
+  "about": {
+    "title": "About Me",
+    "metaDescription": "Background, working approach, and technical skills of Muhammad Sya'ban Alfain.",
+    "storyTitle": "My Path"
+  },
+  "expertise": {
+    "title": "Expertise",
+    "metaDescription": "IT Support technical skills by category, with levels.",
+    "description": "Grouped by category. Levels are written as words, not percentages."
+  },
+  "experience": {
+    "title": "Experience",
+    "metaDescription": "Work history of Muhammad Sya'ban Alfain in IT Support and teaching.",
+    "description": "Work history, the scope of each role, and the tools used.",
+    "present": "Present",
+    "viewAll": "View full experience",
+    "emptyTitle": "No published experience yet",
+    "emptyDescription": "Work history will appear here once it is published."
+  },
+  "certifications": {
+    "title": "Certifications & Learning",
+    "metaDescription": "Certificates held by Muhammad Sya'ban Alfain, with verification links.",
+    "description": "Only certificates actually held. Those with a credential link can be verified yourself.",
+    "viewAll": "View all certificates",
+    "verify": "Verify credential",
+    "emptyTitle": "No published certificates yet",
+    "emptyDescription": "Certificates will appear here once they are published."
+  },
+  "projects": {
+    "title": "Projects",
+    "metaDescription": "Case studies of IT Support work, network labs, and documentation.",
+    "description": "Every project is written as a case study: the problem, the solution, and the outcome.",
+    "readCaseStudy": "Read case study →",
+    "untranslatedLabel": "Not yet translated into English",
+    "emptyTitle": "No published projects yet",
+    "emptyDescription": "Projects will appear here once they are published."
+  },
+  "projectDetail": {
+    "backToProjects": "Back to projects",
+    "role": "Role",
+    "repository": "Repository",
+    "demo": "Demo",
+    "problem": "Problem",
+    "solution": "Solution",
+    "result": "Result"
+  },
+  "contactCta": {
+    "title": "Let's Talk",
+    "description": "Open to questions about job opportunities, collaboration, or simply a technical discussion.",
+    "getInTouch": "Get in Touch",
+    "recruiterSummary": "Recruiter Summary",
+    "downloadCv": "Download CV"
+  },
+  "contact": {
+    "title": "Contact",
+    "honeypot": "Website",
+    "metaDescription": "Send a message to Muhammad Sya'ban Alfain through the contact form.",
+    "description": "Fill in the form below. I reply to the email address you provide.",
+    "name": "Name",
+    "email": "Email",
+    "company": "Company",
+    "subject": "Subject",
+    "message": "Message",
+    "submit": "Send message",
+    "successTitle": "Message sent",
+    "successDescription": "Thank you. I will reply to the email address you provided.",
+    "privacyNote": "The data you send is used only to reply to this message. See the Privacy Policy.",
+    "errors": {
+      "nameTooShort": "Name must be at least 2 characters.",
+      "nameTooLong": "Name must be at most 100 characters.",
+      "emailRequired": "Email is required.",
+      "emailInvalid": "Email format is not valid.",
+      "emailTooLong": "Email must be at most 200 characters.",
+      "companyTooLong": "Company name must be at most 150 characters.",
+      "subjectTooLong": "Subject must be at most 200 characters.",
+      "messageTooShort": "Message must be at least 20 characters.",
+      "messageTooLong": "Message must be at most 4000 characters.",
+      "validation": "Please check the highlighted fields.",
+      "rateLimited": "Too many messages from this email address. Try again in an hour.",
+      "server": "The message could not be sent. Please try again shortly."
+    }
+  },
+  "recruiter": {
+    "title": "Recruiter Summary",
+    "metaDescription": "A one-page summary: profile, experience, skills, and certifications.",
+    "print": "Print",
+    "downloadCv": "Download CV",
+    "experience": "Experience",
+    "present": "Present",
+    "skills": "Skills",
+    "certifications": "Certifications",
+    "projects": "Featured Projects"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "metaDescription": "What data this site collects, what it is used for, and how long it is kept.",
+    "description": "This page explains what this site actually does with your data.",
+    "lastUpdated": "Last updated: 31 July 2026.",
+    "sections": {
+      "dataCollected": {
+        "title": "Data collected",
+        "body": "Only the data you type into the contact form yourself: name, email address, company name (optional), subject (optional), message body, and the page language at the time of sending.\n\nVisitor IP addresses are not stored."
+      },
+      "purpose": {
+        "title": "How the data is used",
+        "body": "Contact form data is used only to reply to your message. It is not sold, not shared with third parties, and not used for marketing."
+      },
+      "retention": {
+        "title": "Retention",
+        "body": "Messages are stored in the site database until the site owner deletes them. You can request deletion at any time through the contact form."
+      },
+      "cookies": {
+        "title": "Cookies",
+        "body": "This site stores only your display preferences: language choice and light/dark theme choice. There are no tracking cookies and no third-party cookies."
+      },
+      "analytics": {
+        "title": "Analytics",
+        "body": "This site currently uses no analytics service at all. If one is added later, this page is updated first."
+      },
+      "rights": {
+        "title": "Your rights",
+        "body": "You may request a copy, a correction, or the deletion of any data you have sent through the contact form. Send the request through that same form."
+      }
+    }
+  },
+  "terms": {
+    "title": "Terms of Use",
+    "metaDescription": "Terms of use for the content of this portfolio and Knowledge Base.",
+    "description": "Brief terms regarding the use of this site's content.",
+    "lastUpdated": "Last updated: 31 July 2026.",
+    "sections": {
+      "usage": {
+        "title": "Use of the site",
+        "body": "This site contains a portfolio and technical documentation for informational purposes. You may read, save, and quote its content for personal use or recruitment evaluation."
+      },
+      "content": {
+        "title": "Rights to the content",
+        "body": "All text, documents, and images on this site are the work of the site owner unless stated otherwise. Reuse for commercial purposes requires written permission."
+      },
+      "labDisclaimer": {
+        "title": "Lab scenarios and configurations",
+        "body": "Documents marked as lab scenarios were produced in a simulated environment; they are not records of production incidents.\n\nEvery configuration and command shown is an example for a test environment. Applying them to a production network is your own responsibility."
+      },
+      "liability": {
+        "title": "Limitation of liability",
+        "body": "The content of this site is provided as is, without any guarantee that each step will work in your environment. The site owner is not liable for any loss arising from use of this content."
+      }
+    }
+  },
+  "translation": {
+    "pending": "This document has not been translated into English yet. The original Indonesian version is shown below."
+  },
+  "error": {
+    "title": "Something went wrong",
+    "description": "Something went wrong. Try reloading the page.",
+    "retry": "Try again"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "backHome": "Back to home"
+  },
+  "globalError": {
+    "title": "Application error",
+    "description": "An unexpected error occurred. Reload to try again.",
+    "retry": "Reload"
+  },
+  "auth": {
+    "loginRequired": "Login required"
+  }
+}
