@@ -63,7 +63,7 @@ export function KnowledgeFilters({
     filters.tingkat !== undefined
 
   const selectClass = cn(
-    'w-full rounded-xl border border-border bg-surface px-4 py-2.5 text-sm',
+    'w-full rounded-md border border-border-strong bg-surface px-4 py-2.5 text-sm',
     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
   )
 
@@ -172,7 +172,7 @@ export function KnowledgeFilters({
           type="submit"
           disabled={pending}
           className={cn(
-            'rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground',
+            'rounded-md bg-primary px-5 py-2 text-sm font-medium text-primary-foreground',
             'transition-opacity hover:opacity-90 disabled:opacity-50',
             'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
           )}

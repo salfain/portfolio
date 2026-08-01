@@ -31,68 +31,92 @@ Ditangguhkan — tidak menghambat Fase 2.
 
 ---
 
-## N4 — Lapisan skeuomorphism ditambahkan (1 Agustus 2026)
+## N4 — Skeuomorphism ditambahkan lalu dicabut (1 Agustus 2026)
 
-Atas permintaan pemilik, sistem visual Fase 2 diberi lapisan kedalaman.
-Bukan penulisan ulang: token warna, tipografi, jarak, dan radius **tidak
-berubah sama sekali**. Yang ditambahkan hanya permukaan.
+Lapisan kedalaman (gradien + bayangan berlapis) sempat dipasang atas
+permintaan pemilik, lalu **dicabut seluruhnya** beberapa jam kemudian
+ketika sistem Glassline diadopsi — lihat N5.
 
-### Empat kelas, satu sumber
+Alasannya bukan selera: `design.md` Glassline menyatakan
+*"Don't introduce gradients. This system is flat on purpose."* Kedua
+pendekatan itu saling meniadakan, jadi tidak ada gunanya menyimpan
+keduanya berdampingan.
 
-Seluruh efek ditulis di `src/styles/globals.css`, di `@layer components`:
+Tidak ada sisa: token `--sk-*`, blok `@layer components`, dan seluruh
+kelas di komponen sudah dihapus.
 
-| Kelas | Dipakai untuk |
+---
+
+## N5 — Sistem visual diganti ke Glassline (1 Agustus 2026)
+
+Sumber: `design.md` di akar repositori, dihasilkan
+`npx designdotmd add glassline`. Paketnya diverifikasi lebih dulu di
+registry npm sebelum dijalankan.
+
+> Fog-grey neutrals with a cobalt pinprick.
+
+### Yang diambil apa adanya dari spec
+
+| Aspek | Nilai |
 |---|---|
-| `.sk-raised` | Kartu, navbar, tombol utama & sekunder |
-| `.sk-raised-lg` | Dialog, drawer — melayang di atas halaman |
-| `.sk-inset` | Input, textarea, blok perintah, empty state |
-| `.sk-pressable` | Tombol: turun 1px saat ditekan |
+| Warna terang | primary `#0F1419` · secondary `#4A5568` · tertiary `#2C5EF5` · neutral `#F1F3F5` · surface `#FFFFFF` |
+| Tipografi | Geist (display/h1/body) + Geist Mono (label) |
+| Skala teks | display 3.75rem · h1 2.25rem · body 0.95rem/1.55 · label 0.75rem |
+| Radius | sm 6px · md 10px · lg 16px |
+| Jarak | sm 8px · md 16px · lg 32px |
 
-Komponen memakainya lewat nama, tidak menyusun bayangan sendiri. Bayangan
-yang ditulis ad hoc di banyak komponen adalah cara tercepat membuat arah
-cahaya jadi tidak konsisten.
+### Tema gelap DITURUNKAN, bukan dari spec
 
-Sumber cahaya diasumsikan dari **atas**: sorot di tepi atas, bayangan di
-tepi bawah. `.sk-inset` membalikkannya.
+Glassline hanya memuat nilai terang. Seluruh nilai gelap diturunkan
+sendiri dengan menjaga karakternya — neutral dingin berlapis, satu aksen
+kobalt — lalu **setiap pasangan diverifikasi terhadap WCAG AA**:
 
-### Dua tema
+| Token | Nilai | Rasio |
+|---|---|---|
+| `background` | `#0F1419` (primary Glassline dipakai sebagai latar) | — |
+| `foreground` | `#F1F3F5` | 16.64:1 |
+| `muted` | `#8E9BA8` | 6.53:1 di latar · 5.53:1 di elevated |
+| `primary` | `#5B87FF` | 5.60:1 — `#2C5EF5` asli hanya 3.55:1, gagal AA |
+| `border-strong` | `#5E6A76` | 3.35:1 |
 
-`--sk-shadow` dan `--sk-shadow-strength` berbeda per tema. Di tema gelap,
-bayangan hitam nyaris tak terlihat di latar gelap — yang membentuk
-kedalaman justru garis sorot di tepi atas. Karena itu kekuatan bayangannya
-dinaikkan (1 → 1.6) dan sorotnya dibuat lebih redup.
+### Dua token garis, bukan satu
 
-### Yang SENGAJA tidak dilakukan
+Beda `surface` dan `background` di tema gelap hanya **1.07:1**, jadi garis
+tepi menjadi satu-satunya penanda batas input. WCAG 1.4.11 menuntut 3:1
+untuk batas komponen, dan garis setipis pemisah dekoratif tidak akan
+pernah memenuhinya.
 
-- **Tidak mengubah warna teks atau latar.** Kontras teks tetap sama persis,
-  jadi WCAG AA tidak ikut bergeser.
-- **Tidak memakai tekstur bitmap.** Noise menaikkan berat halaman dan
-  mengurangi keterbacaan teks kecil.
-- **Tidak menyentuh `outline`.** Cincin fokus dirender di luar `box-shadow`,
-  jadi tetap terlihat penuh di atas permukaan setebal apa pun. Terverifikasi:
-  48 elemen di beranda masih membawa `focus-visible:outline-primary`.
-- **Tombol `ghost` tidak diberi kedalaman.** Tombol tersier yang ikut
-  menonjol meratakan hierarki visual dan pengguna kehilangan petunjuk mana
-  aksi utamanya.
+Karena itu ada `--border` (pemisah) dan `--border-strong` (batas kontrol).
+Input, textarea, dan select memakai yang kedua.
 
-### Dimatikan pada tiga kondisi
+### Radius diarahkan lewat skala, bukan disunting per berkas
 
-| Kondisi | Alasan |
+`tailwind.config.ts` mengarahkan seluruh skala Tailwind ke tiga nilai
+Glassline (`xl`→10px, `2xl`/`3xl`→16px). Hasilnya sama dengan menyunting
+~100 pemakaian `rounded-*` satu per satu, tanpa risiko ada satu berkas
+yang terlewat dan tetap memakai sudut lama.
+
+`rounded-full` disapu menjadi `rounded-sm`/`rounded-md` KECUALI pada
+bentuk yang memang lingkaran: titik indikator, spinner, batang skeleton,
+dan toggle bahasa.
+
+### Penyimpangan yang disengaja dari spec
+
+| Aturan spec | Yang dilakukan | Alasan |
+|---|---|---|
+| "single-accent rule is load-bearing" | Warna `success`/`warning`/`danger` dipertahankan | Ini warna **semantik**, bukan aksen dekoratif. Pesan galat tanpa merah kehilangan makna. Nadanya diturunkan agar sejalan dengan palet dingin. |
+| "Don't introduce gradients" | Dipatuhi penuh | Shimmer skeleton yang tadinya memakai gradien diganti denyut antara dua warna solid. Terverifikasi: **0 `linear-gradient`** di CSS hasil build. |
+
+`--cyan` dihapus — hanya didefinisikan, tidak pernah dipakai, dan
+merupakan aksen alternatif yang dilarang spec.
+
+### Verifikasi
+
+| Yang diuji | Hasil |
 |---|---|
-| `@media print` | Bayangan di atas kertas terbaca sebagai kotor keabu-abuan, menghabiskan tinta, menurunkan kontras — kebalikan dari kebutuhan Recruiter Mode |
-| `prefers-contrast: more` | Gradien bertumpuk mengaburkan batas elemen |
-| `forced-colors: active` | Mode kontras paksa sistem operasi |
-
-`prefers-reduced-motion` sudah ditangani aturan global yang ada: transisi
-`.sk-pressable` dipangkas jadi seketika, bukan hilang.
-
-### Catatan untuk peninjauan
-
-Skeuomorphism adalah pilihan gaya yang mencolok untuk portofolio yang
-dibaca recruiter teknis. Implementasinya sengaja **restrained** — bayangan
-tipis, gradien di bawah 5% opasitas — supaya terbaca sebagai material,
-bukan sebagai tiruan tombol iOS 6.
-
-Kalau ingin lebih tegas: naikkan opasitas di keempat kelas tersebut. Kalau
-ingin dicabut: hapus `@layer components` itu dan kelasnya dari komponen —
-tidak ada logika yang bergantung padanya.
+| Kontras tema terang (7 pasangan) | ✅ semua ≥ 4.5:1 |
+| Kontras tema gelap (diturunkan) | ✅ semua ≥ 4.5:1, border-strong ≥ 3:1 |
+| `linear-gradient` di CSS build | ✅ 0 |
+| Geist + Geist Mono termuat | ✅ 11 berkas woff2 |
+| Cincin fokus utuh | ✅ 47 elemen di beranda |
+| Halaman publik & admin merender | ✅ 200 |

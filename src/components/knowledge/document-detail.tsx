@@ -236,7 +236,7 @@ export async function DocumentDetail({
                   {document.tools.map((tool) => (
                     <li
                       key={tool}
-                      className="rounded-full bg-elevated px-3 py-1 text-xs"
+                      className="rounded-sm bg-elevated px-3 py-1 text-xs"
                     >
                       {tool}
                     </li>
@@ -255,7 +255,7 @@ export async function DocumentDetail({
                     <li key={tag.slug}>
                       <Link
                         href={`/knowledge/tag/${tag.slug}`}
-                        className="rounded-full bg-elevated px-3 py-1 text-xs hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                        className="rounded-sm bg-elevated px-3 py-1 text-xs hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                       >
                         {tag.name}
                       </Link>

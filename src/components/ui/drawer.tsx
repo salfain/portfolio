@@ -34,7 +34,7 @@ export function DrawerContent({
       />
       <DialogPrimitive.Content
         className={cn(
-          'sk-raised-lg fixed top-0 z-50 h-dvh w-full max-w-sm p-6',
+          'fixed top-0 z-50 h-dvh w-full max-w-sm p-6',
           'bg-surface outline-none',
           side === 'right' &&
             'right-0 data-[state=open]:slide-in-from-right data-[state=closed]:slide-out-to-right',

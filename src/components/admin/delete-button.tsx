@@ -50,7 +50,7 @@ export function DeleteButton({ id, action, label = 'Hapus' }: DeleteButtonProps)
         onBlur={() => setConfirming(false)}
         disabled={pending}
         className={cn(
-          'rounded-full px-3 py-1 text-sm transition-colors disabled:opacity-50',
+          'rounded-sm px-3 py-1 text-sm transition-colors disabled:opacity-50',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
           confirming
             ? 'bg-danger text-white'

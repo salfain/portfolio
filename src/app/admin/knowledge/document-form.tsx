@@ -81,7 +81,7 @@ export function DocumentForm({
     defaults.contentIdJson ?? (defaults.id ? null : templateFor(defaults.type))
 
   const selectClass = cn(
-    'w-full rounded-xl border border-border bg-surface px-4 py-2.5',
+    'w-full rounded-md border border-border-strong bg-surface px-4 py-2.5',
     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
   )
 
@@ -226,14 +226,14 @@ export function DocumentForm({
                     setRestored(draft.recovered?.data ?? null)
                     draft.dismissRecovered()
                   }}
-                  className="rounded-full bg-primary px-3 py-1 font-medium text-primary-foreground"
+                  className="rounded-md bg-primary px-3 py-1 font-medium text-primary-foreground"
                 >
                   Pulihkan
                 </button>
                 <button
                   type="button"
                   onClick={draft.clear}
-                  className="rounded-full px-3 py-1 text-muted underline"
+                  className="rounded-md px-3 py-1 text-muted underline"
                 >
                   Buang
                 </button>
@@ -268,7 +268,7 @@ export function DocumentForm({
                 type="button"
                 onClick={() => setShowPreview((value) => !value)}
                 aria-expanded={showPreview}
-                className="rounded-full border border-border px-4 py-1.5 text-sm hover:bg-elevated focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                className="rounded-md border border-border px-4 py-1.5 text-sm hover:bg-elevated focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
                 {showPreview ? 'Tutup pratinjau' : 'Pratinjau'}
               </button>

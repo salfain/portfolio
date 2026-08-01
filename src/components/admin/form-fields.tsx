@@ -164,7 +164,7 @@ export function StatusField({
         name="status"
         defaultValue={defaultValue}
         className={cn(
-          'w-full rounded-xl border border-border bg-surface px-4 py-2.5',
+          'w-full rounded-md border border-border-strong bg-surface px-4 py-2.5',
           'text-foreground',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
         )}
@@ -192,7 +192,7 @@ export function StatusBadge({ status }: { status: PublishStatusValue }) {
   return (
     <span
       className={cn(
-        'inline-flex shrink-0 items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
+        'inline-flex shrink-0 items-center rounded-sm px-2.5 py-0.5 text-xs font-medium',
         tone[status],
       )}
     >

@@ -53,7 +53,7 @@ export default function AdminLoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={cn(
-                'w-full rounded-xl border border-border bg-surface px-4 py-2.5',
+                'w-full rounded-md border border-border-strong bg-surface px-4 py-2.5',
                 'text-foreground placeholder:text-muted',
                 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
               )}
@@ -72,7 +72,7 @@ export default function AdminLoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={cn(
-                'w-full rounded-xl border border-border bg-surface px-4 py-2.5',
+                'w-full rounded-md border border-border-strong bg-surface px-4 py-2.5',
                 'text-foreground placeholder:text-muted',
                 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
               )}
@@ -89,7 +89,7 @@ export default function AdminLoginPage() {
             type="submit"
             disabled={loading}
             className={cn(
-              'w-full rounded-full bg-primary px-4 py-2.5',
+              'w-full rounded-md bg-primary px-4 py-2.5',
               'font-medium text-primary-foreground',
               'transition-opacity hover:opacity-90',
               'disabled:opacity-50',

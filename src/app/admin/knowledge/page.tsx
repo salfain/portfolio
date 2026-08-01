@@ -47,13 +47,13 @@ export default async function AdminKnowledgePage() {
             >
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-elevated px-2.5 py-0.5 text-xs text-muted">
+                  <span className="rounded-sm bg-elevated px-2.5 py-0.5 text-xs text-muted">
                     {TYPE_LABELS[document.type]}
                   </span>
                   <p className="font-medium">{document.titleId}</p>
                   <StatusBadge status={document.status as PublishStatusValue} />
                   {!document.titleEn ? (
-                    <span className="rounded-full bg-elevated px-2.5 py-0.5 text-xs text-muted">
+                    <span className="rounded-sm bg-elevated px-2.5 py-0.5 text-xs text-muted">
                       ID saja
                     </span>
                   ) : null}

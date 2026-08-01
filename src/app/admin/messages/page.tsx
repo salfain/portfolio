@@ -42,11 +42,11 @@ export default async function AdminMessagesPage() {
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="font-medium">{message.name}</p>
                     {!message.isRead ? (
-                      <span className="rounded-full bg-primary px-2.5 py-0.5 text-xs font-medium text-primary-foreground">
+                      <span className="rounded-sm bg-primary px-2.5 py-0.5 text-xs font-medium text-primary-foreground">
                         Baru
                       </span>
                     ) : null}
-                    <span className="rounded-full bg-elevated px-2.5 py-0.5 text-xs uppercase text-muted">
+                    <span className="rounded-sm bg-elevated px-2.5 py-0.5 text-xs uppercase text-muted">
                       {message.locale}
                     </span>
                   </div>

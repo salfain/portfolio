@@ -39,7 +39,7 @@ export function CodeBlock({
   }
 
   return (
-    <div className="sk-inset group my-6 overflow-hidden rounded-2xl border border-border bg-elevated">
+    <div className="group my-6 overflow-hidden rounded-2xl border border-border bg-elevated">
       <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-2">
         <span className="font-mono text-xs uppercase tracking-wide text-muted">
           {language || t('code')}
@@ -49,7 +49,7 @@ export function CodeBlock({
           type="button"
           onClick={handleCopy}
           className={cn(
-            'rounded-full px-3 py-1 text-xs font-medium transition-colors',
+            'rounded-sm px-3 py-1 text-xs font-medium transition-colors',
             'hover:bg-surface',
             'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
             copied ? 'text-success' : failed ? 'text-danger' : 'text-muted',

@@ -28,7 +28,7 @@ export function ToggleReadButton({
           })
         }
         className={cn(
-          'rounded-full px-3 py-1 text-sm text-muted transition-colors',
+          'rounded-sm px-3 py-1 text-sm text-muted transition-colors',
           'hover:bg-elevated hover:text-foreground disabled:opacity-50',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
         )}

@@ -73,7 +73,7 @@ export function AdminNav({ unreadCount }: AdminNavProps) {
           >
             {item.label}
             {item.href === '/admin/messages' && unreadCount > 0 ? (
-              <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-medium text-primary-foreground">
+              <span className="rounded-sm bg-primary px-2 py-0.5 text-xs font-medium text-primary-foreground">
                 {unreadCount}
               </span>
             ) : null}

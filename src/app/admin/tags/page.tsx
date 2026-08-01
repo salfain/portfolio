@@ -27,7 +27,7 @@ export default async function AdminTagsPage() {
           {tags.map((tag) => (
             <li
               key={tag.id}
-              className="flex items-center gap-3 rounded-full border border-border bg-surface py-1.5 pl-4 pr-2"
+              className="flex items-center gap-3 rounded-md border border-border bg-surface py-1.5 pl-4 pr-2"
             >
               <span className="text-sm">{tag.name}</span>
               <span className="text-xs text-muted">

@@ -7,23 +7,23 @@ type Variant = 'primary' | 'secondary' | 'ghost' | 'danger'
 type Size = 'sm' | 'md' | 'lg'
 
 /**
- * `sk-raised` + `sk-pressable` memberi tombol permukaan terangkat yang
- * benar-benar turun 1px saat ditekan. `ghost` sengaja TIDAK terangkat —
- * tombol tersier yang ikut menonjol membuat hierarki visualnya rata dan
- * pengguna kehilangan petunjuk mana aksi utamanya.
+ * Glassline datar sepenuhnya — tanpa gradien, tanpa bayangan.
+ * Hierarki dibentuk oleh WARNA dan GARIS, bukan kedalaman:
+ * hanya `primary` yang memakai aksen kobalt, sisanya permukaan datar
+ * dengan garis tepi.
  */
 const variantClasses: Record<Variant, string> = {
   primary: [
-    'sk-raised sk-pressable bg-primary text-primary-foreground',
+    'bg-primary text-primary-foreground',
     'hover:opacity-90',
   ].join(' '),
   secondary: [
-    'sk-raised sk-pressable bg-surface text-foreground border border-border',
+    'bg-surface text-foreground border border-border',
     'hover:bg-elevated',
   ].join(' '),
-  ghost: ['sk-pressable bg-transparent text-foreground', 'hover:bg-elevated'].join(' '),
+  ghost: ['bg-transparent text-foreground', 'hover:bg-elevated'].join(' '),
   danger: [
-    'sk-raised sk-pressable bg-danger text-white',
+    'bg-danger text-white',
     'hover:opacity-90',
   ].join(' '),
 }
@@ -61,7 +61,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         ref={ref}
         className={cn(
-          'inline-flex items-center justify-center gap-2 rounded-full',
+          'inline-flex items-center justify-center gap-2 rounded-md',
           'font-medium',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
           'disabled:pointer-events-none disabled:opacity-50',

@@ -2,26 +2,35 @@ import type { ReactNode } from 'react'
 import { NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale, getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
-import { Plus_Jakarta_Sans, Inter, JetBrains_Mono } from 'next/font/google'
+import { Geist, Geist_Mono } from 'next/font/google'
 
 import { routing, type Locale } from '@/i18n/routing'
 import { env } from '@/lib/env'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Navbar, Footer, SkipLink } from '@/components/layout'
 
-const fontDisplay = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  variable: '--font-display',
-  display: 'swap',
-})
-
-const fontSans = Inter({
+/**
+ * Glassline memakai Geist untuk display, h1, dan body — satu keluarga
+ * untuk seluruh teks, dan Geist Mono khusus label.
+ *
+ * `--font-display` dan `--font-sans` sengaja menunjuk font yang SAMA.
+ * Variabelnya tetap dua supaya pembedaan peran (judul vs isi) tidak hilang
+ * dari kode, dan mengganti salah satunya nanti tidak perlu menyentuh
+ * setiap komponen.
+ */
+const fontSans = Geist({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
 })
 
-const fontMono = JetBrains_Mono({
+const fontDisplay = Geist({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+})
+
+const fontMono = Geist_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
   display: 'swap',

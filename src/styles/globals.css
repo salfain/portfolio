@@ -8,52 +8,58 @@
 
 :root,
 [data-theme='light'] {
-  --background: 245 248 252; /* #F5F8FC */
+  /* Glassline — nilai resmi dari design.md.
+     "Fog-grey neutrals with a cobalt pinprick." */
+  --background: 241 243 245; /* #F1F3F5 — neutral, fondasi halaman */
   --surface: 255 255 255; /* #FFFFFF */
-  --elevated: 238 244 250; /* #EEF4FA */
-  --foreground: 11 31 53; /* #0B1F35 */
-  --muted: 92 107 122; /* #5C6B7A */
-  --border: 221 230 239; /* #DDE6EF */
-  --primary: 23 107 255; /* #176BFF */
-  --primary-foreground: 255 255 255;
-  --cyan: 24 189 235; /* #18BDEB */
-  --success: 22 155 98; /* #169B62 */
-  --warning: 217 154 19; /* #D99A13 */
-  --danger: 215 70 70; /* #D74646 */
+  --elevated: 231 234 238; /* #E7EAEE — diturunkan, satu langkah dari neutral */
+  --foreground: 15 20 25; /* #0F1419 — primary, judul & teks inti */
+  --muted: 74 85 104; /* #4A5568 — secondary, keterangan & metadata */
 
-  /* ─ Kedalaman (skeuomorphism) ─
-     Sumber cahaya diasumsikan dari ATAS. Semua permukaan terangkat
-     memakai kombinasi yang sama: garis sorot di tepi atas, bayangan
-     halus di tepi bawah, dan gradien vertikal sangat tipis.
+  /* Dua token garis, bukan satu.
+     `border` untuk pemisah dekoratif; `border-strong` untuk batas kontrol
+     yang bisa disentuh pengguna. WCAG 1.4.11 menuntut 3:1 untuk yang
+     kedua, dan garis setipis pemisah tidak akan pernah memenuhinya. */
+  --border: 221 226 231; /* #DDE2E7 — pemisah */
+  --border-strong: 118 127 136; /* #767F88 — batas input, 3.66:1 */
 
-     Disimpan sebagai channel RGB seperti token lain supaya opasitasnya
-     bisa diatur per pemakaian: rgb(var(--token) / <alpha>). */
-  --sk-shadow: 11 31 53; /* diturunkan dari --foreground */
-  --sk-highlight: 255 255 255;
-  --sk-shadow-strength: 1;
+  --primary: 44 94 245; /* #2C5EF5 — tertiary, satu-satunya aksen */
+  --primary-foreground: 255 255 255; /* on-primary */
+
+  /* Warna status. Glassline menyebut aturan aksen tunggal "load-bearing",
+     tapi ini BUKAN aksen dekoratif — merah pada pesan galat membawa makna,
+     dan menghapusnya menurunkan kejelasan. Nadanya diturunkan agar tetap
+     sejalan dengan palet dingin. Penyimpangan yang disengaja. */
+  --success: 20 107 69; /* #146B45 */
+  --warning: 138 97 0; /* #8A6100 */
+  --danger: 192 57 43; /* #C0392B */
 }
 
 [data-theme='dark'] {
-  --background: 6 17 31; /* #06111F */
-  --surface: 12 27 45; /* #0C1B2D */
-  --elevated: 17 37 59; /* #11253B */
-  --foreground: 244 248 252; /* #F4F8FC */
-  --muted: 168 182 198; /* #A8B6C6 */
-  --border: 33 58 84; /* #213A54 */
-  --primary: 91 156 255; /* #5B9CFF */
-  --primary-foreground: 6 17 31;
-  --cyan: 54 212 244; /* #36D4F4 */
-  --success: 66 211 146; /* #42D392 */
-  --warning: 242 190 78; /* #F2BE4E */
-  --danger: 255 112 112; /* #FF7070 */
+  /* Glassline tidak memuat nilai gelap — seluruh baris di bawah
+     DITURUNKAN, bukan dari spec. Karakter yang dijaga: neutral dingin
+     berlapis, satu aksen kobalt. Setiap pasangan diverifikasi terhadap
+     WCAG AA sebelum dipakai (rasio dicatat di komentar). */
+  --background: 15 20 25; /* #0F1419 — primary Glassline dipakai sebagai latar */
+  --surface: 22 27 33; /* #161B21 */
+  --elevated: 29 36 43; /* #1D242B */
+  --foreground: 241 243 245; /* #F1F3F5 — 16.64:1 di latar */
+  --muted: 142 155 168; /* #8E9BA8 — 6.53:1 di latar, 5.53:1 di elevated */
 
-  /* Di tema gelap, bayangan hitam nyaris tak terlihat di latar gelap —
-     yang membentuk kedalaman justru garis sorot di tepi atas. Bayangannya
-     tetap ada tapi lebih pekat, sorotnya jauh lebih redup supaya tidak
-     terlihat seperti garis putih menempel. */
-  --sk-shadow: 0 0 0;
-  --sk-highlight: 255 255 255;
-  --sk-shadow-strength: 1.6;
+  /* Beda surface dan background di tema gelap hanya 1.07:1, jadi garis
+     tepi menjadi SATU-SATUNYA penanda batas input — karena itu
+     border-strong di sini wajib, bukan opsional. */
+  --border: 42 50 59; /* #2A323B — pemisah */
+  --border-strong: 94 106 118; /* #5E6A76 — batas input, 3.35:1 */
+
+  /* #2C5EF5 hanya mencapai 3.55:1 di latar gelap. Dicerahkan sampai
+     lolos AA tanpa kehilangan karakter kobaltnya. */
+  --primary: 91 135 255; /* #5B87FF — 5.60:1 di latar */
+  --primary-foreground: 15 20 25; /* teks gelap di atas aksen terang */
+
+  --success: 74 222 153; /* #4ADE99 — 10.75:1 */
+  --warning: 232 180 74; /* #E8B44A — 9.75:1 */
+  --danger: 255 123 112; /* #FF7B70 — 7.33:1 */
 }
 
 @layer base {
@@ -80,104 +86,12 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    /* Glassline body: 0.95rem / 1.55 */
+    @apply bg-background text-foreground font-sans text-body antialiased;
   }
 
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-primary;
-  }
-}
-
-/* ─── Permukaan skeuomorphic ─────────────────────────────── */
-/*
- * Empat kelas ini adalah SATU-SATUNYA tempat efek kedalaman ditulis.
- * Komponen memakainya lewat nama, tidak menyusun bayangan sendiri —
- * bayangan yang ditulis ad hoc di banyak komponen adalah cara tercepat
- * membuat arah cahaya jadi tidak konsisten.
- *
- * Yang SENGAJA tidak dilakukan:
- * - Tidak mengubah warna teks atau latar. Kontras teks tetap sama persis
- *   dengan sistem sebelumnya, jadi WCAG AA tidak ikut bergeser.
- * - Tidak memakai tekstur bitmap. Noise menaikkan berat halaman dan
- *   mengurangi keterbacaan teks kecil.
- * - Tidak menyentuh `outline`. Cincin fokus dirender di luar box-shadow,
- *   jadi tetap terlihat penuh di atas permukaan setebal apa pun.
- */
-/* Mode kontras tinggi: sistem operasi meminta antarmuka sesederhana
-   mungkin. Gradien dan bayangan bertumpuk justru mengaburkan batas elemen,
-   jadi dimatikan dan tepinya dipertegas. */
-@media (prefers-contrast: more), (forced-colors: active) {
-  .sk-raised,
-  .sk-raised-lg,
-  .sk-inset {
-    background-image: none;
-    box-shadow: none;
-  }
-}
-
-@layer components {
-  /* Permukaan terangkat: kartu, panel, navbar. */
-  .sk-raised {
-    background-image: linear-gradient(
-      180deg,
-      rgb(var(--sk-highlight) / 0.5) 0%,
-      rgb(var(--sk-highlight) / 0) 42%
-    );
-    box-shadow:
-      inset 0 1px 0 0 rgb(var(--sk-highlight) / 0.65),
-      inset 0 -1px 0 0 rgb(var(--sk-shadow) / calc(0.05 * var(--sk-shadow-strength))),
-      0 1px 1px -0.5px rgb(var(--sk-shadow) / calc(0.06 * var(--sk-shadow-strength))),
-      0 3px 6px -2px rgb(var(--sk-shadow) / calc(0.08 * var(--sk-shadow-strength)));
-  }
-
-  /* Terangkat lebih tinggi: dialog, drawer, kartu yang di-hover. */
-  .sk-raised-lg {
-    background-image: linear-gradient(
-      180deg,
-      rgb(var(--sk-highlight) / 0.6) 0%,
-      rgb(var(--sk-highlight) / 0) 38%
-    );
-    box-shadow:
-      inset 0 1px 0 0 rgb(var(--sk-highlight) / 0.75),
-      inset 0 -1px 0 0 rgb(var(--sk-shadow) / calc(0.06 * var(--sk-shadow-strength))),
-      0 2px 4px -1px rgb(var(--sk-shadow) / calc(0.08 * var(--sk-shadow-strength))),
-      0 12px 28px -8px rgb(var(--sk-shadow) / calc(0.18 * var(--sk-shadow-strength)));
-  }
-
-  /* Cekung ke dalam: input, textarea, area gulir, blok perintah.
-     Arah cahayanya dibalik — gelap di atas, sorot di bawah. */
-  .sk-inset {
-    background-image: linear-gradient(
-      180deg,
-      rgb(var(--sk-shadow) / 0.04) 0%,
-      rgb(var(--sk-shadow) / 0) 30%
-    );
-    box-shadow:
-      inset 0 1px 2px 0 rgb(var(--sk-shadow) / calc(0.12 * var(--sk-shadow-strength))),
-      inset 0 -1px 0 0 rgb(var(--sk-highlight) / 0.4);
-  }
-
-  /*
-   * Tombol yang benar-benar tertekan.
-   *
-   * Bergerak 1px turun dan bayangannya menyusut — bukan sekadar berubah
-   * warna. Inilah inti skeuomorphism: umpan balik yang meniru benda fisik.
-   *
-   * `transition` ikut dipangkas otomatis oleh aturan
-   * prefers-reduced-motion di @layer base, jadi perpindahannya jadi
-   * seketika, bukan hilang.
-   */
-  .sk-pressable {
-    transition-property: box-shadow, transform, background-color, opacity;
-    transition-duration: 120ms;
-    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .sk-pressable:active:not(:disabled) {
-    transform: translateY(1px);
-    box-shadow:
-      inset 0 2px 4px 0 rgb(var(--sk-shadow) / calc(0.22 * var(--sk-shadow-strength))),
-      inset 0 -1px 0 0 rgb(var(--sk-highlight) / 0.25);
   }
 }
 
@@ -206,19 +120,6 @@
 
   body {
     background: rgb(var(--background));
-  }
-
-  /* Seluruh efek kedalaman dimatikan saat mencetak.
-     Bayangan dan gradien di atas kertas terbaca sebagai kotor keabu-abuan,
-     menghabiskan tinta, dan menurunkan kontras teks — persis kebalikan dari
-     yang dibutuhkan Recruiter Mode. Yang tersisa hanya garis tepi. */
-  .sk-raised,
-  .sk-raised-lg,
-  .sk-inset,
-  .sk-pressable {
-    background-image: none !important;
-    box-shadow: none !important;
-    transform: none !important;
   }
 
   /* URL tautan eksternal dimunculkan — tautan yang tidak bisa diklik
@@ -305,31 +206,26 @@
   @apply pointer-events-none float-left h-0 text-muted;
 }
 
-/* ─── Efek shimmer untuk skeleton ────────────────────────── */
-/* Sapuan gradien yang bergerak, lebih hidup daripada pulse polos dan
-   lebih jelas menandakan "sedang memuat" ketimbang "kotak kosong".
+/* ─── Denyut skeleton ─────────────────────────────────────── */
+/* Glassline datar sepenuhnya — "Don't introduce gradients." Karena itu
+   skeleton TIDAK memakai sapuan gradien, melainkan berdenyut antara dua
+   warna solid dari palet. Umpan baliknya tetap terbaca sebagai "sedang
+   berjalan", tanpa satu pun gradien.
 
-   Aturan prefers-reduced-motion di @layer base sudah memangkas seluruh
-   animasi jadi 0.01ms, jadi shimmer otomatis berhenti tanpa perlu query
-   media terpisah — elemennya tetap terlihat sebagai blok bg-elevated. */
+   Aturan prefers-reduced-motion di @layer base sudah memangkas animasi
+   jadi 0.01ms, jadi denyutnya berhenti sendiri dan bloknya tetap terlihat
+   sebagai bidang bg-elevated. */
 
-@keyframes shimmer {
-  from {
-    background-position: 200% 0;
+@keyframes skeleton-beat {
+  0%,
+  100% {
+    background-color: rgb(var(--elevated));
   }
-  to {
-    background-position: -200% 0;
+  50% {
+    background-color: rgb(var(--border));
   }
 }
 
 .skeleton-shimmer {
-  background-image: linear-gradient(
-    90deg,
-    rgb(var(--elevated)) 0%,
-    rgb(var(--border)) 20%,
-    rgb(var(--elevated)) 40%,
-    rgb(var(--elevated)) 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.6s ease-in-out infinite;
+  animation: skeleton-beat 1.6s ease-in-out infinite;
 }

@@ -8,7 +8,7 @@ export default async function AdminBackupPage() {
   const documents = await getDocumentsForExport()
 
   const linkClass =
-    'inline-flex items-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
+    'inline-flex items-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
 
   return (
     <AdminShell
@@ -40,7 +40,7 @@ export default async function AdminBackupPage() {
         <a
           href="/admin/backup/export?format=markdown"
           download
-          className="inline-flex items-center rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-elevated focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="inline-flex items-center rounded-md border border-border px-5 py-2.5 text-sm font-medium hover:bg-elevated focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         >
           Unduh Markdown
         </a>

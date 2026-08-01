@@ -22,7 +22,7 @@ export default function GlobalError({
             <button
               type="button"
               onClick={reset}
-              className="mt-8 rounded-full bg-primary px-6 py-2.5 font-medium text-primary-foreground transition-opacity hover:opacity-90"
+              className="mt-8 rounded-md bg-primary px-6 py-2.5 font-medium text-primary-foreground transition-opacity hover:opacity-90"
             >
               Muat ulang
             </button>

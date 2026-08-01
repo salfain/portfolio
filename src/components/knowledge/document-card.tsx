@@ -45,7 +45,7 @@ export async function DocumentCard({
       )}
     >
       <div className="flex flex-wrap items-center gap-2 text-xs">
-        <span className="rounded-full bg-primary/10 px-3 py-0.5 font-medium text-primary">
+        <span className="rounded-sm bg-primary/10 px-3 py-0.5 font-medium text-primary">
           {t(`types.${TYPE_KEYS[document.type]}.name`)}
         </span>
         {meta.map((item) => (
@@ -73,7 +73,7 @@ export async function DocumentCard({
         {document.tags.slice(0, 3).map(({ tag }) => (
           <span
             key={tag.slug}
-            className="rounded-full bg-elevated px-2.5 py-0.5"
+            className="rounded-sm bg-elevated px-2.5 py-0.5"
           >
             {tag.name}
           </span>

@@ -42,12 +42,12 @@ export default async function AdminProjectsPage() {
                   <p className="font-medium">{project.titleId}</p>
                   <StatusBadge status={project.status as PublishStatusValue} />
                   {project.isFeatured ? (
-                    <span className="rounded-full bg-elevated px-2.5 py-0.5 text-xs text-muted">
+                    <span className="rounded-sm bg-elevated px-2.5 py-0.5 text-xs text-muted">
                       Pilihan
                     </span>
                   ) : null}
                   {!project.titleEn ? (
-                    <span className="rounded-full bg-elevated px-2.5 py-0.5 text-xs text-muted">
+                    <span className="rounded-sm bg-elevated px-2.5 py-0.5 text-xs text-muted">
                       ID saja
                     </span>
                   ) : null}

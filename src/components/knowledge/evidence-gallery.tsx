@@ -136,7 +136,7 @@ export function EvidenceGallery({ items }: { items: EvidenceItem[] }) {
                 <button
                   type="button"
                   onClick={() => show(activeIndex - 1)}
-                  className="rounded-full px-4 py-2 text-sm text-muted hover:bg-elevated hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  className="rounded-md px-4 py-2 text-sm text-muted hover:bg-elevated hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 >
                   ← {t('previousImage')}
                 </button>
@@ -151,7 +151,7 @@ export function EvidenceGallery({ items }: { items: EvidenceItem[] }) {
                 <button
                   type="button"
                   onClick={() => show(activeIndex + 1)}
-                  className="rounded-full px-4 py-2 text-sm text-muted hover:bg-elevated hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  className="rounded-md px-4 py-2 text-sm text-muted hover:bg-elevated hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 >
                   {t('nextImage')} →
                 </button>

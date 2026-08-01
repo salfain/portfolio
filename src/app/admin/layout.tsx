@@ -1,7 +1,14 @@
 import type { ReactNode } from 'react'
 import { NextIntlClientProvider } from 'next-intl'
+import { Geist, Geist_Mono } from 'next/font/google'
 
 import idMessages from '../../../messages/id.json'
+
+// Admin merender <html> sendiri, jadi variabel font tidak diwarisi dari
+// rute publik dan harus dipasang di sini juga.
+const fontSans = Geist({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
+const fontDisplay = Geist({ subsets: ['latin'], variable: '--font-display', display: 'swap' })
+const fontMono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' })
 
 /**
  * Admin: tanpa segmen locale, nested layout (root layout pass-through).
@@ -19,7 +26,9 @@ import idMessages from '../../../messages/id.json'
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="id" data-theme="light" suppressHydrationWarning>
-      <body className="min-h-dvh bg-background text-foreground antialiased">
+      <body
+        className={`${fontDisplay.variable} ${fontSans.variable} ${fontMono.variable} min-h-dvh bg-background text-foreground antialiased`}
+      >
         <NextIntlClientProvider locale="id" messages={idMessages}>
           {children}
         </NextIntlClientProvider>

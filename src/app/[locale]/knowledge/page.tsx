@@ -91,7 +91,7 @@ export default async function KnowledgeLandingPage({ params }: PageProps) {
                   <Link
                     href={`/knowledge/category/${category.slug}`}
                     className={cn(
-                      'inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-sm',
+                      'inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2 text-sm',
                       'transition-colors hover:border-primary/40 hover:text-primary',
                       'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
                     )}
