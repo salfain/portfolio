@@ -62,7 +62,20 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Rute publik ditangani next-intl; `/admin/*` ditangani adminMiddleware.
-  // API Better Auth dan aset statis dilewati sepenuhnya.
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
+  /**
+   * Rute publik ditangani next-intl; `/admin/*` ditangani adminMiddleware.
+   * API Better Auth dan aset statis dilewati sepenuhnya.
+   *
+   * `icon` dan `apple-icon` HARUS ikut dikecualikan.
+   *
+   * Keduanya rute yang dihasilkan Next dari `app/icon.tsx` dan
+   * `app/apple-icon.tsx`, dan namanya TIDAK bertitik — jadi pola
+   * `.*\..*` yang mengecualikan aset statis tidak menangkapnya. Tanpa
+   * pengecualian ini, permintaan `/icon` dialihkan ke `/id/icon` yang
+   * tidak ada, dan favicon-nya tidak pernah termuat sama sekali.
+   *
+   * `manifest.webmanifest`, `sitemap.xml`, dan `robots.txt` bertitik, jadi
+   * sudah tertangkap pola yang ada.
+   */
+  matcher: ['/((?!api|_next|_vercel|icon|apple-icon|.*\\..*).*)'],
 }

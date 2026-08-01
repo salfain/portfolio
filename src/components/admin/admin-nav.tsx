@@ -27,6 +27,7 @@ const items = [
   { href: '/admin/taxonomy', label: 'Kategori & Tag' },
   { href: '/admin/messages', label: 'Pesan' },
   { href: '/admin/audit', label: 'Jejak Audit' },
+  { href: '/admin/account', label: 'Akun' },
 ]
 
 type AdminNavProps = {
