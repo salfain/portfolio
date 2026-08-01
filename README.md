@@ -57,7 +57,10 @@ prompt global, prompt tiap fase, prompt pemeriksaan, dan prompt perbaikan.
 
 ## Untuk developer
 
-**Mulai dari sini:** [CLAUDE.md](CLAUDE.md) → [docs/rules/](docs/rules/README.md)
+**Menjalankan di laptop:** [docs/SETUP.md](docs/SETUP.md) — dari klona kosong
+sampai situs terbuka di peramban.
+
+**Aturan pengembangan:** [CLAUDE.md](CLAUDE.md) → [docs/rules/](docs/rules/README.md)
 
 | Dokumen | Isi |
 |---|---|
