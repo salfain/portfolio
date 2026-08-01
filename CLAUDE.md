@@ -22,7 +22,7 @@ Fase yang sedang berjalan ada di [README.md](README.md).
 ## Disiplin fase
 
 ```
-0 ✅  1 ✅  2 ✅  3 ✅  3.5 🟡 DEPLOY  4 ✅  5 ✅  6 🟡 (struktur ✅ · konten ⬜)  7 ✅  8 ⬜  9 ⬜
+0 ✅  1 ✅  2 ✅  3 ✅  3.5 🟡 DEPLOY  4 ✅  5 ✅  6 🟡 (struktur ✅ · konten ⬜)  7 ✅  8 🟡 (kode ✅ · rate limit & R2 ⬜)  9 ⬜
 ```
 
 **Kerjakan hanya fase yang sedang berjalan.** Sebelum menulis kode: ajukan rencana (berkas, dependency, risiko) dan tunggu persetujuan.
@@ -79,6 +79,12 @@ Menemukan sesuatu di luar cakupan? Catat di `docs/phase-N/NOTES.md`, jangan dike
 
 ```bash
 npm run lint && npm run typecheck && npm run test && npm run build
+```
+
+Jalur kritis punya tes E2E tersendiri (butuh server yang berjalan):
+
+```bash
+E2E_BASE_URL=http://127.0.0.1:3000 npm run test:e2e
 ```
 
 Plus delapan pemeriksaan manual: ID · EN · terang · gelap (hard reload) · 375 px · 1440 px · keyboard · reduced motion.

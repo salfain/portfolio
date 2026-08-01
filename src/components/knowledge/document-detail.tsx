@@ -114,14 +114,24 @@ export async function DocumentDetail({
 
   const headings = content ? collectHeadings(content) : []
 
-  // Nama penulis diambil dari profil situs. Bila profil belum diisi,
-  // yang dipakai nama situs — bukan nama yang dikarang.
-  const profile = await getPublishedProfile()
-  const authorName = profile?.name ?? t('title')
-  const [revisions, related] = await Promise.all([
+  /**
+   * Ketiganya diambil BERSAMAAN, bukan berurutan.
+   *
+   * Profil sempat ditulis sebagai `await` tersendiri sebelum `Promise.all`
+   * saat JSON-LD ditambahkan di Fase 7 — satu jalan-pulang database
+   * tambahan yang menunggu tanpa alasan, di halaman yang paling sering
+   * dibuka.
+   *
+   * Nama penulis diambil dari profil situs. Bila profil belum diisi, yang
+   * dipakai nama situs — bukan nama yang dikarang.
+   */
+  const [profile, revisions, related] = await Promise.all([
+    getPublishedProfile(),
     getDocumentRevisions(document.id),
     getRelatedDocuments(document.id, document.category?.slug ?? null),
   ])
+
+  const authorName = profile?.name ?? t('title')
 
   /**
    * Metadata terstruktur hanya diurai untuk tipe yang memilikinya.

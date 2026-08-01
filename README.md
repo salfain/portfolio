@@ -9,10 +9,10 @@ Bilingual (`/id` · `/en`) dan bertema terang/gelap sejak commit pertama.
 
 | | |
 |---|---|
-| **Fase saat ini** | Fase 7 — pencarian, SEO, UX lanjutan |
-| **Status** | ✅ Kode selesai (pencarian full-text, palette, OG, JSON-LD, RSS) |
-| **Kode aplikasi** | 25 rute publik × 2 bahasa · 25 rute admin · 191 tes |
-| **Berikutnya** | Fase 8 — QA, keamanan, performa, hardening |
+| **Fase saat ini** | Fase 8 — QA, keamanan, performa, hardening |
+| **Status** | 🟡 Kode selesai · ⏳ dua penghambat deploy menunggu keputusan pemilik |
+| **Kode aplikasi** | 25 rute publik × 2 bahasa · 25 rute admin · 208 tes + 26 E2E |
+| **Berikutnya** | Fase 9 — peluncuran konten |
 
 **Penghambat isi:** Q4–Q10 di
 [docs/phase-0/06_OPEN_QUESTIONS.md](docs/phase-0/06_OPEN_QUESTIONS.md) belum
@@ -36,7 +36,7 @@ lihat [docs/phase-3/NOTES.md](docs/phase-3/NOTES.md) N3.
 5 ✅ Admin CMS, editor, media, revisi   ← kode selesai, konten kosong
 6 🟡 PNETLab, insiden, bukti terstruktur   ← struktur selesai, konten menunggu
 7 ✅ Pencarian, SEO, UX lanjutan   ← analitik dilewati atas keputusan pemilik
-8 ⬜ QA, keamanan, performa, hardening
+8 🟡 QA, keamanan, performa, hardening   ← kode selesai, rate limit & R2 menunggu
 9 ⬜ Peluncuran konten & perbaikan berkelanjutan
 ```
 
@@ -98,6 +98,7 @@ prompt global, prompt tiap fase, prompt pemeriksaan, dan prompt perbaikan.
 - [docs/phase-5/](docs/phase-5/) — Admin CMS, editor Tiptap, revisi, bukti, jejak audit
 - [docs/phase-6/](docs/phase-6/) — metadata lab & insiden, blok bukti terstruktur
 - [docs/phase-7/](docs/phase-7/) — pencarian full-text, command palette, OG, JSON-LD, RSS
+- [docs/phase-8/](docs/phase-8/) — header keamanan, tes otorisasi & E2E, backup & rollback
 
 > Temuan terbuka tiap fase ada di `NOTES.md` masing-masing.
 > Yang menghambat deploy tercatat di [docs/phase-3/NOTES.md](docs/phase-3/NOTES.md).
