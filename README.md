@@ -11,8 +11,8 @@ Bilingual (`/id` · `/en`) dan bertema terang/gelap sejak commit pertama.
 |---|---|
 | **Fase saat ini** | Fase 5 — Admin CMS, editor, media, revisi |
 | **Status** | 🟡 Kode + gate visual selesai · ⏳ menunggu isi konten, anti-spam, uji form |
-| **Kode aplikasi** | 25 rute publik × 2 bahasa · 21 rute admin · 94 tes |
-| **Berikutnya** | Fase 5b — autosave, pratinjau, media, log audit, ekspor |
+| **Kode aplikasi** | 25 rute publik × 2 bahasa · 24 rute admin · 103 tes |
+| **Berikutnya** | Fase 6 — PNETLab, insiden, bukti terstruktur |
 
 **Penghambat isi:** Q4–Q10 di
 [docs/phase-0/06_OPEN_QUESTIONS.md](docs/phase-0/06_OPEN_QUESTIONS.md) belum

@@ -10,6 +10,7 @@ import type {
   TagInput,
 } from '@/lib/schemas/knowledge-admin'
 
+import { recordAudit } from './audit'
 import { requireAdmin, requireAdminPage } from './_guards'
 
 /**
@@ -414,7 +415,7 @@ export async function saveDocument(
   input: KnowledgeDocumentInput,
   authorId: string,
 ) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   const {
     id,
@@ -496,6 +497,14 @@ export async function saveDocument(
         },
       })
 
+      await recordAudit({
+        actorId: session.user.id,
+        action: fields.status === 'PUBLISHED' ? 'publish' : 'update',
+        entityType: 'KnowledgeDocument',
+        entityId: id,
+        metadata: { slug: fields.slug, status: fields.status },
+      })
+
       return id
     }
 
@@ -510,14 +519,33 @@ export async function saveDocument(
       select: { id: true },
     })
 
+    await recordAudit({
+      actorId: session.user.id,
+      action: 'create',
+      entityType: 'KnowledgeDocument',
+      entityId: created.id,
+      metadata: { slug: fields.slug, status: fields.status },
+    })
+
     return created.id
   })
 }
 
 export async function deleteDocument(id: string) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
-  await prisma.knowledgeDocument.delete({ where: { id } })
+  const removed = await prisma.knowledgeDocument.delete({
+    where: { id },
+    select: { slug: true },
+  })
+
+  await recordAudit({
+    actorId: session.user.id,
+    action: 'delete',
+    entityType: 'KnowledgeDocument',
+    entityId: id,
+    metadata: { slug: removed.slug },
+  })
 }
 
 /**
@@ -577,16 +605,23 @@ export async function getAdminCategoryById(id: string) {
 }
 
 export async function saveCategory(input: CategoryInput) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   const { id, ...data } = input
 
   if (id) {
     await prisma.knowledgeCategory.update({ where: { id }, data })
-    return
+  } else {
+    await prisma.knowledgeCategory.create({ data })
   }
 
-  await prisma.knowledgeCategory.create({ data })
+  await recordAudit({
+    actorId: session.user.id,
+    action: id ? 'update' : 'create',
+    entityType: 'KnowledgeCategory',
+    entityId: id,
+    metadata: { slug: data.slug },
+  })
 }
 
 /**
@@ -597,7 +632,7 @@ export async function saveCategory(input: CategoryInput) {
  * Diperiksa lebih dulu di sini supaya pesannya bisa dibaca manusia.
  */
 export async function deleteCategory(id: string) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   const inUse = await prisma.knowledgeCategory.findUnique({
     where: { id },
@@ -609,6 +644,13 @@ export async function deleteCategory(id: string) {
   }
 
   await prisma.knowledgeCategory.delete({ where: { id } })
+
+  await recordAudit({
+    actorId: session.user.id,
+    action: 'delete',
+    entityType: 'KnowledgeCategory',
+    entityId: id,
+  })
 }
 
 // ─── Tag (admin) ─────────────────────────────────────────
@@ -628,7 +670,7 @@ export async function getAdminTags() {
 }
 
 export async function saveTag(input: TagInput) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   const { id, name } = input
 
@@ -637,16 +679,81 @@ export async function saveTag(input: TagInput) {
       where: { id },
       data: { name, slug: name },
     })
-    return
+  } else {
+    await prisma.knowledgeTag.create({ data: { name, slug: name } })
   }
 
-  await prisma.knowledgeTag.create({ data: { name, slug: name } })
+  await recordAudit({
+    actorId: session.user.id,
+    action: id ? 'update' : 'create',
+    entityType: 'KnowledgeTag',
+    entityId: id,
+    metadata: { name },
+  })
 }
 
 export async function deleteTag(id: string) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   // Tag hanya label; menghapusnya cukup melepas kaitannya dari dokumen
   // dan proyek. Cascade di skema sudah menangani baris pivotnya.
   await prisma.knowledgeTag.delete({ where: { id } })
+
+  await recordAudit({
+    actorId: session.user.id,
+    action: 'delete',
+    entityType: 'KnowledgeTag',
+    entityId: id,
+  })
+}
+
+/**
+ * Seluruh dokumen untuk ekspor/backup.
+ *
+ * `media` ikut, TAPI hanya aset publik yang sudah lolos redaksi — sama
+ * dengan penyaringan di sisi publik. Backup yang memuat bukti internal
+ * adalah kebocoran yang menunggu terjadi begitu berkasnya dibagikan.
+ */
+export async function getDocumentsForExport() {
+  await requireAdminPage()
+
+  return prisma.knowledgeDocument.findMany({
+    select: {
+      type: true,
+      slug: true,
+      documentCode: true,
+      version: true,
+      status: true,
+      titleId: true,
+      titleEn: true,
+      summaryId: true,
+      summaryEn: true,
+      contentIdJson: true,
+      contentEnJson: true,
+      difficulty: true,
+      estimatedMinutes: true,
+      tools: true,
+      metadata: true,
+      isFeatured: true,
+      sortOrder: true,
+      publishedAt: true,
+      category: { select: { slug: true } },
+      tags: { select: { tag: { select: { name: true } } } },
+      media: {
+        where: { isPublic: true, redactionConfirmed: true },
+        select: {
+          fileKey: true,
+          kind: true,
+          altId: true,
+          altEn: true,
+          captionId: true,
+          captionEn: true,
+          isPublic: true,
+          redactionConfirmed: true,
+        },
+        orderBy: { sortOrder: 'asc' },
+      },
+    },
+    orderBy: [{ type: 'asc' }, { slug: 'asc' }],
+  })
 }

@@ -6,6 +6,7 @@ import type { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import type { ProfileInput } from '@/lib/schemas/admin'
 
+import { recordAudit } from './audit'
 import { requireAdmin, requireAdminPage } from './_guards'
 
 /**
@@ -103,7 +104,7 @@ export async function getAdminProfile() {
  * jadi upsert dilakukan lewat id baris yang sudah ada.
  */
 export async function saveProfile(input: ProfileInput) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   const existing = await prisma.siteProfile.findFirst({
     select: { id: true },
@@ -112,8 +113,14 @@ export async function saveProfile(input: ProfileInput) {
 
   if (existing) {
     await prisma.siteProfile.update({ where: { id: existing.id }, data: input })
-    return
+  } else {
+    await prisma.siteProfile.create({ data: input })
   }
 
-  await prisma.siteProfile.create({ data: input })
+  await recordAudit({
+    actorId: session.user.id,
+    action: existing ? 'update' : 'create',
+    entityType: 'SiteProfile',
+    entityId: existing?.id ?? null,
+  })
 }

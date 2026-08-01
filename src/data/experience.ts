@@ -6,6 +6,7 @@ import type { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import type { ExperienceInput } from '@/lib/schemas/admin'
 
+import { recordAudit } from './audit'
 import { requireAdmin, requireAdminPage } from './_guards'
 
 const experienceSelect = {
@@ -75,7 +76,7 @@ export async function getAdminExperienceById(id: string) {
  * terbit jadi bohong.
  */
 export async function saveExperience(input: ExperienceInput) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   const { id, isCurrent, endDate, ...rest } = input
 
@@ -103,19 +104,43 @@ export async function saveExperience(input: ExperienceInput) {
       },
     })
 
+    await recordAudit({
+      actorId: session.user.id,
+      action: input.status === 'PUBLISHED' ? 'publish' : 'update',
+      entityType: 'Experience',
+      entityId: id,
+      metadata: { company: data.company, status: input.status },
+    })
+
     return
   }
 
-  await prisma.experience.create({
+  const created = await prisma.experience.create({
     data: {
       ...data,
       publishedAt: input.status === 'PUBLISHED' ? new Date() : null,
     },
+    select: { id: true },
+  })
+
+  await recordAudit({
+    actorId: session.user.id,
+    action: 'create',
+    entityType: 'Experience',
+    entityId: created.id,
+    metadata: { company: data.company, status: input.status },
   })
 }
 
 export async function deleteExperience(id: string) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   await prisma.experience.delete({ where: { id } })
+
+  await recordAudit({
+    actorId: session.user.id,
+    action: 'delete',
+    entityType: 'Experience',
+    entityId: id,
+  })
 }

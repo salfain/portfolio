@@ -27,6 +27,8 @@ const items = [
   { href: '/admin/categories', label: 'Kategori' },
   { href: '/admin/tags', label: 'Tag' },
   { href: '/admin/messages', label: 'Pesan' },
+  { href: '/admin/audit', label: 'Log Audit' },
+  { href: '/admin/backup', label: 'Backup' },
 ]
 
 type AdminNavProps = {

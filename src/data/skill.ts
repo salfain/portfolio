@@ -6,6 +6,7 @@ import type { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import type { SkillInput } from '@/lib/schemas/admin'
 
+import { recordAudit } from './audit'
 import { requireAdmin, requireAdminPage } from './_guards'
 
 const skillSelect = {
@@ -79,20 +80,34 @@ export async function getAdminSkillById(id: string) {
 }
 
 export async function saveSkill(input: SkillInput) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   const { id, ...data } = input
 
   if (id) {
     await prisma.skill.update({ where: { id }, data })
-    return
+  } else {
+    await prisma.skill.create({ data })
   }
 
-  await prisma.skill.create({ data })
+  await recordAudit({
+    actorId: session.user.id,
+    action: id ? 'update' : 'create',
+    entityType: 'Skill',
+    entityId: id,
+    metadata: { name: data.name, status: data.status },
+  })
 }
 
 export async function deleteSkill(id: string) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   await prisma.skill.delete({ where: { id } })
+
+  await recordAudit({
+    actorId: session.user.id,
+    action: 'delete',
+    entityType: 'Skill',
+    entityId: id,
+  })
 }

@@ -23,24 +23,50 @@ async function main() {
   // password tidak bisa diverifikasi saat login. Lihat NOTES N3.
   const hashed = await hashPassword(password)
 
-  await prisma.user.upsert({
+  const user = await prisma.user.upsert({
     where: { email },
-    update: {},
-    create: {
-      email,
-      name: 'Admin',
-      role: 'admin',
-      accounts: {
-        create: {
-          accountId: email,
-          providerId: 'credential',
-          password: hashed,
-        },
-      },
-    },
+    // `role` ikut diperbarui: akun yang pernah turun peran harus bisa
+    // dikembalikan lewat seed, bukan lewat SQL manual.
+    update: { role: 'admin' },
+    create: { email, name: 'Admin', role: 'admin' },
+    select: { id: true },
   })
 
-  console.log(`✓ Admin siap: ${email}`)
+  /**
+   * Password akun WAJIB ikut diperbarui saat seed dijalankan ulang.
+   *
+   * Sebelumnya `upsert` memakai `update: {}` sehingga akun yang sudah ada
+   * dilewati sepenuhnya. Akibatnya: mengganti ADMIN_SEED_PASSWORD lalu
+   * menjalankan seed lagi TIDAK mengubah apa pun, skripnya tetap mencetak
+   * "Admin siap", dan login gagal dengan "Invalid email or password" tanpa
+   * petunjuk sama sekali. Terjadi sungguhan dan butuh waktu lama dilacak.
+   *
+   * Dengan ini, menjalankan seed ulang = mereset password admin.
+   */
+  const account = await prisma.account.findFirst({
+    where: { userId: user.id, providerId: 'credential' },
+    select: { id: true },
+  })
+
+  if (account) {
+    await prisma.account.update({
+      where: { id: account.id },
+      data: { password: hashed },
+    })
+  } else {
+    await prisma.account.create({
+      data: {
+        userId: user.id,
+        accountId: email,
+        providerId: 'credential',
+        password: hashed,
+      },
+    })
+  }
+
+  console.log(
+    `✓ Admin siap: ${email} (password ${account ? 'diperbarui' : 'dibuat'})`,
+  )
 }
 
 main()

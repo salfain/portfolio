@@ -6,6 +6,7 @@ import type { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import type { ProjectInput } from '@/lib/schemas/admin'
 
+import { recordAudit } from './audit'
 import { requireAdmin, requireAdminPage } from './_guards'
 
 /** Bentuk kartu — halaman listing tidak butuh isi studi kasus. */
@@ -132,7 +133,7 @@ export async function isSlugTaken(slug: string, exceptId?: string | null) {
 }
 
 export async function saveProject(input: ProjectInput) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   const { id, ...data } = input
 
@@ -153,19 +154,43 @@ export async function saveProject(input: ProjectInput) {
       },
     })
 
+    await recordAudit({
+      actorId: session.user.id,
+      action: input.status === 'PUBLISHED' ? 'publish' : 'update',
+      entityType: 'Project',
+      entityId: id,
+      metadata: { slug: data.slug, status: input.status },
+    })
+
     return
   }
 
-  await prisma.project.create({
+  const created = await prisma.project.create({
     data: {
       ...data,
       publishedAt: input.status === 'PUBLISHED' ? new Date() : null,
     },
+    select: { id: true },
+  })
+
+  await recordAudit({
+    actorId: session.user.id,
+    action: 'create',
+    entityType: 'Project',
+    entityId: created.id,
+    metadata: { slug: data.slug, status: input.status },
   })
 }
 
 export async function deleteProject(id: string) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   await prisma.project.delete({ where: { id } })
+
+  await recordAudit({
+    actorId: session.user.id,
+    action: 'delete',
+    entityType: 'Project',
+    entityId: id,
+  })
 }

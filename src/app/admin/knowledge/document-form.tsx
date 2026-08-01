@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import type { KnowledgeType } from '@prisma/client'
 
+import { ProseMirrorContent } from '@/lib/prosemirror/render'
+import { useLocalDraft } from '@/lib/use-local-draft'
+
 import { cn } from '@/lib/cn'
 import { assignHeadingIds } from '@/lib/prosemirror/headings'
 import type { ProseMirrorDocument } from '@/lib/prosemirror/types'
@@ -63,6 +66,14 @@ export function DocumentForm({
 }) {
   const [type, setType] = useState<KnowledgeType>(defaults.type)
   const [missing, setMissing] = useState<string[]>([])
+  const [preview, setPreview] = useState<ProseMirrorDocument | null>(null)
+  const [restored, setRestored] = useState<ProseMirrorDocument | null>(null)
+  const [showPreview, setShowPreview] = useState(false)
+
+  // Kunci per dokumen supaya draf dua dokumen berbeda tidak saling timpa.
+  const draft = useLocalDraft<ProseMirrorDocument>(
+    `knowledge.${defaults.id ?? 'baru'}`,
+  )
 
   // Dokumen baru dimulai dari kerangka blok wajib tipenya. Yang disisipkan
   // hanya JUDUL bagian — isinya tetap ditulis pemilik.
@@ -74,13 +85,15 @@ export function DocumentForm({
     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
   )
 
-  function checkSections(doc: ProseMirrorDocument) {
+  function handleDocChange(doc: ProseMirrorDocument) {
     setMissing(
       missingSections(
         type,
         assignHeadingIds(doc).map((heading) => heading.text),
       ),
     )
+    setPreview(doc)
+    draft.save(doc)
   }
 
   return (
@@ -199,6 +212,34 @@ export function DocumentForm({
               judul kosong. Hapus yang tidak berlaku.
             </p>
 
+            {draft.recovered ? (
+              <div className="mt-3 flex flex-wrap items-center gap-3 rounded-xl border border-primary/40 bg-primary/10 px-4 py-3 text-xs">
+                <span>
+                  Ada draf lokal yang belum tersimpan ke server dari{' '}
+                  {new Date(draft.recovered.savedAt).toLocaleString('id-ID')}.
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    // Draf dipasang lewat remount editor: Tiptap hanya
+                    // membaca `content` saat inisialisasi.
+                    setRestored(draft.recovered?.data ?? null)
+                    draft.dismissRecovered()
+                  }}
+                  className="rounded-full bg-primary px-3 py-1 font-medium text-primary-foreground"
+                >
+                  Pulihkan
+                </button>
+                <button
+                  type="button"
+                  onClick={draft.clear}
+                  className="rounded-full px-3 py-1 text-muted underline"
+                >
+                  Buang
+                </button>
+              </div>
+            ) : null}
+
             {missing.length > 0 ? (
               <p className="mt-2 rounded-xl border border-warning/40 bg-warning/10 px-4 py-2 text-xs">
                 Blok wajib yang belum ada: {missing.join(', ')}. Ini
@@ -208,15 +249,53 @@ export function DocumentForm({
 
             <div className="mt-3">
               <RichTextEditor
+                // key berubah saat draf dipulihkan supaya editor dibuat
+                // ulang dengan isi baru.
+                key={restored ? 'restored' : 'initial'}
                 name="contentIdJson"
-                initialContent={initialContent}
+                initialContent={restored ?? initialContent}
                 placeholder="Tulis isi dokumen…"
-                onDocChange={checkSections}
+                onDocChange={handleDocChange}
               />
             </div>
 
             {errors.contentIdJson ? (
               <p className="mt-2 text-sm text-danger">{errors.contentIdJson}</p>
+            ) : null}
+
+            <div className="mt-3 flex flex-wrap items-center gap-4">
+              <button
+                type="button"
+                onClick={() => setShowPreview((value) => !value)}
+                aria-expanded={showPreview}
+                className="rounded-full border border-border px-4 py-1.5 text-sm hover:bg-elevated focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              >
+                {showPreview ? 'Tutup pratinjau' : 'Pratinjau'}
+              </button>
+
+              {draft.savedAt ? (
+                <span role="status" className="text-xs text-muted">
+                  Draf lokal tersimpan{' '}
+                  {new Date(draft.savedAt).toLocaleTimeString('id-ID')}
+                </span>
+              ) : null}
+            </div>
+
+            {showPreview ? (
+              <div className="mt-4 rounded-2xl border border-border bg-background p-6">
+                <p className="mb-4 text-xs uppercase tracking-wide text-muted">
+                  Pratinjau — memakai renderer yang sama dengan halaman publik
+                </p>
+                {(() => {
+                  const doc = preview ?? restored ?? initialContent
+
+                  return doc ? (
+                    <ProseMirrorContent doc={doc} />
+                  ) : (
+                    <p className="text-sm text-muted">Belum ada isi.</p>
+                  )
+                })()}
+              </div>
             ) : null}
           </div>
 

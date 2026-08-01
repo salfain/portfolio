@@ -6,6 +6,7 @@ import type { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import type { CertificateInput } from '@/lib/schemas/admin'
 
+import { recordAudit } from './audit'
 import { requireAdmin, requireAdminPage } from './_guards'
 
 const certificateSelect = {
@@ -58,20 +59,34 @@ export async function getAdminCertificateById(id: string) {
 }
 
 export async function saveCertificate(input: CertificateInput) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   const { id, ...data } = input
 
   if (id) {
     await prisma.certificate.update({ where: { id }, data })
-    return
+  } else {
+    await prisma.certificate.create({ data })
   }
 
-  await prisma.certificate.create({ data })
+  await recordAudit({
+    actorId: session.user.id,
+    action: id ? 'update' : 'create',
+    entityType: 'Certificate',
+    entityId: id,
+    metadata: { name: data.name, status: data.status },
+  })
 }
 
 export async function deleteCertificate(id: string) {
-  await requireAdmin()
+  const session = await requireAdmin()
 
   await prisma.certificate.delete({ where: { id } })
+
+  await recordAudit({
+    actorId: session.user.id,
+    action: 'delete',
+    entityType: 'Certificate',
+    entityId: id,
+  })
 }
