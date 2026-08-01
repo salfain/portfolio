@@ -1,35 +1,83 @@
 'use client'
 
 import { useLocale, useTranslations } from 'next-intl'
-import { usePathname, useRouter } from '@/i18n/navigation'
+import { useTransition } from 'react'
 
+import { usePathname, useRouter } from '@/i18n/navigation'
 import { cn } from '@/lib/cn'
 
 /**
- * Toggle locale ID ↔ EN. Mengganti segmen locale di URL saat ini.
+ * Toggle locale ID ↔ EN pada rute yang sedang dibuka.
+ *
+ * Tiga hal yang ditangani di sini, dan ketiganya pernah salah:
+ *
+ * 1. **Posisi gulir dipertahankan.** Next.js melompat ke atas pada setiap
+ *    navigasi. Untuk ganti bahasa itu keliru — pengunjung yang sedang
+ *    membaca bagian "Validasi" di tengah SOP panjang ingin membaca bagian
+ *    yang sama dalam bahasa lain, bukan kembali ke judul. `scroll: false`
+ *    mematikannya.
+ *
+ * 2. **Query string ikut terbawa.** `usePathname()` dari next-intl hanya
+ *    mengembalikan jalur tanpa `?`. Tanpa penanganan ini, mengganti bahasa
+ *    di `/knowledge/sop?q=dhcp&tag=vlan` membuang seluruh filter dan
+ *    pengunjung harus menyaring ulang dari nol.
+ *
+ *    Dibaca dari `window.location.search` di dalam handler, BUKAN lewat
+ *    `useSearchParams()`. Komponen ini hidup di navbar, yang ikut ke
+ *    layout setiap halaman — memakai `useSearchParams()` di sana menuntut
+ *    batas Suspense dan membuat halaman statis jatuh ke render klien.
+ *
+ * 3. **Ada umpan balik saat menunggu.** Ganti bahasa memicu permintaan ke
+ *    server. Tanpa penanda, tombolnya terasa mati selama jeda itu.
  */
-export function LocaleSwitch() {
+export function LocaleSwitch({
+  /**
+   * Dipanggil tepat sebelum navigasi. Dipakai drawer mobile untuk menutup
+   * dirinya — tanpa ini, drawer tetap terbuka menutupi halaman setelah
+   * bahasa berganti, dan pengunjung harus menutupnya manual untuk melihat
+   * hasil yang baru saja mereka minta.
+   */
+  onNavigate,
+}: {
+  onNavigate?: () => void
+} = {}) {
   const t = useTranslations('locale')
   const locale = useLocale()
   const pathname = usePathname()
   const router = useRouter()
+  const [pending, startTransition] = useTransition()
 
   const nextLocale = locale === 'id' ? 'en' : 'id'
+  const label = locale === 'id' ? t('switchToEn') : t('switchToId')
 
   function handleClick() {
-    router.replace(pathname, { locale: nextLocale })
+    // Hash tidak ikut: anchor `#validasi` menunjuk id yang diturunkan dari
+    // JUDUL, dan judulnya berbeda antar bahasa. Membawanya serta akan
+    // melompat ke anchor yang tidak ada di bahasa tujuan.
+    const search = window.location.search
+
+    onNavigate?.()
+
+    startTransition(() => {
+      router.replace(`${pathname}${search}`, {
+        locale: nextLocale,
+        scroll: false,
+      })
+    })
   }
 
   return (
     <button
       type="button"
       onClick={handleClick}
-      aria-label={locale === 'id' ? t('switchToEn') : t('switchToId')}
-      title={locale === 'id' ? t('switchToEn') : t('switchToId')}
+      disabled={pending}
+      aria-label={label}
+      title={label}
       className={cn(
         'inline-flex h-11 items-center gap-1.5 rounded-full',
         'border border-border bg-surface px-4 text-sm font-medium',
         'transition-colors hover:bg-elevated',
+        'disabled:opacity-60',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
       )}
     >

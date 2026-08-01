@@ -102,7 +102,7 @@ export function MobileDrawer({ open, onOpenChange }: MobileDrawerProps) {
 
           {/* Footer */}
           <div className="border-t border-border pt-6">
-            <LocaleSwitch />
+            <LocaleSwitch onNavigate={() => onOpenChange(false)} />
           </div>
         </div>
       </DrawerContent>
