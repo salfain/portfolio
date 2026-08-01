@@ -39,7 +39,10 @@
     "rights": "Hak cipta dilindungi."
   },
   "a11y": {
-    "skipToContent": "Lompat ke konten utama"
+    "skipToContent": "Lompat ke konten utama",
+    "loading": "Memuat…",
+    "loadingList": "Memuat daftar…",
+    "loadingDocument": "Memuat dokumen…"
   },
   "hero": {
     "fallbackRole": "IT Support · Dukungan Teknis · Dokumentasi",

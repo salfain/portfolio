@@ -39,7 +39,10 @@
     "rights": "All rights reserved."
   },
   "a11y": {
-    "skipToContent": "Skip to main content"
+    "skipToContent": "Skip to main content",
+    "loading": "Loading…",
+    "loadingList": "Loading list…",
+    "loadingDocument": "Loading document…"
   },
   "hero": {
     "fallbackRole": "IT Support · Technical Support · Documentation",

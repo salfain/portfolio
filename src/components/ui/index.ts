@@ -20,7 +20,12 @@ export {
   DrawerTitle,
   DrawerDescription,
 } from './drawer'
-export { Skeleton } from './skeleton'
+export {
+  Skeleton,
+  SkeletonCard,
+  SkeletonRegion,
+  SkeletonText,
+} from './skeleton'
 export { Spinner } from './spinner'
 export { EmptyState } from './empty-state'
 export { ErrorState } from './error-state'
