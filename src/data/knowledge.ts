@@ -1,9 +1,16 @@
 import 'server-only'
 
 import { unstable_cache } from 'next/cache'
-import type { Difficulty, KnowledgeType, Prisma } from '@prisma/client'
+import { Prisma, type Difficulty, type KnowledgeType } from '@prisma/client'
 
 import { prisma } from '@/lib/prisma'
+import type {
+  CategoryInput,
+  KnowledgeDocumentInput,
+  TagInput,
+} from '@/lib/schemas/knowledge-admin'
+
+import { requireAdmin, requireAdminPage } from './_guards'
 
 /**
  * Knowledge Base publik.
@@ -347,3 +354,299 @@ export const getKnowledgeCounts = unstable_cache(
   ['knowledge:counts'],
   { tags: ['knowledge'] },
 )
+
+// ─── Admin ───────────────────────────────────────────────
+
+export async function getAdminDocuments() {
+  await requireAdminPage()
+
+  return prisma.knowledgeDocument.findMany({
+    select: {
+      id: true,
+      slug: true,
+      type: true,
+      status: true,
+      documentCode: true,
+      titleId: true,
+      titleEn: true,
+      isFeatured: true,
+      updatedAt: true,
+      category: { select: { nameId: true } },
+      _count: { select: { revisions: true, media: true } },
+    },
+    orderBy: [{ updatedAt: 'desc' }],
+  })
+}
+
+export async function getAdminDocumentById(id: string) {
+  await requireAdminPage()
+
+  return prisma.knowledgeDocument.findUnique({
+    where: { id },
+    include: { tags: { select: { tag: { select: { name: true } } } } },
+  })
+}
+
+export async function isDocumentSlugTaken(slug: string, exceptId?: string | null) {
+  await requireAdmin()
+
+  const existing = await prisma.knowledgeDocument.findUnique({
+    where: { slug },
+    select: { id: true },
+  })
+
+  return existing !== null && existing.id !== exceptId
+}
+
+/**
+ * Simpan dokumen.
+ *
+ * Menerbitkan perubahan pada dokumen yang SUDAH terbit selalu membuat satu
+ * entri `KnowledgeRevision` — kriteria penerimaan Fase 5. Revisi merekam
+ * isi SEBELUM perubahan, bukan sesudahnya, supaya riwayatnya bisa dibaca
+ * sebagai "dulu begini, lalu diubah".
+ *
+ * Tag ditulis ulang seluruhnya (hapus lalu pasang) alih-alih dihitung
+ * selisihnya: jumlah tag per dokumen kecil, dan menghitung selisih di sini
+ * menambah cabang logika yang mudah salah tanpa manfaat terukur.
+ */
+export async function saveDocument(
+  input: KnowledgeDocumentInput,
+  authorId: string,
+) {
+  await requireAdmin()
+
+  const {
+    id,
+    tagNames,
+    categoryId,
+    changeSummary,
+    // Dipisahkan supaya tidak ikut ke Prisma — `wasPublished` hanya
+    // dipakai skema Zod untuk mewajibkan changeSummary di form. Apakah
+    // dokumennya benar-benar sudah terbit tetap dibaca dari database
+    // di bawah, bukan dari nilai yang dikirim klien.
+    wasPublished: _wasPublished,
+    contentIdJson,
+    contentEnJson,
+    ...rest
+  } = input
+
+  /**
+   * Prisma menuntut `InputJsonValue`, yang menuntut index signature.
+   * `ProseMirrorDocument` adalah objek berbentuk tetap, jadi tidak cocok
+   * secara struktural walau isinya JSON yang sah. Konversinya dilakukan
+   * SEKALI di sini, di batas database — bukan disebar sebagai `as any`
+   * di setiap pemanggilan.
+   */
+  const fields = {
+    ...rest,
+    contentIdJson: contentIdJson as unknown as Prisma.InputJsonValue,
+    contentEnJson: (contentEnJson ??
+      Prisma.JsonNull) as Prisma.InputJsonValue | typeof Prisma.JsonNull,
+  }
+
+  return prisma.$transaction(async (tx) => {
+    const tagIds = await upsertTagsTx(tx, tagNames)
+
+    if (id) {
+      const before = await tx.knowledgeDocument.findUnique({
+        where: { id },
+        select: {
+          status: true,
+          version: true,
+          publishedAt: true,
+          contentIdJson: true,
+          contentEnJson: true,
+          metadata: true,
+        },
+      })
+
+      if (!before) throw new Error('DOCUMENT_NOT_FOUND')
+
+      // Revisi hanya untuk dokumen yang sudah pernah terbit. Menyunting
+      // draft berulang kali tidak menghasilkan riwayat yang berguna.
+      if (before.status === 'PUBLISHED' && changeSummary) {
+        await tx.knowledgeRevision.create({
+          data: {
+            documentId: id,
+            version: before.version,
+            changeSummary,
+            contentIdJson: (before.contentIdJson ??
+              {}) as Prisma.InputJsonValue,
+            contentEnJson: (before.contentEnJson ??
+              Prisma.JsonNull) as Prisma.InputJsonValue,
+            metadata: (before.metadata ?? Prisma.JsonNull) as Prisma.InputJsonValue,
+            createdById: authorId,
+          },
+        })
+      }
+
+      await tx.knowledgeDocumentTag.deleteMany({ where: { documentId: id } })
+
+      await tx.knowledgeDocument.update({
+        where: { id },
+        data: {
+          ...fields,
+          categoryId: categoryId ?? null,
+          publishedAt:
+            fields.status === 'PUBLISHED' && !before.publishedAt
+              ? new Date()
+              : before.publishedAt,
+          tags: { create: tagIds.map((tagId) => ({ tagId })) },
+        },
+      })
+
+      return id
+    }
+
+    const created = await tx.knowledgeDocument.create({
+      data: {
+        ...fields,
+        authorId,
+        categoryId: categoryId ?? null,
+        publishedAt: fields.status === 'PUBLISHED' ? new Date() : null,
+        tags: { create: tagIds.map((tagId) => ({ tagId })) },
+      },
+      select: { id: true },
+    })
+
+    return created.id
+  })
+}
+
+export async function deleteDocument(id: string) {
+  await requireAdmin()
+
+  await prisma.knowledgeDocument.delete({ where: { id } })
+}
+
+/**
+ * Pastikan setiap nama tag punya baris, lalu kembalikan id-nya.
+ *
+ * Dijalankan DI DALAM transaksi pemanggil supaya tag tidak tercipta saat
+ * penyimpanan dokumennya sendiri gagal — kalau tidak, percobaan simpan
+ * yang gagal meninggalkan tag yatim di daftar tag.
+ *
+ * `slug` disamakan dengan `name`: tag memang sudah dibatasi huruf kecil,
+ * angka, dan tanda hubung oleh skema Zod-nya.
+ */
+async function upsertTagsTx(
+  tx: Prisma.TransactionClient,
+  names: string[],
+): Promise<string[]> {
+  const ids: string[] = []
+
+  for (const name of names) {
+    const tag = await tx.knowledgeTag.upsert({
+      where: { slug: name },
+      update: {},
+      create: { name, slug: name },
+      select: { id: true },
+    })
+
+    ids.push(tag.id)
+  }
+
+  return ids
+}
+
+// ─── Kategori (admin) ────────────────────────────────────
+
+export async function getAdminCategories() {
+  await requireAdminPage()
+
+  return prisma.knowledgeCategory.findMany({
+    select: {
+      id: true,
+      slug: true,
+      nameId: true,
+      nameEn: true,
+      descriptionId: true,
+      descriptionEn: true,
+      sortOrder: true,
+      _count: { select: { documents: true, projects: true } },
+    },
+    orderBy: { sortOrder: 'asc' },
+  })
+}
+
+export async function getAdminCategoryById(id: string) {
+  await requireAdminPage()
+
+  return prisma.knowledgeCategory.findUnique({ where: { id } })
+}
+
+export async function saveCategory(input: CategoryInput) {
+  await requireAdmin()
+
+  const { id, ...data } = input
+
+  if (id) {
+    await prisma.knowledgeCategory.update({ where: { id }, data })
+    return
+  }
+
+  await prisma.knowledgeCategory.create({ data })
+}
+
+/**
+ * Hapus kategori.
+ *
+ * Relasinya `onDelete` default (restrict) di sisi dokumen dan proyek, jadi
+ * kategori yang masih dipakai akan menolak dihapus di tingkat database.
+ * Diperiksa lebih dulu di sini supaya pesannya bisa dibaca manusia.
+ */
+export async function deleteCategory(id: string) {
+  await requireAdmin()
+
+  const inUse = await prisma.knowledgeCategory.findUnique({
+    where: { id },
+    select: { _count: { select: { documents: true, projects: true } } },
+  })
+
+  if (inUse && inUse._count.documents + inUse._count.projects > 0) {
+    throw new Error('CATEGORY_IN_USE')
+  }
+
+  await prisma.knowledgeCategory.delete({ where: { id } })
+}
+
+// ─── Tag (admin) ─────────────────────────────────────────
+
+export async function getAdminTags() {
+  await requireAdminPage()
+
+  return prisma.knowledgeTag.findMany({
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      _count: { select: { documents: true, projects: true } },
+    },
+    orderBy: { name: 'asc' },
+  })
+}
+
+export async function saveTag(input: TagInput) {
+  await requireAdmin()
+
+  const { id, name } = input
+
+  if (id) {
+    await prisma.knowledgeTag.update({
+      where: { id },
+      data: { name, slug: name },
+    })
+    return
+  }
+
+  await prisma.knowledgeTag.create({ data: { name, slug: name } })
+}
+
+export async function deleteTag(id: string) {
+  await requireAdmin()
+
+  // Tag hanya label; menghapusnya cukup melepas kaitannya dari dokumen
+  // dan proyek. Cascade di skema sudah menangani baris pivotnya.
+  await prisma.knowledgeTag.delete({ where: { id } })
+}

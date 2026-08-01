@@ -104,3 +104,78 @@
     word-break: break-all;
   }
 }
+
+/* ─── Permukaan editor admin (Tiptap) ───────────────────── */
+/* Ditata menyerupai hasil render publik supaya yang dilihat admin saat
+   menyunting mendekati yang dilihat pengunjung. Hanya dipakai di /admin. */
+
+.prose-editor:focus {
+  outline: none;
+}
+
+.prose-editor > * + * {
+  margin-top: 1rem;
+}
+
+.prose-editor h2 {
+  @apply mt-8 font-display text-xl font-semibold tracking-tight;
+}
+
+.prose-editor h3 {
+  @apply mt-6 font-display text-lg font-semibold tracking-tight;
+}
+
+.prose-editor h4 {
+  @apply mt-5 font-display text-base font-semibold tracking-tight;
+}
+
+.prose-editor ul {
+  @apply list-disc space-y-1 pl-6;
+}
+
+.prose-editor ol {
+  @apply list-decimal space-y-1 pl-6;
+}
+
+.prose-editor blockquote {
+  @apply border-l-4 border-border pl-4 italic text-muted;
+}
+
+.prose-editor code {
+  @apply rounded-md bg-elevated px-1.5 py-0.5 font-mono text-[0.9em];
+}
+
+.prose-editor pre {
+  @apply overflow-x-auto rounded-xl bg-elevated p-4;
+}
+
+.prose-editor pre code {
+  @apply bg-transparent p-0 text-sm;
+}
+
+.prose-editor a {
+  @apply text-primary underline underline-offset-2;
+}
+
+.prose-editor hr {
+  @apply my-6 border-border;
+}
+
+.prose-editor table {
+  @apply w-full border-collapse text-sm;
+}
+
+.prose-editor th,
+.prose-editor td {
+  @apply border border-border px-3 py-2 align-top;
+}
+
+.prose-editor th {
+  @apply bg-elevated text-left font-semibold;
+}
+
+/* Placeholder Tiptap: hanya pada baris kosong pertama. */
+.prose-editor p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  @apply pointer-events-none float-left h-0 text-muted;
+}

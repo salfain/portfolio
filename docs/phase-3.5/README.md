@@ -83,6 +83,32 @@ saat verifikasi Fase 3b).
 | 2 | Keputusan `dynamicParams` — proyek baru belum muncul sampai build ulang | NOTES N2 |
 | 3 | Cache build bertahan antar-deploy | NOTES N12 |
 | 4 | Situs masih kosong — Q4–Q10 belum dijawab | NOTES N6 |
+| 5 | `next-intl` open redirect (GHSA-8f24-v5vv-gm5j) | lihat di bawah |
+
+### 🔴 `npm audit fix --force` DILARANG di repositori ini
+
+npm menyarankan "perbaikan" untuk `postcss`, `sharp`, dan `vite` berupa
+**`next@9.3.3`** — turun enam versi mayor dari Next.js 15.5 yang dipakai
+sekarang. Menjalankannya akan menghancurkan seluruh aplikasi. Saran itu
+muncul karena npm mencari versi mana pun yang tidak punya dependency
+bermasalah, tanpa peduli apakah masuk akal.
+
+Penilaian sebenarnya dari 8 temuan:
+
+| Paket | Label npm | Penilaian nyata |
+|---|---|---|
+| `vitest` | CRITICAL | Hanya berlaku bila `vitest --ui` dijalankan. Kita tidak memakainya, dan ini devDependency yang tidak ikut ke produksi. |
+| `postcss`, `sharp` | HIGH | Transitif lewat Next.js, hanya dipakai saat build. Ikut selesai saat Next.js naik versi minor. |
+| `esbuild`, `vite`, `vite-node` | HIGH/MODERATE | Dev server Vitest saja. Tidak ikut ke produksi. |
+| **`next-intl`** | MODERATE | **Ini yang nyata.** Open redirect di lapisan routing yang ikut terbit. |
+
+`next-intl` 3.26.5 terpasang; perbaikannya di **≥ 4.9.1**, yaitu lompatan
+mayor dengan perubahan API routing. Belum bisa dieksploitasi sekarang
+karena situsnya belum live — tapi **wajib tuntas sebelum deploy.**
+
+Temuan kedua di paket yang sama (prototype pollution lewat
+`experimental.messages.precompile`) **tidak berlaku** — fitur itu tidak
+dipakai di proyek ini.
 
 Nomor 1 dikerjakan di Fase 8 bersama audit keamanan. Nomor 4 adalah Fase 9.
 

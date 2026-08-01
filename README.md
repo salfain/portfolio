@@ -9,10 +9,10 @@ Bilingual (`/id` · `/en`) dan bertema terang/gelap sejak commit pertama.
 
 | | |
 |---|---|
-| **Fase saat ini** | Fase 4 — Knowledge Base publik |
+| **Fase saat ini** | Fase 5 — Admin CMS, editor, media, revisi |
 | **Status** | 🟡 Kode + gate visual selesai · ⏳ menunggu isi konten, anti-spam, uji form |
-| **Kode aplikasi** | 25 rute publik × 2 bahasa · 16 rute admin · 94 tes |
-| **Berikutnya** | Fase 5 — Admin CMS, editor Tiptap, media, revisi |
+| **Kode aplikasi** | 25 rute publik × 2 bahasa · 21 rute admin · 94 tes |
+| **Berikutnya** | Fase 5b — autosave, pratinjau, media, log audit, ekspor |
 
 **Penghambat isi:** Q4–Q10 di
 [docs/phase-0/06_OPEN_QUESTIONS.md](docs/phase-0/06_OPEN_QUESTIONS.md) belum
@@ -33,7 +33,7 @@ lihat [docs/phase-3/NOTES.md](docs/phase-3/NOTES.md) N3.
 3 ✅ Portofolio inti & Recruiter Mode
 3.5 🟡 DEPLOY — artefak siap, eksekusi menunggu akun pemilik
 4 ✅ Knowledge Base publik   ← kode selesai, konten kosong
-5 ⬜ Admin CMS, editor, media, revisi
+5 🟡 Admin CMS, editor, media, revisi   ← 5a selesai
 6 ⬜ PNETLab, insiden, bukti terstruktur
 7 ⬜ Pencarian, analitik, SEO, UX lanjutan
 8 ⬜ QA, keamanan, performa, hardening
@@ -95,6 +95,7 @@ prompt global, prompt tiap fase, prompt pemeriksaan, dan prompt perbaikan.
 - [docs/phase-3/](docs/phase-3/) — lapisan data, halaman portofolio, Recruiter Mode
 - [docs/phase-3.5/](docs/phase-3.5/) — runbook deploy
 - [docs/phase-4/](docs/phase-4/) — Knowledge Base, renderer dokumen, filter
+- [docs/phase-5/](docs/phase-5/) — editor Tiptap, CRUD dokumen, kategori, tag
 
 > Temuan terbuka tiap fase ada di `NOTES.md` masing-masing.
 > Yang menghambat deploy tercatat di [docs/phase-3/NOTES.md](docs/phase-3/NOTES.md).

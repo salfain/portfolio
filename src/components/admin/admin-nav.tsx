@@ -23,6 +23,9 @@ const items = [
   { href: '/admin/skills', label: 'Keahlian' },
   { href: '/admin/certifications', label: 'Sertifikat' },
   { href: '/admin/narrative', label: 'Bagian Naratif' },
+  { href: '/admin/knowledge', label: 'Knowledge Base' },
+  { href: '/admin/categories', label: 'Kategori' },
+  { href: '/admin/tags', label: 'Tag' },
   { href: '/admin/messages', label: 'Pesan' },
 ]
 
