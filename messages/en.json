@@ -367,6 +367,77 @@
     "tag": {
       "title": "Tag: {name}",
       "all": "All tags"
+    },
+    "lab": {
+      "heading": "Lab details",
+      "note": "Every figure and configuration below comes from a lab that was actually run, not from an example.",
+      "topology": "Topology",
+      "estimatedHours": "Estimated effort",
+      "hours": "{hours} hours",
+      "devices": "Devices",
+      "deviceName": "Name",
+      "deviceRole": "Role",
+      "deviceModel": "Model",
+      "deviceNote": "Note",
+      "vlans": "VLAN plan",
+      "vlanId": "VLAN",
+      "vlanName": "Name",
+      "vlanPurpose": "Purpose",
+      "ipPlan": "IP addressing plan",
+      "ipSegment": "Segment",
+      "ipCidr": "Address",
+      "ipVlan": "VLAN",
+      "ipGateway": "Gateway",
+      "testCases": "Test cases",
+      "testId": "ID",
+      "testCheck": "What was tested",
+      "testExpected": "Expected",
+      "testActual": "Actual",
+      "testStatus": "Status",
+      "faults": "Fault simulation",
+      "faultScenario": "Scenario",
+      "faultExpected": "Expected impact",
+      "faultActual": "Actual impact",
+      "faultRecovery": "Recovery",
+      "status": {
+        "pass": "Pass",
+        "fail": "Fail",
+        "blocked": "Blocked",
+        "unknown": "Not recorded"
+      }
+    },
+    "incident": {
+      "heading": "Incident details",
+      "labNotice": "Lab scenario",
+      "labNoticeBody": "This incident was reproduced in a lab environment. It is not an event from a production system.",
+      "realNotice": "Real incident",
+      "number": "Number",
+      "priority": "Priority",
+      "impact": "Impact",
+      "urgency": "Urgency",
+      "affectedService": "Affected service",
+      "resolutionTime": "Time to resolution",
+      "minutes": "{minutes} minutes",
+      "level": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      },
+      "timeline": "Timeline",
+      "timelineAt": "Time",
+      "timelineEvent": "Event",
+      "rootCause": "Root cause",
+      "workaround": "Workaround",
+      "resolution": "Resolution",
+      "validation": "Validation",
+      "prevention": "Prevention",
+      "relatedSop": "Related SOP"
+    },
+    "downloads": {
+      "heading": "Supporting files",
+      "note": "Every file passed the redaction checklist before publication.",
+      "download": "Download",
+      "size": "{size} kB"
     }
   }
 }

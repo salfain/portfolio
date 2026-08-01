@@ -146,7 +146,10 @@ async function connectTags(
   }
 }
 
-export async function saveDocument(input: KnowledgeDocumentInput) {
+export async function saveDocument(
+  input: KnowledgeDocumentInput,
+  metadata: Prisma.InputJsonValue,
+) {
   const session = await requireAdmin()
 
   const { id, tags, changeSummary } = input
@@ -179,6 +182,7 @@ export async function saveDocument(input: KnowledgeDocumentInput) {
     isFeatured: input.isFeatured,
     sortOrder: input.sortOrder,
     status: input.status,
+    metadata,
     contentIdJson: input.contentIdJson as Prisma.InputJsonValue,
     contentEnJson: (input.contentEnJson ??
       Prisma.DbNull) as Prisma.InputJsonValue,

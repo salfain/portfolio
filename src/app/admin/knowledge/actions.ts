@@ -3,11 +3,14 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 
+import type { ZodError } from 'zod'
+
 import {
   knowledgeDocumentSchema,
   toFieldErrors,
   type AdminState,
 } from '@/lib/schemas/admin'
+import { metadataFromForm } from '@/lib/schemas/knowledge-metadata'
 import { requireAdmin } from '@/data/_guards'
 import {
   deleteDocument,
@@ -89,10 +92,34 @@ export async function saveDocumentAction(
     return SESSION_ENDED
   }
 
+  /**
+   * Metadata terstruktur dirakit terpisah karena bentuknya bergantung pada
+   * tipe dokumen — lab punya tabel perangkat, insiden punya kronologi.
+   * Menggabungkannya ke satu skema datar berarti setiap field dari tiga
+   * tipe lain ikut opsional di semuanya, dan `isLabReproduction` yang wajib
+   * pada insiden jadi tidak bisa diwajibkan sama sekali.
+   */
+  const metadata = metadataFromForm(
+    parsed.data.type,
+    Object.fromEntries(
+      Array.from(formData.entries())
+        .filter(([key]) => key.startsWith('meta'))
+        .map(([key, value]) => [key, String(value)]),
+    ),
+  )
+
+  if (!metadata.success) {
+    return {
+      status: 'error',
+      message: 'Periksa kembali isian khusus tipe dokumen ini.',
+      fieldErrors: metadataFieldErrors(metadata.error),
+    }
+  }
+
   const isNew = !parsed.data.id
 
   const result = await runAdminMutation(async () => {
-    await saveDocument(parsed.data)
+    await saveDocument(parsed.data, metadata.data)
     revalidateKnowledge()
   }, 'Dokumen tersimpan.')
 
@@ -101,6 +128,26 @@ export async function saveDocumentAction(
   }
 
   return result
+}
+
+/**
+ * Petakan galat metadata ke nama field di form.
+ *
+ * Skema memakai nama tanpa awalan (`isLabReproduction`), sedangkan input di
+ * form memakai awalan `meta` supaya bisa dipisahkan dari field dokumen.
+ * Tanpa pemetaan ini, pesan galatnya sampai ke server tapi tidak pernah
+ * muncul di sebelah isian yang salah.
+ */
+function metadataFieldErrors(error: ZodError): Record<string, string> {
+  const mapped: Record<string, string> = {}
+
+  for (const [field, message] of Object.entries(toFieldErrors(error))) {
+    const name = `meta${field.charAt(0).toUpperCase()}${field.slice(1)}`
+
+    mapped[name] = message
+  }
+
+  return mapped
 }
 
 export async function deleteDocumentAction(id: string) {

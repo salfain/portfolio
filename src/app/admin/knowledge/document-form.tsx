@@ -20,6 +20,7 @@ import {
 } from '@/lib/schemas/admin'
 
 import { saveDocumentAction } from './actions'
+import { MetadataFields } from './metadata-fields'
 
 export type DocumentFormValues = {
   id: string
@@ -33,6 +34,8 @@ export type DocumentFormValues = {
   summaryEn: string | null
   contentIdJson: unknown
   contentEnJson: unknown
+  /** Bentuknya bergantung tipe dokumen; diurai di `MetadataFields`. */
+  metadata: unknown
   categoryId: string | null
   tags: string[]
   difficulty: string | null
@@ -212,6 +215,14 @@ export function DocumentForm({ document, categories }: Props) {
             label="Alat yang dipakai"
             defaultValue={document?.tools}
             error={errors.tools}
+          />
+
+          {/* Bagian ini berganti mengikuti tipe dokumen yang dipilih di atas. */}
+          <MetadataFields
+            key={type}
+            type={type}
+            metadata={document?.metadata}
+            errors={errors}
           />
 
           <div className="grid gap-6 sm:grid-cols-2">

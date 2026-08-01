@@ -38,6 +38,7 @@ export default async function EditDocumentPage({ params }: PageProps) {
     summaryEn: document.summaryEn,
     contentIdJson: document.contentIdJson,
     contentEnJson: document.contentEnJson,
+    metadata: document.metadata,
     categoryId: document.categoryId,
     tags: document.tags.map((row) => row.tag.name),
     difficulty: document.difficulty,

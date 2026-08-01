@@ -22,7 +22,7 @@ Fase yang sedang berjalan ada di [README.md](README.md).
 ## Disiplin fase
 
 ```
-0 ✅  1 ✅  2 ✅  3 ✅  3.5 🟡 DEPLOY  4 ✅  5 ✅  6 ⬜  7 ⬜  8 ⬜  9 ⬜
+0 ✅  1 ✅  2 ✅  3 ✅  3.5 🟡 DEPLOY  4 ✅  5 ✅  6 🟡 (struktur ✅ · konten ⬜)  7 ⬜  8 ⬜  9 ⬜
 ```
 
 **Kerjakan hanya fase yang sedang berjalan.** Sebelum menulis kode: ajukan rencana (berkas, dependency, risiko) dan tunggu persetujuan.
@@ -71,6 +71,7 @@ Menemukan sesuatu di luar cakupan? Catat di `docs/phase-N/NOTES.md`, jangan dike
 | Server action tanpa `requireAdmin()` | Baris pertama, selalu |
 | Kunci terjemahan hanya di `id.json` | Wajib di kedua berkas |
 | Draft menghasilkan 403 | Harus 404 |
+| Insiden tanpa `isLabReproduction` | Wajib dijawab — default apa pun mengarang asal insiden (fase-6 N1) |
 
 ---
 

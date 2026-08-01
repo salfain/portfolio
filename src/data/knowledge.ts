@@ -64,6 +64,10 @@ const documentDetailSelect = {
       thumbnailUrl: true,
       width: true,
       height: true,
+      // Dipakai memisahkan bukti yang bisa dilihat dari yang diunduh
+      // (Fase 6), dan menampilkan ukuran berkas di daftar unduhan.
+      mimeType: true,
+      fileSize: true,
       altId: true,
       altEn: true,
       captionId: true,
