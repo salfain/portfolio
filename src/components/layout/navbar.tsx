@@ -7,6 +7,7 @@ import { Link, usePathname } from '@/i18n/navigation'
 import { cn } from '@/lib/cn'
 
 import { ThemeToggle } from '@/components/theme-toggle'
+import { CommandPalette } from '@/components/search'
 import { LocaleSwitch } from './locale-switch'
 import { MobileDrawer } from './mobile-drawer'
 import { isActivePath, navItems } from './nav-items'
@@ -52,6 +53,11 @@ export function Navbar() {
 
         {/* Right actions */}
         <div className="flex items-center gap-2">
+          {/* Pintasan Ctrl+K saja tidak cukup — tidak ada yang menemukannya
+              tanpa diberi tahu, jadi pemicunya harus terlihat. */}
+          <div className="hidden sm:block">
+            <CommandPalette />
+          </div>
           <div className="hidden sm:block">
             <LocaleSwitch />
           </div>

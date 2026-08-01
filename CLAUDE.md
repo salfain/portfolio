@@ -22,7 +22,7 @@ Fase yang sedang berjalan ada di [README.md](README.md).
 ## Disiplin fase
 
 ```
-0 ✅  1 ✅  2 ✅  3 ✅  3.5 🟡 DEPLOY  4 ✅  5 ✅  6 🟡 (struktur ✅ · konten ⬜)  7 ⬜  8 ⬜  9 ⬜
+0 ✅  1 ✅  2 ✅  3 ✅  3.5 🟡 DEPLOY  4 ✅  5 ✅  6 🟡 (struktur ✅ · konten ⬜)  7 ✅  8 ⬜  9 ⬜
 ```
 
 **Kerjakan hanya fase yang sedang berjalan.** Sebelum menulis kode: ajukan rencana (berkas, dependency, risiko) dan tunggu persetujuan.

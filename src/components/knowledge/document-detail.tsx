@@ -23,6 +23,11 @@ import {
   parseIncidentMetadata,
   parseLabMetadata,
 } from '@/lib/schemas/knowledge-metadata'
+import { getPublishedProfile } from '@/data/profile'
+import {
+  BreadcrumbJsonLd,
+  DocumentJsonLd,
+} from '@/components/structured-data'
 
 import { DocumentCard } from './document-card'
 import { EvidenceDownloads, type DownloadItem } from './evidence-downloads'
@@ -108,6 +113,11 @@ export async function DocumentDetail({
   const contentLang: Locale = hasEnglishContent ? 'en' : 'id'
 
   const headings = content ? collectHeadings(content) : []
+
+  // Nama penulis diambil dari profil situs. Bila profil belum diisi,
+  // yang dipakai nama situs — bukan nama yang dikarang.
+  const profile = await getPublishedProfile()
+  const authorName = profile?.name ?? t('title')
   const [revisions, related] = await Promise.all([
     getDocumentRevisions(document.id),
     getRelatedDocuments(document.id, document.category?.slug ?? null),
@@ -169,6 +179,35 @@ export async function DocumentDetail({
 
   return (
     <>
+      {/*
+        JSON-LD dirender di halaman, bukan di metadata: `generateMetadata`
+        tidak punya tempat untuk skrip, dan menaruhnya di layout berarti
+        setiap halaman mengaku sebagai artikel yang sama.
+
+        Nama penulis diambil dari profil situs, bukan dikarang — bila profil
+        belum diisi, blok penulisnya tidak ikut dirender.
+      */}
+      <DocumentJsonLd
+        title={title.value}
+        summary={summary.value}
+        path={`/knowledge/${segment}/${slug}`}
+        locale={locale}
+        publishedAt={document.publishedAt}
+        updatedAt={document.updatedAt}
+        authorName={authorName}
+      />
+      <BreadcrumbJsonLd
+        locale={locale}
+        items={[
+          { name: t('title'), path: '/knowledge' },
+          { name: t(`types.${segment}.plural`), path: `/knowledge/${segment}` },
+          {
+            name: title.value,
+            path: `/knowledge/${segment}/${slug}`,
+          },
+        ]}
+      />
+
       <ReadingProgress />
 
       <Container className="py-12 md:py-16">
