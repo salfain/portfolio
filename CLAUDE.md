@@ -22,7 +22,7 @@ Fase yang sedang berjalan ada di [README.md](README.md).
 ## Disiplin fase
 
 ```
-0 ✅  1 ✅  2 ✅  3 ✅  3.5 🟡 DEPLOY  4 ✅  5 ⬜  6 ⬜  7 ⬜  8 ⬜  9 ⬜
+0 ✅  1 ✅  2 ✅  3 ✅  3.5 🟡 DEPLOY  4 ✅  5 🟡 (5a+5b ✅ · 5c ⬜)  6 ⬜  7 ⬜  8 ⬜  9 ⬜
 ```
 
 **Kerjakan hanya fase yang sedang berjalan.** Sebelum menulis kode: ajukan rencana (berkas, dependency, risiko) dan tunggu persetujuan.
@@ -67,6 +67,7 @@ Menemukan sesuatu di luar cakupan? Catat di `docs/phase-N/NOTES.md`, jangan dike
 | `'use client'` di `page.tsx` | Dorong ke komponen daun |
 | `prisma.project.findMany()` di komponen | Fungsi di `src/data/` yang menyaring status |
 | Query publik tanpa `status: 'PUBLISHED'` | Kebocoran data, bukan bug tampilan |
+| `loading.tsx` di atas rute yang memanggil `notFound()` | `<Suspense>` di dalam halaman — boundary di atasnya membuat 404 terkirim sebagai 200 (fase-5 N1) |
 | Server action tanpa `requireAdmin()` | Baris pertama, selalu |
 | Kunci terjemahan hanya di `id.json` | Wajib di kedua berkas |
 | Draft menghasilkan 403 | Harus 404 |

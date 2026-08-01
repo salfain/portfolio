@@ -23,7 +23,10 @@ const items = [
   { href: '/admin/skills', label: 'Keahlian' },
   { href: '/admin/certifications', label: 'Sertifikat' },
   { href: '/admin/narrative', label: 'Bagian Naratif' },
+  { href: '/admin/knowledge', label: 'Knowledge Base' },
+  { href: '/admin/taxonomy', label: 'Kategori & Tag' },
   { href: '/admin/messages', label: 'Pesan' },
+  { href: '/admin/audit', label: 'Jejak Audit' },
 ]
 
 type AdminNavProps = {

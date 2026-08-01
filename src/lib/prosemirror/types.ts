@@ -48,6 +48,39 @@ export const documentSchema = z.object({
 export type ProseMirrorDocument = z.infer<typeof documentSchema>
 
 /**
+ * Dokumen yang tidak memuat apa pun yang layak dirender.
+ *
+ * Editor kosong TIDAK menghasilkan `content: []` — ProseMirror selalu
+ * menyisakan satu paragraf kosong. Tanpa pemeriksaan ini, isi bahasa
+ * Inggris yang dibiarkan kosong tersimpan sebagai dokumen "ada tapi
+ * hampa", dan halaman `/en` akan menampilkan badan kosong alih-alih
+ * jatuh ke versi Indonesia beserta pemberitahuannya
+ * (08_I18N_FALLBACK_POLICY §3).
+ *
+ * Node tanpa teks yang tetap berarti — gambar, garis, tabel, blok
+ * perintah — dihitung sebagai isi.
+ */
+const MEANINGFUL_WITHOUT_TEXT = new Set([
+  'image',
+  'horizontalRule',
+  'table',
+  'codeBlock',
+])
+
+export function isEmptyDocument(doc: ProseMirrorDocument): boolean {
+  function hasContent(nodes: ProseMirrorNode[]): boolean {
+    return nodes.some((node) => {
+      if (MEANINGFUL_WITHOUT_TEXT.has(node.type)) return true
+      if (typeof node.text === 'string' && node.text.trim() !== '') return true
+
+      return node.content ? hasContent(node.content) : false
+    })
+  }
+
+  return !hasContent(doc.content ?? [])
+}
+
+/**
  * Parse nilai `Json` dari Prisma menjadi dokumen.
  *
  * Mengembalikan `null` bila bentuknya bukan dokumen — pemanggil merender

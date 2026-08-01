@@ -118,11 +118,18 @@ export function CheckboxField({
   label,
   defaultChecked,
   hint,
+  resetOnSuccess = false,
 }: {
   name: string
   label: string
   defaultChecked?: boolean
   hint?: string
+  /**
+   * Kosongkan lagi setelah form berhasil dikirim. Untuk centang yang
+   * maknanya "saya sudah memeriksa sekarang", bukan setelan yang menetap.
+   * Ditangani `FormShell`.
+   */
+  resetOnSuccess?: boolean
 }) {
   return (
     <div className="flex items-start gap-3">
@@ -131,6 +138,7 @@ export function CheckboxField({
         name={name}
         type="checkbox"
         defaultChecked={defaultChecked}
+        data-reset-on-success={resetOnSuccess ? '' : undefined}
         className={cn(
           'mt-1 h-4 w-4 rounded border-border',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
@@ -143,6 +151,52 @@ export function CheckboxField({
     </div>
   )
 }
+
+/**
+ * Select biasa. Tanpa `value`/`onChange` ia tak terkendali (uncontrolled)
+ * seperti field lain; dengan keduanya ia terkendali, dipakai saat nilainya
+ * ikut mengubah tampilan form (mis. tipe dokumen menentukan kerangka
+ * template yang ditawarkan editor).
+ */
+export function SelectField({
+  defaultValue,
+  value,
+  onChange,
+  options,
+  ...props
+}: BaseProps & {
+  defaultValue?: string
+  value?: string
+  onChange?: (value: string) => void
+  options: { value: string; label: string }[]
+}) {
+  return (
+    <FieldWrapper {...props}>
+      <select
+        id={props.name}
+        name={props.name}
+        defaultValue={onChange ? undefined : defaultValue}
+        value={onChange ? value : undefined}
+        onChange={onChange ? (event) => onChange(event.target.value) : undefined}
+        aria-invalid={props.error ? true : undefined}
+        aria-describedby={props.error ? `${props.name}-error` : undefined}
+        className={selectClass}
+      >
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </FieldWrapper>
+  )
+}
+
+const selectClass = cn(
+  'w-full rounded-xl border border-border bg-surface px-4 py-2.5',
+  'text-foreground',
+  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
+)
 
 export function StatusField({
   defaultValue = 'DRAFT',
@@ -163,11 +217,7 @@ export function StatusField({
         id="status"
         name="status"
         defaultValue={defaultValue}
-        className={cn(
-          'w-full rounded-xl border border-border bg-surface px-4 py-2.5',
-          'text-foreground',
-          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
-        )}
+        className={selectClass}
       >
         {(
           Object.keys(PUBLISH_STATUS_LABEL) as PublishStatusValue[]

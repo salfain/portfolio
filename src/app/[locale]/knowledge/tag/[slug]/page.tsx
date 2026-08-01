@@ -11,21 +11,15 @@ import { DocumentCard } from '@/components/knowledge'
 import { StaggerContainer, StaggerItem } from '@/components/motion'
 
 /**
- * `dynamicParams = false` — WAJIB, bukan pilihan gaya.
+ * `dynamicParams = true` — slug yang baru terbit langsung bisa dibuka tanpa
+ * build ulang, dan slug draft atau tak dikenal tetap 404 sungguhan.
  *
- * Rute yang punya `generateStaticParams()` dengan `dynamicParams: true`
- * menyajikan hasil `notFound()` lewat jalur prerender, dan jalur itu selalu
- * membalas **200** (terlihat dari header `x-nextjs-prerender: 1`). Dokumen
- * draft yang membalas 200 akan diindeks mesin pencari sebagai halaman sah.
- *
- * Diuji juga dengan `dynamic = 'force-dynamic'`: tetap 200. Satu-satunya
- * yang menghasilkan 404 sungguhan adalah menolak di level router, yaitu
- * `dynamicParams = false` — sama seperti `/projects/[slug]` di Fase 3 (N2).
- *
- * KONSEKUENSI: dokumen, kategori, atau tag yang baru terbit belum bisa
- * dibuka sampai build berikutnya. Lihat docs/phase-4/NOTES.md N2.
+ * Syaratnya satu, dan mutlak: TIDAK BOLEH ada `loading.tsx` di segmen mana
+ * pun di atas rute ini. Suspense boundary membuat shell halaman ter-flush
+ * lebih dulu, sehingga status respons sudah terkirim sebagai 200 sebelum
+ * `notFound()` sempat mengubahnya. Lihat docs/phase-5/NOTES.md N1.
  */
-export const dynamicParams = false
+export const dynamicParams = true
 
 export async function generateStaticParams() {
   const tags = await getKnowledgeTags()

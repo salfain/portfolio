@@ -69,6 +69,98 @@
   }
 }
 
+/* ─── Editor admin ────────────────────────────────────────
+   Isi editor Tiptap adalah HTML yang dibuat ProseMirror, bukan JSX, jadi
+   node-nya tidak bisa diberi className satu per satu seperti di renderer
+   publik. Aturan di bawah HANYA berlaku di dalam `.prose-admin`, yang
+   hidup di rute admin saja.
+
+   Tampilannya sengaja dibuat mendekati halaman publik — kalau editor dan
+   hasil terbit terlihat berbeda jauh, penulis akan terus menyunting ulang
+   setelah melihat hasilnya. */
+
+@layer components {
+  .prose-admin:focus {
+    @apply outline-none;
+  }
+
+  .prose-admin > * + * {
+    @apply mt-4;
+  }
+
+  .prose-admin h2 {
+    @apply font-display text-2xl font-semibold;
+  }
+
+  .prose-admin h3 {
+    @apply font-display text-xl font-semibold;
+  }
+
+  .prose-admin p {
+    @apply leading-relaxed;
+  }
+
+  .prose-admin ul {
+    @apply list-disc space-y-1 pl-6;
+  }
+
+  .prose-admin ol {
+    @apply list-decimal space-y-1 pl-6;
+  }
+
+  .prose-admin ul[data-type='taskList'] {
+    @apply list-none space-y-1 pl-0;
+  }
+
+  .prose-admin ul[data-type='taskList'] li {
+    @apply flex items-start gap-2;
+  }
+
+  .prose-admin blockquote {
+    @apply border-l-2 border-primary pl-4 text-muted;
+  }
+
+  .prose-admin pre {
+    @apply overflow-x-auto rounded-xl bg-elevated p-4 font-mono text-sm;
+  }
+
+  .prose-admin code {
+    @apply font-mono text-sm;
+  }
+
+  .prose-admin hr {
+    @apply border-t border-border;
+  }
+
+  .prose-admin a {
+    @apply text-primary underline underline-offset-2;
+  }
+
+  .prose-admin table {
+    @apply w-full border-collapse text-sm;
+  }
+
+  .prose-admin th,
+  .prose-admin td {
+    @apply border border-border px-3 py-2 text-left align-top;
+  }
+
+  .prose-admin th {
+    @apply bg-elevated font-semibold;
+  }
+
+  .prose-admin img {
+    @apply max-w-full rounded-xl;
+  }
+
+  /* Placeholder next-intl tidak berlaku di sini; teksnya datang dari
+     ekstensi Placeholder Tiptap lewat atribut data. */
+  .prose-admin p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    @apply pointer-events-none float-left h-0 text-muted;
+  }
+}
+
 /* ─── Cetak ───────────────────────────────────────────────
    Dipakai Recruiter Mode, tapi berlaku untuk seluruh halaman —
    siapa pun boleh mencetak halaman mana pun.
