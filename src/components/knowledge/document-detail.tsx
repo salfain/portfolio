@@ -113,6 +113,8 @@ export async function DocumentDetail({
     title: pickLocale(asset, 'title', locale) || null,
     tool: asset.tool,
     testDate: asset.testDate ? formatFullDate(asset.testDate, locale) : null,
+    width: asset.width,
+    height: asset.height,
   }))
 
   const meta = [

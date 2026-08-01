@@ -53,12 +53,34 @@ export default async function EditDocumentPage({ params }: PageProps) {
       title="Ubah Dokumen"
       description={documentHref(document.type, document.slug)}
       action={
-        <Link
-          href={`/admin/knowledge/${document.id}/preview`}
-          className="rounded-sm text-sm font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-        >
-          Pratinjau
-        </Link>
+        <div className="flex items-center gap-4">
+          {/* Unduhan: tautan biasa, bukan Link — rute ini membalas berkas,
+              bukan halaman, jadi tidak ada yang perlu dinavigasi klien. */}
+          <a
+            href={`/admin/knowledge/${document.id}/export?format=json`}
+            className="rounded-sm text-sm text-muted hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          >
+            JSON
+          </a>
+          <a
+            href={`/admin/knowledge/${document.id}/export?format=md`}
+            className="rounded-sm text-sm text-muted hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          >
+            Markdown
+          </a>
+          <Link
+            href={`/admin/knowledge/${document.id}/media`}
+            className="rounded-sm text-sm text-muted hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          >
+            Bukti
+          </Link>
+          <Link
+            href={`/admin/knowledge/${document.id}/preview`}
+            className="rounded-sm text-sm font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          >
+            Pratinjau
+          </Link>
+        </div>
       }
     >
       <DocumentForm document={values} categories={categories} />

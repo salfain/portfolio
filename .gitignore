@@ -23,6 +23,10 @@ prisma/migrations/dev.db*
 *.pem
 *.key
 
+# ─── Unggahan lokal (sementara, sampai R2 dipasang) ──────
+# Berkas bukti SENGAJA di luar public/ — lihat src/lib/storage/local.ts.
+var/uploads/
+
 # ─── Sistem operasi ──────────────────────────────────────
 .DS_Store
 Thumbs.db

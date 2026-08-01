@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 
 import { cn } from '@/lib/cn'
@@ -14,6 +15,15 @@ export type EvidenceItem = {
   title: string | null
   tool: string | null
   testDate: string | null
+  /**
+   * Dimensi asli, dibaca dari header berkas saat diunggah.
+   *
+   * `null` untuk aset lama yang dimasukkan sebelum manajer bukti ada. Aset
+   * seperti itu tetap dirender, hanya saja lewat `<img>` biasa — lihat
+   * `EvidenceImage` di bawah.
+   */
+  width: number | null
+  height: number | null
 }
 
 /**
@@ -27,6 +37,53 @@ export type EvidenceItem = {
  * Navigasi panah kiri/kanan ditambahkan di atasnya — Radix tidak tahu
  * bahwa isi dialognya adalah rangkaian gambar.
  */
+/**
+ * Gambar bukti.
+ *
+ * `next/image` dipakai begitu dimensinya diketahui — itulah yang membuatnya
+ * bisa memesan ruang sehingga halaman tidak melompat saat gambar selesai
+ * dimuat. Dimensi kini dibaca dari header berkas saat diunggah
+ * (`src/lib/media-file.ts`), yang menutup N3 Fase 4.
+ *
+ * Aset tanpa dimensi tetap dirender dengan `<img>`. `next/image` menuntut
+ * `width`/`height` atau `fill`; menebak angkanya berarti gambar yang
+ * proporsinya salah, dan itu lebih buruk daripada kehilangan optimasi.
+ *
+ * Sumbernya selalu se-origin (`/media/...`), jadi `images.remotePatterns`
+ * tetap kosong dan tidak ada host luar yang perlu dipercaya.
+ */
+function EvidenceImage({
+  item,
+  className,
+  sizes,
+  priority = false,
+}: {
+  item: EvidenceItem
+  className: string
+  sizes: string
+  priority?: boolean
+}) {
+  if (item.width === null || item.height === null) {
+    // Dimensi aset ini tidak tersimpan; lihat komentar di atas.
+    return (
+      // eslint-disable-next-line @next/next/no-img-element -- tanpa dimensi
+      <img src={item.src} alt={item.alt} loading="lazy" className={className} />
+    )
+  }
+
+  return (
+    <Image
+      src={item.src}
+      alt={item.alt}
+      width={item.width}
+      height={item.height}
+      sizes={sizes}
+      priority={priority}
+      className={className}
+    />
+  )
+}
+
 export function EvidenceGallery({ items }: { items: EvidenceItem[] }) {
   const t = useTranslations('knowledge.detail')
   const [openIndex, setOpenIndex] = useState<number | null>(null)
@@ -74,14 +131,10 @@ export function EvidenceGallery({ items }: { items: EvidenceItem[] }) {
                 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
               )}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element -- dimensi
-                  aset belum tentu tersimpan, dan images.remotePatterns baru
-                  diisi di Fase 5 saat penyimpanan objek dipasang. */}
-              <img
-                src={item.src}
-                alt={item.alt}
-                loading="lazy"
+              <EvidenceImage
+                item={item}
                 className="aspect-video w-full object-cover"
+                sizes="(min-width: 640px) 50vw, 100vw"
               />
 
               <span className="block p-4">
@@ -119,12 +172,11 @@ export function EvidenceGallery({ items }: { items: EvidenceItem[] }) {
               {active.title ?? active.alt}
             </DialogTitle>
 
-            {/* eslint-disable-next-line @next/next/no-img-element -- sama
-                dengan di atas: menunggu penyimpanan objek di Fase 5. */}
-            <img
-              src={active.src}
-              alt={active.alt}
+            <EvidenceImage
+              item={active}
               className="mt-4 max-h-[70vh] w-full rounded-2xl object-contain"
+              sizes="(min-width: 1024px) 960px, 100vw"
+              priority
             />
 
             {active.caption ? (

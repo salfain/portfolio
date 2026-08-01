@@ -150,16 +150,26 @@ Dikunci empat tes.
 
 ---
 
-## N4 — Media belum bisa diunggah
+## N4 — Media: penyimpanan lokal, bukan `public/` ✅ SELESAI di 5c
 
-`MediaAsset` sudah ada di skema sejak Fase 1, dan `EvidenceGallery` di halaman
-publik sudah membacanya. Yang belum ada: cara memasukkan berkasnya.
+Keputusan pemilik: penyimpanan lokal dulu, Cloudflare R2 menyusul.
 
-Keputusan pemilik: **penyimpanan lokal dulu**, Cloudflare R2 menyusul. Belum
-dikerjakan — ini isi 5c bersama ekspor JSON/Markdown.
+Berkas **tidak** diletakkan di `public/`. Apa pun di sana dilayani server
+statis tanpa melewati satu baris pun kode kita, sementara `MediaAsset.isPublic`
+defaultnya `false` dan bukti internal memang tidak boleh bisa dibuka siapa pun
+yang menebak URL-nya. Berkas disimpan di `var/uploads/` (diabaikan git) dan
+hanya keluar lewat `/media/[...key]`, yang memeriksa `isPublic &&
+redactionConfirmed`, lalu sesi admin.
 
-Sampai itu ada, `images.remotePatterns` di `next.config.ts` tetap kosong dan
-`<img>` biasa masih dipakai di galeri bukti (N3 Fase 4).
+Batas yang harus diketahui sebelum deploy: **disk lokal tidak bertahan di
+hosting serverless.** Driver R2 menggantikannya tanpa mengubah satu pun
+pemanggil — `src/lib/storage/index.ts` adalah satu-satunya tempat pilihan
+penyimpanan ditentukan.
+
+`images.remotePatterns` tetap **kosong** dan memang tidak perlu diisi: sumber
+gambar selalu se-origin (`/media/...`), jadi tidak ada host luar yang perlu
+dipercaya. N3 Fase 4 ikut tertutup — dimensi kini dibaca dari header berkas
+saat unggah, sehingga `next/image` bisa dipakai di galeri bukti.
 
 ---
 
@@ -177,13 +187,49 @@ Ditangani di Fase 8 (keamanan & hardening) bersama pembaruan Next.js.
 
 ---
 
-## N6 — Ekspor dan riwayat revisi versi lama masih tertunda
+## N6 — Isi revisi lama sengaja tidak bisa dibuka
 
-`getDocumentRevisions()` kini benar-benar terisi (N5 Fase 4 tertutup), tapi
-dua hal sengaja belum dikerjakan:
+`getDocumentRevisions()` kini benar-benar terisi (N5 Fase 4 tertutup), dan
+ekspor JSON/Markdown sudah ada. Satu hal tetap ditutup dengan sengaja:
 
-- **Isi versi lama tidak bisa dilihat maupun dipulihkan.** Versi lama bisa
-  memuat data yang justru sudah diredaksi di versi terbaru; menampilkannya
-  kembali lewat riwayat akan membatalkan redaksinya. Kalau nanti dibuka, harus
-  lewat konfirmasi redaksi tersendiri.
-- **Ekspor JSON/Markdown** — bagian dari 5c.
+**Isi versi lama tidak bisa dilihat maupun dipulihkan.** Versi lama bisa memuat
+data yang justru sudah diredaksi di versi terbaru; menampilkannya kembali lewat
+riwayat akan membatalkan redaksinya. Kalau nanti dibuka, harus lewat konfirmasi
+redaksi tersendiri.
+
+Bukti juga **tidak ikut** dalam berkas ekspor. Sebagian besar bukti privat, dan
+membungkusnya ke dalam satu unduhan berarti satu berkas yang lolos ke luar
+membawa serta semua yang sudah susah payah dijaga.
+
+---
+
+## N7 — Bukti yang ditarik kembali tetap tersaji lewat pengoptimal gambar 🔴 SELESAI
+
+Ditemukan saat menguji kontrol akses `/media/[...key]` dari peramban.
+
+**Yang terlihat:**
+
+| Yang diuji | Hasil |
+|---|---|
+| Aset privat, alamat langsung | ✅ 404 |
+| Aset yang **tidak pernah** publik, lewat `/_next/image` | ✅ 400 (ditolak) |
+| Aset yang **pernah** publik lalu ditarik, lewat `/_next/image` | ❌ **200** |
+
+Jadi kontrol aksesnya tidak dilewati. Yang terjadi: pengoptimal gambar Next
+menyimpan hasilnya sesuai `Cache-Control` dari rute penyaji — dan rute itu
+mengirim `public, max-age=31536000, immutable`.
+
+Alasan `immutable` masuk akal saat ditulis: kunci berkasnya acak dan sekali
+pakai, isinya memang tidak pernah berubah. Yang terlewat: **yang bisa berubah
+bukan isinya, melainkan izinnya.** Bukti yang ditarik kembali dari publik tetap
+bisa diambil siapa pun lewat pengoptimal selama satu tahun, padahal alamat
+aslinya sudah membalas 404.
+
+**Perbaikan:** aset publik memakai `public, max-age=300, must-revalidate`.
+Penarikan berlaku dalam waktu yang bisa disebutkan, dan gambar tetap ter-cache
+cukup lama untuk satu sesi membaca. Aset privat tetap `private, no-store`.
+
+**Yang tetap tidak bisa dijamin, dan harus diketahui sebelum menerbitkan
+bukti:** salinan yang sudah terlanjur diunduh tidak bisa ditarik kembali. Itu
+sebabnya konfirmasi redaksi diminta **sebelum** menerbitkan, bukan sebagai
+langkah yang bisa diperbaiki belakangan.
