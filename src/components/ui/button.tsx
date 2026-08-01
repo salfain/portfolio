@@ -6,19 +6,25 @@ import { cn } from '@/lib/cn'
 type Variant = 'primary' | 'secondary' | 'ghost' | 'danger'
 type Size = 'sm' | 'md' | 'lg'
 
+/**
+ * `sk-raised` + `sk-pressable` memberi tombol permukaan terangkat yang
+ * benar-benar turun 1px saat ditekan. `ghost` sengaja TIDAK terangkat —
+ * tombol tersier yang ikut menonjol membuat hierarki visualnya rata dan
+ * pengguna kehilangan petunjuk mana aksi utamanya.
+ */
 const variantClasses: Record<Variant, string> = {
   primary: [
-    'bg-primary text-primary-foreground',
-    'hover:opacity-90 active:opacity-100',
+    'sk-raised sk-pressable bg-primary text-primary-foreground',
+    'hover:opacity-90',
   ].join(' '),
   secondary: [
-    'bg-surface text-foreground border border-border',
+    'sk-raised sk-pressable bg-surface text-foreground border border-border',
     'hover:bg-elevated',
   ].join(' '),
-  ghost: ['bg-transparent text-foreground', 'hover:bg-elevated'].join(' '),
+  ghost: ['sk-pressable bg-transparent text-foreground', 'hover:bg-elevated'].join(' '),
   danger: [
-    'bg-danger text-white',
-    'hover:opacity-90 active:opacity-100',
+    'sk-raised sk-pressable bg-danger text-white',
+    'hover:opacity-90',
   ].join(' '),
 }
 
@@ -56,7 +62,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         className={cn(
           'inline-flex items-center justify-center gap-2 rounded-full',
-          'font-medium transition-opacity',
+          'font-medium',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
           'disabled:pointer-events-none disabled:opacity-50',
           variantClasses[variant],

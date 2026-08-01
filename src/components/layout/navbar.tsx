@@ -17,7 +17,7 @@ export function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md print:hidden">
+    <header className="sk-raised sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md print:hidden">
       <nav className="mx-auto flex h-16 max-w-container items-center justify-between px-5 sm:px-8 lg:px-12">
         {/* Logo */}
         <Link

@@ -39,7 +39,7 @@ export function CodeBlock({
   }
 
   return (
-    <div className="group my-6 overflow-hidden rounded-2xl border border-border bg-elevated">
+    <div className="sk-inset group my-6 overflow-hidden rounded-2xl border border-border bg-elevated">
       <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-2">
         <span className="font-mono text-xs uppercase tracking-wide text-muted">
           {language || t('code')}
