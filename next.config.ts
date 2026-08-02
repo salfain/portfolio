@@ -1,6 +1,8 @@
 import type { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
 
+import { securityHeaders } from './src/lib/security-headers'
+
 const nextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
 const nextConfig: NextConfig = {
@@ -22,8 +24,32 @@ const nextConfig: NextConfig = {
     // (tidak wajib, tapi konvensi)
   },
   images: {
-    // Kosong dulu — diisi Fase 5 (R2 / S3-compatible)
+    /**
+     * Sengaja tetap KOSONG.
+     *
+     * Seluruh bukti disajikan dari origin sendiri lewat `/media/[...key]`,
+     * yang memeriksa izinnya per permintaan. Menambahkan host luar di sini
+     * berarti memercayai host itu untuk memasok gambar ke halaman kita —
+     * dan tidak ada satu pun yang perlu dipercaya sejauh itu.
+     */
     remotePatterns: [],
+  },
+
+  /**
+   * Header keamanan untuk SEMUA rute.
+   *
+   * Ditaruh di sini, bukan di middleware: middleware tidak berjalan untuk
+   * aset statis dan berkas yang punya ekstensi (lihat matcher-nya), jadi
+   * header dari sana akan bolong justru di jalur yang paling sering
+   * diminta.
+   */
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: securityHeaders(process.env.NODE_ENV === 'development'),
+      },
+    ]
   },
 }
 

@@ -1,189 +1,214 @@
-# FASE 5 — ADMIN CMS, EDITOR, MEDIA, REVISI
+# FASE 5 — ADMIN CMS, EDITOR, REVISI
 
-**Status:** 🟡 5a & 5b selesai · ⬜ manajer media tertunda (butuh Q13)
-**Tanggal mulai:** 1 Agustus 2026
-
-| Langkah | Cakupan | Status |
-|---|---|---|
-| **5a** | Editor Tiptap, CRUD dokumen, kategori, tag, revisi otomatis | ✅ Selesai |
-| **5b** | Autosave, pratinjau, log audit, ekspor JSON/Markdown | ✅ Selesai |
-| **5c** | Manajer media & bukti | ⛔ Tertunda — Q13 (penyimpanan objek) belum dijawab |
+**Status:** ✅ Kode selesai — menunggu isi konten dan pemindahan ke R2
+**Tanggal:** 1 Agustus 2026
 
 ---
 
-## 5a — Yang dibuat
+## Ruang lingkup yang dikerjakan
 
-### Editor Tiptap
+| Bagian | Isi | Status |
+|---|---|---|
+| 5a | CRUD dokumen, kategori & tag, alur terbit, revisi otomatis, jejak audit | ✅ |
+| 5b | Editor Tiptap, template, autosave, pratinjau ID/EN | ✅ |
+| 5c | Manajer bukti, unggahan berkas, ekspor JSON/Markdown | ✅ |
+
+Keputusan pemilik untuk 5c: **penyimpanan lokal dulu**, R2 menyusul.
+
+---
+
+## Penghambat yang dibuka lebih dulu
+
+Fase 5 tidak bisa dimulai dengan jujur selama N2 Fase 4 masih berlaku:
+`dynamicParams = false` membuat dokumen yang baru terbit tidak bisa dibuka
+sampai build berikutnya, sehingga tombol "Terbitkan" di CMS **tidak benar-benar
+menerbitkan**.
+
+Penyebabnya ternyata bukan prerender sama sekali — lihat
+[NOTES.md](NOTES.md) N1. Setelah diperbaiki:
+
+| Yang diuji | Sebelum | Sesudah |
+|---|---|---|
+| Dokumen terbit dibuka | 200 | 200 |
+| Dokumen **draft** | 404 | **404** |
+| Slug tidak ada | 404 | **404** |
+| Slug yang belum ada saat build | **404 sampai build ulang** | **200 seketika** |
+
+Tujuh rute dikembalikan ke `dynamicParams = true`: empat rute detail
+dokumen, kategori, tag, dan `/projects/[slug]`.
+
+---
+
+## Yang dibuat
+
+### Lapisan data (`src/data/`)
 
 | Berkas | Isi |
 |---|---|
-| `components/admin/editor/index.tsx` | Pembungkus `next/dynamic`, `ssr: false` |
-| `components/admin/editor/rich-text-editor.tsx` | Instance Tiptap, keluaran JSON ke hidden input |
-| `components/admin/editor/editor-toolbar.tsx` | Bilah alat, `aria-pressed` per tombol |
+| `knowledge-admin.ts` | CRUD dokumen, kategori, tag. Guard di baris pertama setiap fungsi |
+| `audit.ts` | `recordAudit()`, `auditActionForStatus()`, `getAuditLog()` |
 
-**Ekstensi sengaja dibatasi** pada yang bisa dirender
-`src/lib/prosemirror/render.tsx`. Mengaktifkan ekstensi yang tidak dikenal
-renderer menghasilkan blok yang bisa disunting tapi **hilang di halaman
-publik** — kegagalan yang tidak terlihat sampai dokumen terbit.
+`knowledge-admin.ts` sengaja **terpisah** dari `knowledge.ts`. Berkas publik
+menyaring `status: 'PUBLISHED'` di setiap query tanpa kecuali; begitu query
+admin yang memang harus melihat draft ikut tinggal di sana, aturannya berubah
+jadi "sebagian besar" — dan aturan yang berlaku sebagian besar tidak bisa
+diandalkan saat ditinjau.
 
-Daftar-izin skema tautan di editor (`http`, `https`, `mailto`) disamakan
-dengan `safeLink()` di sisi render. Kalau editor mengizinkan lebih banyak,
-tautannya hilang diam-diam saat dirender dan pengguna mengira sudah tersimpan.
+**Revisi otomatis:** menyunting dokumen yang sudah `PUBLISHED` menyimpan isi
+**lama** sebagai `KnowledgeRevision` dalam satu `prisma.$transaction`. Draft
+tidak menghasilkan revisi — dokumen yang belum pernah terbit tidak punya versi
+sebelumnya yang pernah dibaca siapa pun. Ini menutup N5 Fase 4.
 
-### Template blok wajib
+**Jejak audit** mencatat apa yang berubah dan siapa yang mengubahnya, **bukan
+isinya**. Menyalin isi dokumen ke tabel audit berarti data yang sudah
+diredaksi tetap hidup di luar jangkauan checklist redaksi.
 
-`src/lib/schemas/document-templates.ts` — kerangka per tipe dokumen dari
-`04_SEED_CONTENT_DRAFT.md` §3.
+### Editor (`src/components/admin/editor/`)
 
-Template hanya menyisipkan **judul bagian**; tidak ada satu kalimat isi pun
-yang dikarang. Gunanya bukan menghemat ketikan, melainkan supaya tidak ada
-blok wajib yang terlewat — SOP tanpa bagian "Eskalasi" baru ketahuan hilang
-saat seseorang benar-benar butuh eskalasi.
+| Berkas | Isi |
+|---|---|
+| `extensions.ts` | Daftar ekstensi, dipilih agar cocok persis dengan node yang dikenal renderer publik |
+| `rich-text-editor.tsx` | Editor satu bahasa; isi dikirim sebagai string JSON di input tersembunyi |
+| `toolbar.tsx` | Tombol format berlabel teks, bukan ikon |
+| `templates.ts` | Kerangka SOP/Lab/Insiden/Artikel — judul bagian saja, tanpa satu pun kalimat isi |
+| `use-autosave.ts` | Pemulihan lokal ke `localStorage`, bukan draft server |
+| `index.tsx` | Pembungkus `next/dynamic` dengan `ssr: false` |
 
-Blok yang belum ada ditampilkan sebagai peringatan lembut, **bukan
-penghalang simpan**.
+Tiptap **tidak ada di satu pun entry chunk rute publik** — terverifikasi
+terhadap `app-build-manifest.json` setelah build. Ia hidup di dua chunk malas
+(352 kB) yang hanya turun saat halaman sunting dibuka.
 
-### CRUD dokumen
+Autosave sengaja **tidak** mengirim ke server. Menyimpan diam-diam ke database
+berarti dokumen terbit bisa berubah tanpa pemiliknya menekan apa pun — dan
+perubahan isi terbit wajib lewat konfirmasi redaksi.
 
-`/admin/knowledge` · `/admin/knowledge/new` · `/admin/knowledge/[id]` ·
-`/admin/categories` · `/admin/tags`
+### Penyimpanan & bukti (5c)
 
-Aturan yang ditegakkan:
+| Berkas | Isi |
+|---|---|
+| `lib/storage/types.ts` | Antarmuka driver — sengaja sekecil mungkin agar R2 bisa menggantikannya |
+| `lib/storage/key.ts` | Pembuatan dan pemeriksaan kunci objek |
+| `lib/storage/local.ts` | Driver disk lokal, di luar `public/` |
+| `lib/media-file.ts` | Jenis berkas dari magic bytes, dimensi gambar dari header |
+| `data/media.ts` | Unggah, ubah, hapus aset + jejak audit |
+| `app/media/[...key]/route.ts` | Penyaji berkas dengan kontrol akses |
 
-- Menyunting dokumen yang **sudah terbit** mewajibkan ringkasan perubahan,
-  dan otomatis membuat satu entri `KnowledgeRevision`. Revisi merekam isi
-  **sebelum** perubahan supaya riwayatnya terbaca "dulu begini, lalu diubah".
-- Apakah dokumen benar-benar sudah terbit dibaca dari **database**, bukan
-  dari nilai yang dikirim klien.
-- Tipe dokumen dikunci setelah terbit — mengubahnya memindahkan URL publik.
-- Menerbitkan dengan isi bahasa Indonesia kosong ditolak.
-- Isi Inggris yang kosong disimpan sebagai `null`, bukan dokumen kosong,
-  supaya halaman `/en` memakai fallback dan bukan menampilkan artikel kosong.
-- Tag dibuat otomatis saat diketik, di dalam transaksi yang sama dengan
-  dokumennya — percobaan simpan yang gagal tidak meninggalkan tag yatim.
-- Kategori yang masih dipakai menolak dihapus, dengan pesan yang menjelaskan
-  sebabnya.
+Nama berkas asli **tidak dipakai sama sekali** — bukan hanya karena bisa
+memuat path, tapi karena sering justru memuat yang harus diredaksi, seperti
+nama instansi di `screenshot-router-kantor-pusat.png`.
+
+Jenis berkas ditentukan dari **isinya**, bukan dari yang diklaim peramban.
+Berkas yang mengaku `image/png` tapi isinya HTML adalah XSS di origin yang
+sama dengan sesi admin. SVG sengaja tidak masuk daftar-izin: ia dokumen yang
+bisa memuat skrip, dan tidak ada gunanya untuk tangkapan layar bukti.
+
+Berkas yang baru diunggah **selalu privat**, apa pun yang dikirim form.
+Menerbitkan bukti adalah tindakan tersendiri yang menuntut konfirmasi redaksi.
+
+### Rute admin
+
+```
+/admin/knowledge                     daftar + filter tipe & status
+/admin/knowledge/new                 tambah
+/admin/knowledge/[id]                ubah + riwayat revisi
+/admin/knowledge/[id]/preview        pratinjau ID/EN
+/admin/knowledge/[id]/media          manajer bukti
+/admin/knowledge/[id]/export         unduh JSON / Markdown
+/admin/taxonomy                      kategori (CRUD) + tag (hapus)
+/admin/audit                         jejak audit, hanya baca
+/media/[...key]                      penyaji berkas (publik & admin)
+```
+
+Pratinjau memakai renderer yang **sama persis** dengan halaman publik, bukan
+tiruan yang mirip. Pratinjau lewat jalur lain akan berbohong tepat di kasus
+yang paling penting: node yang tidak dikenal renderer publik.
+
+### Konfirmasi redaksi
+
+Status `PUBLISHED` ditolak tanpa centang konfirmasi. Centangnya **tidak
+disimpan** dan dikosongkan lagi setiap kali form berhasil dikirim, jadi
+penerbitan berikutnya menuntut pemeriksaan ulang.
 
 ---
 
-## Gates 5a
+## Gates
 
 | Gate | Hasil |
 |---|---|
 | lint | ✅ tanpa warning |
 | typecheck | ✅ |
-| test | ✅ 94/94 |
-| build | ✅ termasuk 3 rute admin baru |
+| test | ✅ 162/162 (naik dari 94) |
+| build | ✅ |
+
+Tes baru: `knowledge-document.test.ts` (14), `audit.test.ts` (5),
+`templates.test.ts` (12), `route-boundaries.test.ts` (2),
+`storage/key.test.ts` (13), `media-file.test.ts` (12),
+`to-markdown.test.ts` (10).
+
+`route-boundaries.test.ts` mengunci temuan N1: tes gagal bila ada yang
+menambahkan `loading.tsx` di atas rute yang bisa memanggil `notFound()`.
 
 ---
 
-## Verifikasi runtime 5a
+## Verifikasi runtime
+
+Build produksi di port 5322, dikendalikan **Chromium sungguhan** lewat CDP —
+bukan hanya `curl`. Ini pertama kalinya jalur form benar-benar diuji dari
+peramban; Fase 3 dan 4 menandainya sebagai belum terverifikasi.
+
+### Editor
 
 | Yang diuji | Hasil |
 |---|---|
-| `/admin/knowledge`, `/new`, `/categories`, `/tags` tanpa sesi | ✅ 307 ke login |
-| Keempatnya dengan sesi admin | ✅ 200 |
-| **Tiptap di bundel halaman publik** | ✅ **tidak ada di satu pun dari 26 halaman publik** |
-| Tiptap di bundel awal halaman admin | ✅ tidak ada — dimuat lazy saat editor dibuka |
+| Dua editor ter-mount di halaman sunting | ✅ |
+| Toolbar tampil di keduanya | ✅ |
+| Tombol kerangka mengisi 7 bagian SOP | ✅ |
+| JSON tersalin ke input tersembunyi | ✅ |
+| Naskah masuk `localStorage` | ✅ |
+| Galat konsol | ✅ tidak ada |
 
-Pemeriksaan bundel dilakukan dengan membaca `app-build-manifest.json` dan
-mencari chunk yang memuat kode ProseMirror/Tiptap, lalu memeriksa halaman
-mana yang merujuknya. Tiga chunk memuat Tiptap; tidak satu pun dirujuk
-halaman publik.
+### Alur terbit
+
+| Yang diuji | Hasil |
+|---|---|
+| Terbit tanpa konfirmasi redaksi | ✅ ditolak, pesannya menjelaskan sebabnya |
+| Terbit dengan konfirmasi | ✅ status `PUBLISHED`, `publishedAt` terisi |
+| Audit tercatat | ✅ `create → update → publish → update` |
+| Sunting dokumen terbit | ✅ revisi dibuat berisi isi **lama** |
+| Isi EN dibiarkan kosong | ✅ tersimpan `null`, bukan dokumen hampa |
+| Halaman publik ID & EN | ✅ 200 tanpa build ulang |
+
+### Bukti & kontrol akses (5c)
+
+| Yang diuji | Hasil |
+|---|---|
+| Unggah PNG dari peramban | ✅ tersimpan, status privat |
+| Dimensi dibaca dari header berkas | ✅ 4×3 terbaca |
+| Terbitkan bukti tanpa konfirmasi redaksi | ✅ ditolak |
+| Terbitkan dengan konfirmasi | ✅ berhasil |
+| Aset **privat** tanpa sesi | ✅ **404**, bukan 403 |
+| Aset privat dengan sesi admin | ✅ 200 |
+| Aset publik tanpa sesi | ✅ 200 |
+| `../` di kunci berkas | ✅ 404 |
+| Aset yang tidak pernah publik lewat `/_next/image` | ✅ 400 (ditolak) |
+| `Cache-Control` aset privat | ✅ `private, no-store` |
+| Ekspor JSON & Markdown dengan sesi | ✅ 200 |
+| Ekspor tanpa sesi | ✅ dialihkan ke login |
+| `next/image` pada bukti publik | ✅ dioptimasi lewat `/_next/image` |
+
+Satu temuan serius muncul dari uji ini dan sudah diperbaiki: bukti yang
+ditarik kembali dari publik tetap tersaji lewat pengoptimal gambar. Lihat
+[NOTES.md](NOTES.md) N7.
+
+**Seluruh data uji sudah dihapus** — dokumen, revisi, tag, kategori, media,
+dan audit kembali 0; direktori `var/uploads/` ikut dibersihkan.
 
 ---
 
 ## Belum diverifikasi
 
-Menyimpan dokumen lewat peramban sungguhan — payload server action tidak
-bisa dirakit dengan `curl` (sama seperti Fase 3, NOTES N16). Skema, lapisan
-data, dan jalur revisi sudah lolos typecheck dan tes, tapi **alur simpan
-dari editor wajib dicoba manual.**
-
-
----
-
-## 5b — Yang dibuat
-
-### Log audit
-
-`src/data/audit.ts` + `/admin/audit`.
-
-Pencatatan dipasang di **lapisan data**, bukan di server action. Alasannya:
-action baru yang lupa memanggil `recordAudit()` akan lolos tanpa jejak,
-sedangkan mutasi selalu lewat fungsi data. Menaruhnya di sana membuat
-"lupa mencatat" menjadi hampir mustahil.
-
-`recordAudit()` **tidak pernah melempar** — kegagalan menulis log tidak
-boleh membatalkan mutasi yang sudah berhasil. Kehilangan satu baris log
-jauh lebih ringan daripada pengguna mengira simpanannya gagal lalu
-menyimpan dua kali.
-
-`metadata` hanya memuat pengenal yang aman ditampilkan. Isi dokumen tidak
-pernah masuk ke sana: log audit tidak ikut alur redaksi, jadi apa pun yang
-masuk lolos dari checklist.
-
-Entitas yang tercatat: dokumen, kategori, tag, proyek, pengalaman,
-keahlian, sertifikat, dan profil — termasuk yang seharusnya sudah dicatat
-sejak 3b.
-
-### Autosave & pemulihan lokal
-
-`src/lib/use-local-draft.ts`. Draf disimpan ke `localStorage` per dokumen
-setelah 1,5 detik diam.
-
-Disimpan di **klien, bukan server**: draf setengah jadi tidak perlu
-menyentuh database, dan menyimpannya di server berarti ikut ke backup dan
-ekspor tanpa pernah lolos checklist redaksi.
-
-Draf lebih tua dari 7 hari dibuang, tidak ditawarkan — menawarkan pemulihan
-dari dua minggu lalu lebih membingungkan daripada membantu. Kegagalan
-`localStorage` (mode privat, kuota penuh) didiamkan: autosave adalah
-kemewahan, kegagalannya tidak boleh mengganggu penyuntingan.
-
-### Pratinjau
-
-Memakai `ProseMirrorContent` — **renderer yang sama persis** dengan halaman
-publik. Karena itu `NextIntlClientProvider` ditambahkan di layout admin:
-bukan untuk menerjemahkan antarmuka admin, melainkan supaya komponen
-bersama punya sumber terjemahan. Pratinjau yang berbeda dari hasil
-sebenarnya lebih buruk daripada tidak ada pratinjau.
-
-### Ekspor
-
-`/admin/backup` + Route Handler `/admin/backup/export`.
-
-Route Handler, bukan server action: yang dikirim adalah berkas, dan server
-action tidak bisa mengembalikan `Content-Disposition`.
-
-- **JSON** mengikuti format seed di `04_SEED_CONTENT_DRAFT.md` §2, jadi
-  berkasnya sekaligus bisa dipakai memulihkan.
-- **Markdown** untuk dibaca manusia. `src/lib/prosemirror/to-markdown.ts`,
-  9 tes.
-
-Yang **tidak** ikut: bukti yang belum dikonfirmasi redaksinya, aset privat,
-isi versi lama, dan pesan kontak.
-
----
-
-## Gates 5b
-
-| Gate | Hasil |
-|---|---|
-| lint | ✅ tanpa warning |
-| typecheck | ✅ |
-| test | ✅ 103/103 (naik dari 94) |
-| build | ✅ termasuk 3 rute admin baru |
-
-## Verifikasi runtime 5b
-
-| Yang diuji | Hasil |
-|---|---|
-| `/admin/audit`, `/admin/backup` tanpa sesi | ✅ 307 ke login |
-| Endpoint ekspor tanpa sesi | ✅ 307 — berkas tidak terkirim |
-| Keduanya dengan sesi admin | ✅ 200 |
-| Header unduhan JSON | ✅ `attachment`, `Cache-Control: no-store, private` |
-| Header unduhan Markdown | ✅ `text/markdown`, `attachment` |
-
-`no-store` disengaja: berkas backup memuat draft, jadi tidak boleh
-tersimpan di cache perantara mana pun.
+- Uji manual delapan titik (ID · EN · terang · gelap · 375 px · 1440 px ·
+  keyboard · reduced motion) untuk halaman admin baru
+- Editor dengan keyboard saja dan dengan pembaca layar
+- Penyimpanan di hosting sungguhan — disk lokal tidak bertahan di serverless,
+  R2 menyusul (NOTES N4)

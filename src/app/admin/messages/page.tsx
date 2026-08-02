@@ -1,4 +1,5 @@
 import { getAdminMessages } from '@/data/contact'
+import { notificationsReachOwner } from '@/lib/notify'
 import { toIsoString } from '@/lib/format'
 
 import { EmptyState } from '@/components/ui'
@@ -25,6 +26,26 @@ export default async function AdminMessagesPage() {
       title="Pesan Masuk"
       description="Dari form kontak publik. Alamat IP pengirim tidak disimpan."
     >
+      {/*
+        Peringatan ini ada supaya pemiliknya TIDAK mengira ia akan dikabari.
+        Menyembunyikannya berarti membiarkan pesan recruiter mengendap
+        berhari-hari karena tidak ada yang tahu ia masuk.
+      */}
+      {notificationsReachOwner ? null : (
+        <p
+          role="status"
+          className="mb-6 rounded-xl border border-warning bg-elevated px-4 py-3 text-sm"
+        >
+          <strong className="font-medium">
+            Tidak ada pemberitahuan otomatis.
+          </strong>{' '}
+          Pesan baru hanya terlihat di halaman ini dan pada lencana di
+          navigasi — tidak ada email yang dikirim. Memasang penyedia email
+          menuntut satu keputusan; lihat{' '}
+          <code className="font-mono text-xs">src/lib/notify/index.ts</code>.
+        </p>
+      )}
+
       {messages.length === 0 ? (
         <EmptyState
           title="Belum ada pesan"

@@ -17,20 +17,15 @@ import { TranslationNotice } from '@/components/translation-notice'
 export const revalidate = 3600
 
 /**
- * Slug di luar hasil `generateStaticParams` langsung 404 di lapisan
- * router, tanpa merender halaman.
+ * `dynamicParams = true` — slug yang baru terbit langsung bisa dibuka tanpa
+ * build ulang, dan slug draft atau tak dikenal tetap 404 sungguhan.
  *
- * Ini WAJIB, bukan optimisasi. Dengan `dynamicParams = true`, panggilan
- * `notFound()` di dalam rute ber-`revalidate` disimpan Next.js sebagai
- * halaman statis dan disajikan dengan status 200 — terverifikasi pada
- * Next.js 15.5.22. Isinya memang halaman not-found (tidak ada kebocoran
- * data), tapi status 200 untuk draft melanggar 05_ROUTE_AND_PRIORITY_MAP §6
- * dan membuat mesin pencari mengindeks draft sebagai halaman sah.
- *
- * Konsekuensinya: proyek yang baru diterbitkan lewat admin belum muncul
- * sampai build berikutnya. Lihat docs/phase-3/NOTES.md N2.
+ * Syaratnya satu, dan mutlak: TIDAK BOLEH ada `loading.tsx` di segmen mana
+ * pun di atas rute ini. Suspense boundary membuat shell halaman ter-flush
+ * lebih dulu, sehingga status respons sudah terkirim sebagai 200 sebelum
+ * `notFound()` sempat mengubahnya. Lihat docs/phase-5/NOTES.md N1.
  */
-export const dynamicParams = false
+export const dynamicParams = true
 
 type PageProps = {
   params: Promise<{ locale: Locale; slug: string }>

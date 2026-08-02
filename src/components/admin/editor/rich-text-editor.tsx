@@ -1,104 +1,190 @@
 'use client'
 
-import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import Link from '@tiptap/extension-link'
-import Placeholder from '@tiptap/extension-placeholder'
-import Table from '@tiptap/extension-table'
-import TableRow from '@tiptap/extension-table-row'
-import TableCell from '@tiptap/extension-table-cell'
-import TableHeader from '@tiptap/extension-table-header'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { EditorContent, useEditor } from '@tiptap/react'
 
 import { cn } from '@/lib/cn'
+import { Label } from '@/components/ui'
 import type { ProseMirrorDocument } from '@/lib/prosemirror/types'
+import type { KnowledgeTypeValue } from '@/lib/schemas/admin'
 
-import { EditorToolbar } from './editor-toolbar'
+import { editorExtensions } from './extensions'
+import { templateFor } from './templates'
+import { EditorToolbar } from './toolbar'
+import { useAutosave } from './use-autosave'
+
+const EMPTY: ProseMirrorDocument = { type: 'doc', content: [] }
+
+type Props = {
+  /** Nama input tersembunyi yang ikut terkirim bersama form. */
+  name: string
+  label: string
+  hint?: string
+  error?: string
+  defaultValue?: unknown
+  /** Kunci penyimpanan pemulihan lokal — harus unik per dokumen per bahasa. */
+  storageKey: string
+  /** Tipe dokumen, dipakai tombol "Isi kerangka". */
+  type: KnowledgeTypeValue
+}
 
 /**
- * Editor isi dokumen.
+ * Editor Tiptap untuk satu bahasa.
  *
- * Keluarannya JSON ProseMirror, disimpan ke `<input type="hidden">` supaya
- * ikut terkirim lewat server action yang sama dengan form lainnya — tidak
- * ada jalur simpan terpisah yang perlu diamankan sendiri.
+ * Isinya dikirim ke server sebagai STRING JSON di `<input type="hidden">`,
+ * lalu diparse dan divalidasi ulang di server (`knowledgeDocumentSchema`).
+ * Tidak ada jalur lain: apa pun yang diketik di sini tetap dianggap masukan
+ * yang belum dipercaya.
  *
- * Ekstensi yang diaktifkan sengaja DIBATASI pada yang bisa dirender
- * `src/lib/prosemirror/render.tsx`. Mengaktifkan ekstensi yang tidak
- * dikenal renderer menghasilkan blok yang bisa disunting tapi hilang di
- * halaman publik — kegagalan yang tidak terlihat sampai dokumen terbit.
+ * Komponen ini hanya dimuat di rute admin lewat `next/dynamic` dengan
+ * `ssr: false` — Tiptap tidak pernah ikut ke bundel halaman publik, yang
+ * memakai renderer sendiri di `src/lib/prosemirror/render.tsx`.
  */
 export function RichTextEditor({
   name,
-  initialContent,
-  placeholder,
-  onDocChange,
-}: {
-  name: string
-  initialContent: ProseMirrorDocument | null
-  placeholder: string
-  /** Dipanggil tiap perubahan — dipakai autosave dan pemeriksaan blok wajib. */
-  onDocChange?: (doc: ProseMirrorDocument) => void
-}) {
-  const [json, setJson] = useState(() =>
-    JSON.stringify(initialContent ?? { type: 'doc', content: [] }),
-  )
+  label,
+  hint,
+  error,
+  defaultValue,
+  storageKey,
+  type,
+}: Props) {
+  const initial = asDocument(defaultValue) ?? EMPTY
+  const [json, setJson] = useState(() => JSON.stringify(initial))
+  const { recovered, save, dismiss } = useAutosave(storageKey)
 
   const editor = useEditor({
-    // Wajib false: Tiptap merender di klien, dan membiarkannya ikut SSR
-    // menghasilkan hydration mismatch di seluruh area editor.
+    extensions: editorExtensions('Tulis isi dokumen di sini…'),
+    content: initial,
+    // Wajib false: tanpa ini React menghidrasi HTML server yang berbeda
+    // dari hasil render editor di klien.
     immediatelyRender: false,
-    extensions: [
-      StarterKit.configure({
-        heading: { levels: [2, 3, 4] },
-        // codeBlockLowlight tidak dipakai — halaman publik memang tidak
-        // menyorot sintaks (lihat components/knowledge/code-block.tsx).
-      }),
-      Link.configure({
-        openOnClick: false,
-        autolink: false,
-        // Daftar-izin yang sama dengan safeLink() di sisi render. Kalau
-        // editor mengizinkan lebih banyak, tautannya akan hilang diam-diam
-        // saat dirender — pengguna mengira tersimpan padahal tidak.
-        protocols: ['http', 'https', 'mailto'],
-      }),
-      Placeholder.configure({ placeholder }),
-      Table.configure({ resizable: false }),
-      TableRow,
-      TableHeader,
-      TableCell,
-    ],
-    content: initialContent ?? { type: 'doc', content: [] },
     editorProps: {
       attributes: {
         class: cn(
-          'prose-editor min-h-[420px] px-5 py-4 focus:outline-none',
-          'text-base leading-relaxed',
+          'prose-admin min-h-[24rem] max-w-none px-4 py-3',
+          'focus-visible:outline-none',
         ),
       },
     },
     onUpdate: ({ editor: instance }) => {
-      const doc = instance.getJSON() as ProseMirrorDocument
+      const next = JSON.stringify(instance.getJSON())
 
-      setJson(JSON.stringify(doc))
-      onDocChange?.(doc)
+      setJson(next)
+      save(next)
     },
   })
 
-  // Beri tahu pemanggil isi awalnya sekali, supaya pemeriksaan blok wajib
-  // sudah benar sebelum pengguna mengetik apa pun.
-  useEffect(() => {
-    if (initialContent) onDocChange?.(initialContent)
-    // Sengaja hanya sekali saat mount.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  if (!editor) {
+    return (
+      <div className="rounded-2xl border border-border">
+        <div className="h-[28rem] animate-pulse rounded-2xl bg-elevated" />
+      </div>
+    )
+  }
+
+  const isEmpty = editor.isEmpty
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-surface">
-      <EditorToolbar editor={editor} />
+    <div>
+      <Label htmlFor={`${name}-editor`} className="block">
+        {label} <span aria-hidden>*</span>
+      </Label>
+      {hint ? <p className="mt-1 text-xs text-muted">{hint}</p> : null}
 
-      <EditorContent editor={editor} />
+      {recovered ? (
+        <div
+          role="status"
+          className="mt-2 flex flex-wrap items-center gap-3 rounded-xl border border-warning bg-elevated px-4 py-3 text-sm"
+        >
+          <span>
+            Ada naskah tersimpan di peramban ini dari{' '}
+            {new Date(recovered.savedAt).toLocaleString('id-ID')}.
+          </span>
+          <button
+            type="button"
+            className="rounded-lg bg-primary px-3 py-1.5 text-primary-foreground"
+            onClick={() => {
+              const doc = asDocument(safeParse(recovered.json))
+
+              if (doc) {
+                editor.commands.setContent(doc)
+                setJson(JSON.stringify(doc))
+              }
+
+              dismiss()
+            }}
+          >
+            Pulihkan
+          </button>
+          <button
+            type="button"
+            className="rounded-lg px-3 py-1.5 text-muted hover:text-foreground"
+            onClick={dismiss}
+          >
+            Abaikan
+          </button>
+        </div>
+      ) : null}
+
+      <div
+        className={cn(
+          'mt-2 overflow-hidden rounded-2xl border bg-surface',
+          error ? 'border-danger' : 'border-border',
+        )}
+      >
+        <EditorToolbar editor={editor} />
+
+        <div id={`${name}-editor`}>
+          <EditorContent editor={editor} />
+        </div>
+
+        <div className="flex flex-wrap items-center justify-end gap-3 border-t border-border px-4 py-2 text-xs text-muted">
+          {isEmpty ? (
+            <button
+              type="button"
+              className="rounded-lg px-2 py-1 text-primary hover:bg-elevated"
+              onClick={() => {
+                const template = templateFor(type)
+
+                editor.commands.setContent(template)
+                setJson(JSON.stringify(template))
+              }}
+            >
+              Isi kerangka {type}
+            </button>
+          ) : null}
+        </div>
+      </div>
 
       <input type="hidden" name={name} value={json} readOnly />
+
+      {error ? (
+        <p id={`${name}-error`} className="mt-2 text-sm text-danger">
+          {error}
+        </p>
+      ) : null}
     </div>
   )
+}
+
+function safeParse(value: string): unknown {
+  try {
+    return JSON.parse(value)
+  } catch {
+    return null
+  }
+}
+
+/** Terima hanya nilai yang benar-benar berbentuk dokumen ProseMirror. */
+function asDocument(value: unknown): ProseMirrorDocument | null {
+  if (
+    typeof value === 'object' &&
+    value !== null &&
+    (value as ProseMirrorDocument).type === 'doc'
+  ) {
+    return value as ProseMirrorDocument
+  }
+
+  return null
 }

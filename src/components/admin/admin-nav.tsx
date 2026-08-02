@@ -24,11 +24,10 @@ const items = [
   { href: '/admin/certifications', label: 'Sertifikat' },
   { href: '/admin/narrative', label: 'Bagian Naratif' },
   { href: '/admin/knowledge', label: 'Knowledge Base' },
-  { href: '/admin/categories', label: 'Kategori' },
-  { href: '/admin/tags', label: 'Tag' },
+  { href: '/admin/taxonomy', label: 'Kategori & Tag' },
   { href: '/admin/messages', label: 'Pesan' },
-  { href: '/admin/audit', label: 'Log Audit' },
-  { href: '/admin/backup', label: 'Backup' },
+  { href: '/admin/audit', label: 'Jejak Audit' },
+  { href: '/admin/account', label: 'Akun' },
 ]
 
 type AdminNavProps = {
@@ -73,7 +72,7 @@ export function AdminNav({ unreadCount }: AdminNavProps) {
           >
             {item.label}
             {item.href === '/admin/messages' && unreadCount > 0 ? (
-              <span className="rounded-sm bg-primary px-2 py-0.5 text-xs font-medium text-primary-foreground">
+              <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-medium text-primary-foreground">
                 {unreadCount}
               </span>
             ) : null}

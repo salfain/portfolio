@@ -370,6 +370,94 @@
     "tag": {
       "title": "Tag: {name}",
       "all": "Semua tag"
+    },
+    "lab": {
+      "heading": "Rincian lab",
+      "note": "Seluruh angka dan konfigurasi di bawah berasal dari lab yang benar-benar dijalankan, bukan contoh.",
+      "topology": "Topologi",
+      "estimatedHours": "Perkiraan waktu pengerjaan",
+      "hours": "{hours} jam",
+      "devices": "Perangkat",
+      "deviceName": "Nama",
+      "deviceRole": "Peran",
+      "deviceModel": "Model",
+      "deviceNote": "Catatan",
+      "vlans": "Rencana VLAN",
+      "vlanId": "VLAN",
+      "vlanName": "Nama",
+      "vlanPurpose": "Fungsi",
+      "ipPlan": "Rencana pengalamatan IP",
+      "ipSegment": "Segmen",
+      "ipCidr": "Alamat",
+      "ipVlan": "VLAN",
+      "ipGateway": "Gateway",
+      "testCases": "Kasus uji",
+      "testId": "Kode",
+      "testCheck": "Yang diuji",
+      "testExpected": "Diharapkan",
+      "testActual": "Hasil",
+      "testStatus": "Status",
+      "faults": "Simulasi gangguan",
+      "faultScenario": "Skenario",
+      "faultExpected": "Dampak diharapkan",
+      "faultActual": "Dampak sebenarnya",
+      "faultRecovery": "Pemulihan",
+      "status": {
+        "pass": "Lulus",
+        "fail": "Gagal",
+        "blocked": "Terhalang",
+        "unknown": "Belum dicatat"
+      }
+    },
+    "incident": {
+      "heading": "Rincian insiden",
+      "labNotice": "Skenario lab",
+      "labNoticeBody": "Insiden ini direproduksi di lingkungan lab, bukan kejadian di sistem produksi.",
+      "realNotice": "Insiden nyata",
+      "number": "Nomor",
+      "priority": "Prioritas",
+      "impact": "Dampak",
+      "urgency": "Urgensi",
+      "affectedService": "Layanan terdampak",
+      "resolutionTime": "Waktu penyelesaian",
+      "minutes": "{minutes} menit",
+      "level": {
+        "low": "Rendah",
+        "medium": "Sedang",
+        "high": "Tinggi"
+      },
+      "timeline": "Kronologi",
+      "timelineAt": "Waktu",
+      "timelineEvent": "Kejadian",
+      "rootCause": "Akar masalah",
+      "workaround": "Solusi sementara",
+      "resolution": "Penyelesaian",
+      "validation": "Validasi",
+      "prevention": "Pencegahan berulang",
+      "relatedSop": "SOP terkait"
+    },
+    "downloads": {
+      "heading": "Berkas pendukung",
+      "note": "Seluruh berkas sudah melalui checklist redaksi sebelum diterbitkan.",
+      "download": "Unduh",
+      "size": "{size} kB"
+    }
+  },
+  "search": {
+    "trigger": "Cari",
+    "title": "Cari di situs ini",
+    "description": "Cari dokumen, proyek, dan halaman. Tekan Escape untuk menutup.",
+    "placeholder": "Ketik kata kunci…",
+    "close": "Tutup pencarian",
+    "hint": "Tekan Ctrl+K atau Cmd+K untuk membuka dari mana saja.",
+    "searching": "Mencari…",
+    "empty": "Tidak ada yang cocok dengan kata kunci itu.",
+    "idle": "Ketik minimal dua huruf untuk mulai mencari.",
+    "resultCount": "{count, plural, =0 {Tidak ada hasil} one {# hasil} other {# hasil}}",
+    "groups": {
+      "documents": "Knowledge Base",
+      "projects": "Proyek",
+      "pages": "Halaman"
     }
   }
 }

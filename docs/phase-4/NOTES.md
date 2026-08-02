@@ -39,7 +39,17 @@ ISO — kalau helper-nya dikembalikan ke `Date` saja, tesnya merah.
 
 ---
 
-## N2 — `notFound()` dari halaman membalas 200, bukan 404 🔴 SUDAH DIPERBAIKI
+## N2 — `notFound()` dari halaman membalas 200, bukan 404 🔴 KESIMPULANNYA KELIRU
+
+> ⚠️ **Sebab yang ditulis di bawah ini SALAH.** Penyebab sebenarnya bukan
+> jalur prerender, melainkan `src/app/[locale]/loading.tsx` — Suspense
+> boundary di atas seluruh subtree locale. Terbukti di Fase 5, lengkap dengan
+> sebelas konfigurasi pembanding: **[docs/phase-5/NOTES.md](../phase-5/NOTES.md) N1.**
+>
+> Konsekuensinya juga batal: `dynamicParams = true` sekarang dipakai lagi di
+> tujuh rute, dan dokumen yang baru terbit **langsung bisa dibuka tanpa build
+> ulang.** Bagian di bawah dipertahankan apa adanya sebagai catatan bagaimana
+> kesimpulan yang salah bisa bertahan tiga fase.
 
 Lanjutan N2 Fase 3, dengan sebab yang akhirnya jelas.
 

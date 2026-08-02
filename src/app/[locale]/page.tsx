@@ -10,6 +10,8 @@ import { getPublishedCertificates } from '@/data/certificate'
 import { getCareerStats } from '@/data/stats'
 import { getNarrativeSection } from '@/data/settings'
 import { getLatestDocuments } from '@/data/knowledge'
+import { pickLocale } from '@/lib/i18n-content'
+import { PersonJsonLd } from '@/components/structured-data'
 
 import {
   AtAGlance,
@@ -63,6 +65,17 @@ export default async function HomePage({ params }: PageProps) {
   // Urutan bagian ditetapkan di docs/01_PHASES.md (Fase 3, "Homepage order").
   return (
     <>
+      {/* Hanya dirender bila profilnya sudah diisi — Person tanpa nama
+          adalah pernyataan kosong yang tetap dibaca mesin pencari. */}
+      {profile ? (
+        <PersonJsonLd
+          name={profile.name}
+          role={pickLocale(profile, 'role', locale) || null}
+          summary={pickLocale(profile, 'summary', locale) || null}
+          locale={locale}
+        />
+      ) : null}
+
       <Hero profile={profile} locale={locale} />
       <ExploreWork />
       <AtAGlance stats={stats} />

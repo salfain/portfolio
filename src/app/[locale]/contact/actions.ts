@@ -6,6 +6,7 @@ import {
   type ContactState,
 } from '@/lib/schemas/contact'
 import { countRecentMessagesFrom, createContactMessage } from '@/data/contact'
+import { notifier } from '@/lib/notify'
 
 /** Maksimal kiriman per alamat email per jam. */
 const MAX_PER_HOUR = 3
@@ -75,6 +76,26 @@ export async function submitContact(
     }
 
     await createContactMessage(input)
+
+    /**
+     * Pemberitahuan dikirim SETELAH pesannya tersimpan, dan kegagalannya
+     * tidak pernah dilemparkan (lihat kontrak `Notifier`). Pesan yang sudah
+     * aman di database tidak boleh tampak gagal terkirim bagi pengunjung
+     * hanya karena kabarnya tidak sampai ke pemilik.
+     *
+     * Isi pesan TIDAK ikut — hanya bahwa ada pesan masuk dan dari siapa.
+     */
+    await notifier.send({
+      subject: `Pesan baru dari ${input.name}`,
+      body:
+        `Ada pesan baru lewat form kontak.\n\n` +
+        `Dari   : ${input.name}\n` +
+        `Email  : ${input.email}\n` +
+        (input.company ? `Instansi: ${input.company}\n` : '') +
+        (input.subject ? `Perihal : ${input.subject}\n` : '') +
+        `\nBuka /admin/messages untuk membacanya.`,
+      replyTo: input.email,
+    })
 
     return { status: 'success' }
   } catch {
