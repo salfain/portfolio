@@ -9,6 +9,7 @@ import { cn } from '@/lib/cn'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { LocaleSwitch } from './locale-switch'
 import { MobileDrawer } from './mobile-drawer'
+import { MobileBottomNav } from './mobile-bottom-nav'
 import { isActivePath, navItems } from './nav-items'
 
 export function Navbar() {
@@ -56,36 +57,11 @@ export function Navbar() {
             <LocaleSwitch />
           </div>
           <ThemeToggle />
-
-          {/* Mobile menu trigger */}
-          <button
-            type="button"
-            onClick={() => setDrawerOpen(true)}
-            aria-label={t('openMenu')}
-            className={cn(
-              'grid h-11 w-11 place-items-center rounded-full',
-              'border border-border bg-surface text-foreground',
-              'transition-colors hover:bg-elevated md:hidden',
-              'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
-            )}
-          >
-            <svg
-              className="h-5 w-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden
-            >
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
         </div>
       </nav>
 
       <MobileDrawer open={drawerOpen} onOpenChange={setDrawerOpen} />
+      <MobileBottomNav onOpenMenu={() => setDrawerOpen(true)} />
     </header>
   )
 }

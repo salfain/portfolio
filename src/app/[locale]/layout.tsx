@@ -1,6 +1,10 @@
 import type { ReactNode } from 'react'
 import { NextIntlClientProvider } from 'next-intl'
-import { getTranslations, setRequestLocale, getMessages } from 'next-intl/server'
+import {
+  getTranslations,
+  setRequestLocale,
+  getMessages,
+} from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { Geist, Geist_Mono } from 'next/font/google'
 
@@ -92,7 +96,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
             <SkipLink />
             <div className="flex min-h-dvh flex-col">
               <Navbar />
-              <main id="main-content" className="flex-1">
+              <main id="main-content" className="flex-1 pb-24 md:pb-0">
                 {children}
               </main>
               <Footer />

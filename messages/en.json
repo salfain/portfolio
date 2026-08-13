@@ -28,6 +28,8 @@
     "contact": "Contact",
     "privacy": "Privacy Policy",
     "terms": "Terms",
+    "more": "More",
+    "mobileNavLabel": "Bottom navigation",
     "menu": "Menu",
     "openMenu": "Open navigation menu",
     "closeMenu": "Close navigation menu"
