@@ -6,10 +6,7 @@ export const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(
-        'rounded-3xl border border-border bg-surface',
-        className,
-      )}
+      className={cn('rounded-3xl border border-border bg-surface', className)}
       {...props}
     />
   ),
@@ -22,7 +19,7 @@ export const CardHeader = forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('p-6 pb-0', className)}
+    className={cn('p-5 pb-0 sm:p-6 sm:pb-0', className)}
     {...props}
   />
 ))
@@ -32,11 +29,7 @@ export const CardBody = forwardRef<
   HTMLDivElement,
   HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn('p-6', className)}
-    {...props}
-  />
+  <div ref={ref} className={cn('p-5 sm:p-6', className)} {...props} />
 ))
 CardBody.displayName = 'CardBody'
 
@@ -46,7 +39,7 @@ export const CardFooter = forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('flex items-center p-6 pt-0', className)}
+    className={cn('flex items-center p-5 pt-0 sm:p-6 sm:pt-0', className)}
     {...props}
   />
 ))

@@ -33,7 +33,7 @@ export async function ContactCta({ profile, locale }: ContactCtaProps) {
     >
       <Container>
         <Reveal>
-          <div className="rounded-4xl border border-border bg-surface px-6 py-12 text-center sm:px-12">
+          <div className="rounded-4xl border border-border bg-surface px-5 py-10 text-center sm:px-12 sm:py-12">
             <h2
               id="contact-cta-heading"
               className="font-display text-2xl font-semibold tracking-tight md:text-3xl"
@@ -44,17 +44,27 @@ export async function ContactCta({ profile, locale }: ContactCtaProps) {
               {t('description')}
             </p>
 
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Button asChild size="lg">
+            <div className="mx-auto mt-8 grid max-w-md gap-3 sm:flex sm:max-w-none sm:flex-wrap sm:justify-center">
+              <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href="/contact">{t('getInTouch')}</Link>
               </Button>
 
-              <Button asChild size="lg" variant="secondary">
+              <Button
+                asChild
+                size="lg"
+                variant="secondary"
+                className="w-full sm:w-auto"
+              >
                 <Link href="/recruiter">{t('recruiterSummary')}</Link>
               </Button>
 
               {cvUrl ? (
-                <Button asChild size="lg" variant="ghost">
+                <Button
+                  asChild
+                  size="lg"
+                  variant="ghost"
+                  className="w-full sm:w-auto"
+                >
                   <a href={cvUrl} download>
                     {t('downloadCv')}
                   </a>

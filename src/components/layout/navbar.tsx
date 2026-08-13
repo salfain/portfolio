@@ -18,13 +18,13 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md print:hidden">
-      <nav className="mx-auto flex h-16 max-w-container items-center justify-between px-5 sm:px-8 lg:px-12">
+      <nav className="mx-auto flex min-h-16 max-w-container items-center justify-between gap-3 px-4 py-2 sm:px-8 lg:px-12">
         {/* Logo */}
         <Link
           href="/"
-          className="font-display text-lg font-semibold tracking-tight"
+          className="min-w-0 shrink font-display text-base font-semibold tracking-tight sm:text-lg"
         >
-          {t('siteName')}
+          <span className="block truncate">{t('siteName')}</span>
         </Link>
 
         {/* Desktop nav */}
@@ -51,7 +51,7 @@ export function Navbar() {
         </ul>
 
         {/* Right actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <div className="hidden sm:block">
             <LocaleSwitch />
           </div>

@@ -5,11 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Link, usePathname } from '@/i18n/navigation'
 import { cn } from '@/lib/cn'
 
-import {
-  Drawer,
-  DrawerContent,
-  DrawerTitle,
-} from '@/components/ui/drawer'
+import { Drawer, DrawerContent, DrawerTitle } from '@/components/ui/drawer'
 import { LocaleSwitch } from './locale-switch'
 import { footerItems, isActivePath, navItems } from './nav-items'
 
@@ -27,10 +23,10 @@ export function MobileDrawer({ open, onOpenChange }: MobileDrawerProps) {
       <DrawerContent side="right">
         <DrawerTitle className="sr-only">{t('menu')}</DrawerTitle>
 
-        <div className="flex h-full flex-col">
+        <div className="flex h-full flex-col overflow-hidden">
           {/* Header */}
-          <div className="flex items-center justify-between pb-6">
-            <span className="font-display text-lg font-semibold">
+          <div className="flex items-center justify-between gap-4 pb-6">
+            <span className="min-w-0 truncate font-display text-lg font-semibold">
               {t('siteName')}
             </span>
             <button

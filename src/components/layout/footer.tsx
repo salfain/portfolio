@@ -16,7 +16,7 @@ export function Footer() {
   return (
     <footer className="border-t border-border print:hidden">
       <Container className="py-12">
-        <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
+        <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           {/* Brand */}
           <div>
             <p className="font-display text-base font-semibold">{t('name')}</p>

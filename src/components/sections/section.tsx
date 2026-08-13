@@ -39,7 +39,7 @@ export function Section({
     >
       <Container>
         <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-prose">
               <h2
                 id={headingId}
@@ -53,7 +53,9 @@ export function Section({
                 </p>
               ) : null}
             </div>
-            {action ? <div className="shrink-0">{action}</div> : null}
+            {action ? (
+              <div className="shrink-0 self-start sm:self-auto">{action}</div>
+            ) : null}
           </div>
         </Reveal>
 

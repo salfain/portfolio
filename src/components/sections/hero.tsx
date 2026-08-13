@@ -41,9 +41,9 @@ export async function Hero({ profile, locale }: HeroProps) {
   const cvUrl = locale === 'en' ? profile?.cvEnUrl : profile?.cvIdUrl
 
   return (
-    <section className="py-16 md:py-24 lg:py-28">
+    <section className="py-14 sm:py-16 md:py-24 lg:py-28">
       <Container>
-        <div className="grid min-w-0 items-center gap-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
+        <div className="grid min-w-0 items-center gap-10 sm:gap-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
           <Reveal className="min-w-0 max-w-prose">
             {availability?.value ? (
               <Badge variant="success" className="mb-6">
@@ -60,7 +60,7 @@ export async function Hero({ profile, locale }: HeroProps) {
 
             <h1
               lang={headline.lang}
-              className="mt-4 font-display text-4xl font-semibold leading-tight tracking-tight md:text-5xl lg:text-6xl"
+              className="mt-4 max-w-4xl break-words font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
             >
               {headline.value}
             </h1>
@@ -74,26 +74,41 @@ export async function Hero({ profile, locale }: HeroProps) {
               </p>
             ) : null}
 
-            <div className="mt-10 flex flex-wrap gap-3">
-              <Button asChild size="lg">
+            <div className="mt-8 grid gap-3 sm:mt-10 sm:flex sm:flex-wrap">
+              <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href="/projects">{t('viewPortfolio')}</Link>
               </Button>
 
               {/* Knowledge Base baru ada di Fase 4 — sampai itu tautannya
                   disembunyikan, bukan mengarah ke 404. */}
               {features.knowledgeBase ? (
-                <Button asChild size="lg" variant="secondary">
+                <Button
+                  asChild
+                  size="lg"
+                  variant="secondary"
+                  className="w-full sm:w-auto"
+                >
                   <Link href="/knowledge">{t('exploreKnowledge')}</Link>
                 </Button>
               ) : null}
 
-              <Button asChild size="lg" variant="secondary">
+              <Button
+                asChild
+                size="lg"
+                variant="secondary"
+                className="w-full sm:w-auto"
+              >
                 <Link href="/contact">{t('getInTouch')}</Link>
               </Button>
 
               {/* Tombol CV hanya muncul kalau berkasnya benar-benar ada. */}
               {cvUrl ? (
-                <Button asChild size="lg" variant="ghost">
+                <Button
+                  asChild
+                  size="lg"
+                  variant="ghost"
+                  className="w-full sm:w-auto"
+                >
                   <a href={cvUrl} download>
                     {t('downloadCv')}
                   </a>
@@ -104,7 +119,7 @@ export async function Hero({ profile, locale }: HeroProps) {
 
           {profile?.profileImageUrl ? (
             <Reveal delay={0.1} className="order-first lg:order-none">
-              <div className="relative mx-auto h-48 w-48 overflow-hidden rounded-4xl border border-border bg-surface md:h-64 md:w-64 lg:h-72 lg:w-72">
+              <div className="rounded-4xl relative mx-auto h-48 w-48 overflow-hidden border border-border bg-surface md:h-64 md:w-64 lg:h-72 lg:w-72">
                 <Image
                   src={profile.profileImageUrl}
                   alt={profile.name}
