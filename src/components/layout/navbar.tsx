@@ -18,50 +18,53 @@ export function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md print:hidden">
-      <nav className="mx-auto flex min-h-16 max-w-container items-center justify-between gap-3 px-4 py-2 sm:px-8 lg:px-12">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="min-w-0 shrink font-display text-base font-semibold tracking-tight sm:text-lg"
-        >
-          <span className="block truncate">{t('siteName')}</span>
-        </Link>
+    <>
+      <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md print:hidden">
+        <nav className="mx-auto flex min-h-16 max-w-container items-center justify-between gap-3 px-4 py-2 sm:px-8 lg:px-12">
+          {/* Logo */}
+          <Link
+            href="/"
+            className="min-w-0 shrink font-display text-base font-semibold tracking-tight sm:text-lg"
+          >
+            <span className="block truncate">{t('siteName')}</span>
+          </Link>
 
-        {/* Desktop nav */}
-        <ul className="hidden items-center gap-1 md:flex">
-          {navItems.map((item) => {
-            const isActive = isActivePath(pathname, item.href)
+          {/* Desktop nav */}
+          <ul className="hidden items-center gap-1 md:flex">
+            {navItems.map((item) => {
+              const isActive = isActivePath(pathname, item.href)
 
-            return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={cn(
-                    'rounded-md px-4 py-2 text-sm font-medium transition-colors',
-                    isActive
-                      ? 'bg-elevated text-foreground'
-                      : 'text-muted hover:bg-elevated hover:text-foreground',
-                  )}
-                >
-                  {t(item.key)}
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      'rounded-md px-4 py-2 text-sm font-medium transition-colors',
+                      isActive
+                        ? 'bg-elevated text-foreground'
+                        : 'text-muted hover:bg-elevated hover:text-foreground',
+                    )}
+                  >
+                    {t(item.key)}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
 
-        {/* Right actions */}
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-          <div className="hidden sm:block">
-            <LocaleSwitch />
+          {/* Right actions */}
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+            <div className="hidden sm:block">
+              <LocaleSwitch />
+            </div>
+            <ThemeToggle />
           </div>
-          <ThemeToggle />
-        </div>
-      </nav>
+        </nav>
 
-      <MobileDrawer open={drawerOpen} onOpenChange={setDrawerOpen} />
+        <MobileDrawer open={drawerOpen} onOpenChange={setDrawerOpen} />
+      </header>
+
       <MobileBottomNav onOpenMenu={() => setDrawerOpen(true)} />
-    </header>
+    </>
   )
 }
