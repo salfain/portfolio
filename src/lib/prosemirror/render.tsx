@@ -94,7 +94,7 @@ function renderNode(node: ProseMirrorNode, ctx: RenderContext): ReactNode {
 
     case 'paragraph':
       return (
-        <p className="my-4 leading-relaxed">{renderChildren(node.content, ctx)}</p>
+        <p className="my-4 text-justify leading-relaxed">{renderChildren(node.content, ctx)}</p>
       )
 
     case 'heading': {

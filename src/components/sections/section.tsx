@@ -48,7 +48,7 @@ export function Section({
                 {title}
               </h2>
               {description ? (
-                <p className="mt-3 text-base leading-relaxed text-muted">
+                <p className="mt-3 text-justify text-base leading-relaxed text-muted">
                   {description}
                 </p>
               ) : null}

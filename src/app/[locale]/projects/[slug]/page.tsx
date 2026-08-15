@@ -89,7 +89,7 @@ function CaseStudyBlock({
       </h2>
       <p
         lang={lang}
-        className="mt-3 whitespace-pre-line text-base leading-relaxed text-muted"
+        className="mt-3 whitespace-pre-line text-justify text-base leading-relaxed text-muted"
       >
         {body}
       </p>
@@ -150,7 +150,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
         <p
           lang={summary.lang}
-          className="mt-8 text-lg leading-relaxed text-muted"
+          className="mt-8 text-justify text-lg leading-relaxed text-muted"
         >
           {summary.value}
         </p>
@@ -228,4 +228,3 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     </Container>
   )
 }
-

@@ -27,7 +27,7 @@ export function PageHeader({
         {description ? (
           <p
             lang={descriptionLang}
-            className="mt-4 text-base leading-relaxed text-muted md:text-lg"
+            className="mt-4 text-justify text-base leading-relaxed text-muted md:text-lg"
           >
             {description}
           </p>
