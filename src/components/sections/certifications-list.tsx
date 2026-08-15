@@ -52,6 +52,15 @@ export async function CertificationsList({
             <StaggerItem key={certificate.id}>
               <Card className="h-full">
                 <CardBody className="flex h-full flex-col">
+                  {certificate.imageUrl ? (
+                    <img
+                      src={certificate.imageUrl}
+                      alt={`${certificate.name} - ${certificate.issuer}`}
+                      loading="lazy"
+                      decoding="async"
+                      className="mb-5 aspect-[16/10] w-full rounded-xl border border-border object-contain"
+                    />
+                  ) : null}
                   <h3 className="font-display text-base font-semibold leading-snug">
                     {certificate.name}
                   </h3>

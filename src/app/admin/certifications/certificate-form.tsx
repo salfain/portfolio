@@ -12,6 +12,7 @@ import {
 import type { PublishStatusValue } from '@/lib/schemas/admin'
 
 import { saveCertificateAction } from './actions'
+import { CertificateImageUpload } from './certificate-image-upload'
 
 export function CertificateForm({
   certificate,
@@ -64,6 +65,11 @@ export function CertificateForm({
             hint="Tanpa URL ini, sertifikat tetap tampil tapi tanpa tombol verifikasi."
             defaultValue={certificate?.credentialUrl}
             error={errors.credentialUrl}
+          />
+
+          <CertificateImageUpload
+            certificateId={certificate?.id ?? null}
+            imageUrl={certificate?.imageUrl}
           />
 
           <ListField

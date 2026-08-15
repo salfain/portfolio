@@ -16,6 +16,7 @@ const certificateSelect = {
   issueDate: true,
   expiryDate: true,
   credentialUrl: true,
+  imageUrl: true,
   skills: true,
 } satisfies Prisma.CertificateSelect
 
