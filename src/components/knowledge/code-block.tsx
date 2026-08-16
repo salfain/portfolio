@@ -41,7 +41,7 @@ export function CodeBlock({
   return (
     <div className="group my-6 overflow-hidden rounded-2xl border border-border bg-elevated">
       <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-2">
-        <span className="font-mono text-xs uppercase tracking-wide text-muted">
+        <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
           {language || t('code')}
         </span>
 
@@ -49,10 +49,11 @@ export function CodeBlock({
           type="button"
           onClick={handleCopy}
           className={cn(
-            'rounded-sm px-3 py-1 text-xs font-medium transition-colors',
+            'rounded-full px-3 py-1 transition-colors',
+            'font-mono text-[11px] uppercase tracking-[0.12em]',
             'hover:bg-surface',
             'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
-            copied ? 'text-success' : failed ? 'text-danger' : 'text-muted',
+            copied ? 'text-success' : failed ? 'text-danger' : 'text-faint',
           )}
         >
           {copied ? t('copied') : failed ? t('copyFailed') : t('copy')}
@@ -65,7 +66,7 @@ export function CodeBlock({
         tabIndex={0}
         className="overflow-x-auto px-4 py-4 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary"
       >
-        <code className="font-mono text-sm leading-relaxed">{code}</code>
+        <code className="font-mono text-[13px] leading-relaxed">{code}</code>
       </pre>
 
       {/* Umpan balik untuk pembaca layar — perubahan warna tombol saja

@@ -24,7 +24,7 @@
     "expertise": "Keahlian",
     "certifications": "Sertifikasi",
     "recruiter": "Mode Recruiter",
-    "knowledge": "Basis Pengetahuan",
+    "knowledge": "Knowledge Base",
     "contact": "Kontak",
     "privacy": "Kebijakan Privasi",
     "terms": "Ketentuan",
@@ -36,7 +36,7 @@
   },
   "footer": {
     "name": "Muhammad Sya'ban Alfain",
-    "role": "Dukungan IT",
+    "role": "IT Support",
     "navLabel": "Navigasi footer",
     "rights": "Hak cipta dilindungi."
   },
@@ -80,7 +80,7 @@
         "description": "Sertifikat yang dimiliki beserta tautan verifikasinya."
       },
       "knowledge": {
-        "title": "Basis Pengetahuan",
+        "title": "Knowledge Base",
         "description": "SOP, lab jaringan, dan laporan penanganan insiden."
       },
       "recruiter": {
@@ -295,7 +295,7 @@
     "loginRequired": "Masuk diperlukan"
   },
   "knowledge": {
-    "title": "Basis Pengetahuan",
+    "title": "Knowledge Base",
     "description": "SOP, lab jaringan, dan laporan insiden yang saya tulis sendiri. Setiap dokumen bisa ditelusuri langkah demi langkah.",
     "browseAll": "Lihat semua dokumen",
     "code": "kode",

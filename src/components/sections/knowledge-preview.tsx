@@ -1,6 +1,5 @@
 import { getTranslations } from 'next-intl/server'
 
-import { Link } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import type { DocumentCard as DocumentCardData } from '@/data/knowledge'
 
@@ -8,6 +7,7 @@ import { DocumentCard } from '@/components/knowledge'
 import { StaggerContainer, StaggerItem } from '@/components/motion'
 
 import { Section } from './section'
+import { SectionLink } from './section-link'
 
 /**
  * Bagian 10 beranda — pratinjau Knowledge Base.
@@ -33,12 +33,7 @@ export async function KnowledgePreview({
       title={t('fromKnowledgeBase')}
       description={tKnowledge('description')}
       action={
-        <Link
-          href="/knowledge"
-          className="rounded-sm text-sm font-medium text-primary underline underline-offset-4 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-        >
-          {tKnowledge('browseAll')} →
-        </Link>
+        <SectionLink href="/knowledge">{tKnowledge('browseAll')}</SectionLink>
       }
     >
       <StaggerContainer className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">

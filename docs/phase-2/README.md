@@ -35,7 +35,19 @@
 - `nav.*` (siteName, home, projects, knowledge, menu, openMenu, closeMenu)
 - `footer.*` (name, role, home, projects, knowledge, rights)
 - `a11y.skipToContent`
-- ID: "Knowledge Base" → "Basis Pengetahuan", "IT Support" → "Dukungan IT"
+- ID: "Knowledge Base" dan "IT Support" TIDAK diterjemahkan
+
+  Catatan lama di baris ini menyebut "Basis Pengetahuan" dan "Dukungan IT".
+  Itu bertentangan dengan `docs/phase-0/03_PROFILE_COPY.md` — sumber
+  kebenaran tertinggi menurut CLAUDE.md — yang memakai "Jelajahi Knowledge
+  Base" (§7), "Dari Knowledge Base" (§8), "Kemampuan IT Support" (§8), dan
+  "IT Support · Dukungan Teknis · Dokumentasi" (§3) di kolom Indonesia.
+
+  Akibatnya `id.json` sempat memakai dua istilah sekaligus: navigasi dan
+  footer menerjemahkannya, sementara hero, pencarian, dan halaman
+  Ketentuan tidak. Sekarang disamakan mengikuti Fase 0. Alasan yang sama
+  dipakai untuk tag di `docs/phase-0/04_SEED_CONTENT_DRAFT.md` §222:
+  istilah teknis yang diterjemahkan justru memecah navigasi.
 
 ### Layout
 - Root layout → pass-through (tidak render `<html>`)

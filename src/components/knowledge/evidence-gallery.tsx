@@ -126,8 +126,8 @@ export function EvidenceGallery({ items }: { items: EvidenceItem[] }) {
               type="button"
               onClick={() => setOpenIndex(index)}
               className={cn(
-                'group w-full overflow-hidden rounded-2xl border border-border bg-surface text-left',
-                'transition-colors hover:border-primary/40',
+                'group w-full overflow-hidden rounded-3xl border border-border bg-surface text-left',
+                'transition-colors hover:border-[var(--accent-line)]',
                 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
               )}
             >
@@ -137,17 +137,19 @@ export function EvidenceGallery({ items }: { items: EvidenceItem[] }) {
                 sizes="(min-width: 640px) 50vw, 100vw"
               />
 
-              <span className="block p-4">
-                <span className="block text-sm font-medium">
+              <span className="block p-5">
+                <span className="block text-[15px] font-medium leading-snug">
                   {item.title ?? t('openImage')}
                 </span>
                 {item.caption ? (
-                  <span className="mt-1 block text-sm text-muted">
+                  <span className="mt-2 block text-[15px] leading-relaxed text-muted">
                     {item.caption}
                   </span>
                 ) : null}
+                {/* Alat dan tanggal uji: baris mono, sama seperti meta di
+                    kartu dokumen dan proyek. */}
                 {item.tool || item.testDate ? (
-                  <span className="mt-2 block text-xs text-muted">
+                  <span className="mt-3 block font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
                     {[item.tool, item.testDate].filter(Boolean).join(' · ')}
                   </span>
                 ) : null}
@@ -180,7 +182,9 @@ export function EvidenceGallery({ items }: { items: EvidenceItem[] }) {
             />
 
             {active.caption ? (
-              <p className="mt-3 text-sm text-muted">{active.caption}</p>
+              <p className="mt-4 text-[15px] leading-relaxed text-muted">
+                {active.caption}
+              </p>
             ) : null}
 
             {items.length > 1 ? (
@@ -188,12 +192,15 @@ export function EvidenceGallery({ items }: { items: EvidenceItem[] }) {
                 <button
                   type="button"
                   onClick={() => show(activeIndex - 1)}
-                  className="rounded-md px-4 py-2 text-sm text-muted hover:bg-elevated hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  className="rounded-full px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-muted hover:bg-elevated hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 >
                   ← {t('previousImage')}
                 </button>
 
-                <span aria-live="polite" className="text-xs text-muted">
+                <span
+                  aria-live="polite"
+                  className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint"
+                >
                   {t('imagePosition', {
                     current: activeIndex + 1,
                     total: items.length,
@@ -203,7 +210,7 @@ export function EvidenceGallery({ items }: { items: EvidenceItem[] }) {
                 <button
                   type="button"
                   onClick={() => show(activeIndex + 1)}
-                  className="rounded-md px-4 py-2 text-sm text-muted hover:bg-elevated hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  className="rounded-full px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-muted hover:bg-elevated hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 >
                   {t('nextImage')} →
                 </button>
