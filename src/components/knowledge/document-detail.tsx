@@ -128,7 +128,7 @@ export async function DocumentDetail({
     <>
       <ReadingProgress />
 
-      <Container className="py-12 md:py-16">
+      <Container className="py-8 md:py-12">
         <Link
           href={`/knowledge/${segment}`}
           className="rounded-sm text-sm text-muted underline underline-offset-2 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
@@ -162,7 +162,7 @@ export async function DocumentDetail({
           </div>
         </header>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_240px]">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_240px]">
           <div className="min-w-0 lg:order-1">
             {content ? (
               <article lang={contentLang}>

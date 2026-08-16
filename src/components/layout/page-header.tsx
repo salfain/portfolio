@@ -19,7 +19,7 @@ export function PageHeader({
   children,
 }: PageHeaderProps) {
   return (
-    <Container as="header" className="py-12 sm:py-14 md:py-20">
+    <Container as="header" className="py-8 sm:py-10 md:py-12">
       <Reveal className="max-w-none">
         <h1 className="font-display text-3xl font-semibold tracking-tight md:text-4xl lg:text-5xl">
           {title}

@@ -61,7 +61,7 @@ export default async function RecruiterPage({ params }: PageProps) {
   const skillGroups = groupSkillsByCategory(skills)
 
   return (
-    <Container as="article" className="py-14 print:py-0 md:py-20">
+    <Container as="article" className="py-10 print:py-0 md:py-12">
       <div className="max-w-none">
         <div className="flex items-start justify-between gap-4">
           <div>

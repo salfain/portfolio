@@ -31,7 +31,7 @@ export async function RevisionTimeline({
   if (revisions.length === 0) return null
 
   return (
-    <section aria-labelledby="revisions-heading" className="mt-16">
+    <section aria-labelledby="revisions-heading" className="mt-12">
       <h2
         id="revisions-heading"
         className="font-display text-xl font-semibold tracking-tight"

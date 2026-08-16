@@ -35,7 +35,7 @@ export function Section({
     <section
       id={id}
       aria-labelledby={headingId}
-      className={cn('scroll-mt-24 py-8 md:py-12', className)}
+      className={cn('scroll-mt-24 py-6 md:py-8', className)}
     >
       <Container>
         <Reveal>

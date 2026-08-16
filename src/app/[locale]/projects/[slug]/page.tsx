@@ -118,7 +118,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   const complete = isLocaleComplete(project, locale, PROJECT_REQUIRED_EN)
 
   return (
-    <Container as="article" className="py-14 md:py-20">
+    <Container as="article" className="py-10 md:py-12">
       <div className="max-w-none">
         <p className="text-sm">
           <Link

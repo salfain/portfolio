@@ -19,7 +19,7 @@ import { Container } from '@/components/layout/container'
 
 function HeaderSkeleton() {
   return (
-    <div className="border-b border-border py-12 md:py-16">
+    <div className="border-b border-border py-8 md:py-12">
       <Container>
         <Skeleton className="h-10 w-2/3 max-w-md rounded-2xl md:h-12" />
         <SkeletonText lines={2} className="mt-5 max-w-none" />
@@ -87,7 +87,7 @@ export async function DocumentSkeleton() {
 
   return (
     <SkeletonRegion label={t('loadingDocument')}>
-      <Container className="py-12 md:py-16">
+      <Container className="py-8 md:py-12">
         <Skeleton className="h-4 w-40 rounded-full" />
 
         <div className="mt-6 max-w-none">
@@ -100,7 +100,7 @@ export async function DocumentSkeleton() {
           <SkeletonText lines={2} className="mt-5" />
         </div>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_240px]">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_240px]">
           <div className="min-w-0 space-y-8">
             {Array.from({ length: 3 }).map((_, index) => (
               <div key={index}>
@@ -132,7 +132,7 @@ export async function ProseSkeleton() {
     <SkeletonRegion label={t('loading')}>
       <HeaderSkeleton />
 
-      <Container className="py-12">
+      <Container className="py-8">
         <div className="max-w-none space-y-8">
           {Array.from({ length: 4 }).map((_, index) => (
             <div key={index}>

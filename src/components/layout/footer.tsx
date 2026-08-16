@@ -15,7 +15,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border print:hidden">
-      <Container className="py-12">
+      <Container className="py-10">
         <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           {/* Brand */}
           <div>

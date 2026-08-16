@@ -49,7 +49,7 @@ export async function Hero({ profile, locale }: HeroProps) {
   const hasPortrait = Boolean(profile?.profileImageUrl)
 
   return (
-    <section className="py-8 sm:py-10 md:py-12 lg:py-16">
+    <section className="py-8 md:py-10 lg:py-12">
       <Container>
         <div className="grid min-w-0 items-center gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-12">
           <Reveal
