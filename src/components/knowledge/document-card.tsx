@@ -64,7 +64,7 @@ export async function DocumentCard({
 
       <p
         lang={summary.lang}
-        className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted"
+        className="text-justified mt-2 line-clamp-3 text-sm leading-relaxed text-muted"
       >
         {summary.value}
       </p>

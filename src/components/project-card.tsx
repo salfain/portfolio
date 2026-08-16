@@ -43,7 +43,7 @@ export async function ProjectCard({ project, locale }: ProjectCardProps) {
 
         <p
           lang={summary.lang}
-          className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted"
+          className="text-justified mt-3 line-clamp-3 text-sm leading-relaxed text-muted"
         >
           {summary.value}
         </p>

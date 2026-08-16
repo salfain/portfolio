@@ -41,12 +41,12 @@ export async function Hero({ profile, locale }: HeroProps) {
   const cvUrl = locale === 'en' ? profile?.cvEnUrl : profile?.cvIdUrl
 
   return (
-    <section className="py-16 md:py-24 lg:py-28">
+    <section className="py-10 md:py-14 lg:py-16">
       <Container>
-        <div className="grid min-w-0 items-center gap-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
+        <div className="grid min-w-0 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-12">
           <Reveal className="min-w-0 max-w-prose">
             {availability?.value ? (
-              <Badge variant="success" className="mb-6">
+              <Badge variant="success" className="mb-4">
                 <span lang={availability.lang}>{availability.value}</span>
               </Badge>
             ) : null}
@@ -60,7 +60,7 @@ export async function Hero({ profile, locale }: HeroProps) {
 
             <h1
               lang={headline.lang}
-              className="mt-4 font-display text-4xl font-semibold leading-tight tracking-tight md:text-5xl lg:text-6xl"
+              className="mt-3 font-display text-4xl font-semibold leading-tight tracking-tight md:text-5xl lg:text-6xl"
             >
               {headline.value}
             </h1>
@@ -68,13 +68,13 @@ export async function Hero({ profile, locale }: HeroProps) {
             {summary?.value ? (
               <p
                 lang={summary.lang}
-                className="mt-6 text-base leading-relaxed text-muted md:text-lg"
+                className="text-justified mt-5 text-base leading-relaxed text-muted md:text-lg"
               >
                 {summary.value}
               </p>
             ) : null}
 
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap gap-3">
               <Button asChild size="lg">
                 <Link href="/projects">{t('viewPortfolio')}</Link>
               </Button>

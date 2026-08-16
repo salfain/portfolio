@@ -105,7 +105,19 @@
    hasil terbit terlihat berbeda jauh, penulis akan terus menyunting ulang
    setelah melihat hasilnya. */
 
+/* ─── Paragraf rata kiri-kanan ────────────────────────────
+   Dipakai pada paragraf naratif di rute publik. `hyphens: auto`
+   wajib menyertainya: tanpa pemenggalan, justify pada kolom sempit
+   (375 px) meninggalkan celah antar-kata yang lebar. Pemenggalan
+   mengikuti atribut `lang` pada elemennya, yang sudah dipasang
+   renderer i18n. */
+
 @layer components {
+  .text-justified {
+    text-align: justify;
+    hyphens: auto;
+  }
+
   .prose-admin:focus {
     @apply outline-none;
   }

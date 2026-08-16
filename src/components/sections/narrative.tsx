@@ -67,7 +67,7 @@ export function Narrative({
 
                   <p
                     lang={blockBody.lang}
-                    className="mt-2 text-sm leading-relaxed text-muted"
+                    className="text-justified mt-2 text-sm leading-relaxed text-muted"
                   >
                     {blockBody.value}
                   </p>

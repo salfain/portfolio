@@ -49,7 +49,7 @@ export async function ExploreWork() {
                       {t(`items.${link.key}.title`)}
                     </Link>
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
+                  <p className="text-justified mt-2 text-sm leading-relaxed text-muted">
                     {t(`items.${link.key}.description`)}
                   </p>
                 </CardBody>

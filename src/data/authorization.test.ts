@@ -183,7 +183,10 @@ describe('penyaringan status pada query publik', () => {
         // sendiri tidak punya status.
         name === 'getDocumentRevisions' ||
         // Kategori dan tag bukan entitas berstatus.
-        name.startsWith('getKnowledge')
+        name.startsWith('getKnowledge') ||
+        // Fungsi admin tidak menyaring status PUBLISHED karena admin berhak melihat draft/arsip.
+        name.startsWith('getAdmin') ||
+        name === 'getDocumentsForExport'
 
       if (!menyaring) tanpaFilter.push(name)
     }
