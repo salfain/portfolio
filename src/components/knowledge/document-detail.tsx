@@ -152,7 +152,7 @@ export async function DocumentDetail({
 
           <p
             lang={summary.lang}
-            className="mt-4 text-justify text-lg leading-relaxed text-muted"
+            className="mt-4 hyphens-auto text-justify text-lg leading-relaxed text-muted"
           >
             {summary.value}
           </p>

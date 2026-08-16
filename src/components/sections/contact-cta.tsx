@@ -29,11 +29,11 @@ export async function ContactCta({ profile, locale }: ContactCtaProps) {
     <section
       id="contact-cta"
       aria-labelledby="contact-cta-heading"
-      className="scroll-mt-24 py-16 md:py-20"
+      className="scroll-mt-24 py-10 md:py-14"
     >
       <Container>
         <Reveal>
-          <div className="rounded-4xl border border-border bg-surface px-5 py-10 text-center sm:px-12 sm:py-12">
+          <div className="rounded-4xl border border-border bg-surface px-5 py-8 text-center sm:px-12 sm:py-10">
             <h2
               id="contact-cta-heading"
               className="font-display text-2xl font-semibold tracking-tight md:text-3xl"
@@ -44,7 +44,7 @@ export async function ContactCta({ profile, locale }: ContactCtaProps) {
               {t('description')}
             </p>
 
-            <div className="mx-auto mt-8 grid max-w-md gap-3 sm:flex sm:max-w-none sm:flex-wrap sm:justify-center">
+            <div className="mx-auto mt-7 grid max-w-md gap-3 sm:flex sm:max-w-none sm:flex-wrap sm:justify-center">
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href="/contact">{t('getInTouch')}</Link>
               </Button>

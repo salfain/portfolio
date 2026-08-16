@@ -41,12 +41,12 @@ export async function Hero({ profile, locale }: HeroProps) {
   const cvUrl = locale === 'en' ? profile?.cvEnUrl : profile?.cvIdUrl
 
   return (
-    <section className="py-14 sm:py-16 md:py-24 lg:py-28">
+    <section className="py-10 sm:py-12 md:py-16 lg:py-20">
       <Container>
-        <div className="grid min-w-0 items-center gap-10 sm:gap-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
+        <div className="grid min-w-0 items-center gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-12">
           <Reveal className="min-w-0 max-w-prose">
             {availability?.value ? (
-              <Badge variant="success" className="mb-6">
+              <Badge variant="success" className="mb-4">
                 <span lang={availability.lang}>{availability.value}</span>
               </Badge>
             ) : null}
@@ -60,7 +60,7 @@ export async function Hero({ profile, locale }: HeroProps) {
 
             <h1
               lang={headline.lang}
-              className="mt-4 max-w-4xl break-words font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
+              className="mt-3 max-w-4xl break-words font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
             >
               {headline.value}
             </h1>
@@ -68,13 +68,13 @@ export async function Hero({ profile, locale }: HeroProps) {
             {summary?.value ? (
               <p
                 lang={summary.lang}
-                className="mt-6 text-justify text-base leading-relaxed text-muted md:text-lg"
+                className="mt-5 hyphens-auto text-justify text-base leading-relaxed text-muted md:text-lg"
               >
                 {summary.value}
               </p>
             ) : null}
 
-            <div className="mt-8 grid gap-3 sm:mt-10 sm:flex sm:flex-wrap">
+            <div className="mt-6 grid gap-3 sm:mt-8 sm:flex sm:flex-wrap">
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href="/projects">{t('viewPortfolio')}</Link>
               </Button>

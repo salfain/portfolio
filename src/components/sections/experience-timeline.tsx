@@ -84,13 +84,13 @@ export async function ExperienceTimeline({
 
                     <p
                       lang={summary.lang}
-                      className="mt-4 text-justify text-sm leading-relaxed text-muted"
+                      className="mt-4 hyphens-auto text-justify text-sm leading-relaxed text-muted"
                     >
                       {summary.value}
                     </p>
 
                     {achievements.length > 0 ? (
-                      <ul className="mt-4 list-disc space-y-1.5 pl-5 text-justify text-sm leading-relaxed text-muted">
+                      <ul className="mt-4 list-disc space-y-1.5 pl-5 hyphens-auto text-justify text-sm leading-relaxed text-muted">
                         {achievements.map((achievement) => (
                           <li key={achievement}>{achievement}</li>
                         ))}
