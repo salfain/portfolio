@@ -139,7 +139,11 @@
     "viewAll": "View all certificates",
     "verify": "Verify credential",
     "emptyTitle": "No published certificates yet",
-    "emptyDescription": "Certificates will appear here once they are published."
+    "emptyDescription": "Certificates will appear here once they are published.",
+    "issued": "Issued",
+    "validUntil": "Valid until",
+    "openImage": "View the {name} certificate at full size",
+    "closeImage": "Close certificate preview"
   },
   "projects": {
     "title": "Projects",

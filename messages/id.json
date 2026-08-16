@@ -139,7 +139,11 @@
     "viewAll": "Lihat semua sertifikat",
     "verify": "Verifikasi kredensial",
     "emptyTitle": "Belum ada sertifikat terbit",
-    "emptyDescription": "Sertifikat akan tampil di sini setelah diterbitkan."
+    "emptyDescription": "Sertifikat akan tampil di sini setelah diterbitkan.",
+    "issued": "Terbit",
+    "validUntil": "Berlaku hingga",
+    "openImage": "Lihat sertifikat {name} ukuran penuh",
+    "closeImage": "Tutup pratinjau sertifikat"
   },
   "projects": {
     "title": "Proyek",

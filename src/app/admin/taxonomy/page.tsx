@@ -98,6 +98,7 @@ export default async function TaxonomyPage({ searchParams }: PageProps) {
                   </Link>
                   <DeleteButton
                     id={category.id}
+                    name={category.nameId}
                     action={deleteCategoryAction}
                   />
                 </div>
@@ -131,7 +132,12 @@ export default async function TaxonomyPage({ searchParams }: PageProps) {
                 <span className="text-xs text-muted">
                   {tag._count.documents + tag._count.projects}
                 </span>
-                <DeleteButton id={tag.id} action={deleteTagAction} label="×" />
+                <DeleteButton
+                  id={tag.id}
+                  name={tag.name}
+                  action={deleteTagAction}
+                  label="×"
+                />
               </li>
             ))}
           </ul>

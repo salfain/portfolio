@@ -122,7 +122,11 @@ export default async function AdminKnowledgePage({ searchParams }: PageProps) {
                 >
                   Ubah
                 </Link>
-                <DeleteButton id={document.id} action={deleteDocumentAction} />
+                <DeleteButton
+                  id={document.id}
+                  name={document.titleId}
+                  action={deleteDocumentAction}
+                />
               </div>
             </li>
           ))}

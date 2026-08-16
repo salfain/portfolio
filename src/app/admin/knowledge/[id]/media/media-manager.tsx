@@ -224,7 +224,11 @@ export function MediaEditForm({
             ) : null}
           </fieldset>
 
-          <DeleteButton id={asset.id} action={deleteMediaAction} />
+          <DeleteButton
+            id={asset.id}
+            name={asset.titleId ?? undefined}
+            action={deleteMediaAction}
+          />
         </>
       )}
     </FormShell>

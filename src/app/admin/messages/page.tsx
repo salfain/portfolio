@@ -101,7 +101,11 @@ export default async function AdminMessagesPage() {
 
               <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-border pt-4">
                 <ToggleReadButton id={message.id} isRead={message.isRead} />
-                <DeleteButton id={message.id} action={deleteMessageAction} />
+                <DeleteButton
+                  id={message.id}
+                  name={message.subject || `Pesan dari ${message.name}`}
+                  action={deleteMessageAction}
+                />
               </div>
             </li>
           ))}

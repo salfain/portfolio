@@ -61,6 +61,7 @@ export default async function AdminCertificatesPage() {
                 </Link>
                 <DeleteButton
                   id={certificate.id}
+                  name={certificate.name}
                   action={deleteCertificateAction}
                 />
               </div>

@@ -33,7 +33,12 @@ export default async function AdminTagsPage() {
               <span className="text-xs text-muted">
                 {tag._count.documents + tag._count.projects}
               </span>
-              <DeleteButton id={tag.id} action={deleteTagAction} label="×" />
+              <DeleteButton
+                id={tag.id}
+                name={tag.name}
+                action={deleteTagAction}
+                label="×"
+              />
             </li>
           ))}
         </ul>

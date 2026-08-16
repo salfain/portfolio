@@ -55,7 +55,11 @@ export default async function AdminSkillsPage() {
                 >
                   Ubah
                 </Link>
-                <DeleteButton id={skill.id} action={deleteSkillAction} />
+                <DeleteButton
+                  id={skill.id}
+                  name={skill.name}
+                  action={deleteSkillAction}
+                />
               </div>
             </li>
           ))}

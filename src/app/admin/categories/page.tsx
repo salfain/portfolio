@@ -46,7 +46,11 @@ export default async function AdminCategoriesPage() {
                   {category._count.projects} proyek
                 </p>
               </div>
-              <DeleteButton id={category.id} action={deleteCategoryAction} />
+              <DeleteButton
+                id={category.id}
+                name={category.nameId}
+                action={deleteCategoryAction}
+              />
             </li>
           ))}
         </ul>

@@ -56,6 +56,7 @@ export default async function AdminExperiencesPage() {
                 </Link>
                 <DeleteButton
                   id={experience.id}
+                  name={experience.positionId}
                   action={deleteExperienceAction}
                 />
               </div>

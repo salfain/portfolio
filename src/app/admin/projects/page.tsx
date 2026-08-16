@@ -64,7 +64,11 @@ export default async function AdminProjectsPage() {
                 >
                   Ubah
                 </Link>
-                <DeleteButton id={project.id} action={deleteProjectAction} />
+                <DeleteButton
+                  id={project.id}
+                  name={project.titleId}
+                  action={deleteProjectAction}
+                />
               </div>
             </li>
           ))}

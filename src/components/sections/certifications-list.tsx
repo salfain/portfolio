@@ -6,6 +6,7 @@ import type { PublicCertificate } from '@/data/certificate'
 
 import { Badge, Card, CardBody, EmptyState } from '@/components/ui'
 import { StaggerContainer, StaggerItem } from '@/components/motion'
+import { CertificateLightbox } from '@/components/certificate-lightbox'
 
 import { Section } from './section'
 import { SectionLink } from './section-link'
@@ -51,12 +52,40 @@ export async function CertificationsList({
               <Card className="h-full">
                 <CardBody className="flex h-full flex-col p-7">
                   {certificate.imageUrl ? (
-                    <img
-                      src={certificate.imageUrl}
-                      alt={`${certificate.name} - ${certificate.issuer}`}
-                      loading="lazy"
-                      decoding="async"
-                      className="mb-6 aspect-[4/3] w-full rounded-xl border border-border bg-background object-contain"
+                    <CertificateLightbox
+                      name={certificate.name}
+                      issuer={certificate.issuer}
+                      imageUrl={certificate.imageUrl}
+                      skills={certificate.skills}
+                      credentialUrl={certificate.credentialUrl}
+                      /* Tanggal diformat di server: `formatFullDate`
+                         bergantung pada locale halaman, dan memformatnya
+                         di klien akan memakai locale peramban. */
+                      meta={[
+                        certificate.issueDate
+                          ? {
+                              label: t('issued'),
+                              value: formatFullDate(
+                                certificate.issueDate,
+                                locale,
+                              ),
+                            }
+                          : null,
+                        certificate.expiryDate
+                          ? {
+                              label: t('validUntil'),
+                              value: formatFullDate(
+                                certificate.expiryDate,
+                                locale,
+                              ),
+                            }
+                          : null,
+                      ].filter((row) => row !== null)}
+                      labels={{
+                        open: t('openImage', { name: certificate.name }),
+                        close: t('closeImage'),
+                        verify: t('verify'),
+                      }}
                     />
                   ) : null}
 
