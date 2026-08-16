@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
+import { cn } from '@/lib/cn'
 import { features } from '@/lib/features'
 import { resolveLocalized } from '@/lib/i18n-content'
 import type { PublicProfile } from '@/data/profile'
@@ -40,11 +41,20 @@ export async function Hero({ profile, locale }: HeroProps) {
 
   const cvUrl = locale === 'en' ? profile?.cvEnUrl : profile?.cvIdUrl
 
+  /**
+   * Kolom kanan grid hanya terisi kalau foto profil ada. Tanpa foto,
+   * `max-w-prose` menyisakan sekitar 40% lebar layar kosong di kanan —
+   * jadi teksnya dibiarkan memakai lebar Container penuh.
+   */
+  const hasPortrait = Boolean(profile?.profileImageUrl)
+
   return (
-    <section className="py-10 sm:py-12 md:py-16 lg:py-20">
+    <section className="py-8 sm:py-10 md:py-12 lg:py-16">
       <Container>
         <div className="grid min-w-0 items-center gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-12">
-          <Reveal className="min-w-0 max-w-prose">
+          <Reveal
+            className={cn('min-w-0', hasPortrait ? 'max-w-prose' : 'max-w-none')}
+          >
             {availability?.value ? (
               <Badge variant="success" className="mb-4">
                 <span lang={availability.lang}>{availability.value}</span>
@@ -60,7 +70,7 @@ export async function Hero({ profile, locale }: HeroProps) {
 
             <h1
               lang={headline.lang}
-              className="mt-3 max-w-4xl break-words font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
+              className="mt-3 break-words font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
             >
               {headline.value}
             </h1>

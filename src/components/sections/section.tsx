@@ -35,12 +35,14 @@ export function Section({
     <section
       id={id}
       aria-labelledby={headingId}
-      className={cn('scroll-mt-24 py-10 md:py-14', className)}
+      className={cn('scroll-mt-24 py-8 md:py-12', className)}
     >
       <Container>
         <Reveal>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div className="max-w-prose">
+            {/* `flex-1` — bukan max-w-prose — supaya deskripsi bagian ikut
+                memakai lebar penuh dan tidak menyisakan rongga di kanan. */}
+            <div className="min-w-0 flex-1">
               <h2
                 id={headingId}
                 className="font-display text-2xl font-semibold tracking-tight md:text-3xl"
