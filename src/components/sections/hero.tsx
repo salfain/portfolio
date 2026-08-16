@@ -41,7 +41,7 @@ export async function Hero({ profile, locale }: HeroProps) {
   const cvUrl = locale === 'en' ? profile?.cvEnUrl : profile?.cvIdUrl
 
   return (
-    <section className="py-14 sm:py-16 md:py-24 lg:py-28">
+    <section className="py-10 sm:py-12 md:py-16 lg:py-20">
       <Container>
         <div className="grid min-w-0 items-center gap-10 sm:gap-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
           <Reveal className="min-w-0 max-w-prose">

@@ -29,7 +29,7 @@ export async function ContactCta({ profile, locale }: ContactCtaProps) {
     <section
       id="contact-cta"
       aria-labelledby="contact-cta-heading"
-      className="scroll-mt-24 py-16 md:py-20"
+      className="scroll-mt-24 py-10 md:py-14"
     >
       <Container>
         <Reveal>
