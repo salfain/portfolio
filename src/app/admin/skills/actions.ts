@@ -3,7 +3,11 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 
-import { skillSchema, toFieldErrors, type AdminState } from '@/lib/schemas/admin'
+import {
+  skillSchema,
+  toFieldErrors,
+  type AdminState,
+} from '@/lib/schemas/admin'
 import { requireAdmin } from '@/data/_guards'
 import { deleteSkill, saveSkill } from '@/data/skill'
 

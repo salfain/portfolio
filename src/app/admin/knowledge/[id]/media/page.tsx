@@ -39,16 +39,14 @@ export default async function DocumentMediaPage({ params }: PageProps) {
       }
     >
       <section className="max-w-2xl">
-        <h2 className="font-display text-xl font-semibold">Unggah bukti</h2>
+        <h2 className="text-xl font-medium">Unggah bukti</h2>
         <div className="mt-4">
           <MediaUploadForm documentId={id} />
         </div>
       </section>
 
       <section className="mt-12">
-        <h2 className="font-display text-xl font-semibold">
-          Bukti pada dokumen ini
-        </h2>
+        <h2 className="text-xl font-medium">Bukti pada dokumen ini</h2>
 
         {media.length === 0 ? (
           <div className="mt-4 max-w-2xl">

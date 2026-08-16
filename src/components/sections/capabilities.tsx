@@ -47,16 +47,17 @@ export async function Capabilities({
       }
     >
       {visible.length === 0 ? (
-        <EmptyState title={t('emptyTitle')} description={t('emptyDescription')} />
+        <EmptyState
+          title={t('emptyTitle')}
+          description={t('emptyDescription')}
+        />
       ) : (
         <StaggerContainer className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {visible.map((group) => (
             <StaggerItem key={group.category}>
               <Card className="h-full">
                 <CardBody>
-                  <h3 className="font-display text-base font-semibold">
-                    {group.category}
-                  </h3>
+                  <h3 className="text-base font-medium">{group.category}</h3>
                   <ul className="mt-4 space-y-2">
                     {group.skills.map((skill) => (
                       <li

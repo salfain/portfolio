@@ -35,9 +35,7 @@ export async function generateMetadata({ params }: PageProps) {
   return documentDetailMetadata(locale, 'sop', slug)
 }
 
-export default async function KnowledgeSopDetailPage({
-  params,
-}: PageProps) {
+export default async function KnowledgeSopDetailPage({ params }: PageProps) {
   const { locale, slug } = await params
   setRequestLocale(locale)
 

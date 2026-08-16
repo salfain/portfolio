@@ -36,7 +36,7 @@ export async function ContactCta({ profile, locale }: ContactCtaProps) {
           <div className="rounded-4xl border border-border bg-surface px-5 py-8 text-center sm:px-12 sm:py-10">
             <h2
               id="contact-cta-heading"
-              className="font-display text-2xl font-semibold tracking-tight md:text-3xl"
+              className="font-display text-2xl tracking-tight md:text-3xl"
             >
               {t('title')}
             </h2>

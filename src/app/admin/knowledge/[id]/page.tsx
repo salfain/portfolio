@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { getAdminDocumentById, getCategoryOptions } from '@/data/knowledge-admin'
+import {
+  getAdminDocumentById,
+  getCategoryOptions,
+} from '@/data/knowledge-admin'
 import { documentHref } from '@/lib/knowledge-type'
 import { formatFullDate } from '@/lib/format'
 import type { PublishStatusValue } from '@/lib/schemas/admin'
@@ -88,7 +91,7 @@ export default async function EditDocumentPage({ params }: PageProps) {
 
       {document.revisions.length > 0 ? (
         <section className="mt-12 max-w-4xl">
-          <h2 className="font-display text-xl font-semibold">Riwayat revisi</h2>
+          <h2 className="text-xl font-medium">Riwayat revisi</h2>
           <p className="mt-1 text-sm text-muted">
             Tercatat otomatis setiap kali dokumen yang sudah terbit disunting.
             Isi versi lama sengaja tidak ditampilkan — versi lama bisa memuat

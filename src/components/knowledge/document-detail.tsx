@@ -24,10 +24,7 @@ import {
   parseLabMetadata,
 } from '@/lib/schemas/knowledge-metadata'
 import { getPublishedProfile } from '@/data/profile'
-import {
-  BreadcrumbJsonLd,
-  DocumentJsonLd,
-} from '@/components/structured-data'
+import { BreadcrumbJsonLd, DocumentJsonLd } from '@/components/structured-data'
 
 import { DocumentCard } from './document-card'
 import { EvidenceDownloads, type DownloadItem } from './evidence-downloads'
@@ -105,8 +102,7 @@ export async function DocumentDetail({
 
   // Isi Inggris dipakai hanya bila benar-benar ada; kalau tidak, isi
   // Indonesia ditampilkan dengan atribut lang yang benar.
-  const hasEnglishContent =
-    locale === 'en' && document.contentEnJson !== null
+  const hasEnglishContent = locale === 'en' && document.contentEnJson !== null
   const content = parseDocument(
     hasEnglishContent ? document.contentEnJson : document.contentIdJson,
   )
@@ -159,7 +155,8 @@ export async function DocumentDetail({
     .map((asset) => ({
       id: asset.id,
       href: asset.fileUrl,
-      label: pickLocale(asset, 'title', locale) || pickLocale(asset, 'alt', locale),
+      label:
+        pickLocale(asset, 'title', locale) || pickLocale(asset, 'alt', locale),
       mimeType: asset.mimeType,
       fileSize: asset.fileSize,
     }))
@@ -167,16 +164,16 @@ export async function DocumentDetail({
   const evidence: EvidenceItem[] = document.media
     .filter((asset) => isViewable(asset.mimeType))
     .map((asset) => ({
-    id: asset.id,
-    src: asset.fileUrl,
-    alt: pickLocale(asset, 'alt', locale),
-    caption: pickLocale(asset, 'caption', locale) || null,
-    title: pickLocale(asset, 'title', locale) || null,
-    tool: asset.tool,
-    testDate: asset.testDate ? formatFullDate(asset.testDate, locale) : null,
-    width: asset.width,
-    height: asset.height,
-  }))
+      id: asset.id,
+      src: asset.fileUrl,
+      alt: pickLocale(asset, 'alt', locale),
+      caption: pickLocale(asset, 'caption', locale) || null,
+      title: pickLocale(asset, 'title', locale) || null,
+      tool: asset.tool,
+      testDate: asset.testDate ? formatFullDate(asset.testDate, locale) : null,
+      width: asset.width,
+      height: asset.height,
+    }))
 
   const meta = [
     document.documentCode,
@@ -237,7 +234,7 @@ export async function DocumentDetail({
 
           <h1
             lang={title.lang}
-            className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl"
+            className="mt-3 font-display text-3xl tracking-tight md:text-4xl"
           >
             {title.value}
           </h1>
@@ -280,7 +277,7 @@ export async function DocumentDetail({
               <section aria-labelledby="evidence-heading" className="mt-16">
                 <h2
                   id="evidence-heading"
-                  className="font-display text-xl font-semibold tracking-tight"
+                  className="text-xl font-medium tracking-tight"
                 >
                   {tDetail('evidence')}
                 </h2>
@@ -302,7 +299,7 @@ export async function DocumentDetail({
               >
                 <h2
                   id="related-projects-heading"
-                  className="font-display text-xl font-semibold tracking-tight"
+                  className="text-xl font-medium tracking-tight"
                 >
                   {tDetail('relatedProjects')}
                 </h2>
@@ -333,7 +330,7 @@ export async function DocumentDetail({
 
             {document.tools.length > 0 ? (
               <div className="mt-10">
-                <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-muted">
+                <h2 className="text-sm font-medium uppercase tracking-wide text-muted">
                   {tDetail('tools')}
                 </h2>
                 <ul className="mt-3 flex flex-wrap gap-2">
@@ -351,7 +348,7 @@ export async function DocumentDetail({
 
             {document.tags.length > 0 ? (
               <div className="mt-8">
-                <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-muted">
+                <h2 className="text-sm font-medium uppercase tracking-wide text-muted">
                   {tDetail('tags')}
                 </h2>
                 <ul className="mt-3 flex flex-wrap gap-2">
@@ -383,17 +380,13 @@ export async function DocumentDetail({
           <section aria-labelledby="related-heading" className="mt-20">
             <h2
               id="related-heading"
-              className="font-display text-xl font-semibold tracking-tight"
+              className="text-xl font-medium tracking-tight"
             >
               {tDetail('related')}
             </h2>
             <div className="mt-6 grid gap-5 md:grid-cols-3">
               {related.map((item) => (
-                <DocumentCard
-                  key={item.id}
-                  document={item}
-                  locale={locale}
-                />
+                <DocumentCard key={item.id} document={item} locale={locale} />
               ))}
             </div>
           </section>

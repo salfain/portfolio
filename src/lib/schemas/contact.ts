@@ -6,11 +6,7 @@ import { z } from 'zod'
  * supaya pesan error ikut bilingual (03_I18N §1).
  */
 export const contactSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, 'nameTooShort')
-    .max(100, 'nameTooLong'),
+  name: z.string().trim().min(2, 'nameTooShort').max(100, 'nameTooLong'),
   email: z
     .string()
     .trim()
@@ -36,10 +32,7 @@ export const contactSchema = z.object({
 export type ContactInput = z.infer<typeof contactSchema>
 
 /** Kode error yang boleh dikembalikan server action ke klien. */
-export type ContactErrorCode =
-  | 'validation'
-  | 'rateLimited'
-  | 'server'
+export type ContactErrorCode = 'validation' | 'rateLimited' | 'server'
 
 export type ContactState =
   | { status: 'idle' }

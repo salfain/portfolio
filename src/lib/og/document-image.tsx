@@ -45,47 +45,47 @@ export async function renderDocumentOgImage(
   const document = await getPublishedDocumentBySlug(params.slug)
   const matches = document !== null && document.type === typeForSegment(segment)
 
-  const title = matches ? pickLocale(document, 'title', locale) : 'Knowledge Base'
+  const title = matches
+    ? pickLocale(document, 'title', locale)
+    : 'Knowledge Base'
   const summary = matches ? pickLocale(document, 'summary', locale) : ''
   const code = matches ? document.documentCode : null
 
   return new ImageResponse(
-    (
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          // Warna literal: berkas ini dirender di luar Tailwind, jadi token
-          // CSS variable tidak tersedia sama sekali di sini.
-          background: COLORS.background,
-          color: COLORS.foreground,
-          padding: 64,
-          fontFamily: 'sans-serif',
-        }}
-      >
-        <div style={{ display: 'flex', fontSize: 26, color: COLORS.muted }}>
-          {code ?? 'Knowledge Base'}
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <div style={{ fontSize: 60, fontWeight: 700, lineHeight: 1.15 }}>
-            {title.slice(0, 110)}
-          </div>
-          {summary ? (
-            <div style={{ fontSize: 28, color: COLORS.body, lineHeight: 1.4 }}>
-              {summary.slice(0, 150)}
-            </div>
-          ) : null}
-        </div>
-
-        <div style={{ display: 'flex', fontSize: 24, color: COLORS.muted }}>
-          Muhammad Sya&apos;ban Alfain — IT Support
-        </div>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        // Warna literal: berkas ini dirender di luar Tailwind, jadi token
+        // CSS variable tidak tersedia sama sekali di sini.
+        background: COLORS.background,
+        color: COLORS.foreground,
+        padding: 64,
+        fontFamily: 'sans-serif',
+      }}
+    >
+      <div style={{ display: 'flex', fontSize: 26, color: COLORS.muted }}>
+        {code ?? 'Knowledge Base'}
       </div>
-    ),
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <div style={{ fontSize: 60, fontWeight: 700, lineHeight: 1.15 }}>
+          {title.slice(0, 110)}
+        </div>
+        {summary ? (
+          <div style={{ fontSize: 28, color: COLORS.body, lineHeight: 1.4 }}>
+            {summary.slice(0, 150)}
+          </div>
+        ) : null}
+      </div>
+
+      <div style={{ display: 'flex', fontSize: 24, color: COLORS.muted }}>
+        Muhammad Sya&apos;ban Alfain — IT Support
+      </div>
+    </div>,
     OG_SIZE,
   )
 }

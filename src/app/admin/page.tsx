@@ -96,7 +96,7 @@ export default async function AdminPage() {
               'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
             )}
           >
-            <p className="font-display text-3xl font-semibold tabular-nums">
+            <p className="font-display text-3xl tabular-nums">
               {summary.total}
             </p>
             <p className="mt-1 text-sm font-medium">{summary.label}</p>

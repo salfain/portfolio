@@ -27,7 +27,7 @@ export async function EvidenceDownloads({ items }: { items: DownloadItem[] }) {
 
   return (
     <section className="mt-16" aria-labelledby="berkas-pendukung">
-      <h2 id="berkas-pendukung" className="font-display text-2xl font-semibold">
+      <h2 id="berkas-pendukung" className="font-display text-2xl">
         {t('heading')}
       </h2>
       <p className="mt-2 text-sm text-muted">{t('note')}</p>
@@ -44,7 +44,9 @@ export async function EvidenceDownloads({ items }: { items: DownloadItem[] }) {
                 <span className="block font-medium">{item.label}</span>
                 <span className="mt-0.5 block text-xs text-muted">
                   {item.mimeType} ·{' '}
-                  {t('size', { size: Math.max(1, Math.round(item.fileSize / 1024)) })}
+                  {t('size', {
+                    size: Math.max(1, Math.round(item.fileSize / 1024)),
+                  })}
                 </span>
               </span>
 

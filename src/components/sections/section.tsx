@@ -20,6 +20,11 @@ type SectionProps = {
  *
  * Judul dihubungkan ke `<section>` lewat `aria-labelledby` supaya
  * pembaca layar bisa melompat antar-bagian.
+ *
+ * Jarak antar-bagian dibawa oleh `border-t` + padding, bukan margin per
+ * elemen: bagian mana pun bisa dipindahkan tanpa menyisakan celah ganda.
+ * Bagian pertama pada satu halaman menghapus garisnya lewat
+ * `first:border-t-0`.
  */
 export function Section({
   id,
@@ -35,7 +40,10 @@ export function Section({
     <section
       id={id}
       aria-labelledby={headingId}
-      className={cn('scroll-mt-24 py-6 md:py-8', className)}
+      className={cn(
+        'scroll-mt-28 border-t border-border py-14 first:border-t-0 md:py-16',
+        className,
+      )}
     >
       <Container>
         <Reveal>
@@ -43,14 +51,11 @@ export function Section({
             {/* `flex-1` — bukan max-w-prose — supaya deskripsi bagian ikut
                 memakai lebar penuh dan tidak menyisakan rongga di kanan. */}
             <div className="min-w-0 flex-1">
-              <h2
-                id={headingId}
-                className="font-display text-2xl font-semibold tracking-tight md:text-3xl"
-              >
+              <h2 id={headingId} className="font-display text-h2">
                 {title}
               </h2>
               {description ? (
-                <p className="mt-3 hyphens-auto text-justify text-base leading-relaxed text-muted">
+                <p className="mt-4 max-w-[62ch] leading-relaxed text-muted">
                   {description}
                 </p>
               ) : null}
@@ -61,7 +66,7 @@ export function Section({
           </div>
         </Reveal>
 
-        <div className="mt-6 md:mt-8">{children}</div>
+        <div className="mt-9 md:mt-10">{children}</div>
       </Container>
     </section>
   )

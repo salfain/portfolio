@@ -29,7 +29,7 @@ export function EmptyState({
           {icon}
         </div>
       ) : null}
-      <h3 className="font-display text-lg font-semibold">{title}</h3>
+      <h3 className="text-lg font-medium">{title}</h3>
       {description ? (
         <p className="mt-1 max-w-sm text-sm text-muted">{description}</p>
       ) : null}

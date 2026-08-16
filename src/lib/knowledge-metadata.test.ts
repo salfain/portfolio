@@ -21,9 +21,7 @@ describe('parseTable', () => {
   it('kolom yang kurang menjadi string kosong, barisnya tetap ada', () => {
     const rows = parseTable('SW1 | Switch', DEVICE_KEYS)
 
-    expect(rows).toEqual([
-      { name: 'SW1', role: 'Switch', model: '', note: '' },
-    ])
+    expect(rows).toEqual([{ name: 'SW1', role: 'Switch', model: '', note: '' }])
   })
 
   it('membuang baris tanpa kolom pertama', () => {

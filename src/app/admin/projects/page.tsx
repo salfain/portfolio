@@ -52,7 +52,9 @@ export default async function AdminProjectsPage() {
                     </span>
                   ) : null}
                 </div>
-                <p className="mt-1 truncate text-sm text-muted">/{project.slug}</p>
+                <p className="mt-1 truncate text-sm text-muted">
+                  /{project.slug}
+                </p>
               </div>
 
               <div className="flex shrink-0 items-center gap-3">

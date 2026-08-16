@@ -32,9 +32,7 @@ const containerVariants = (
 })
 
 const itemVariants = (reduced: boolean | null): Variants => ({
-  hidden: reduced
-    ? {}
-    : { opacity: 0, y: motionTokens.distance.medium },
+  hidden: reduced ? {} : { opacity: 0, y: motionTokens.distance.medium },
   visible: {
     opacity: 1,
     y: 0,

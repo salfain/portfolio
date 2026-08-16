@@ -35,7 +35,10 @@ export async function FeaturedWork({ projects, locale }: FeaturedWorkProps) {
       }
     >
       {projects.length === 0 ? (
-        <EmptyState title={t('emptyTitle')} description={t('emptyDescription')} />
+        <EmptyState
+          title={t('emptyTitle')}
+          description={t('emptyDescription')}
+        />
       ) : (
         <StaggerContainer className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (

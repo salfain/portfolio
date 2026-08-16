@@ -55,9 +55,7 @@ export function DocumentForm({ document, categories }: Props) {
   // Tipe disimpan di state karena kerangka template yang ditawarkan editor
   // mengikutinya — mengganti tipe di tengah pengisian harus langsung
   // mengubah kerangka yang ditawarkan, bukan menunggu simpan.
-  const [type, setType] = useState<KnowledgeTypeValue>(
-    document?.type ?? 'SOP',
-  )
+  const [type, setType] = useState<KnowledgeTypeValue>(document?.type ?? 'SOP')
 
   const storageBase = document?.id ?? 'baru'
 
@@ -233,7 +231,10 @@ export function DocumentForm({ document, categories }: Props) {
               defaultValue={document?.sortOrder?.toString() ?? '0'}
               error={errors.sortOrder}
             />
-            <StatusField defaultValue={document?.status} error={errors.status} />
+            <StatusField
+              defaultValue={document?.status}
+              error={errors.status}
+            />
           </div>
 
           <CheckboxField
@@ -254,9 +255,9 @@ export function DocumentForm({ document, categories }: Props) {
               Sebelum menerbitkan
             </legend>
             <p className="text-xs text-muted">
-              Wajib dicentang setiap kali menerbitkan, termasuk saat
-              menerbitkan ulang. Centangnya tidak disimpan — penerbitan
-              berikutnya menuntut pemeriksaan ulang.
+              Wajib dicentang setiap kali menerbitkan, termasuk saat menerbitkan
+              ulang. Centangnya tidak disimpan — penerbitan berikutnya menuntut
+              pemeriksaan ulang.
             </p>
 
             <CheckboxField

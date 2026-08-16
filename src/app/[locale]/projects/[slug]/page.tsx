@@ -79,12 +79,10 @@ function CaseStudyBlock({
 
   return (
     <section className="mt-10">
-      <h2 className="font-display text-xl font-semibold tracking-tight">
-        {heading}
-      </h2>
+      <h2 className="text-xl font-medium tracking-tight">{heading}</h2>
       <p
         lang={lang}
-        className="mt-3 whitespace-pre-line hyphens-auto text-justify text-base leading-relaxed text-muted"
+        className="mt-3 hyphens-auto whitespace-pre-line text-justify text-base leading-relaxed text-muted"
       >
         {body}
       </p>
@@ -126,7 +124,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
         <h1
           lang={title.lang}
-          className="mt-6 font-display text-3xl font-semibold tracking-tight md:text-4xl"
+          className="mt-6 font-display text-3xl tracking-tight md:text-4xl"
         >
           {title.value}
         </h1>

@@ -58,6 +58,8 @@ describe('contactSchema', () => {
   })
 
   it('honeypot kosong tidak mengganggu', () => {
-    expect(contactSchema.safeParse({ ...valid, website: '' }).success).toBe(true)
+    expect(contactSchema.safeParse({ ...valid, website: '' }).success).toBe(
+      true,
+    )
   })
 })

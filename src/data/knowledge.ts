@@ -426,7 +426,10 @@ export async function getAdminDocumentById(id: string) {
   })
 }
 
-export async function isDocumentSlugTaken(slug: string, exceptId?: string | null) {
+export async function isDocumentSlugTaken(
+  slug: string,
+  exceptId?: string | null,
+) {
   await requireAdmin()
 
   const existing = await prisma.knowledgeDocument.findUnique({
@@ -480,8 +483,8 @@ export async function saveDocument(
   const fields = {
     ...rest,
     contentIdJson: contentIdJson as unknown as Prisma.InputJsonValue,
-    contentEnJson: (contentEnJson ??
-      Prisma.JsonNull) as Prisma.InputJsonValue | typeof Prisma.JsonNull,
+    contentEnJson: (contentEnJson ?? Prisma.JsonNull) as
+      Prisma.InputJsonValue | typeof Prisma.JsonNull,
   }
 
   return prisma.$transaction(async (tx) => {
@@ -514,7 +517,8 @@ export async function saveDocument(
               {}) as Prisma.InputJsonValue,
             contentEnJson: (before.contentEnJson ??
               Prisma.JsonNull) as Prisma.InputJsonValue,
-            metadata: (before.metadata ?? Prisma.JsonNull) as Prisma.InputJsonValue,
+            metadata: (before.metadata ??
+              Prisma.JsonNull) as Prisma.InputJsonValue,
             createdById: authorId,
           },
         })

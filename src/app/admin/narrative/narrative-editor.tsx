@@ -8,7 +8,8 @@ import type { NarrativeBlock } from '@/lib/schemas/site-settings'
 import { saveNarrativeAction } from './actions'
 
 type NarrativeEditorProps = {
-  sectionKey: 'home.whyWorkWithMe' | 'home.troubleshootingProcess' | 'about.story'
+  sectionKey:
+    'home.whyWorkWithMe' | 'home.troubleshootingProcess' | 'about.story'
   blocks: NarrativeBlock[]
 }
 

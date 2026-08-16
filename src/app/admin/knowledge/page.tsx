@@ -47,7 +47,11 @@ export default async function AdminKnowledgePage({ searchParams }: PageProps) {
       }
     >
       <div className="mb-6 flex flex-wrap gap-2">
-        <FilterLink label="Semua" href="/admin/knowledge" active={!type.success && !status.success} />
+        <FilterLink
+          label="Semua"
+          href="/admin/knowledge"
+          active={!type.success && !status.success}
+        />
 
         {Object.entries(KNOWLEDGE_TYPE_LABEL).map(([value, label]) => (
           <FilterLink

@@ -32,10 +32,7 @@ export async function RevisionTimeline({
 
   return (
     <section aria-labelledby="revisions-heading" className="mt-12">
-      <h2
-        id="revisions-heading"
-        className="font-display text-xl font-semibold tracking-tight"
-      >
+      <h2 id="revisions-heading" className="text-xl font-medium tracking-tight">
         {t('revisions')}
       </h2>
       <p className="mt-2 text-sm text-muted">{t('revisionsNote')}</p>

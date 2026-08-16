@@ -12,13 +12,7 @@ import { z } from 'zod'
  * halaman error untuk itu adalah reaksi yang berlebihan.
  */
 export const knowledgeFiltersSchema = z.object({
-  q: z
-    .string()
-    .trim()
-    .min(1)
-    .max(100)
-    .optional()
-    .catch(undefined),
+  q: z.string().trim().min(1).max(100).optional().catch(undefined),
   kategori: z
     .string()
     .trim()
@@ -66,9 +60,7 @@ export function hasActiveFilters(filters: KnowledgeFilters): boolean {
  * Nilai kosong dibuang supaya URL tidak menumpuk `?q=&tag=` yang membuat
  * dua URL berbeda menampilkan halaman yang sama persis.
  */
-export function buildFilterQuery(
-  filters: Partial<KnowledgeFilters>,
-): string {
+export function buildFilterQuery(filters: Partial<KnowledgeFilters>): string {
   const params = new URLSearchParams()
 
   for (const [key, value] of Object.entries(filters)) {

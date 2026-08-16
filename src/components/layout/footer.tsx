@@ -19,7 +19,7 @@ export function Footer() {
         <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           {/* Brand */}
           <div>
-            <p className="font-display text-base font-semibold">{t('name')}</p>
+            <p className="text-base font-medium">{t('name')}</p>
             <p className="mt-1 text-sm text-muted">{t('role')}</p>
           </div>
 
@@ -54,10 +54,12 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-10 border-t border-border pt-6 text-center">
-          <p className="text-xs text-muted">
-            © {year} {t('name')}. {t('rights')}
+        {/* Baris penutup: mono, huruf besar, dua ujung. */}
+        <div className="mt-10 flex flex-wrap justify-between gap-3 border-t border-border pt-10 font-mono text-xs uppercase tracking-[0.08em] text-faint-2">
+          <p className="text-left">
+            © {year} {t('name')}
           </p>
+          <p className="text-left">salfain.web.id</p>
         </div>
       </Container>
     </footer>

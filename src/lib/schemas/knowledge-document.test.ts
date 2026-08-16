@@ -27,7 +27,9 @@ function form(overrides: Record<string, string> = {}) {
   }
 }
 
-function fieldError(result: ReturnType<typeof knowledgeDocumentSchema.safeParse>) {
+function fieldError(
+  result: ReturnType<typeof knowledgeDocumentSchema.safeParse>,
+) {
   return result.success
     ? null
     : result.error.issues.map((issue) => issue.path.join('.'))

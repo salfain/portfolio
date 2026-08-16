@@ -52,7 +52,7 @@ export default async function AdminCategoriesPage() {
         </ul>
       )}
 
-      <h2 className="font-display text-lg font-semibold">Tambah kategori</h2>
+      <h2 className="text-lg font-medium">Tambah kategori</h2>
       <div className="mt-6">
         <CategoryForm defaults={blank} />
       </div>

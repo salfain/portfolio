@@ -30,7 +30,7 @@ export async function LabBlocks({ meta }: { meta: LabMetadata }) {
 
   return (
     <section className="mt-16" aria-labelledby="rincian-lab">
-      <h2 id="rincian-lab" className="font-display text-2xl font-semibold">
+      <h2 id="rincian-lab" className="font-display text-2xl">
         {t('heading')}
       </h2>
       <p className="mt-2 text-sm text-muted">{t('note')}</p>

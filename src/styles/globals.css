@@ -6,60 +6,97 @@
 /* Nilai disimpan sebagai channel RGB (tanpa rgb()) supaya
    Tailwind alpha-value berfungsi: rgb(var(--token) / <alpha>) */
 
+/* Palet redesign 2026 (handoff `design_handoff_salfain_redesign`).
+   Nilai rgba() pada spesifikasi garis sudah DIRATAKAN ke warna solid di
+   atas latar masing-masing tema, supaya `rgb(var(--token) / <alpha>)`
+   milik Tailwind tetap berfungsi. Hasil visualnya identik selama garis
+   berada di atas `--background` atau `--surface`. */
+
 :root,
 [data-theme='light'] {
-  /* Glassline — nilai resmi dari design.md.
-     "Fog-grey neutrals with a cobalt pinprick." */
-  --background: 241 243 245; /* #F1F3F5 — neutral, fondasi halaman */
-  --surface: 255 255 255; /* #FFFFFF */
-  --elevated: 231 234 238; /* #E7EAEE — diturunkan, satu langkah dari neutral */
-  --foreground: 15 20 25; /* #0F1419 — primary, judul & teks inti */
-  --muted: 74 85 104; /* #4A5568 — secondary, keterangan & metadata */
+  --background: 250 249 247; /* #faf9f7 */
+  --surface: 255 255 255; /* #ffffff */
+  --elevated: 237 236 232; /* #edece8 — surface-2 */
+  --input: 255 255 255; /* #ffffff */
 
-  /* Dua token garis, bukan satu.
-     `border` untuk pemisah dekoratif; `border-strong` untuk batas kontrol
-     yang bisa disentuh pengguna. WCAG 1.4.11 menuntut 3:1 untuk yang
-     kedua, dan garis setipis pemisah tidak akan pernah memenuhinya. */
-  --border: 221 226 231; /* #DDE2E7 — pemisah */
-  --border-strong: 118 127 136; /* #767F88 — batas input, 3.66:1 */
+  --foreground: 23 23 26; /* #17171a */
+  --text-2: 58 58 64; /* #3a3a40 */
+  --text-3: 74 74 81; /* #4a4a51 */
+  --muted: 92 92 99; /* #5c5c63 */
+  --muted-2: 107 107 114; /* #6b6b72 */
+  --faint: 122 122 129; /* #7a7a81 */
+  --faint-2: 139 139 146; /* #8b8b92 */
 
-  --primary: 44 94 245; /* #2C5EF5 — tertiary, satu-satunya aksen */
-  --primary-foreground: 255 255 255; /* on-primary */
+  --border: 225 224 222; /* line 0.10 */
+  --border-soft: 233 232 230; /* line-soft 0.07 */
+  --border-med: 218 217 215; /* line-med 0.13 */
+  /* PENYIMPANGAN DISENGAJA dari handoff: line-strong (0.16) hanya
+     mencapai ~1.2:1 di atas latar terang, sedangkan WCAG 1.4.11 menuntut
+     3:1 untuk batas kontrol yang bisa disentuh. Dipakai khusus untuk
+     tepi input; garis dekoratif tetap memakai --border-med. */
+  --border-strong: 118 118 120; /* 3.51:1 di atas #ffffff */
+  --border-hover: 163 162 161; /* line-hover 0.35 */
 
-  /* Warna status. Glassline menyebut aturan aksen tunggal "load-bearing",
-     tapi ini BUKAN aksen dekoratif — merah pada pesan galat membawa makna,
-     dan menghapusnya menurunkan kejelasan. Nadanya diturunkan agar tetap
-     sejalan dengan palet dingin. Penyimpangan yang disengaja. */
-  --success: 20 107 69; /* #146B45 */
-  --warning: 138 97 0; /* #8A6100 */
-  --danger: 192 57 43; /* #C0392B */
+  /* Aksen terang sengaja lebih gelap (L 0.55) agar teks putih di atasnya
+     memenuhi WCAG AA. */
+  --primary: 41 113 198; /* oklch(0.55 0.15 255) */
+  --primary-hi: 14 92 175; /* oklch(0.48 0.15 255) */
+  --primary-foreground: 255 255 255;
+
+  --success: 20 107 69;
+  --warning: 138 97 0;
+  --danger: 197 54 55; /* oklch(0.55 0.18 25) */
+
+  /* Nilai non-Tailwind: dipakai lewat var() langsung. */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-line: rgba(0, 0, 0, 0.08);
+  --accent-soft: rgb(41 113 198 / 0.09);
+  --accent-glow: rgb(41 113 198 / 0.18);
+  --accent-line: rgb(41 113 198 / 0.5);
+  --stripe-a: #eeece7;
+  --stripe-b: #f6f4f0;
+  --shadow-nav: 0 10px 40px rgba(0, 0, 0, 0.1);
+  --shadow-modal: 0 30px 90px rgba(0, 0, 0, 0.25);
 }
 
 [data-theme='dark'] {
-  /* Glassline tidak memuat nilai gelap — seluruh baris di bawah
-     DITURUNKAN, bukan dari spec. Karakter yang dijaga: neutral dingin
-     berlapis, satu aksen kobalt. Setiap pasangan diverifikasi terhadap
-     WCAG AA sebelum dipakai (rasio dicatat di komentar). */
-  --background: 15 20 25; /* #0F1419 — primary Glassline dipakai sebagai latar */
-  --surface: 22 27 33; /* #161B21 */
-  --elevated: 29 36 43; /* #1D242B */
-  --foreground: 241 243 245; /* #F1F3F5 — 16.64:1 di latar */
-  --muted: 142 155 168; /* #8E9BA8 — 6.53:1 di latar, 5.53:1 di elevated */
+  --background: 12 12 13; /* #0c0c0d */
+  --surface: 18 18 20; /* #121214 */
+  --elevated: 25 25 28; /* #19191c — surface-2 */
+  --input: 15 15 17; /* #0f0f11 */
 
-  /* Beda surface dan background di tema gelap hanya 1.07:1, jadi garis
-     tepi menjadi SATU-SATUNYA penanda batas input — karena itu
-     border-strong di sini wajib, bukan opsional. */
-  --border: 42 50 59; /* #2A323B — pemisah */
-  --border-strong: 94 106 118; /* #5E6A76 — batas input, 3.35:1 */
+  --foreground: 237 237 237; /* #ededed */
+  --text-2: 201 201 204; /* #c9c9cc */
+  --text-3: 168 168 172; /* #a8a8ac */
+  --muted: 154 154 157; /* #9a9a9d */
+  --muted-2: 138 138 142; /* #8a8a8e */
+  --faint: 106 106 110; /* #6a6a6e */
+  --faint-2: 95 95 99; /* #5f5f63 */
 
-  /* #2C5EF5 hanya mencapai 3.55:1 di latar gelap. Dicerahkan sampai
-     lolos AA tanpa kehilangan karakter kobaltnya. */
-  --primary: 91 135 255; /* #5B87FF — 5.60:1 di latar */
-  --primary-foreground: 15 20 25; /* teks gelap di atas aksen terang */
+  --border: 34 34 35; /* line 0.09 */
+  --border-soft: 29 29 30; /* line-soft 0.07 */
+  --border-med: 41 41 42; /* line-med 0.12 */
+  /* Lihat catatan di blok terang: tepi input butuh 3:1. */
+  --border-strong: 106 106 110; /* 3.33:1 di atas #0f0f11 */
+  --border-hover: 109 109 110; /* line-hover 0.40 */
 
-  --success: 74 222 153; /* #4ADE99 — 10.75:1 */
-  --warning: 232 180 74; /* #E8B44A — 9.75:1 */
-  --danger: 255 123 112; /* #FF7B70 — 7.33:1 */
+  --primary: 114 186 255; /* oklch(0.78 0.15 255) */
+  --primary-hi: 133 206 255; /* oklch(0.84 0.15 255) */
+  --primary-foreground: 12 12 13; /* #0c0c0d */
+
+  --success: 74 222 153;
+  --warning: 232 180 74;
+  --danger: 242 113 106; /* oklch(0.7 0.16 25) */
+
+  --glass-bg: rgba(22, 22, 25, 0.55);
+  --glass-line: rgba(255, 255, 255, 0.1);
+  --accent-soft: rgb(114 186 255 / 0.09);
+  --accent-glow: rgb(114 186 255 / 0.16);
+  --accent-line: rgb(114 186 255 / 0.5);
+  --stripe-a: #191a1c;
+  --stripe-b: #151517;
+  --shadow-nav: 0 10px 40px rgba(0, 0, 0, 0.22);
+  --shadow-modal: 0 30px 90px rgba(0, 0, 0, 0.45);
 }
 
 @layer base {
@@ -86,13 +123,62 @@
   }
 
   body {
-    /* Glassline body: 0.95rem / 1.55 */
-    @apply bg-background text-foreground font-sans text-body antialiased;
+    /* Redesign 2026: body 17px / 1.65 */
+    @apply bg-background font-sans text-body text-foreground antialiased;
+  }
+
+  /* Paragraf panjang dirata kiri-kanan dengan pemenggalan kata, sesuai
+     handoff. Dikecualikan di dalam `.prose-editor`/`.prose-admin` supaya
+     permukaan penyuntingan tetap rata kiri dan kursor mudah diikuti. */
+  p {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    text-wrap: pretty;
+  }
+
+  .prose-editor p,
+  .prose-admin p,
+  .no-justify p {
+    text-align: left;
+    hyphens: manual;
   }
 
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-primary;
   }
+}
+
+@layer components {
+  /* Label & metadata: mono, kecil, huruf besar, tracking lebar. */
+  .kicker {
+    @apply font-mono text-[11px] uppercase tracking-[0.12em] text-faint;
+  }
+
+  /* Placeholder gambar bergaris diagonal — dipakai bila sumber gambar
+     belum ada. Tidak ada gradien dekoratif di sini: ini pola garis. */
+  .stripe-placeholder {
+    background-image: repeating-linear-gradient(
+      135deg,
+      var(--stripe-a) 0 10px,
+      var(--stripe-b) 10px 20px
+    );
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-rise {
+  animation: rise 0.7s ease both;
 }
 
 /* ─── Editor admin ────────────────────────────────────────
@@ -115,11 +201,11 @@
   }
 
   .prose-admin h2 {
-    @apply font-display text-2xl font-semibold;
+    @apply font-display text-2xl;
   }
 
   .prose-admin h3 {
-    @apply font-display text-xl font-semibold;
+    @apply font-display text-xl;
   }
 
   .prose-admin p {
@@ -236,15 +322,15 @@
 }
 
 .prose-editor h2 {
-  @apply mt-8 font-display text-xl font-semibold tracking-tight;
+  @apply mt-8 font-display text-xl tracking-tight;
 }
 
 .prose-editor h3 {
-  @apply mt-6 font-display text-lg font-semibold tracking-tight;
+  @apply mt-6 text-lg font-medium tracking-tight;
 }
 
 .prose-editor h4 {
-  @apply mt-5 font-display text-base font-semibold tracking-tight;
+  @apply mt-5 text-base font-medium tracking-tight;
 }
 
 .prose-editor ul {

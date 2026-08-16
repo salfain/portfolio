@@ -35,7 +35,8 @@ export async function POST(request: Request, { params }: RouteContext) {
   }
 
   const config = getObjectStorageConfig()
-  if (!config) return errorResponse('Penyimpanan gambar belum dikonfigurasi.', 503)
+  if (!config)
+    return errorResponse('Penyimpanan gambar belum dikonfigurasi.', 503)
 
   const { id } = await params
   const certificate = await prisma.certificate.findUnique({
@@ -48,16 +49,21 @@ export async function POST(request: Request, { params }: RouteContext) {
   const formData = await request.formData()
   const entry = formData.get('image')
 
-  if (!(entry instanceof File)) return errorResponse('Pilih gambar terlebih dahulu.', 400)
+  if (!(entry instanceof File))
+    return errorResponse('Pilih gambar terlebih dahulu.', 400)
 
   if (entry.size === 0 || entry.size > MAX_CERTIFICATE_IMAGE_BYTES) {
-    return errorResponse('Ukuran gambar harus lebih dari 0 dan maksimal 5 MB.', 413)
+    return errorResponse(
+      'Ukuran gambar harus lebih dari 0 dan maksimal 5 MB.',
+      413,
+    )
   }
 
   const bytes = new Uint8Array(await entry.arrayBuffer())
   const imageType = detectCertificateImageType(bytes)
 
-  if (!imageType) return errorResponse('Format gambar harus JPG, PNG, atau WebP.', 415)
+  if (!imageType)
+    return errorResponse('Format gambar harus JPG, PNG, atau WebP.', 415)
 
   const key = `certificates/${id}/${randomUUID()}.${imageType.extension}`
   const imageUrl = getCertificateImageUrl(config, key)
@@ -72,7 +78,8 @@ export async function POST(request: Request, { params }: RouteContext) {
   }
 
   const oldKey = getCertificateImageKey(config, certificate.imageUrl)
-  if (oldKey && oldKey !== key) await deleteCertificateImage(config, oldKey).catch(() => undefined)
+  if (oldKey && oldKey !== key)
+    await deleteCertificateImage(config, oldKey).catch(() => undefined)
 
   await recordAudit({
     actorId: session.user.id,
@@ -96,7 +103,8 @@ export async function DELETE(_request: Request, { params }: RouteContext) {
   }
 
   const config = getObjectStorageConfig()
-  if (!config) return errorResponse('Penyimpanan gambar belum dikonfigurasi.', 503)
+  if (!config)
+    return errorResponse('Penyimpanan gambar belum dikonfigurasi.', 503)
 
   const { id } = await params
   const certificate = await prisma.certificate.findUnique({

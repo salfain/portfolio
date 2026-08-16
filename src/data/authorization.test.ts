@@ -225,9 +225,7 @@ describe('rute yang tidak boleh dijangkau tanpa sesi', () => {
     const tanpaGuard = adminPages.filter((file) => {
       const text = source.get(file) ?? ''
 
-      return (
-        !text.includes('AdminShell') && !text.includes('requireAdminPage')
-      )
+      return !text.includes('AdminShell') && !text.includes('requireAdminPage')
     })
 
     expect(tanpaGuard.map(rel)).toEqual([])

@@ -25,7 +25,11 @@ import { documentHref, TYPE_SEGMENT_LIST } from '@/lib/knowledge-type'
  */
 
 /** Rute statis publik beserta bobotnya. */
-const staticRoutes: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
+const staticRoutes: {
+  path: string
+  priority: number
+  changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency']
+}[] = [
   { path: '', priority: 1, changeFrequency: 'weekly' },
   { path: '/about', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/projects', priority: 0.9, changeFrequency: 'weekly' },

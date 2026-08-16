@@ -18,7 +18,11 @@ type DeleteButtonProps = {
  * bisa ditata, tidak konsisten antar-platform, dan diblokir sebagian
  * konfigurasi. Konfirmasi inline tetap bisa dibatalkan dengan Escape.
  */
-export function DeleteButton({ id, action, label = 'Hapus' }: DeleteButtonProps) {
+export function DeleteButton({
+  id,
+  action,
+  label = 'Hapus',
+}: DeleteButtonProps) {
   const [confirming, setConfirming] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [pending, startTransition] = useTransition()

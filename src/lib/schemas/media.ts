@@ -50,7 +50,10 @@ export const mediaUploadSchema = z.object({
   altId: z
     .string()
     .trim()
-    .min(3, 'Alt text (ID) wajib diisi — bukti tanpa alt text tidak terbaca pembaca layar.')
+    .min(
+      3,
+      'Alt text (ID) wajib diisi — bukti tanpa alt text tidak terbaca pembaca layar.',
+    )
     .max(300),
   altEn: optionalText(300),
   titleId: optionalText(200),

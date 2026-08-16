@@ -74,20 +74,27 @@ export function LocaleSwitch({
       aria-label={label}
       title={label}
       className={cn(
-        'inline-flex h-11 items-center gap-1.5 rounded-full',
-        'border border-border bg-surface px-4 text-sm font-medium',
-        'transition-colors hover:bg-elevated',
+        'inline-flex items-center gap-0.5 rounded-md',
+        'border border-border-med p-1 font-mono text-xs',
         'disabled:opacity-60',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
       )}
     >
-      <span aria-hidden className="text-muted">
-        {locale.toUpperCase()}
-      </span>
-      <span aria-hidden className="text-muted">
-        →
-      </span>
-      <span>{nextLocale.toUpperCase()}</span>
+      {/* Kedua bahasa selalu terlihat: yang aktif diberi permukaan, yang
+          lain redup. Panah "ID → EN" versi lama hanya menampilkan tujuan,
+          jadi bahasa yang sedang aktif harus ditebak dari isi halaman. */}
+      {(['id', 'en'] as const).map((code) => (
+        <span
+          key={code}
+          aria-hidden
+          className={cn(
+            'rounded-[7px] px-2 py-1 transition-colors',
+            code === locale ? 'bg-surface text-foreground' : 'text-muted',
+          )}
+        >
+          {code.toUpperCase()}
+        </span>
+      ))}
     </button>
   )
 }

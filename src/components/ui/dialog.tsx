@@ -75,9 +75,7 @@ export function DialogTitle({
   className?: string
 }) {
   return (
-    <DialogPrimitive.Title
-      className={cn('font-display text-lg font-semibold', className)}
-    >
+    <DialogPrimitive.Title className={cn('text-lg font-medium', className)}>
       {children}
     </DialogPrimitive.Title>
   )

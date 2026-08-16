@@ -107,7 +107,10 @@ const GROUPS: ButtonSpec[][] = [
       isActive: (e) => e.isActive('link'),
       run: (e) => {
         const previous = e.getAttributes('link').href as string | undefined
-        const input = window.prompt('URL (http, https, atau mailto):', previous ?? '')
+        const input = window.prompt(
+          'URL (http, https, atau mailto):',
+          previous ?? '',
+        )
 
         // Batal: biarkan apa adanya. Dikosongkan: buang tautannya.
         if (input === null) return

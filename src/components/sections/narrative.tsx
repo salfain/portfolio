@@ -52,7 +52,7 @@ export function Narrative({
                   {numbered ? (
                     <span
                       aria-hidden
-                      className="font-display text-sm font-semibold text-primary"
+                      className="text-sm font-medium text-primary"
                     >
                       {String(index + 1).padStart(2, '0')}
                     </span>
@@ -60,7 +60,7 @@ export function Narrative({
 
                   <h3
                     lang={blockTitle.lang}
-                    className="mt-2 font-display text-base font-semibold"
+                    className="mt-2 text-base font-medium"
                   >
                     {blockTitle.value}
                   </h3>

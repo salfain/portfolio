@@ -203,8 +203,8 @@ export function MediaEditForm({
               Menerbitkan bukti ini
             </legend>
             <p className="text-xs text-muted">
-              Bukti yang diterbitkan bisa dibuka siapa pun yang punya
-              alamatnya, termasuk sebelum dokumennya sendiri terbit.
+              Bukti yang diterbitkan bisa dibuka siapa pun yang punya alamatnya,
+              termasuk sebelum dokumennya sendiri terbit.
             </p>
 
             <CheckboxField

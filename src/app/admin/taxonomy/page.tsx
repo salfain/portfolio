@@ -33,15 +33,21 @@ export default async function TaxonomyPage({ searchParams }: PageProps) {
       description="Kategori dibuat manual. Tag dibuat otomatis saat diketik di form dokumen."
     >
       <section>
-        <h2 className="font-display text-xl font-semibold">
+        <h2 className="text-xl font-medium">
           {editing ? 'Ubah kategori' : 'Tambah kategori'}
         </h2>
 
         {editing ? (
           <p className="mt-1 text-sm text-muted">
             Menyunting{' '}
-            <span className="font-medium text-foreground">{editing.nameId}</span>.{' '}
-            <Link href="/admin/taxonomy" className="text-primary hover:underline">
+            <span className="font-medium text-foreground">
+              {editing.nameId}
+            </span>
+            .{' '}
+            <Link
+              href="/admin/taxonomy"
+              className="text-primary hover:underline"
+            >
               Batal
             </Link>
           </p>
@@ -55,7 +61,7 @@ export default async function TaxonomyPage({ searchParams }: PageProps) {
       </section>
 
       <section className="mt-12">
-        <h2 className="font-display text-xl font-semibold">Kategori</h2>
+        <h2 className="text-xl font-medium">Kategori</h2>
 
         {categories.length === 0 ? (
           <div className="mt-4">
@@ -102,7 +108,7 @@ export default async function TaxonomyPage({ searchParams }: PageProps) {
       </section>
 
       <section className="mt-12">
-        <h2 className="font-display text-xl font-semibold">Tag</h2>
+        <h2 className="text-xl font-medium">Tag</h2>
         <p className="mt-1 text-sm text-muted">
           Tag yang masih menempel di dokumen atau proyek tidak bisa dihapus.
         </p>

@@ -39,9 +39,9 @@ export default async function AdminMessagesPage() {
           <strong className="font-medium">
             Tidak ada pemberitahuan otomatis.
           </strong>{' '}
-          Pesan baru hanya terlihat di halaman ini dan pada lencana di
-          navigasi — tidak ada email yang dikirim. Memasang penyedia email
-          menuntut satu keputusan; lihat{' '}
+          Pesan baru hanya terlihat di halaman ini dan pada lencana di navigasi
+          — tidak ada email yang dikirim. Memasang penyedia email menuntut satu
+          keputusan; lihat{' '}
           <code className="font-mono text-xs">src/lib/notify/index.ts</code>.
         </p>
       )}

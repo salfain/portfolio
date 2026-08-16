@@ -66,7 +66,8 @@ export function sniffMime(buffer: Buffer): AllowedMime | null {
   }
 
   if (startsWith(buffer, [0x47, 0x49, 0x46, 0x38])) return 'image/gif'
-  if (startsWith(buffer, [0x25, 0x50, 0x44, 0x46, 0x2d])) return 'application/pdf'
+  if (startsWith(buffer, [0x25, 0x50, 0x44, 0x46, 0x2d]))
+    return 'application/pdf'
 
   // ZIP: arsip biasa, kosong, dan bagian dari arsip terpisah.
   if (

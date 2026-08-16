@@ -32,7 +32,10 @@ function emptyParagraph(): ProseMirrorNode {
 function build(sections: string[]): ProseMirrorDocument {
   return {
     type: 'doc',
-    content: sections.flatMap((section) => [heading(section), emptyParagraph()]),
+    content: sections.flatMap((section) => [
+      heading(section),
+      emptyParagraph(),
+    ]),
   }
 }
 
@@ -105,7 +108,5 @@ export function missingSections(
 ): string[] {
   const present = new Set(headings.map((text) => text.trim().toLowerCase()))
 
-  return SECTIONS[type].filter(
-    (section) => !present.has(section.toLowerCase()),
-  )
+  return SECTIONS[type].filter((section) => !present.has(section.toLowerCase()))
 }

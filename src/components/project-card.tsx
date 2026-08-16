@@ -3,7 +3,10 @@ import { getTranslations } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import { resolveLocalized, isLocaleComplete } from '@/lib/i18n-content'
-import { PROJECT_REQUIRED_EN, type ProjectCard as Project } from '@/data/project'
+import {
+  PROJECT_REQUIRED_EN,
+  type ProjectCard as Project,
+} from '@/data/project'
 
 import { Badge, Card, CardBody } from '@/components/ui'
 
@@ -22,7 +25,7 @@ export async function ProjectCard({ project, locale }: ProjectCardProps) {
     <Card className="group relative h-full transition-colors hover:border-primary/40">
       <CardBody className="flex h-full flex-col">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="font-display text-lg font-semibold leading-snug">
+          <h3 className="text-lg font-medium leading-snug">
             {/* `after:` menutupi seluruh kartu supaya area kliknya lebar,
                 tanpa menyarangkan elemen interaktif di dalam <a>. */}
             <Link

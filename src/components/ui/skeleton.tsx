@@ -17,7 +17,10 @@ import { cn } from '@/lib/cn'
  * layar adalah status wadahnya (lihat `SkeletonRegion`), bukan puluhan
  * kotak kosong satu per satu.
  */
-export function Skeleton({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
+export function Skeleton({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       aria-hidden
@@ -44,7 +47,11 @@ export function SkeletonText({
             'h-4 rounded-full',
             // Baris terakhir dibuat lebih pendek supaya terbaca sebagai
             // paragraf, bukan blok padat.
-            index === lines - 1 ? 'w-4/6' : index % 3 === 1 ? 'w-5/6' : 'w-full',
+            index === lines - 1
+              ? 'w-4/6'
+              : index % 3 === 1
+                ? 'w-5/6'
+                : 'w-full',
           )}
         />
       ))}

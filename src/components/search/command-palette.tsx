@@ -6,7 +6,12 @@ import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/cn'
 import { Link, useRouter } from '@/i18n/navigation'
 import { useLocale } from 'next-intl'
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from '@/components/ui'
 
 type Hit = {
   id: string
@@ -114,8 +119,7 @@ export function CommandPalette() {
   )
 
   const titleFor = useCallback(
-    (hit: Hit) =>
-      locale === 'en' && hit.titleEn ? hit.titleEn : hit.titleId,
+    (hit: Hit) => (locale === 'en' && hit.titleEn ? hit.titleEn : hit.titleId),
     [locale],
   )
 
@@ -224,7 +228,9 @@ export function CommandPalette() {
 
           <div className="max-h-[60vh] overflow-y-auto p-2">
             <p aria-live="polite" className="sr-only">
-              {loading ? t('searching') : t('resultCount', { count: hits.length })}
+              {loading
+                ? t('searching')
+                : t('resultCount', { count: hits.length })}
             </p>
 
             {query.trim().length < MIN_LENGTH ? (
@@ -248,7 +254,9 @@ export function CommandPalette() {
                       onMouseEnter={() => setActiveIndex(index)}
                       className={cn(
                         'block rounded-2xl px-3 py-2.5 transition-colors',
-                        index === activeIndex ? 'bg-elevated' : 'bg-transparent',
+                        index === activeIndex
+                          ? 'bg-elevated'
+                          : 'bg-transparent',
                       )}
                     >
                       <span className="flex items-baseline gap-2">

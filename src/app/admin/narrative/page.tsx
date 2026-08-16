@@ -47,7 +47,7 @@ export default async function AdminNarrativePage() {
       <div className="space-y-12">
         {editors.map((editor) => (
           <section key={editor.key}>
-            <h2 className="font-display text-lg font-semibold tracking-tight">
+            <h2 className="text-lg font-medium tracking-tight">
               {editor.title}
             </h2>
             <p className="mt-1 text-sm text-muted">{editor.where}</p>
@@ -58,10 +58,7 @@ export default async function AdminNarrativePage() {
             </p>
 
             <div className="mt-6">
-              <NarrativeEditor
-                sectionKey={editor.key}
-                blocks={editor.blocks}
-              />
+              <NarrativeEditor sectionKey={editor.key} blocks={editor.blocks} />
             </div>
           </section>
         ))}

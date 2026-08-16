@@ -18,9 +18,7 @@ export const navItems: NavItem[] = [
   { href: '/about', key: 'about' },
   { href: '/projects', key: 'projects' },
   { href: '/experience', key: 'experience' },
-  ...(features.knowledgeBase
-    ? [{ href: '/knowledge', key: 'knowledge' }]
-    : []),
+  ...(features.knowledgeBase ? [{ href: '/knowledge', key: 'knowledge' }] : []),
   { href: '/contact', key: 'contact' },
 ]
 

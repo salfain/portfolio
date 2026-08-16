@@ -42,7 +42,10 @@ export async function ExperienceTimeline({
       }
     >
       {visible.length === 0 ? (
-        <EmptyState title={t('emptyTitle')} description={t('emptyDescription')} />
+        <EmptyState
+          title={t('emptyTitle')}
+          description={t('emptyDescription')}
+        />
       ) : (
         <StaggerContainer className="space-y-4">
           {visible.map((experience) => {
@@ -62,13 +65,15 @@ export async function ExperienceTimeline({
                       <div>
                         <h3
                           lang={position.lang}
-                          className="font-display text-lg font-semibold"
+                          className="text-lg font-medium"
                         >
                           {position.value}
                         </h3>
                         <p className="mt-1 text-sm text-muted">
                           {experience.company}
-                          {experience.location ? ` · ${experience.location}` : ''}
+                          {experience.location
+                            ? ` · ${experience.location}`
+                            : ''}
                         </p>
                       </div>
 
@@ -90,7 +95,7 @@ export async function ExperienceTimeline({
                     </p>
 
                     {achievements.length > 0 ? (
-                      <ul className="mt-4 list-disc space-y-1.5 pl-5 hyphens-auto text-justify text-sm leading-relaxed text-muted">
+                      <ul className="mt-4 list-disc space-y-1.5 hyphens-auto pl-5 text-justify text-sm leading-relaxed text-muted">
                         {achievements.map((achievement) => (
                           <li key={achievement}>{achievement}</li>
                         ))}

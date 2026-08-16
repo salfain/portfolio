@@ -130,7 +130,9 @@ export function ProfileForm({ profile }: { profile: SiteProfile | null }) {
           </fieldset>
 
           <fieldset className="space-y-6 rounded-3xl border border-border p-6">
-            <legend className="px-2 text-sm font-medium">Berkas & tautan</legend>
+            <legend className="px-2 text-sm font-medium">
+              Berkas & tautan
+            </legend>
             <p className="text-xs text-muted">
               Sampai penyimpanan objek dipasang di Fase 5, isi dengan path
               berkas lokal di folder <code>public/</code>, mis.{' '}

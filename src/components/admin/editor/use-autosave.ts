@@ -93,9 +93,12 @@ export function useAutosave(key: string, enabled = true) {
     setRecovered(null)
   }, [key])
 
-  useEffect(() => () => {
-    if (timer.current) clearTimeout(timer.current)
-  }, [])
+  useEffect(
+    () => () => {
+      if (timer.current) clearTimeout(timer.current)
+    },
+    [],
+  )
 
   return { recovered, save, dismiss: () => setRecovered(null), clear }
 }

@@ -74,7 +74,12 @@ export default async function PreviewDocumentPage({
     >
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <LocaleTab id={document.id} label="Indonesia" active={!showEnglish} />
-        <LocaleTab id={document.id} label="Inggris" active={showEnglish} english />
+        <LocaleTab
+          id={document.id}
+          label="Inggris"
+          active={showEnglish}
+          english
+        />
 
         <span className="ml-auto flex items-center gap-2">
           <StatusBadge status={document.status as PublishStatusValue} />
@@ -106,7 +111,7 @@ export default async function PreviewDocumentPage({
       ) : null}
 
       <article className="max-w-3xl rounded-3xl border border-border bg-surface p-6 sm:p-8">
-        <h1 className="font-display text-3xl font-semibold">{title}</h1>
+        <h1 className="font-display text-3xl">{title}</h1>
         <p className="mt-3 text-muted">{summary}</p>
 
         <hr className="my-8 border-border" />

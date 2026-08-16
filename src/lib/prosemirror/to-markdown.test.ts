@@ -98,7 +98,9 @@ describe('documentToMarkdown', () => {
     })
 
     expect(
-      documentToMarkdown(doc([{ type: 'bulletList', content: [item('satu')] }])),
+      documentToMarkdown(
+        doc([{ type: 'bulletList', content: [item('satu')] }]),
+      ),
     ).toContain('- satu')
 
     expect(

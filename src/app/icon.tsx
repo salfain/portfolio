@@ -17,27 +17,25 @@ export const contentType = 'image/png'
 
 export default function Icon() {
   return new ImageResponse(
-    (
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: '#0b1220',
-          color: '#f8fafc',
-          fontSize: 17,
-          fontWeight: 700,
-          letterSpacing: '-0.04em',
-          // Sudut membulat: ikon persegi penuh terlihat kasar di tab
-          // peramban yang menampilkannya sekecil 16 piksel.
-          borderRadius: 7,
-        }}
-      >
-        SA
-      </div>
-    ),
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#0b1220',
+        color: '#f8fafc',
+        fontSize: 17,
+        fontWeight: 700,
+        letterSpacing: '-0.04em',
+        // Sudut membulat: ikon persegi penuh terlihat kasar di tab
+        // peramban yang menampilkannya sekecil 16 piksel.
+        borderRadius: 7,
+      }}
+    >
+      SA
+    </div>,
     size,
   )
 }

@@ -99,7 +99,11 @@ export default async function HomePage({ params }: PageProps) {
       />
 
       <ExperienceTimeline experiences={experiences} locale={locale} limit={2} />
-      <CertificationsList certificates={certificates} locale={locale} limit={3} />
+      <CertificationsList
+        certificates={certificates}
+        locale={locale}
+        limit={3}
+      />
       <KnowledgePreview documents={latestDocuments} locale={locale} />
       <ContactCta profile={profile} locale={locale} />
     </>

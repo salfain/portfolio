@@ -23,20 +23,20 @@ export function ThemeToggle() {
       aria-label={t('toggleAriaLabel')}
       title={isDark ? t('toLight') : t('toDark')}
       className={cn(
-        'grid h-11 w-11 place-items-center rounded-full',
-        'border border-border bg-surface text-foreground',
-        'transition-colors hover:bg-elevated',
+        'grid h-[34px] w-[34px] place-items-center rounded-full',
+        'border border-border-med bg-transparent text-muted',
+        'transition-colors hover:border-border-hover hover:text-foreground',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
       )}
     >
       {mounted ? (
         isDark ? (
-          <SunIcon className="h-5 w-5" />
+          <SunIcon className="h-4 w-4" />
         ) : (
-          <MoonIcon className="h-5 w-5" />
+          <MoonIcon className="h-4 w-4" />
         )
       ) : (
-        <span className="h-5 w-5" />
+        <span className="h-4 w-4" />
       )}
     </button>
   )
@@ -49,7 +49,7 @@ function SunIcon({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.7"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
@@ -67,7 +67,7 @@ function MoonIcon({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.7"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"

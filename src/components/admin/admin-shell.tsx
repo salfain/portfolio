@@ -32,17 +32,20 @@ export async function AdminShell({
 
   return (
     <div className="mx-auto max-w-container px-5 py-8 sm:px-8 lg:px-12">
-      <div className="grid gap-8 md:grid-cols-[200px_minmax(0,1fr)]">
+      <div className="grid gap-8 md:grid-cols-[248px_minmax(0,1fr)]">
         <AdminNav unreadCount={unreadCount} />
 
         <main>
-          <header className="flex flex-wrap items-start justify-between gap-4">
+          <header className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
             <div>
-              <h1 className="font-display text-2xl font-semibold tracking-tight">
-                {title}
-              </h1>
+              {/* Remah roti mono: menandai bahwa yang dilihat adalah panel
+                  admin, bukan halaman publik dengan judul yang sama. */}
+              <p className="kicker mb-3">Admin · {title}</p>
+              <h1 className="font-display text-[42px] leading-none">{title}</h1>
               {description ? (
-                <p className="mt-1 text-sm text-muted">{description}</p>
+                <p className="mt-3 max-w-[62ch] text-sm text-muted">
+                  {description}
+                </p>
               ) : null}
             </div>
             {action ? <div className="shrink-0">{action}</div> : null}

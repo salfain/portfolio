@@ -2,7 +2,11 @@ import { notFound } from 'next/navigation'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import type { Locale } from '@/i18n/routing'
-import { getKnowledgeTagBySlug, getKnowledgeTags, getPublishedDocuments } from '@/data/knowledge'
+import {
+  getKnowledgeTagBySlug,
+  getKnowledgeTags,
+  getPublishedDocuments,
+} from '@/data/knowledge'
 
 import { EmptyState } from '@/components/ui'
 import { Container } from '@/components/layout/container'

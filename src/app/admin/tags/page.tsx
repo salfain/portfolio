@@ -39,7 +39,7 @@ export default async function AdminTagsPage() {
         </ul>
       )}
 
-      <h2 className="font-display text-lg font-semibold">Tambah tag</h2>
+      <h2 className="text-lg font-medium">Tambah tag</h2>
       <div className="mt-6">
         <TagForm />
       </div>

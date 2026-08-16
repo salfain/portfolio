@@ -1,14 +1,27 @@
 import type { ReactNode } from 'react'
 import { NextIntlClientProvider } from 'next-intl'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google'
 
 import idMessages from '../../../messages/id.json'
 
 // Admin merender <html> sendiri, jadi variabel font tidak diwarisi dari
 // rute publik dan harus dipasang di sini juga.
-const fontSans = Geist({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
-const fontDisplay = Geist({ subsets: ['latin'], variable: '--font-display', display: 'swap' })
-const fontMono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' })
+const fontSans = Geist({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+})
+const fontDisplay = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-display',
+  display: 'swap',
+})
+const fontMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+})
 
 /**
  * Admin: tanpa segmen locale, nested layout (root layout pass-through).
