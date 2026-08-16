@@ -54,7 +54,10 @@ export async function getAdminNarrative(key: NarrativeKey) {
   return parsed.success ? parsed.data : []
 }
 
-export async function saveNarrative(key: NarrativeKey, blocks: NarrativeBlock[]) {
+export async function saveNarrative(
+  key: NarrativeKey,
+  blocks: NarrativeBlock[],
+) {
   await requireAdmin()
 
   await prisma.siteSetting.upsert({

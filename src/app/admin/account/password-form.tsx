@@ -36,9 +36,9 @@ export function PasswordForm() {
           />
 
           <p className="rounded-xl border border-border bg-elevated px-4 py-3 text-xs text-muted">
-            Mengganti kata sandi akan <strong>mengeluarkan seluruh sesi lain</strong>{' '}
-            di perangkat mana pun. Sesi yang sedang kamu pakai sekarang tetap
-            aktif.
+            Mengganti kata sandi akan{' '}
+            <strong>mengeluarkan seluruh sesi lain</strong> di perangkat mana
+            pun. Sesi yang sedang kamu pakai sekarang tetap aktif.
           </p>
         </>
       )}

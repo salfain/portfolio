@@ -34,7 +34,7 @@ export default async function TermsPage({ params }: PageProps) {
         <div className="max-w-none space-y-10">
           {sections.map((section) => (
             <section key={section}>
-              <h2 className="font-display text-xl font-semibold tracking-tight">
+              <h2 className="text-xl font-medium tracking-tight">
                 {t(`sections.${section}.title`)}
               </h2>
               <p className="mt-3 whitespace-pre-line text-base leading-relaxed text-muted">

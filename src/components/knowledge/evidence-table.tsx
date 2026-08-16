@@ -24,7 +24,7 @@ export function EvidenceTable({
 
   return (
     <section className="mt-8">
-      <h3 className="font-display text-lg font-semibold">{caption}</h3>
+      <h3 className="text-lg font-medium">{caption}</h3>
 
       <div className="mt-3 overflow-x-auto rounded-2xl border border-border">
         <table className="w-full border-collapse text-sm">
@@ -43,7 +43,10 @@ export function EvidenceTable({
           </thead>
           <tbody>
             {rows.map((row, rowIndex) => (
-              <tr key={rowIndex} className="border-b border-border last:border-0">
+              <tr
+                key={rowIndex}
+                className="border-b border-border last:border-0"
+              >
                 {row.map((cell, cellIndex) => (
                   <td
                     key={cellIndex}
@@ -67,7 +70,9 @@ export function EvidenceFacts({
 }: {
   facts: { label: string; value: ReactNode }[]
 }) {
-  const filled = facts.filter((fact) => fact.value !== null && fact.value !== '')
+  const filled = facts.filter(
+    (fact) => fact.value !== null && fact.value !== '',
+  )
 
   if (filled.length === 0) return null
 

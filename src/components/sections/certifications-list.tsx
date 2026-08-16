@@ -45,7 +45,10 @@ export async function CertificationsList({
       }
     >
       {visible.length === 0 ? (
-        <EmptyState title={t('emptyTitle')} description={t('emptyDescription')} />
+        <EmptyState
+          title={t('emptyTitle')}
+          description={t('emptyDescription')}
+        />
       ) : (
         <StaggerContainer className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {visible.map((certificate) => (
@@ -61,16 +64,16 @@ export async function CertificationsList({
                       className="mb-5 aspect-[16/10] w-full rounded-xl border border-border object-contain"
                     />
                   ) : null}
-                  <h3 className="font-display text-base font-semibold leading-snug">
+                  <h3 className="text-base font-medium leading-snug">
                     {certificate.name}
                   </h3>
-                  <p className="mt-1 text-sm text-muted">{certificate.issuer}</p>
+                  <p className="mt-1 text-sm text-muted">
+                    {certificate.issuer}
+                  </p>
 
                   {certificate.issueDate ? (
                     <p className="mt-3 text-sm text-muted">
-                      <time
-                        dateTime={toIsoString(certificate.issueDate)}
-                      >
+                      <time dateTime={toIsoString(certificate.issueDate)}>
                         {formatFullDate(certificate.issueDate, locale)}
                       </time>
                     </p>

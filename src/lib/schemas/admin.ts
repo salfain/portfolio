@@ -27,13 +27,15 @@ const lines = z.preprocess(
 /** Field teks opsional: string kosong dianggap "tidak diisi". */
 const optionalText = (max: number) =>
   z.preprocess(
-    (value) => (typeof value === 'string' && value.trim() !== '' ? value.trim() : null),
+    (value) =>
+      typeof value === 'string' && value.trim() !== '' ? value.trim() : null,
     z.string().max(max).nullable(),
   )
 
 const optionalUrl = (max = 500) =>
   z.preprocess(
-    (value) => (typeof value === 'string' && value.trim() !== '' ? value.trim() : null),
+    (value) =>
+      typeof value === 'string' && value.trim() !== '' ? value.trim() : null,
     z.string().url('URL tidak valid.').max(max).nullable(),
   )
 
@@ -45,14 +47,19 @@ const optionalDate = z.preprocess(
 
 const requiredDate = z.preprocess(
   (value) =>
-    typeof value === 'string' && value.trim() !== '' ? new Date(value) : undefined,
+    typeof value === 'string' && value.trim() !== ''
+      ? new Date(value)
+      : undefined,
   z.date({
     required_error: 'Tanggal wajib diisi.',
     invalid_type_error: 'Tanggal tidak valid.',
   }),
 )
 
-const checkbox = z.preprocess((value) => value === 'on' || value === true, z.boolean())
+const checkbox = z.preprocess(
+  (value) => value === 'on' || value === true,
+  z.boolean(),
+)
 
 const sortOrder = z.coerce.number().int().min(0).max(9999).default(0)
 
@@ -88,10 +95,26 @@ export const profileSchema = z.object({
   name: z.string().trim().min(2, 'Nama wajib diisi.').max(120),
   roleId: z.string().trim().min(2, 'Peran (ID) wajib diisi.').max(120),
   roleEn: z.string().trim().min(2, 'Peran (EN) wajib diisi.').max(120),
-  headlineId: z.string().trim().min(10, 'Headline (ID) minimal 10 karakter.').max(300),
-  headlineEn: z.string().trim().min(10, 'Headline (EN) minimal 10 karakter.').max(300),
-  summaryId: z.string().trim().min(20, 'Ringkasan (ID) minimal 20 karakter.').max(2000),
-  summaryEn: z.string().trim().min(20, 'Ringkasan (EN) minimal 20 karakter.').max(2000),
+  headlineId: z
+    .string()
+    .trim()
+    .min(10, 'Headline (ID) minimal 10 karakter.')
+    .max(300),
+  headlineEn: z
+    .string()
+    .trim()
+    .min(10, 'Headline (EN) minimal 10 karakter.')
+    .max(300),
+  summaryId: z
+    .string()
+    .trim()
+    .min(20, 'Ringkasan (ID) minimal 20 karakter.')
+    .max(2000),
+  summaryEn: z
+    .string()
+    .trim()
+    .min(20, 'Ringkasan (EN) minimal 20 karakter.')
+    .max(2000),
   location: optionalText(160),
   email: z.string().trim().email('Format email tidak valid.').max(200),
   phone: optionalText(40),
@@ -114,8 +137,16 @@ export const experienceSchema = z
     positionId: z.string().trim().min(2, 'Jabatan (ID) wajib diisi.').max(160),
     // Wajib — sama alasannya dengan profileSchema di atas.
     positionEn: z.string().trim().min(2, 'Jabatan (EN) wajib diisi.').max(160),
-    summaryId: z.string().trim().min(20, 'Ringkasan (ID) minimal 20 karakter.').max(2000),
-    summaryEn: z.string().trim().min(20, 'Ringkasan (EN) minimal 20 karakter.').max(2000),
+    summaryId: z
+      .string()
+      .trim()
+      .min(20, 'Ringkasan (ID) minimal 20 karakter.')
+      .max(2000),
+    summaryEn: z
+      .string()
+      .trim()
+      .min(20, 'Ringkasan (EN) minimal 20 karakter.')
+      .max(2000),
     location: optionalText(160),
     startDate: requiredDate,
     endDate: optionalDate,
@@ -163,9 +194,11 @@ export const certificateSchema = z
     status: publishStatusSchema,
   })
   .refine(
-    (data) => !data.issueDate || !data.expiryDate || data.expiryDate >= data.issueDate,
+    (data) =>
+      !data.issueDate || !data.expiryDate || data.expiryDate >= data.issueDate,
     {
-      message: 'Tanggal kedaluwarsa tidak boleh lebih awal dari tanggal terbit.',
+      message:
+        'Tanggal kedaluwarsa tidak boleh lebih awal dari tanggal terbit.',
       path: ['expiryDate'],
     },
   )
@@ -185,7 +218,11 @@ export const projectSchema = z.object({
     ),
   titleId: z.string().trim().min(3, 'Judul (ID) wajib diisi.').max(200),
   titleEn: optionalText(200),
-  summaryId: z.string().trim().min(20, 'Ringkasan (ID) minimal 20 karakter.').max(1000),
+  summaryId: z
+    .string()
+    .trim()
+    .min(20, 'Ringkasan (ID) minimal 20 karakter.')
+    .max(1000),
   summaryEn: optionalText(1000),
   problemId: optionalText(5000),
   problemEn: optionalText(5000),

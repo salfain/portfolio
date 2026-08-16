@@ -64,7 +64,9 @@ export default async function KnowledgeCategoryPage({ params }: PageProps) {
   return (
     <>
       <PageHeader
-        title={t('category.title', { name: pickLocale(category, 'name', locale) })}
+        title={t('category.title', {
+          name: pickLocale(category, 'name', locale),
+        })}
         description={pickLocale(category, 'description', locale) || undefined}
       />
 

@@ -53,17 +53,13 @@ describe('requireAdminPage', () => {
   it('mengarahkan pengunjung tanpa sesi ke login', async () => {
     getSessionMock.mockResolvedValue(null)
 
-    await expect(requireAdminPage()).rejects.toThrow(
-      'REDIRECT:/admin/login',
-    )
+    await expect(requireAdminPage()).rejects.toThrow('REDIRECT:/admin/login')
   })
 
   it('mengarahkan pengguna non-admin ke login', async () => {
     getSessionMock.mockResolvedValue({ user: { role: 'user' } })
 
-    await expect(requireAdminPage()).rejects.toThrow(
-      'REDIRECT:/admin/login',
-    )
+    await expect(requireAdminPage()).rejects.toThrow('REDIRECT:/admin/login')
   })
 
   it('menerima halaman untuk pengguna admin', async () => {

@@ -64,10 +64,10 @@ export default async function KnowledgeLandingPage({ params }: PageProps) {
                   )}
                 >
                   <div className="flex items-baseline justify-between gap-3">
-                    <h2 className="font-display text-lg font-semibold group-hover:text-primary">
+                    <h2 className="text-lg font-medium group-hover:text-primary">
                       {t(`types.${segment}.plural`)}
                     </h2>
-                    <span className="font-display text-2xl font-semibold tabular-nums text-muted">
+                    <span className="font-display text-2xl tabular-nums text-muted">
                       {count}
                     </span>
                   </div>
@@ -82,7 +82,7 @@ export default async function KnowledgeLandingPage({ params }: PageProps) {
 
         {categories.length > 0 ? (
           <Reveal className="mt-14">
-            <h2 className="font-display text-xl font-semibold tracking-tight">
+            <h2 className="text-xl font-medium tracking-tight">
               {t('category.all')}
             </h2>
             <ul className="mt-5 flex flex-wrap gap-3">
@@ -116,7 +116,7 @@ export default async function KnowledgeLandingPage({ params }: PageProps) {
           ) : (
             <>
               <Reveal>
-                <h2 className="font-display text-xl font-semibold tracking-tight">
+                <h2 className="text-xl font-medium tracking-tight">
                   {t('browseAll')}
                 </h2>
               </Reveal>

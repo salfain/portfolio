@@ -59,10 +59,7 @@ export async function TypeListing({
           skeleton muncul lagi setiap filter berubah; tanpa itu React memakai
           ulang boundary yang sudah ter-resolve dan hasil lama tetap terlihat.
         */}
-        <Suspense
-          key={JSON.stringify(filters)}
-          fallback={<ListingSkeleton />}
-        >
+        <Suspense key={JSON.stringify(filters)} fallback={<ListingSkeleton />}>
           <TypeListingResults
             locale={locale}
             segment={segment}

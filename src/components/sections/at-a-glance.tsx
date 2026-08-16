@@ -28,8 +28,16 @@ export async function AtAGlance({ stats }: AtAGlanceProps) {
 
   const cards = [
     { key: 'projects' as const, value: stats.projects, enabled: true },
-    { key: 'sops' as const, value: stats.sops, enabled: features.knowledgeBase },
-    { key: 'labs' as const, value: stats.labs, enabled: features.knowledgeBase },
+    {
+      key: 'sops' as const,
+      value: stats.sops,
+      enabled: features.knowledgeBase,
+    },
+    {
+      key: 'labs' as const,
+      value: stats.labs,
+      enabled: features.knowledgeBase,
+    },
     {
       key: 'incidents' as const,
       value: stats.incidents,
@@ -47,7 +55,7 @@ export async function AtAGlance({ stats }: AtAGlanceProps) {
           <StaggerItem key={card.key}>
             <Card className="h-full">
               <CardBody>
-                <p className="font-display text-4xl font-semibold tabular-nums">
+                <p className="font-display text-4xl tabular-nums">
                   {card.value}
                 </p>
                 <p className="mt-2 text-sm text-muted">

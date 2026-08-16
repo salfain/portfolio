@@ -36,7 +36,7 @@ export function ErrorState({
           <path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
         </svg>
       </div>
-      <h3 className="font-display text-lg font-semibold">{title}</h3>
+      <h3 className="text-lg font-medium">{title}</h3>
       {description ? (
         <p className="mt-1 max-w-sm text-sm text-muted">{description}</p>
       ) : null}

@@ -25,10 +25,13 @@ export function CertificateImageUpload({
     try {
       const formData = new FormData()
       formData.append('image', file)
-      const response = await fetch(`/api/admin/certifications/${certificateId}/image`, {
-        method: 'POST',
-        body: formData,
-      })
+      const response = await fetch(
+        `/api/admin/certifications/${certificateId}/image`,
+        {
+          method: 'POST',
+          body: formData,
+        },
+      )
       const result = (await response.json()) as { url?: string; error?: string }
 
       if (!response.ok || !result.url) {
@@ -53,9 +56,12 @@ export function CertificateImageUpload({
     setMessage(null)
 
     try {
-      const response = await fetch(`/api/admin/certifications/${certificateId}/image`, {
-        method: 'DELETE',
-      })
+      const response = await fetch(
+        `/api/admin/certifications/${certificateId}/image`,
+        {
+          method: 'DELETE',
+        },
+      )
       const result = (await response.json()) as { error?: string }
 
       if (!response.ok) {
@@ -76,7 +82,8 @@ export function CertificateImageUpload({
     <fieldset className="space-y-4 rounded-3xl border border-border p-6">
       <legend className="px-2 text-sm font-medium">Gambar sertifikat</legend>
       <p className="text-xs text-muted">
-        JPG, PNG, atau WebP, maksimal 5 MB. Simpan sertifikat terlebih dahulu sebelum mengunggah gambar.
+        JPG, PNG, atau WebP, maksimal 5 MB. Simpan sertifikat terlebih dahulu
+        sebelum mengunggah gambar.
       </p>
 
       {imageUrl ? (

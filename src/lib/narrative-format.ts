@@ -20,28 +20,30 @@ import type { NarrativeBlock } from '@/lib/schemas/site-settings'
 export type ParsedBlock = { title: string; body: string }
 
 export function parseNarrativeText(text: string): ParsedBlock[] {
-  return text
-    .split(/\n\s*\n/)
-    .map((chunk) => chunk.trim())
-    .filter(Boolean)
-    .map((chunk) => {
-      const separator = chunk.indexOf('|')
+  return (
+    text
+      .split(/\n\s*\n/)
+      .map((chunk) => chunk.trim())
+      .filter(Boolean)
+      .map((chunk) => {
+        const separator = chunk.indexOf('|')
 
-      if (separator === -1) return { title: '', body: chunk }
+        if (separator === -1) return { title: '', body: chunk }
 
-      return {
-        title: chunk.slice(0, separator).trim(),
-        // Baris tunggal di dalam satu blok disatukan; pemisah antar-blok
-        // adalah baris kosong, bukan baris baru biasa.
-        body: chunk
-          .slice(separator + 1)
-          .trim()
-          .replace(/\s*\n\s*/g, ' '),
-      }
-    })
-    // Blok setengah jadi dibuang: judul tanpa isi (atau sebaliknya) akan
-    // merender kartu kosong di halaman depan.
-    .filter((block) => block.title !== '' && block.body !== '')
+        return {
+          title: chunk.slice(0, separator).trim(),
+          // Baris tunggal di dalam satu blok disatukan; pemisah antar-blok
+          // adalah baris kosong, bukan baris baru biasa.
+          body: chunk
+            .slice(separator + 1)
+            .trim()
+            .replace(/\s*\n\s*/g, ' '),
+        }
+      })
+      // Blok setengah jadi dibuang: judul tanpa isi (atau sebaliknya) akan
+      // merender kartu kosong di halaman depan.
+      .filter((block) => block.title !== '' && block.body !== '')
+  )
 }
 
 /** Kebalikannya — blok tersimpan menjadi teks untuk textarea admin. */

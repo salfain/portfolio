@@ -4,8 +4,12 @@ import { cn } from '@/lib/cn'
 
 type Variant = 'default' | 'primary' | 'success' | 'warning' | 'danger'
 
+/**
+ * Chip pil. Status terbit memakai aksen solid, status draf memakai
+ * garis tepi — perbedaannya harus terbaca tanpa membaca teksnya.
+ */
 const variantClasses: Record<Variant, string> = {
-  default: 'bg-elevated text-foreground',
+  default: 'border border-border-med text-muted',
   primary: 'bg-primary text-primary-foreground',
   success: 'bg-success text-white',
   warning: 'bg-warning text-white',
@@ -16,11 +20,16 @@ type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
   variant?: Variant
 }
 
-export function Badge({ className, variant = 'default', ...props }: BadgeProps) {
+export function Badge({
+  className,
+  variant = 'default',
+  ...props
+}: BadgeProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-sm px-2.5 py-0.5 text-label font-medium',
+        'inline-flex items-center rounded-full px-3 py-1',
+        'font-mono text-label uppercase',
         variantClasses[variant],
         className,
       )}

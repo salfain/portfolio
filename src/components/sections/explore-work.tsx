@@ -10,7 +10,13 @@ import { Section } from './section'
 
 type ExploreLink = {
   href: string
-  key: 'projects' | 'experience' | 'expertise' | 'certifications' | 'knowledge' | 'recruiter'
+  key:
+    | 'projects'
+    | 'experience'
+    | 'expertise'
+    | 'certifications'
+    | 'knowledge'
+    | 'recruiter'
   /** Disembunyikan sampai fase yang bersangkutan selesai. */
   enabled: boolean
 }
@@ -41,7 +47,7 @@ export async function ExploreWork() {
             <StaggerItem key={link.href}>
               <Card className="relative h-full transition-colors hover:border-primary/40">
                 <CardBody>
-                  <h3 className="font-display text-base font-semibold">
+                  <h3 className="text-base font-medium">
                     <Link
                       href={link.href}
                       className="rounded-sm after:absolute after:inset-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"

@@ -34,7 +34,8 @@ function inlineNode(node: ProseMirrorNode): string {
 
     for (const mark of node.marks ?? []) {
       if (mark.type === 'code') text = `\`${node.text ?? ''}\``
-      else if (mark.type === 'bold' || mark.type === 'strong') text = `**${text}**`
+      else if (mark.type === 'bold' || mark.type === 'strong')
+        text = `**${text}**`
       else if (mark.type === 'italic' || mark.type === 'em') text = `*${text}*`
       else if (mark.type === 'strike') text = `~~${text}~~`
       else if (mark.type === 'link') {
@@ -73,7 +74,11 @@ function listItems(
       const indented = body
         .split('\n')
         .map((line, lineIndex) =>
-          lineIndex === 0 ? line : line ? `${' '.repeat(prefix.length)}${line}` : '',
+          lineIndex === 0
+            ? line
+            : line
+              ? `${' '.repeat(prefix.length)}${line}`
+              : '',
         )
         .join('\n')
 
@@ -131,7 +136,9 @@ function block(node: ProseMirrorNode): string {
     case 'codeBlock': {
       const language =
         typeof node.attrs?.language === 'string' ? node.attrs.language : ''
-      const body = (node.content ?? []).map((child) => child.text ?? '').join('')
+      const body = (node.content ?? [])
+        .map((child) => child.text ?? '')
+        .join('')
 
       return `\`\`\`${language}\n${body}\n\`\`\``
     }
@@ -151,11 +158,7 @@ function block(node: ProseMirrorNode): string {
       const columnCount = head?.content?.length ?? 0
       const divider = `| ${Array(columnCount).fill('---').join(' | ')} |`
 
-      return [
-        head ? tableRow(head) : '',
-        divider,
-        ...rest.map(tableRow),
-      ]
+      return [head ? tableRow(head) : '', divider, ...rest.map(tableRow)]
         .filter(Boolean)
         .join('\n')
     }

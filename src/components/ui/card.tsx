@@ -6,7 +6,13 @@ export const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('rounded-3xl border border-border bg-surface', className)}
+      /* Radius 22 dan hover ke garis aksen — dipakai seragam oleh seluruh
+       kartu, termasuk yang bisa diklik. */
+      className={cn(
+        'rounded-3xl border border-border bg-surface transition-colors',
+        'hover:border-[var(--accent-line)]',
+        className,
+      )}
       {...props}
     />
   ),

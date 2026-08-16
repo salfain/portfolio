@@ -21,9 +21,7 @@ export default function Error({
   return (
     <div className="mx-auto grid min-h-[60vh] max-w-container place-items-center px-5 sm:px-8 lg:px-12">
       <div className="text-center">
-        <h1 className="font-display text-3xl font-semibold md:text-4xl">
-          {t('title')}
-        </h1>
+        <h1 className="font-display text-3xl md:text-4xl">{t('title')}</h1>
         <p className="mt-3 text-muted">{t('description')}</p>
         <button
           type="button"

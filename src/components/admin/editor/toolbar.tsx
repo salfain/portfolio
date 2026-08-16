@@ -189,12 +189,7 @@ function LinkButton({ editor }: { editor: Editor }) {
 
         if (!href) return
 
-        editor
-          .chain()
-          .focus()
-          .extendMarkRange('link')
-          .setLink({ href })
-          .run()
+        editor.chain().focus().extendMarkRange('link').setLink({ href }).run()
       }}
       className={buttonClass(active)}
     >

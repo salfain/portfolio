@@ -4,9 +4,7 @@ import type { Locale } from '@/i18n/routing'
  * Entitas dengan pasangan field bilingual *Id / *En.
  * Field opsional (En boleh kosong); Id selalu wajib.
  */
-export type LocalizedField<T extends string> =
-  | `${T}Id`
-  | `${T}En`
+export type LocalizedField<T extends string> = `${T}Id` | `${T}En`
 
 type LocalePair = Record<string, unknown>
 

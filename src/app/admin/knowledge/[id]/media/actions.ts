@@ -3,10 +3,7 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 import { toFieldErrors, type AdminState } from '@/lib/schemas/admin'
-import {
-  mediaUpdateSchema,
-  mediaUploadSchema,
-} from '@/lib/schemas/media'
+import { mediaUpdateSchema, mediaUploadSchema } from '@/lib/schemas/media'
 import { MAX_UPLOAD_BYTES } from '@/lib/media-file'
 import { requireAdmin } from '@/data/_guards'
 import {

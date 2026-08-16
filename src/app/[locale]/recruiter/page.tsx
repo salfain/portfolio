@@ -61,11 +61,11 @@ export default async function RecruiterPage({ params }: PageProps) {
   const skillGroups = groupSkillsByCategory(skills)
 
   return (
-    <Container as="article" className="py-10 print:py-0 md:py-12">
+    <Container as="article" className="py-10 md:py-12 print:py-0">
       <div className="max-w-none">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
+            <h1 className="font-display text-3xl tracking-tight md:text-4xl">
               {profile?.name ?? t('title')}
             </h1>
             {role?.value ? (
@@ -143,12 +143,16 @@ export default async function RecruiterPage({ params }: PageProps) {
 
         {experiences.length > 0 ? (
           <section className="mt-12 break-inside-avoid">
-            <h2 className="font-display text-lg font-semibold tracking-tight">
+            <h2 className="text-lg font-medium tracking-tight">
               {t('experience')}
             </h2>
             <ul className="mt-4 space-y-6">
               {experiences.map((experience) => {
-                const position = resolveLocalized(experience, 'position', locale)
+                const position = resolveLocalized(
+                  experience,
+                  'position',
+                  locale,
+                )
                 const achievements = toAchievements(
                   locale === 'en' && experience.achievementsEn
                     ? experience.achievementsEn
@@ -187,7 +191,7 @@ export default async function RecruiterPage({ params }: PageProps) {
 
         {skillGroups.length > 0 ? (
           <section className="mt-10 break-inside-avoid">
-            <h2 className="font-display text-lg font-semibold tracking-tight">
+            <h2 className="text-lg font-medium tracking-tight">
               {t('skills')}
             </h2>
             <ul className="mt-4 space-y-2 text-sm">
@@ -205,7 +209,7 @@ export default async function RecruiterPage({ params }: PageProps) {
 
         {certificates.length > 0 ? (
           <section className="mt-10 break-inside-avoid">
-            <h2 className="font-display text-lg font-semibold tracking-tight">
+            <h2 className="text-lg font-medium tracking-tight">
               {t('certifications')}
             </h2>
             <ul className="mt-4 space-y-2 text-sm">
@@ -226,7 +230,7 @@ export default async function RecruiterPage({ params }: PageProps) {
 
         {projects.length > 0 ? (
           <section className="mt-10 break-inside-avoid">
-            <h2 className="font-display text-lg font-semibold tracking-tight">
+            <h2 className="text-lg font-medium tracking-tight">
               {t('projects')}
             </h2>
             <ul className="mt-4 space-y-3 text-sm">

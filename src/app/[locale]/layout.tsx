@@ -6,7 +6,7 @@ import {
   getMessages,
 } from 'next-intl/server'
 import { notFound } from 'next/navigation'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google'
 
 import { routing, type Locale } from '@/i18n/routing'
 import { env } from '@/lib/env'
@@ -14,13 +14,12 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { Navbar, Footer, SkipLink } from '@/components/layout'
 
 /**
- * Glassline memakai Geist untuk display, h1, dan body — satu keluarga
- * untuk seluruh teks, dan Geist Mono khusus label.
+ * Redesign 2026: judul memakai Instrument Serif (400), teks memakai Geist
+ * (300–600), label dan metadata memakai Geist Mono.
  *
- * `--font-display` dan `--font-sans` sengaja menunjuk font yang SAMA.
- * Variabelnya tetap dua supaya pembedaan peran (judul vs isi) tidak hilang
- * dari kode, dan mengganti salah satunya nanti tidak perlu menyentuh
- * setiap komponen.
+ * Instrument Serif hanya punya satu berat. Karena itu seluruh judul
+ * dirender pada `font-normal` — memaksa `font-semibold` di atasnya membuat
+ * peramban mensintesis huruf tebal palsu dan bentuk serifnya rusak.
  */
 const fontSans = Geist({
   subsets: ['latin'],
@@ -28,8 +27,9 @@ const fontSans = Geist({
   display: 'swap',
 })
 
-const fontDisplay = Geist({
+const fontDisplay = Instrument_Serif({
   subsets: ['latin'],
+  weight: '400',
   variable: '--font-display',
   display: 'swap',
 })

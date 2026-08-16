@@ -154,8 +154,7 @@ export const knowledgeDocumentSchema = z
   .refine(
     (data) => !data.wasPublished || (data.changeSummary?.length ?? 0) >= 5,
     {
-      message:
-        'Dokumen ini sudah terbit — jelaskan singkat apa yang berubah.',
+      message: 'Dokumen ini sudah terbit — jelaskan singkat apa yang berubah.',
       path: ['changeSummary'],
     },
   )
@@ -180,7 +179,10 @@ export const categorySchema = z.object({
     .trim()
     .min(2)
     .max(80)
-    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Slug hanya huruf kecil, angka, tanda hubung.'),
+    .regex(
+      /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+      'Slug hanya huruf kecil, angka, tanda hubung.',
+    ),
   nameId: z.string().trim().min(2, 'Nama (ID) wajib diisi.').max(120),
   nameEn: z.string().trim().min(2, 'Nama (EN) wajib diisi.').max(120),
   descriptionId: optionalText(500),

@@ -53,7 +53,7 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
     <nav aria-labelledby="toc-heading" className="lg:sticky lg:top-24">
       <h2
         id="toc-heading"
-        className="font-display text-sm font-semibold uppercase tracking-wide text-muted"
+        className="text-sm font-medium uppercase tracking-wide text-muted"
       >
         {t('onThisPage')}
       </h2>

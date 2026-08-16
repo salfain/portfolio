@@ -36,7 +36,9 @@ export function ReadingProgress() {
         return
       }
 
-      setProgress(Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100)))
+      setProgress(
+        Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100)),
+      )
     }
 
     const onScroll = () => {
@@ -63,10 +65,7 @@ export function ReadingProgress() {
       aria-valuenow={Math.round(progress)}
       className="fixed inset-x-0 top-0 z-50 h-1 bg-transparent"
     >
-      <div
-        className="h-full bg-primary"
-        style={{ width: `${progress}%` }}
-      />
+      <div className="h-full bg-primary" style={{ width: `${progress}%` }} />
     </div>
   )
 }

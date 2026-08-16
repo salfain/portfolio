@@ -42,7 +42,7 @@ export async function IncidentBlocks({
         </p>
       ) : null}
 
-      <h2 id="rincian-insiden" className="font-display text-2xl font-semibold">
+      <h2 id="rincian-insiden" className="font-display text-2xl">
         {t('heading')}
       </h2>
 
@@ -73,7 +73,10 @@ export async function IncidentBlocks({
         caption={t('timeline')}
         headers={[t('timelineAt'), t('timelineEvent')]}
         rows={meta.timeline.map((entry) => [
-          <code key="a" className="whitespace-nowrap font-mono text-xs text-foreground">
+          <code
+            key="a"
+            className="whitespace-nowrap font-mono text-xs text-foreground"
+          >
             {entry.at}
           </code>,
           entry.event,
@@ -84,9 +87,7 @@ export async function IncidentBlocks({
         <dl className="mt-8 space-y-6">
           {analysis.map((block) => (
             <div key={block.label}>
-              <dt className="font-display text-lg font-semibold">
-                {block.label}
-              </dt>
+              <dt className="text-lg font-medium">{block.label}</dt>
               <dd className="mt-2 whitespace-pre-line text-muted">
                 {block.value}
               </dd>
@@ -118,7 +119,8 @@ export async function IncidentBlocks({
  */
 function localized(
   meta: IncidentMetadata,
-  field: 'rootCause' | 'workaround' | 'resolution' | 'validation' | 'prevention',
+  field:
+    'rootCause' | 'workaround' | 'resolution' | 'validation' | 'prevention',
   locale: Locale,
 ): string {
   return pickLocale(meta, field, locale)

@@ -52,9 +52,7 @@ export async function saveDocumentAction(
     return SESSION_ENDED
   }
 
-  const parsed = knowledgeDocumentSchema.safeParse(
-    Object.fromEntries(formData),
-  )
+  const parsed = knowledgeDocumentSchema.safeParse(Object.fromEntries(formData))
 
   if (!parsed.success) {
     return {

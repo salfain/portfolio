@@ -6,7 +6,9 @@ import { KNOWLEDGE_TYPE_LABEL } from '@/lib/schemas/admin'
 
 import { templateFor } from './templates'
 
-const TYPES = Object.keys(KNOWLEDGE_TYPE_LABEL) as (keyof typeof KNOWLEDGE_TYPE_LABEL)[]
+const TYPES = Object.keys(
+  KNOWLEDGE_TYPE_LABEL,
+) as (keyof typeof KNOWLEDGE_TYPE_LABEL)[]
 
 describe('template dokumen', () => {
   it.each(TYPES)('%s menghasilkan dokumen yang sah bagi renderer', (type) => {

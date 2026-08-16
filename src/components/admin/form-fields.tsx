@@ -177,7 +177,9 @@ export function SelectField({
         name={props.name}
         defaultValue={onChange ? undefined : defaultValue}
         value={onChange ? value : undefined}
-        onChange={onChange ? (event) => onChange(event.target.value) : undefined}
+        onChange={
+          onChange ? (event) => onChange(event.target.value) : undefined
+        }
         aria-invalid={props.error ? true : undefined}
         aria-describedby={props.error ? `${props.name}-error` : undefined}
         className={selectClass}
@@ -219,13 +221,13 @@ export function StatusField({
         defaultValue={defaultValue}
         className={selectClass}
       >
-        {(
-          Object.keys(PUBLISH_STATUS_LABEL) as PublishStatusValue[]
-        ).map((value) => (
-          <option key={value} value={value}>
-            {PUBLISH_STATUS_LABEL[value]}
-          </option>
-        ))}
+        {(Object.keys(PUBLISH_STATUS_LABEL) as PublishStatusValue[]).map(
+          (value) => (
+            <option key={value} value={value}>
+              {PUBLISH_STATUS_LABEL[value]}
+            </option>
+          ),
+        )}
       </select>
     </FieldWrapper>
   )

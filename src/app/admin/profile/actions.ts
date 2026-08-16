@@ -2,7 +2,11 @@
 
 import { revalidateTag } from 'next/cache'
 
-import { profileSchema, toFieldErrors, type AdminState } from '@/lib/schemas/admin'
+import {
+  profileSchema,
+  toFieldErrors,
+  type AdminState,
+} from '@/lib/schemas/admin'
 import { requireAdmin } from '@/data/_guards'
 import { saveProfile } from '@/data/profile'
 

@@ -67,7 +67,10 @@ export async function changePasswordAction(
 
     console.error('Ganti kata sandi gagal:', (error as Error)?.name)
 
-    return { status: 'error', message: 'Gagal mengganti kata sandi. Coba lagi.' }
+    return {
+      status: 'error',
+      message: 'Gagal mengganti kata sandi. Coba lagi.',
+    }
   }
 
   /**

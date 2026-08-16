@@ -25,7 +25,9 @@ export function ContactForm({ locale }: ContactFormProps) {
   const fieldErrors = state.status === 'error' ? state.fieldErrors : undefined
 
   /** Kode error dari Zod dipetakan ke kunci terjemahan. */
-  const errorFor = (field: 'name' | 'email' | 'company' | 'subject' | 'message') => {
+  const errorFor = (
+    field: 'name' | 'email' | 'company' | 'subject' | 'message',
+  ) => {
     const code = fieldErrors?.[field]
 
     return code ? t(`errors.${code}`) : undefined
@@ -37,9 +39,7 @@ export function ContactForm({ locale }: ContactFormProps) {
         role="status"
         className="rounded-3xl border border-border bg-surface p-8 text-center"
       >
-        <h2 className="font-display text-lg font-semibold">
-          {t('successTitle')}
-        </h2>
+        <h2 className="text-lg font-medium">{t('successTitle')}</h2>
         <p className="mt-2 text-sm text-muted">{t('successDescription')}</p>
       </div>
     )
@@ -86,11 +86,7 @@ export function ContactForm({ locale }: ContactFormProps) {
         autoComplete="organization"
       />
 
-      <Field
-        id="subject"
-        label={t('subject')}
-        error={errorFor('subject')}
-      />
+      <Field id="subject" label={t('subject')} error={errorFor('subject')} />
 
       <div>
         <Label htmlFor="message">

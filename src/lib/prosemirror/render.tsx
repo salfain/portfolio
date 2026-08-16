@@ -94,7 +94,9 @@ function renderNode(node: ProseMirrorNode, ctx: RenderContext): ReactNode {
 
     case 'paragraph':
       return (
-        <p className="my-4 hyphens-auto text-justify leading-relaxed">{renderChildren(node.content, ctx)}</p>
+        <p className="my-4 hyphens-auto text-justify leading-relaxed">
+          {renderChildren(node.content, ctx)}
+        </p>
       )
 
     case 'heading': {
@@ -103,7 +105,7 @@ function renderNode(node: ProseMirrorNode, ctx: RenderContext): ReactNode {
 
       ctx.headingCursor.index += 1
 
-      const Tag = (`h${Math.min(Math.max(level, 1), 6)}`) as 'h2'
+      const Tag = `h${Math.min(Math.max(level, 1), 6)}` as 'h2'
       const size =
         level <= 2
           ? 'mt-12 text-xl md:text-2xl'
@@ -114,10 +116,7 @@ function renderNode(node: ProseMirrorNode, ctx: RenderContext): ReactNode {
       return (
         <Tag
           id={id}
-          className={cn(
-            'scroll-mt-28 font-display font-semibold tracking-tight',
-            size,
-          )}
+          className={cn('scroll-mt-28 font-medium tracking-tight', size)}
         >
           {renderChildren(node.content, ctx)}
         </Tag>
@@ -156,7 +155,9 @@ function renderNode(node: ProseMirrorNode, ctx: RenderContext): ReactNode {
 
     case 'taskList':
       return (
-        <ul className="my-4 space-y-2 pl-1">{renderChildren(node.content, ctx)}</ul>
+        <ul className="my-4 space-y-2 pl-1">
+          {renderChildren(node.content, ctx)}
+        </ul>
       )
 
     case 'taskItem':
@@ -248,8 +249,16 @@ function renderNode(node: ProseMirrorNode, ctx: RenderContext): ReactNode {
     case 'tableHeader':
       return (
         <th
-          colSpan={typeof node.attrs?.colspan === 'number' ? node.attrs.colspan : undefined}
-          rowSpan={typeof node.attrs?.rowspan === 'number' ? node.attrs.rowspan : undefined}
+          colSpan={
+            typeof node.attrs?.colspan === 'number'
+              ? node.attrs.colspan
+              : undefined
+          }
+          rowSpan={
+            typeof node.attrs?.rowspan === 'number'
+              ? node.attrs.rowspan
+              : undefined
+          }
           scope="col"
           className="bg-elevated px-4 py-3 text-left font-semibold [&>p]:my-0"
         >
@@ -260,8 +269,16 @@ function renderNode(node: ProseMirrorNode, ctx: RenderContext): ReactNode {
     case 'tableCell':
       return (
         <td
-          colSpan={typeof node.attrs?.colspan === 'number' ? node.attrs.colspan : undefined}
-          rowSpan={typeof node.attrs?.rowspan === 'number' ? node.attrs.rowspan : undefined}
+          colSpan={
+            typeof node.attrs?.colspan === 'number'
+              ? node.attrs.colspan
+              : undefined
+          }
+          rowSpan={
+            typeof node.attrs?.rowspan === 'number'
+              ? node.attrs.rowspan
+              : undefined
+          }
           className="px-4 py-3 align-top [&>p]:my-0"
         >
           {renderChildren(node.content, ctx)}

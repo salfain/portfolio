@@ -8,7 +8,7 @@ import { features } from '@/lib/features'
 import { resolveLocalized } from '@/lib/i18n-content'
 import type { PublicProfile } from '@/data/profile'
 
-import { Badge, Button } from '@/components/ui'
+import { Button } from '@/components/ui'
 import { Container } from '@/components/layout/container'
 import { Reveal } from '@/components/motion'
 
@@ -49,28 +49,39 @@ export async function Hero({ profile, locale }: HeroProps) {
   const hasPortrait = Boolean(profile?.profileImageUrl)
 
   return (
-    <section className="py-8 md:py-10 lg:py-12">
+    <section className="pb-20 pt-20 md:pb-24 md:pt-28">
       <Container>
-        <div className="grid min-w-0 items-center gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-12">
+        <div className="grid min-w-0 items-end gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
           <Reveal
-            className={cn('min-w-0', hasPortrait ? 'max-w-prose' : 'max-w-none')}
+            className={cn(
+              'animate-rise min-w-0',
+              hasPortrait ? 'max-w-prose' : 'max-w-none',
+            )}
           >
+            {/* Penanda ketersediaan: titik aksen dengan halo, lalu teks
+                mono. Statusnya datang dari profil, bukan ditulis di sini. */}
             {availability?.value ? (
-              <Badge variant="success" className="mb-4">
-                <span lang={availability.lang}>{availability.value}</span>
-              </Badge>
+              <p className="mb-7 flex items-center gap-3">
+                <span
+                  aria-hidden
+                  className="h-[7px] w-[7px] shrink-0 rounded-full bg-primary shadow-[0_0_0_4px_var(--accent-glow)]"
+                />
+                <span
+                  lang={availability.lang}
+                  className="font-mono text-[11px] uppercase tracking-[0.12em] text-text-2"
+                >
+                  {availability.value}
+                </span>
+              </p>
             ) : null}
 
-            <p
-              lang={role.lang}
-              className="text-sm font-medium uppercase tracking-widest text-primary"
-            >
+            <p lang={role.lang} className="kicker mb-5 text-primary">
               {role.value}
             </p>
 
             <h1
               lang={headline.lang}
-              className="mt-3 break-words font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
+              className="break-words font-display text-display"
             >
               {headline.value}
             </h1>
@@ -78,13 +89,13 @@ export async function Hero({ profile, locale }: HeroProps) {
             {summary?.value ? (
               <p
                 lang={summary.lang}
-                className="mt-5 hyphens-auto text-justify text-base leading-relaxed text-muted md:text-lg"
+                className="mt-7 max-w-[52ch] text-[19px] leading-relaxed text-muted"
               >
                 {summary.value}
               </p>
             ) : null}
 
-            <div className="mt-6 grid gap-3 sm:mt-8 sm:flex sm:flex-wrap">
+            <div className="mt-9 grid gap-3 sm:flex sm:flex-wrap">
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href="/projects">{t('viewPortfolio')}</Link>
               </Button>
@@ -129,7 +140,7 @@ export async function Hero({ profile, locale }: HeroProps) {
 
           {profile?.profileImageUrl ? (
             <Reveal delay={0.1} className="order-first lg:order-none">
-              <div className="rounded-4xl relative mx-auto h-48 w-48 overflow-hidden border border-border bg-surface md:h-64 md:w-64 lg:h-72 lg:w-72">
+              <div className="relative mx-auto h-48 w-48 overflow-hidden rounded-2xl border border-border bg-surface md:h-64 md:w-64 lg:h-72 lg:w-72">
                 <Image
                   src={profile.profileImageUrl}
                   alt={profile.name}

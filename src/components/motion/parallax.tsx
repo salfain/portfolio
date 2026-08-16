@@ -30,7 +30,10 @@ export function Parallax({ children, className, factor = 0.2 }: ParallaxProps) {
   const y = useTransform(
     scrollYProgress,
     [0, 1],
-    [motionTokens.distance.large * factor, -motionTokens.distance.large * factor],
+    [
+      motionTokens.distance.large * factor,
+      -motionTokens.distance.large * factor,
+    ],
   )
 
   if (reduced) {

@@ -57,7 +57,7 @@ export async function DocumentCard({
 
       <h3
         lang={title.lang}
-        className="mt-4 font-display text-lg font-semibold tracking-tight group-hover:text-primary"
+        className="mt-4 text-lg font-medium tracking-tight group-hover:text-primary"
       >
         {title.value}
       </h3>
@@ -71,10 +71,7 @@ export async function DocumentCard({
 
       <div className="mt-auto flex flex-wrap items-center gap-2 pt-5 text-xs text-muted">
         {document.tags.slice(0, 3).map(({ tag }) => (
-          <span
-            key={tag.slug}
-            className="rounded-sm bg-elevated px-2.5 py-0.5"
-          >
+          <span key={tag.slug} className="rounded-sm bg-elevated px-2.5 py-0.5">
             {tag.name}
           </span>
         ))}

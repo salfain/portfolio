@@ -22,12 +22,9 @@ export default async function AccountPage() {
   const session = await requireAdminPage()
 
   return (
-    <AdminShell
-      title="Akun"
-      description={session.user.email}
-    >
+    <AdminShell title="Akun" description={session.user.email}>
       <section className="max-w-2xl">
-        <h2 className="font-display text-xl font-semibold">Ganti kata sandi</h2>
+        <h2 className="text-xl font-medium">Ganti kata sandi</h2>
         <div className="mt-4">
           <PasswordForm />
         </div>

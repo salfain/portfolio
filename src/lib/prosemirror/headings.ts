@@ -17,10 +17,7 @@ export function nodeText(node: ProseMirrorNode): string {
 
 /** Seluruh teks polos dokumen — dipakai untuk ringkasan dan indeks. */
 export function documentText(doc: ProseMirrorDocument): string {
-  return (doc.content ?? [])
-    .map(nodeText)
-    .filter(Boolean)
-    .join('\n')
+  return (doc.content ?? []).map(nodeText).filter(Boolean).join('\n')
 }
 
 /**

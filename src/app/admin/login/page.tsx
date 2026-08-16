@@ -35,7 +35,7 @@ export default function AdminLoginPage() {
   return (
     <main className="grid min-h-dvh place-items-center px-5">
       <div className="w-full max-w-sm">
-        <h1 className="font-display text-2xl font-semibold">Masuk Admin</h1>
+        <h1 className="font-display text-2xl">Masuk Admin</h1>
         <p className="mt-2 text-sm text-muted">
           Hanya untuk administrator. Tidak ada pendaftaran publik.
         </p>

@@ -37,9 +37,9 @@ export function DrawerContent({
           'fixed top-0 z-50 h-dvh w-full max-w-sm p-6',
           'bg-surface outline-none',
           side === 'right' &&
-            'right-0 data-[state=open]:slide-in-from-right data-[state=closed]:slide-out-to-right',
+            'data-[state=open]:slide-in-from-right data-[state=closed]:slide-out-to-right right-0',
           side === 'left' &&
-            'left-0 data-[state=open]:slide-in-from-left data-[state=closed]:slide-out-to-left',
+            'data-[state=open]:slide-in-from-left data-[state=closed]:slide-out-to-left left-0',
           className,
         )}
         {...props}
@@ -58,9 +58,7 @@ export function DrawerTitle({
   className?: string
 }) {
   return (
-    <DialogPrimitive.Title
-      className={cn('font-display text-lg font-semibold', className)}
-    >
+    <DialogPrimitive.Title className={cn('text-lg font-medium', className)}>
       {children}
     </DialogPrimitive.Title>
   )

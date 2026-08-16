@@ -27,5 +27,4 @@ export const NARRATIVE_KEYS = {
   aboutStory: 'about.story',
 } as const
 
-export type NarrativeKey =
-  (typeof NARRATIVE_KEYS)[keyof typeof NARRATIVE_KEYS]
+export type NarrativeKey = (typeof NARRATIVE_KEYS)[keyof typeof NARRATIVE_KEYS]

@@ -18,12 +18,7 @@ import { requireAdminPage } from './_guards'
  * dan halaman admin hanya bisa diakses satu orang yang sudah terautentikasi.
  */
 export type AuditAction =
-  | 'create'
-  | 'update'
-  | 'publish'
-  | 'unpublish'
-  | 'archive'
-  | 'delete'
+  'create' | 'update' | 'publish' | 'unpublish' | 'archive' | 'delete'
 
 export async function recordAudit(input: {
   actorId: string | null

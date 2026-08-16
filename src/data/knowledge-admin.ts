@@ -80,7 +80,10 @@ export async function getAdminDocumentById(id: string) {
   })
 }
 
-export async function isDocumentSlugTaken(slug: string, exceptId?: string | null) {
+export async function isDocumentSlugTaken(
+  slug: string,
+  exceptId?: string | null,
+) {
   await requireAdmin()
 
   const existing = await prisma.knowledgeDocument.findUnique({
@@ -321,7 +324,10 @@ export async function getCategoryOptions() {
   })
 }
 
-export async function isCategorySlugTaken(slug: string, exceptId?: string | null) {
+export async function isCategorySlugTaken(
+  slug: string,
+  exceptId?: string | null,
+) {
   await requireAdmin()
 
   const existing = await prisma.knowledgeCategory.findUnique({
@@ -362,8 +368,12 @@ export async function saveCategory(input: KnowledgeCategoryInput) {
 export async function deleteCategory(id: string) {
   const session = await requireAdmin()
 
-  const used = await prisma.knowledgeDocument.count({ where: { categoryId: id } })
-  const usedByProject = await prisma.project.count({ where: { categoryId: id } })
+  const used = await prisma.knowledgeDocument.count({
+    where: { categoryId: id },
+  })
+  const usedByProject = await prisma.project.count({
+    where: { categoryId: id },
+  })
 
   if (used > 0 || usedByProject > 0) {
     throw new Error('CATEGORY_IN_USE')

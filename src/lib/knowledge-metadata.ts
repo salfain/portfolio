@@ -84,7 +84,12 @@ export const TEST_CASE_KEYS = [
   'actual',
   'status',
 ] as const
-export const FAULT_KEYS = ['scenario', 'expected', 'actual', 'recovery'] as const
+export const FAULT_KEYS = [
+  'scenario',
+  'expected',
+  'actual',
+  'recovery',
+] as const
 export const TIMELINE_KEYS = ['at', 'event'] as const
 
 export type DeviceRow = Record<(typeof DEVICE_KEYS)[number], string>

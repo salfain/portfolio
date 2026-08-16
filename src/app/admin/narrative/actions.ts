@@ -7,10 +7,7 @@ import {
   toFieldErrors,
   type AdminState,
 } from '@/lib/schemas/admin'
-import {
-  pairNarrativeBlocks,
-  parseNarrativeText,
-} from '@/lib/narrative-format'
+import { pairNarrativeBlocks, parseNarrativeText } from '@/lib/narrative-format'
 import { requireAdmin } from '@/data/_guards'
 import { saveNarrative } from '@/data/settings'
 
@@ -45,7 +42,8 @@ export async function saveNarrativeAction(
   if (enBlocks.length > 0 && enBlocks.length !== idBlocks.length) {
     return {
       status: 'error',
-      message: 'Jumlah blok Inggris harus sama dengan Indonesia, atau dikosongkan.',
+      message:
+        'Jumlah blok Inggris harus sama dengan Indonesia, atau dikosongkan.',
       fieldErrors: {
         blocksEn: `Ada ${idBlocks.length} blok Indonesia, tapi ${enBlocks.length} blok Inggris.`,
       },

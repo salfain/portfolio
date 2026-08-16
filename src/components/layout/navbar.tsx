@@ -13,6 +13,17 @@ import { MobileDrawer } from './mobile-drawer'
 import { MobileBottomNav } from './mobile-bottom-nav'
 import { isActivePath, navItems } from './nav-items'
 
+/**
+ * Bar kaca melayang (redesign 2026).
+ *
+ * Pembungkusnya `pointer-events-none` supaya sisa lebar di kiri-kanan bar
+ * tidak menangkap klik yang seharusnya jatuh ke halaman di belakangnya;
+ * bar-nya sendiri mengaktifkan kembali pointer.
+ *
+ * Menu tengah bisa digulir horizontal (`overflow-x-auto`) alih-alih
+ * membungkus ke baris kedua — tujuh tautan yang membungkus akan menaikkan
+ * tinggi bar dan menggeser seluruh halaman.
+ */
 export function Navbar() {
   const t = useTranslations('nav')
   const pathname = usePathname()
@@ -20,52 +31,71 @@ export function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md print:hidden">
-        <nav className="mx-auto flex min-h-16 max-w-container items-center justify-between gap-3 px-4 py-2 sm:px-8 lg:px-12">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="min-w-0 shrink font-display text-base font-semibold tracking-tight sm:text-lg"
+      <header className="pointer-events-none sticky top-0 z-40 py-4 print:hidden">
+        <div className="mx-auto max-w-container px-5 sm:px-8">
+          <nav
+            className={cn(
+              'pointer-events-auto grid items-center gap-5 rounded-2xl',
+              'grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,auto)]',
+              'border border-[var(--glass-line)] bg-[var(--glass-bg)] shadow-nav',
+              'py-3 pl-5 pr-4 backdrop-blur-[18px] backdrop-saturate-150',
+            )}
           >
-            <span className="block truncate">{t('siteName')}</span>
-          </Link>
+            {/* Brand */}
+            <Link
+              href="/"
+              className="flex min-w-0 items-center gap-2.5 whitespace-nowrap"
+            >
+              <span
+                aria-hidden
+                className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-full border border-[var(--accent-line)] bg-[var(--accent-glow)] font-mono text-xs text-primary"
+              >
+                M
+              </span>
+              <span className="hidden truncate text-base font-medium sm:block">
+                {t('siteName')}
+              </span>
+            </Link>
 
-          {/* Desktop nav */}
-          <ul className="hidden items-center gap-1 md:flex">
-            {navItems.map((item) => {
-              const isActive = isActivePath(pathname, item.href)
+            {/* Menu tengah */}
+            <ul className="hidden min-w-0 items-center justify-center gap-0.5 overflow-x-auto [scrollbar-width:none] md:flex">
+              {navItems.map((item) => {
+                const isActive = isActivePath(pathname, item.href)
 
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      'rounded-md px-4 py-2 text-sm font-medium transition-colors',
-                      isActive
-                        ? 'bg-elevated text-foreground'
-                        : 'text-muted hover:bg-elevated hover:text-foreground',
-                    )}
-                  >
-                    {t(item.key)}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
+                return (
+                  <li key={item.href} className="shrink-0">
+                    <Link
+                      href={item.href}
+                      aria-current={isActive ? 'page' : undefined}
+                      className={cn(
+                        'block whitespace-nowrap rounded-full px-2.5 py-2 text-[15px] transition-colors',
+                        isActive
+                          ? 'text-foreground'
+                          : 'text-muted hover:text-foreground',
+                      )}
+                    >
+                      {t(item.key)}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+            {/* Kolom tengah tetap ada di mobile supaya grid tiga kolom
+                tidak runtuh dan aksi kanan tidak melompat ke tengah. */}
+            <span className="md:hidden" aria-hidden />
 
-          {/* Right actions */}
-          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-            {/* Pintasan Ctrl+K saja tidak cukup — tidak ada yang menemukannya
-                tanpa diberi tahu, jadi pemicunya harus terlihat. */}
-            <div className="hidden sm:block">
-              <CommandPalette />
+            {/* Aksi kanan */}
+            <div className="flex shrink-0 items-center gap-2">
+              <div className="hidden sm:block">
+                <CommandPalette />
+              </div>
+              <ThemeToggle />
+              <div className="hidden sm:block">
+                <LocaleSwitch />
+              </div>
             </div>
-            <div className="hidden sm:block">
-              <LocaleSwitch />
-            </div>
-            <ThemeToggle />
-          </div>
-        </nav>
+          </nav>
+        </div>
 
         <MobileDrawer open={drawerOpen} onOpenChange={setDrawerOpen} />
       </header>

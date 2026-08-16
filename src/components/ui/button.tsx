@@ -7,31 +7,28 @@ type Variant = 'primary' | 'secondary' | 'ghost' | 'danger'
 type Size = 'sm' | 'md' | 'lg'
 
 /**
- * Glassline datar sepenuhnya — tanpa gradien, tanpa bayangan.
- * Hierarki dibentuk oleh WARNA dan GARIS, bukan kedalaman:
- * hanya `primary` yang memakai aksen kobalt, sisanya permukaan datar
- * dengan garis tepi.
+ * Tombol pil (redesign 2026). Tanpa gradien dan tanpa bayangan: hierarki
+ * dibentuk oleh warna isi versus garis tepi.
+ *
+ * `secondary` memakai `border-med` dan menguat ke `border-hover` saat
+ * disentuh — garis pemisah dekoratif terlalu tipis untuk batas kontrol.
  */
 const variantClasses: Record<Variant, string> = {
-  primary: [
-    'bg-primary text-primary-foreground',
-    'hover:opacity-90',
-  ].join(' '),
+  primary: ['bg-primary text-primary-foreground', 'hover:bg-primary-hi'].join(
+    ' ',
+  ),
   secondary: [
-    'bg-surface text-foreground border border-border',
-    'hover:bg-elevated',
+    'border border-border-med bg-transparent text-foreground',
+    'hover:border-border-hover',
   ].join(' '),
-  ghost: ['bg-transparent text-foreground', 'hover:bg-elevated'].join(' '),
-  danger: [
-    'bg-danger text-white',
-    'hover:opacity-90',
-  ].join(' '),
+  ghost: ['bg-transparent text-muted', 'hover:text-foreground'].join(' '),
+  danger: ['bg-danger text-white', 'hover:opacity-90'].join(' '),
 }
 
 const sizeClasses: Record<Size, string> = {
   sm: 'h-9 px-4 text-sm',
-  md: 'h-11 px-5 text-sm',
-  lg: 'h-12 px-6 text-base',
+  md: 'h-11 px-5 text-[15px]',
+  lg: 'h-[52px] px-7 text-[15px]',
 }
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -61,8 +58,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         ref={ref}
         className={cn(
-          'inline-flex items-center justify-center gap-2 rounded-md',
-          'font-medium',
+          'inline-flex items-center justify-center gap-2 rounded-full',
+          'font-medium transition-colors',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
           'disabled:pointer-events-none disabled:opacity-50',
           variantClasses[variant],

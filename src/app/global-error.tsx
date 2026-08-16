@@ -13,9 +13,7 @@ export default function GlobalError({
       <body className="min-h-dvh bg-background text-foreground antialiased">
         <div className="grid min-h-dvh place-items-center px-5">
           <div className="text-center">
-            <h1 className="font-display text-3xl font-semibold">
-              Kesalahan aplikasi
-            </h1>
+            <h1 className="font-display text-3xl">Kesalahan aplikasi</h1>
             <p className="mt-3 text-muted">
               Terjadi kesalahan tak terduga. Muat ulang untuk mencoba lagi.
             </p>

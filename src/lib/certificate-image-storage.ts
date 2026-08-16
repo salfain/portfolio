@@ -57,7 +57,12 @@ export function detectCertificateImageType(
     return imageTypes.png
   }
 
-  if (bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) {
+  if (
+    bytes.length >= 3 &&
+    bytes[0] === 0xff &&
+    bytes[1] === 0xd8 &&
+    bytes[2] === 0xff
+  ) {
     return imageTypes.jpeg
   }
 
@@ -144,7 +149,10 @@ export function getCertificateImageKey(
         : `${config.publicBaseUrl}/`,
     )
 
-    if (image.origin !== base.origin || !image.pathname.startsWith(base.pathname)) {
+    if (
+      image.origin !== base.origin ||
+      !image.pathname.startsWith(base.pathname)
+    ) {
       return null
     }
 

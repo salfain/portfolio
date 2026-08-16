@@ -82,7 +82,9 @@ export async function GET(request: Request, { params }: RouteProps) {
     difficulty: document.difficulty,
     estimatedMinutes: document.estimatedMinutes,
     tools: document.tools,
-    publishedAt: document.publishedAt ? toIsoString(document.publishedAt) : null,
+    publishedAt: document.publishedAt
+      ? toIsoString(document.publishedAt)
+      : null,
     updatedAt: toIsoString(document.updatedAt),
     exportedAt: new Date().toISOString(),
   }

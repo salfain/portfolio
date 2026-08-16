@@ -73,9 +73,7 @@ export function KnowledgeFilters({
       aria-busy={pending}
       className="space-y-5 rounded-3xl border border-border bg-surface p-6"
     >
-      <h2 className="font-display text-base font-semibold">
-        {t('filters.heading')}
-      </h2>
+      <h2 className="text-base font-medium">{t('filters.heading')}</h2>
 
       <div>
         <label htmlFor="q" className="block text-sm font-medium">
@@ -153,7 +151,8 @@ export function KnowledgeFilters({
           onChange={(event) =>
             navigate({
               tingkat:
-                (event.target.value as KnowledgeFilters['tingkat']) || undefined,
+                (event.target.value as KnowledgeFilters['tingkat']) ||
+                undefined,
             })
           }
           className={cn(selectClass, 'mt-2')}

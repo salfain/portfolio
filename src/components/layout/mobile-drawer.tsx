@@ -26,7 +26,7 @@ export function MobileDrawer({ open, onOpenChange }: MobileDrawerProps) {
         <div className="flex h-full flex-col overflow-hidden">
           {/* Header */}
           <div className="flex items-center justify-between gap-4 pb-6">
-            <span className="min-w-0 truncate font-display text-lg font-semibold">
+            <span className="min-w-0 truncate text-lg font-medium">
               {t('siteName')}
             </span>
             <button

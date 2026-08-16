@@ -56,7 +56,13 @@ export function MetadataFields({
   return null
 }
 
-function SopFields({ metadata, errors }: { metadata: unknown; errors: Errors }) {
+function SopFields({
+  metadata,
+  errors,
+}: {
+  metadata: unknown
+  errors: Errors
+}) {
   const meta = parseSopMetadata(metadata)
 
   return (
@@ -96,7 +102,13 @@ function SopFields({ metadata, errors }: { metadata: unknown; errors: Errors }) 
   )
 }
 
-function LabFields({ metadata, errors }: { metadata: unknown; errors: Errors }) {
+function LabFields({
+  metadata,
+  errors,
+}: {
+  metadata: unknown
+  errors: Errors
+}) {
   const meta = parseLabMetadata(metadata)
 
   return (
@@ -204,11 +216,7 @@ function IncidentFields({
           label="Insiden ini berasal dari"
           required
           defaultValue={
-            meta === null
-              ? ''
-              : meta.isLabReproduction
-                ? 'lab'
-                : 'nyata'
+            meta === null ? '' : meta.isLabReproduction ? 'lab' : 'nyata'
           }
           options={[
             { value: '', label: '— pilih salah satu —' },
