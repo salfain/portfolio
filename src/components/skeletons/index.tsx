@@ -28,6 +28,39 @@ function HeaderSkeleton() {
   )
 }
 
+/**
+ * Grid kartu saja, TANPA header halaman.
+ *
+ * Dipakai sebagai fallback `<Suspense>` DI DALAM halaman listing. Header
+ * halaman tidak menunggu database, jadi ia sudah ikut ter-render bersama
+ * shell — mengulangnya di skeleton justru membuat judul berkedip.
+ */
+export async function CardGridSkeleton({
+  columns = 3,
+  cards = 6,
+}: {
+  columns?: 2 | 3
+  cards?: number
+}) {
+  const t = await getTranslations('a11y')
+
+  return (
+    <SkeletonRegion label={t('loadingList')}>
+      <div
+        className={
+          columns === 2
+            ? 'grid gap-5 sm:grid-cols-2'
+            : 'grid gap-5 md:grid-cols-2 lg:grid-cols-3'
+        }
+      >
+        {Array.from({ length: cards }).map((_, index) => (
+          <SkeletonCard key={index} />
+        ))}
+      </div>
+    </SkeletonRegion>
+  )
+}
+
 /** Listing berkartu: proyek, dokumen per tipe, kategori, tag. */
 export async function ListingSkeleton({
   columns = 3,
