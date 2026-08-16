@@ -62,7 +62,7 @@ export default async function RecruiterPage({ params }: PageProps) {
 
   return (
     <Container as="article" className="py-14 print:py-0 md:py-20">
-      <div className="max-w-prose">
+      <div className="max-w-none">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h1 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">

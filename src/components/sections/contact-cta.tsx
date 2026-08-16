@@ -40,7 +40,7 @@ export async function ContactCta({ profile, locale }: ContactCtaProps) {
             >
               {t('title')}
             </h2>
-            <p className="mx-auto mt-3 max-w-prose text-base leading-relaxed text-muted">
+            <p className="mx-auto mt-3 max-w-none text-base leading-relaxed text-muted">
               {t('description')}
             </p>
 

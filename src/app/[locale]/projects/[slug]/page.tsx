@@ -119,7 +119,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
   return (
     <Container as="article" className="py-14 md:py-20">
-      <div className="max-w-prose">
+      <div className="max-w-none">
         <p className="text-sm">
           <Link
             href="/projects"

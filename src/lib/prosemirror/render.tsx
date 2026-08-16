@@ -288,7 +288,7 @@ export function ProseMirrorContent({
   }
 
   return (
-    <div className={cn('max-w-prose text-base text-foreground', className)}>
+    <div className={cn('max-w-none text-base text-foreground', className)}>
       {renderChildren(doc.content, ctx)}
     </div>
   )

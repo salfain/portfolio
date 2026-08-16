@@ -31,7 +31,7 @@ export default async function TermsPage({ params }: PageProps) {
       <PageHeader title={t('title')} description={t('description')} />
 
       <Container className="pb-20">
-        <div className="max-w-prose space-y-10">
+        <div className="max-w-none space-y-10">
           {sections.map((section) => (
             <section key={section}>
               <h2 className="font-display text-xl font-semibold tracking-tight">

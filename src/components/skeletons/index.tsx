@@ -22,7 +22,7 @@ function HeaderSkeleton() {
     <div className="border-b border-border py-12 md:py-16">
       <Container>
         <Skeleton className="h-10 w-2/3 max-w-md rounded-2xl md:h-12" />
-        <SkeletonText lines={2} className="mt-5 max-w-prose" />
+        <SkeletonText lines={2} className="mt-5 max-w-none" />
       </Container>
     </div>
   )
@@ -90,7 +90,7 @@ export async function DocumentSkeleton() {
       <Container className="py-12 md:py-16">
         <Skeleton className="h-4 w-40 rounded-full" />
 
-        <div className="mt-6 max-w-prose">
+        <div className="mt-6 max-w-none">
           <div className="flex gap-3">
             <Skeleton className="h-4 w-16 rounded-full" />
             <Skeleton className="h-4 w-20 rounded-full" />
@@ -133,7 +133,7 @@ export async function ProseSkeleton() {
       <HeaderSkeleton />
 
       <Container className="py-12">
-        <div className="max-w-prose space-y-8">
+        <div className="max-w-none space-y-8">
           {Array.from({ length: 4 }).map((_, index) => (
             <div key={index}>
               <Skeleton className="h-6 w-1/3 rounded-lg" />

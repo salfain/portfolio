@@ -136,7 +136,7 @@ export async function DocumentDetail({
           ← {tDetail('backToList', { type: t(`types.${segment}.plural`) })}
         </Link>
 
-        <header className="mt-6 max-w-prose">
+        <header className="mt-6 max-w-none">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
             {meta.map((item) => (
               <span key={String(item)}>{item}</span>
