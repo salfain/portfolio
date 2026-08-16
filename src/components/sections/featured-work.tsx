@@ -1,6 +1,5 @@
 import { getTranslations } from 'next-intl/server'
 
-import { Link } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import type { ProjectCard as Project } from '@/data/project'
 
@@ -9,6 +8,7 @@ import { ProjectCard } from '@/components/project-card'
 import { StaggerContainer, StaggerItem } from '@/components/motion'
 
 import { Section } from './section'
+import { SectionLink } from './section-link'
 
 type FeaturedWorkProps = {
   projects: Project[]
@@ -25,12 +25,7 @@ export async function FeaturedWork({ projects, locale }: FeaturedWorkProps) {
       description={t('description')}
       action={
         projects.length > 0 ? (
-          <Link
-            href="/projects"
-            className="rounded-sm text-sm font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-          >
-            {t('viewAll')}
-          </Link>
+          <SectionLink href="/projects">{t('viewAll')}</SectionLink>
         ) : null
       }
     >

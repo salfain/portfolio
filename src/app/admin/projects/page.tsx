@@ -42,12 +42,12 @@ export default async function AdminProjectsPage() {
                   <p className="font-medium">{project.titleId}</p>
                   <StatusBadge status={project.status as PublishStatusValue} />
                   {project.isFeatured ? (
-                    <span className="rounded-sm bg-elevated px-2.5 py-0.5 text-xs text-muted">
+                    <span className="rounded-full border border-border-med px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
                       Pilihan
                     </span>
                   ) : null}
                   {!project.titleEn ? (
-                    <span className="rounded-sm bg-elevated px-2.5 py-0.5 text-xs text-muted">
+                    <span className="rounded-full border border-border-med px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
                       ID saja
                     </span>
                   ) : null}
@@ -60,7 +60,7 @@ export default async function AdminProjectsPage() {
               <div className="flex shrink-0 items-center gap-3">
                 <Link
                   href={`/admin/projects/${project.id}`}
-                  className="rounded-sm text-sm font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  className="rounded-sm font-mono text-[11px] uppercase tracking-[0.12em] text-muted transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 >
                   Ubah
                 </Link>

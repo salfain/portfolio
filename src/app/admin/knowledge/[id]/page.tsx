@@ -80,7 +80,7 @@ export default async function EditDocumentPage({ params }: PageProps) {
           </Link>
           <Link
             href={`/admin/knowledge/${document.id}/preview`}
-            className="rounded-sm text-sm font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            className="rounded-sm font-mono text-[11px] uppercase tracking-[0.12em] text-muted transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           >
             Pratinjau
           </Link>

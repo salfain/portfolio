@@ -63,7 +63,8 @@ export function KnowledgeFilters({
     filters.tingkat !== undefined
 
   const selectClass = cn(
-    'w-full rounded-md border border-border-strong bg-surface px-4 py-2.5 text-sm',
+    'w-full rounded-md border border-border-strong bg-input px-3.5 py-3 text-[15px]',
+    'transition-colors focus:border-primary',
     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
   )
 
@@ -71,12 +72,17 @@ export function KnowledgeFilters({
     <form
       onSubmit={handleSubmit}
       aria-busy={pending}
-      className="space-y-5 rounded-3xl border border-border bg-surface p-6"
+      className="space-y-5 rounded-3xl border border-border bg-surface p-7"
     >
-      <h2 className="text-base font-medium">{t('filters.heading')}</h2>
+      <h2 className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
+        {t('filters.heading')}
+      </h2>
 
       <div>
-        <label htmlFor="q" className="block text-sm font-medium">
+        <label
+          htmlFor="q"
+          className="block font-mono text-[11px] uppercase tracking-[0.12em] text-muted"
+        >
           {t('filters.search')}
         </label>
         <input
@@ -94,7 +100,10 @@ export function KnowledgeFilters({
 
       {categories.length > 0 ? (
         <div>
-          <label htmlFor="kategori" className="block text-sm font-medium">
+          <label
+            htmlFor="kategori"
+            className="block font-mono text-[11px] uppercase tracking-[0.12em] text-muted"
+          >
             {t('filters.category')}
           </label>
           <select
@@ -118,7 +127,10 @@ export function KnowledgeFilters({
 
       {tags.length > 0 ? (
         <div>
-          <label htmlFor="tag" className="block text-sm font-medium">
+          <label
+            htmlFor="tag"
+            className="block font-mono text-[11px] uppercase tracking-[0.12em] text-muted"
+          >
             {t('filters.tag')}
           </label>
           <select
@@ -141,7 +153,10 @@ export function KnowledgeFilters({
       ) : null}
 
       <div>
-        <label htmlFor="tingkat" className="block text-sm font-medium">
+        <label
+          htmlFor="tingkat"
+          className="block font-mono text-[11px] uppercase tracking-[0.12em] text-muted"
+        >
           {t('difficulty.label')}
         </label>
         <select
@@ -171,8 +186,8 @@ export function KnowledgeFilters({
           type="submit"
           disabled={pending}
           className={cn(
-            'rounded-md bg-primary px-5 py-2 text-sm font-medium text-primary-foreground',
-            'transition-opacity hover:opacity-90 disabled:opacity-50',
+            'rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground',
+            'transition-colors hover:bg-primary-hi disabled:opacity-50',
             'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
           )}
         >
@@ -191,7 +206,11 @@ export function KnowledgeFilters({
 
       {/* Jumlah hasil diumumkan ke pembaca layar — daftar yang berubah di
           bawah panel filter tidak terdengar dengan sendirinya. */}
-      <p role="status" aria-live="polite" className="text-sm text-muted">
+      <p
+        role="status"
+        aria-live="polite"
+        className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint"
+      >
         {t('filters.resultCount', { count: resultCount })}
       </p>
     </form>

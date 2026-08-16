@@ -91,17 +91,21 @@ export default async function AdminPage() {
             key={summary.href}
             href={summary.href}
             className={cn(
-              'rounded-3xl border border-border bg-surface p-6 transition-colors',
-              'hover:border-primary/40',
+              'rounded-3xl border border-border bg-surface p-7 transition-colors',
+              'hover:border-[var(--accent-line)]',
               'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
             )}
           >
-            <p className="font-display text-3xl tabular-nums">
+            {/* Angka serif besar dulu, label mono di bawahnya: dasbor ini
+                dibaca sekilas, dan yang dicari selalu angkanya. */}
+            <p className="font-display text-5xl tabular-nums leading-none">
               {summary.total}
             </p>
-            <p className="mt-1 text-sm font-medium">{summary.label}</p>
+            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+              {summary.label}
+            </p>
             {summary.published !== null ? (
-              <p className="mt-0.5 text-xs text-muted">
+              <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
                 {summary.published} terbit
               </p>
             ) : null}

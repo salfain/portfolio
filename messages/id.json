@@ -145,7 +145,8 @@
     "title": "Proyek",
     "metaDescription": "Studi kasus pekerjaan IT Support, lab jaringan, dan dokumentasi.",
     "description": "Setiap proyek ditulis sebagai studi kasus: masalah, solusi, dan hasilnya.",
-    "readCaseStudy": "Baca studi kasus →",
+    "caseStudyKicker": "Studi kasus",
+    "readCaseStudy": "Baca studi kasus",
     "untranslatedLabel": "Belum diterjemahkan ke bahasa Inggris",
     "emptyTitle": "Belum ada proyek terbit",
     "emptyDescription": "Proyek akan tampil di sini setelah diterbitkan."
@@ -193,7 +194,13 @@
       "validation": "Periksa kembali isian yang ditandai.",
       "rateLimited": "Terlalu banyak pesan dari alamat email ini. Coba lagi dalam satu jam.",
       "server": "Pesan gagal dikirim. Coba beberapa saat lagi."
-    }
+    },
+    "channels": {
+      "location": "Lokasi",
+      "linkedin": "LinkedIn",
+      "github": "GitHub"
+    },
+    "recruiterLink": "Ringkasan untuk recruiter"
   },
   "recruiter": {
     "title": "Ringkasan untuk Recruiter",

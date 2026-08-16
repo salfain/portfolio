@@ -29,22 +29,26 @@ export async function ContactCta({ profile, locale }: ContactCtaProps) {
     <section
       id="contact-cta"
       aria-labelledby="contact-cta-heading"
-      className="scroll-mt-24 py-6 md:py-8"
+      className="scroll-mt-28 border-t border-border py-14 md:py-16"
     >
       <Container>
         <Reveal>
-          <div className="rounded-4xl border border-border bg-surface px-5 py-8 text-center sm:px-12 sm:py-10">
+          <div className="rounded-[28px] border border-border bg-surface px-6 py-16 text-center sm:px-12 md:px-12 md:py-20">
             <h2
               id="contact-cta-heading"
-              className="font-display text-2xl tracking-tight md:text-3xl"
+              className="font-display text-[clamp(38px,5vw,64px)] leading-[1.05] tracking-[-0.02em]"
             >
               {t('title')}
             </h2>
-            <p className="mx-auto mt-3 max-w-none text-base leading-relaxed text-muted">
+            {/* `text-center` diulang di sini, bukan diwarisi: aturan dasar
+                `p { text-align: justify }` mengalahkan perataan yang
+                diwariskan induk, jadi tanpa kelas ini paragraf akan
+                kembali rata kiri-kanan. */}
+            <p className="mx-auto mt-5 max-w-[54ch] text-center text-lg leading-relaxed text-muted">
               {t('description')}
             </p>
 
-            <div className="mx-auto mt-7 grid max-w-md gap-3 sm:flex sm:max-w-none sm:flex-wrap sm:justify-center">
+            <div className="mx-auto mt-10 grid max-w-md gap-3 sm:flex sm:max-w-none sm:flex-wrap sm:justify-center">
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href="/contact">{t('getInTouch')}</Link>
               </Button>

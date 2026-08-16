@@ -44,7 +44,7 @@ export default async function AdminCertificatesPage() {
                     status={certificate.status as PublishStatusValue}
                   />
                   {!certificate.credentialUrl ? (
-                    <span className="rounded-sm bg-elevated px-2.5 py-0.5 text-xs text-muted">
+                    <span className="rounded-full border border-border-med px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
                       Tanpa kredensial
                     </span>
                   ) : null}
@@ -55,7 +55,7 @@ export default async function AdminCertificatesPage() {
               <div className="flex shrink-0 items-center gap-3">
                 <Link
                   href={`/admin/certifications/${certificate.id}`}
-                  className="rounded-sm text-sm font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  className="rounded-sm font-mono text-[11px] uppercase tracking-[0.12em] text-muted transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 >
                   Ubah
                 </Link>

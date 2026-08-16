@@ -40,7 +40,7 @@ export default async function ProjectsPage({ params }: PageProps) {
             description={t('emptyDescription')}
           />
         ) : (
-          <StaggerContainer className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <StaggerContainer className="grid gap-5 md:grid-cols-2">
             {projects.map((project) => (
               <StaggerItem key={project.id}>
                 <ProjectCard project={project} locale={locale} />

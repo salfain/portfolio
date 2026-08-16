@@ -144,6 +144,14 @@
     hyphens: manual;
   }
 
+  /* Aturan `p` di atas adalah selektor elemen, jadi ia MENGALAHKAN
+     perataan yang diwariskan dari induk — tanpa baris ini, setiap blok
+     `text-center` (empty state, halaman galat, kartu CTA) akan tetap
+     merender paragrafnya rata kiri-kanan. */
+  .text-center p {
+    text-align: center;
+  }
+
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-primary;
   }

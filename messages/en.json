@@ -145,7 +145,8 @@
     "title": "Projects",
     "metaDescription": "Case studies of IT Support work, network labs, and documentation.",
     "description": "Every project is written as a case study: the problem, the solution, and the outcome.",
-    "readCaseStudy": "Read case study →",
+    "caseStudyKicker": "Case study",
+    "readCaseStudy": "Read case study",
     "untranslatedLabel": "Not yet translated into English",
     "emptyTitle": "No published projects yet",
     "emptyDescription": "Projects will appear here once they are published."
@@ -193,7 +194,13 @@
       "validation": "Please check the highlighted fields.",
       "rateLimited": "Too many messages from this email address. Try again in an hour.",
       "server": "The message could not be sent. Please try again shortly."
-    }
+    },
+    "channels": {
+      "location": "Location",
+      "linkedin": "LinkedIn",
+      "github": "GitHub"
+    },
+    "recruiterLink": "Recruiter summary"
   },
   "recruiter": {
     "title": "Recruiter Summary",

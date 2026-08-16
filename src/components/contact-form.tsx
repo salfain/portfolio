@@ -46,7 +46,11 @@ export function ContactForm({ locale }: ContactFormProps) {
   }
 
   return (
-    <form action={formAction} className="space-y-5" noValidate>
+    <form
+      action={formAction}
+      className="space-y-5 rounded-3xl border border-border bg-surface p-7 sm:p-8"
+      noValidate
+    >
       <input type="hidden" name="locale" value={locale} />
 
       {/* Honeypot — tersembunyi dari manusia, terlihat oleh bot.
@@ -114,7 +118,7 @@ export function ContactForm({ locale }: ContactFormProps) {
         </p>
       ) : null}
 
-      <Button type="submit" size="lg" loading={pending}>
+      <Button type="submit" size="lg" loading={pending} className="w-full">
         {t('submit')}
       </Button>
 

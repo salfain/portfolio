@@ -1,4 +1,5 @@
 export { Section } from './section'
+export { SectionLink } from './section-link'
 export { Hero } from './hero'
 export { ExploreWork } from './explore-work'
 export { AtAGlance } from './at-a-glance'

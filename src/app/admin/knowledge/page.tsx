@@ -118,7 +118,7 @@ export default async function AdminKnowledgePage({ searchParams }: PageProps) {
                 </Link>
                 <Link
                   href={`/admin/knowledge/${document.id}`}
-                  className="rounded-sm text-sm font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  className="rounded-sm font-mono text-[11px] uppercase tracking-[0.12em] text-muted transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 >
                   Ubah
                 </Link>

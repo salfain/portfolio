@@ -234,17 +234,23 @@ export function StatusField({
 }
 
 export function StatusBadge({ status }: { status: PublishStatusValue }) {
+  /**
+   * Terbit = pil aksen solid, Draf = pil bergaris. Perbedaan isi-versus-
+   * garis terbaca lebih cepat daripada perbedaan rona, dan tetap terbaca
+   * bagi yang tidak membedakan warna.
+   */
   const tone: Record<PublishStatusValue, string> = {
-    DRAFT: 'bg-elevated text-muted',
+    DRAFT: 'border border-border-med text-muted',
     IN_REVIEW: 'bg-warning text-white',
-    PUBLISHED: 'bg-success text-white',
-    ARCHIVED: 'bg-elevated text-muted line-through',
+    PUBLISHED: 'bg-primary text-primary-foreground',
+    ARCHIVED: 'border border-border-med text-faint line-through',
   }
 
   return (
     <span
       className={cn(
-        'inline-flex shrink-0 items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
+        'inline-flex shrink-0 items-center rounded-full px-3 py-1',
+        'font-mono text-[11px] uppercase tracking-[0.12em]',
         tone[status],
       )}
     >

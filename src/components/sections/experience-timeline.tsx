@@ -1,15 +1,15 @@
 import { getTranslations } from 'next-intl/server'
 
-import { Link } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import { formatPeriod } from '@/lib/format'
 import { resolveLocalized } from '@/lib/i18n-content'
 import { toAchievements, type PublicExperience } from '@/data/experience'
 
-import { Badge, Card, CardBody, EmptyState } from '@/components/ui'
+import { Badge, EmptyState } from '@/components/ui'
 import { StaggerContainer, StaggerItem } from '@/components/motion'
 
 import { Section } from './section'
+import { SectionLink } from './section-link'
 
 type ExperienceTimelineProps = {
   experiences: PublicExperience[]
@@ -32,12 +32,7 @@ export async function ExperienceTimeline({
       title={t('title')}
       action={
         limit && experiences.length > limit ? (
-          <Link
-            href="/experience"
-            className="rounded-sm text-sm font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-          >
-            {t('viewAll')}
-          </Link>
+          <SectionLink href="/experience">{t('viewAll')}</SectionLink>
         ) : null
       }
     >
@@ -47,7 +42,7 @@ export async function ExperienceTimeline({
           description={t('emptyDescription')}
         />
       ) : (
-        <StaggerContainer className="space-y-4">
+        <StaggerContainer>
           {visible.map((experience) => {
             const position = resolveLocalized(experience, 'position', locale)
             const summary = resolveLocalized(experience, 'summary', locale)
@@ -58,61 +53,74 @@ export async function ExperienceTimeline({
             )
 
             return (
-              <StaggerItem key={experience.id}>
-                <Card>
-                  <CardBody>
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div>
-                        <h3
-                          lang={position.lang}
-                          className="text-lg font-medium"
-                        >
-                          {position.value}
-                        </h3>
-                        <p className="mt-1 text-sm text-muted">
-                          {experience.company}
-                          {experience.location
-                            ? ` · ${experience.location}`
-                            : ''}
-                        </p>
-                      </div>
+              <StaggerItem
+                key={experience.id}
+                className="grid gap-x-8 gap-y-4 border-t border-border py-9 md:grid-cols-[200px_minmax(0,1fr)]"
+              >
+                {/* Kolom kiri: periode dan organisasi, keduanya mono.
+                    Di bawah md kolomnya menumpuk, jadi periode tetap
+                    berada persis di atas jabatan yang diterangkannya. */}
+                <div className="flex flex-col gap-1.5">
+                  <p className="font-mono text-xs uppercase tracking-[0.12em] text-faint">
+                    {formatPeriod(
+                      experience.startDate,
+                      experience.endDate,
+                      locale,
+                      t('present'),
+                    )}
+                  </p>
+                  <p className="font-mono text-xs uppercase tracking-[0.12em] text-primary">
+                    {experience.company}
+                  </p>
+                </div>
 
-                      <p className="text-sm text-muted">
-                        {formatPeriod(
-                          experience.startDate,
-                          experience.endDate,
-                          locale,
-                          t('present'),
-                        )}
-                      </p>
-                    </div>
+                <div className="min-w-0">
+                  <h3 lang={position.lang} className="text-[22px] font-medium">
+                    {position.value}
+                  </h3>
 
-                    <p
-                      lang={summary.lang}
-                      className="mt-4 hyphens-auto text-justify text-sm leading-relaxed text-muted"
-                    >
-                      {summary.value}
+                  {experience.location ? (
+                    <p className="mt-1.5 text-[15px] text-muted">
+                      {experience.location}
                     </p>
+                  ) : null}
 
-                    {achievements.length > 0 ? (
-                      <ul className="mt-4 list-disc space-y-1.5 hyphens-auto pl-5 text-justify text-sm leading-relaxed text-muted">
-                        {achievements.map((achievement) => (
-                          <li key={achievement}>{achievement}</li>
-                        ))}
-                      </ul>
-                    ) : null}
+                  <p
+                    lang={summary.lang}
+                    className="mt-4 leading-relaxed text-muted"
+                  >
+                    {summary.value}
+                  </p>
 
-                    {experience.tools.length > 0 ? (
-                      <ul className="mt-5 flex flex-wrap gap-2">
-                        {experience.tools.map((tool) => (
-                          <li key={tool}>
-                            <Badge>{tool}</Badge>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-                  </CardBody>
-                </Card>
+                  {/* Poin tanggung jawab sebagai daftar tanpa butir bawaan:
+                      jaraknya diatur `gap`, bukan margin per baris. */}
+                  {achievements.length > 0 ? (
+                    <ul className="mt-5 flex list-none flex-col gap-2.5 pl-0">
+                      {achievements.map((achievement) => (
+                        <li
+                          key={achievement}
+                          className="flex gap-3 text-[15px] leading-relaxed text-text-2"
+                        >
+                          <span
+                            aria-hidden
+                            className="mt-2.5 h-[3px] w-[3px] shrink-0 rounded-full bg-faint"
+                          />
+                          <span>{achievement}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+
+                  {experience.tools.length > 0 ? (
+                    <ul className="mt-6 flex flex-wrap gap-2">
+                      {experience.tools.map((tool) => (
+                        <li key={tool}>
+                          <Badge>{tool}</Badge>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </div>
               </StaggerItem>
             )
           })}

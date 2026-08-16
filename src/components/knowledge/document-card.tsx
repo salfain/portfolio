@@ -39,17 +39,20 @@ export async function DocumentCard({
     <Link
       href={documentHref(document.type, document.slug)}
       className={cn(
-        'group flex flex-col rounded-3xl border border-border bg-surface p-6',
-        'transition-colors hover:border-primary/40',
+        'group flex flex-col rounded-3xl border border-border bg-surface p-7',
+        'transition-colors hover:border-[var(--accent-line)]',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
       )}
     >
-      <div className="flex flex-wrap items-center gap-2 text-xs">
-        <span className="rounded-sm bg-primary/10 px-3 py-0.5 font-medium text-primary">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11px] uppercase tracking-[0.12em]">
+        {/* Badge tipe: aksen di atas latar aksen lembut — satu-satunya
+            elemen berwarna di kartu, jadi tipe dokumen terbaca lebih dulu
+            daripada judulnya saat memindai grid. */}
+        <span className="rounded-full bg-[var(--accent-soft)] px-3 py-1 text-primary">
           {t(`types.${TYPE_KEYS[document.type]}.name`)}
         </span>
         {meta.map((item) => (
-          <span key={String(item)} className="text-muted">
+          <span key={String(item)} className="text-faint">
             {item}
           </span>
         ))}
@@ -57,23 +60,21 @@ export async function DocumentCard({
 
       <h3
         lang={title.lang}
-        className="mt-4 text-lg font-medium tracking-tight group-hover:text-primary"
+        className="mt-5 text-[19px] font-medium leading-snug transition-colors group-hover:text-primary"
       >
         {title.value}
       </h3>
 
       <p
         lang={summary.lang}
-        className="mt-2 line-clamp-3 hyphens-auto text-justify text-sm leading-relaxed text-muted"
+        className="mt-3 line-clamp-3 text-[15px] leading-relaxed text-muted"
       >
         {summary.value}
       </p>
 
-      <div className="mt-auto flex flex-wrap items-center gap-2 pt-5 text-xs text-muted">
+      <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-border pt-5 font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
         {document.tags.slice(0, 3).map(({ tag }) => (
-          <span key={tag.slug} className="rounded-sm bg-elevated px-2.5 py-0.5">
-            {tag.name}
-          </span>
+          <span key={tag.slug}>{tag.name}</span>
         ))}
         {document.publishedAt ? (
           <time
