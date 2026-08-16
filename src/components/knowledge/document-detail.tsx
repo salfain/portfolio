@@ -19,8 +19,21 @@ import {
 import { Container } from '@/components/layout/container'
 import { TranslationNotice } from '@/components/translation-notice'
 
+import {
+  parseIncidentMetadata,
+  parseLabMetadata,
+} from '@/lib/schemas/knowledge-metadata'
+import { getPublishedProfile } from '@/data/profile'
+import {
+  BreadcrumbJsonLd,
+  DocumentJsonLd,
+} from '@/components/structured-data'
+
 import { DocumentCard } from './document-card'
+import { EvidenceDownloads, type DownloadItem } from './evidence-downloads'
 import { EvidenceGallery, type EvidenceItem } from './evidence-gallery'
+import { IncidentBlocks } from './incident-blocks'
+import { LabBlocks } from './lab-blocks'
 import { ReadingProgress } from './reading-progress'
 import { RevisionTimeline } from './revision-timeline'
 import { TableOfContents } from './table-of-contents'
@@ -100,12 +113,60 @@ export async function DocumentDetail({
   const contentLang: Locale = hasEnglishContent ? 'en' : 'id'
 
   const headings = content ? collectHeadings(content) : []
-  const [revisions, related] = await Promise.all([
+
+  /**
+   * Ketiganya diambil BERSAMAAN, bukan berurutan.
+   *
+   * Profil sempat ditulis sebagai `await` tersendiri sebelum `Promise.all`
+   * saat JSON-LD ditambahkan di Fase 7 — satu jalan-pulang database
+   * tambahan yang menunggu tanpa alasan, di halaman yang paling sering
+   * dibuka.
+   *
+   * Nama penulis diambil dari profil situs. Bila profil belum diisi, yang
+   * dipakai nama situs — bukan nama yang dikarang.
+   */
+  const [profile, revisions, related] = await Promise.all([
+    getPublishedProfile(),
     getDocumentRevisions(document.id),
     getRelatedDocuments(document.id, document.category?.slug ?? null),
   ])
 
-  const evidence: EvidenceItem[] = document.media.map((asset) => ({
+  const authorName = profile?.name ?? t('title')
+
+  /**
+   * Metadata terstruktur hanya diurai untuk tipe yang memilikinya.
+   *
+   * `parse*` mengembalikan `null` bila bentuknya tidak cocok — dokumen
+   * dengan metadata rusak kehilangan blok buktinya, bukan seluruh
+   * halamannya.
+   */
+  const labMeta =
+    document.type === 'LAB' ? parseLabMetadata(document.metadata) : null
+  const incidentMeta =
+    document.type === 'INCIDENT'
+      ? parseIncidentMetadata(document.metadata)
+      : null
+
+  /**
+   * Bukti dipisah menurut cara pakainya: yang bisa dilihat masuk galeri,
+   * sisanya jadi unduhan. Tanpa pemisahan ini arsip ZIP akan muncul di
+   * galeri sebagai gambar rusak.
+   */
+  const isViewable = (mimeType: string) => mimeType.startsWith('image/')
+
+  const downloads: DownloadItem[] = document.media
+    .filter((asset) => !isViewable(asset.mimeType))
+    .map((asset) => ({
+      id: asset.id,
+      href: asset.fileUrl,
+      label: pickLocale(asset, 'title', locale) || pickLocale(asset, 'alt', locale),
+      mimeType: asset.mimeType,
+      fileSize: asset.fileSize,
+    }))
+
+  const evidence: EvidenceItem[] = document.media
+    .filter((asset) => isViewable(asset.mimeType))
+    .map((asset) => ({
     id: asset.id,
     src: asset.fileUrl,
     alt: pickLocale(asset, 'alt', locale),
@@ -113,6 +174,8 @@ export async function DocumentDetail({
     title: pickLocale(asset, 'title', locale) || null,
     tool: asset.tool,
     testDate: asset.testDate ? formatFullDate(asset.testDate, locale) : null,
+    width: asset.width,
+    height: asset.height,
   }))
 
   const meta = [
@@ -126,6 +189,35 @@ export async function DocumentDetail({
 
   return (
     <>
+      {/*
+        JSON-LD dirender di halaman, bukan di metadata: `generateMetadata`
+        tidak punya tempat untuk skrip, dan menaruhnya di layout berarti
+        setiap halaman mengaku sebagai artikel yang sama.
+
+        Nama penulis diambil dari profil situs, bukan dikarang — bila profil
+        belum diisi, blok penulisnya tidak ikut dirender.
+      */}
+      <DocumentJsonLd
+        title={title.value}
+        summary={summary.value}
+        path={`/knowledge/${segment}/${slug}`}
+        locale={locale}
+        publishedAt={document.publishedAt}
+        updatedAt={document.updatedAt}
+        authorName={authorName}
+      />
+      <BreadcrumbJsonLd
+        locale={locale}
+        items={[
+          { name: t('title'), path: '/knowledge' },
+          { name: t(`types.${segment}.plural`), path: `/knowledge/${segment}` },
+          {
+            name: title.value,
+            path: `/knowledge/${segment}/${slug}`,
+          },
+        ]}
+      />
+
       <ReadingProgress />
 
       <Container className="py-8 md:py-12">
@@ -171,6 +263,18 @@ export async function DocumentDetail({
             ) : (
               <p className="text-muted">{tDetail('emptyContent')}</p>
             )}
+
+            {/*
+              Blok bukti terstruktur (Fase 6) dirender SETELAH isi dokumen.
+              Isinya menjelaskan, tabelnya membuktikan — urutan sebaliknya
+              memaksa pembaca menafsirkan angka sebelum tahu konteksnya.
+            */}
+            {labMeta ? <LabBlocks meta={labMeta} /> : null}
+            {incidentMeta ? (
+              <IncidentBlocks meta={incidentMeta} locale={locale} />
+            ) : null}
+
+            <EvidenceDownloads items={downloads} />
 
             {evidence.length > 0 ? (
               <section aria-labelledby="evidence-heading" className="mt-16">

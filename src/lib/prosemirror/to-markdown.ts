@@ -1,162 +1,178 @@
+import { safeLink } from './safe-url'
 import type { ProseMirrorDocument, ProseMirrorNode } from './types'
 
 /**
- * Dokumen ProseMirror → Markdown.
+ * ProseMirror → Markdown, untuk ekspor.
  *
- * Dipakai HANYA untuk ekspor. Halaman publik dirender langsung dari JSON
- * (`render.tsx`), tidak pernah lewat Markdown — konversi bolak-balik selalu
- * kehilangan sesuatu, dan yang hilang di sini tidak berdampak karena
- * hasilnya untuk dibaca manusia, bukan dirender ulang.
+ * Node yang dikenal di sini adalah node yang sama dengan `render.tsx`.
+ * Node asing diperlakukan sama pula: isinya tetap dikeluarkan sebagai teks,
+ * bukan dibuang. Ekspor yang diam-diam menghilangkan satu blok jauh lebih
+ * berbahaya daripada ekspor yang blok asingnya kehilangan format — yang
+ * pertama tidak akan pernah disadari.
  *
- * Node yang tidak dikenal dituliskan teksnya saja, sama seperti perilaku
- * renderer: lebih baik kehilangan formatnya daripada kehilangan isinya.
+ * Ini BUKAN jalur render halaman publik dan tidak pernah dipakai untuk itu.
  */
 
-function escapeInline(text: string): string {
-  // Hanya karakter yang benar-benar mengubah arti di Markdown. Meng-escape
-  // semuanya membuat perintah CLI di teks jadi sulit dibaca.
-  return text.replace(/([\\`*_[\]])/g, '\\$1')
+function escapeText(text: string): string {
+  // Karakter yang mengubah arti baris di Markdown. Tanda kutip dan kurung
+  // sengaja dibiarkan — meng-escape semuanya membuat hasilnya sulit dibaca
+  // manusia, padahal itu justru gunanya ekspor Markdown.
+  return text.replace(/([\\`*_[\]#])/g, '\\$1')
 }
 
-function inline(node: ProseMirrorNode): string {
-  if (typeof node.text === 'string') {
-    let text = escapeInline(node.text)
+function inline(nodes: ProseMirrorNode[] | undefined): string {
+  if (!nodes) return ''
+
+  return nodes.map(inlineNode).join('')
+}
+
+function inlineNode(node: ProseMirrorNode): string {
+  if (node.type === 'hardBreak') return '  \n'
+
+  if (node.type === 'text') {
+    let text = escapeText(node.text ?? '')
 
     for (const mark of node.marks ?? []) {
-      switch (mark.type) {
-        case 'bold':
-        case 'strong':
-          text = `**${text}**`
-          break
-        case 'italic':
-        case 'em':
-          text = `_${text}_`
-          break
-        case 'strike':
-          text = `~~${text}~~`
-          break
-        case 'code':
-          // Kode sebaris tidak boleh ikut di-escape.
-          text = `\`${node.text}\``
-          break
-        case 'link': {
-          const href = mark.attrs?.href
+      if (mark.type === 'code') text = `\`${node.text ?? ''}\``
+      else if (mark.type === 'bold' || mark.type === 'strong') text = `**${text}**`
+      else if (mark.type === 'italic' || mark.type === 'em') text = `*${text}*`
+      else if (mark.type === 'strike') text = `~~${text}~~`
+      else if (mark.type === 'link') {
+        const link = safeLink(mark.attrs?.href)
 
-          if (typeof href === 'string') text = `[${text}](${href})`
-          break
-        }
-        default:
-          break
+        // Tautan yang skemanya tidak lolos daftar-izin kehilangan href-nya,
+        // teksnya tetap ada — sama seperti di renderer publik.
+        text = link ? `[${text}](${link.href})` : text
       }
     }
 
     return text
   }
 
-  if (node.type === 'hardBreak') return '  \n'
+  if (node.type === 'image') {
+    const src = typeof node.attrs?.src === 'string' ? node.attrs.src : ''
+    const alt = typeof node.attrs?.alt === 'string' ? node.attrs.alt : ''
 
-  return (node.content ?? []).map(inline).join('')
+    return src ? `![${alt}](${src})` : alt
+  }
+
+  return inline(node.content)
 }
 
-function plain(node: ProseMirrorNode): string {
-  if (typeof node.text === 'string') return node.text
+function listItems(
+  node: ProseMirrorNode,
+  marker: (index: number) => string,
+): string {
+  return (node.content ?? [])
+    .map((item, index) => {
+      const prefix = marker(index)
+      const body = blocks(item.content ?? []).trimEnd()
 
-  return (node.content ?? []).map(plain).join('')
+      // Baris lanjutan diberi indentasi selebar penanda daftar, kalau tidak
+      // paragraf kedua sebuah butir menjadi butir baru.
+      const indented = body
+        .split('\n')
+        .map((line, lineIndex) =>
+          lineIndex === 0 ? line : line ? `${' '.repeat(prefix.length)}${line}` : '',
+        )
+        .join('\n')
+
+      return `${prefix}${indented}`
+    })
+    .join('\n')
 }
 
-function block(node: ProseMirrorNode, depth = 0): string {
-  const indent = '  '.repeat(depth)
+function tableRow(row: ProseMirrorNode): string {
+  const cells = (row.content ?? []).map((cell) =>
+    blocks(cell.content ?? [])
+      .replace(/\n+/g, ' ')
+      // Pipa di dalam sel akan memecah kolom.
+      .replace(/\|/g, '\\|')
+      .trim(),
+  )
 
+  return `| ${cells.join(' | ')} |`
+}
+
+function block(node: ProseMirrorNode): string {
   switch (node.type) {
     case 'paragraph':
-      return `${indent}${(node.content ?? []).map(inline).join('')}`
+      return inline(node.content)
 
     case 'heading': {
-      const level =
-        typeof node.attrs?.level === 'number' ? node.attrs.level : 1
+      const level = typeof node.attrs?.level === 'number' ? node.attrs.level : 2
+      const clamped = Math.min(Math.max(level, 1), 6)
 
-      return `${'#'.repeat(Math.min(level, 6))} ${(node.content ?? []).map(inline).join('')}`
+      return `${'#'.repeat(clamped)} ${inline(node.content)}`
     }
 
     case 'bulletList':
-      return (node.content ?? [])
-        .map((item) => `${indent}- ${blocks(item.content ?? [], depth + 1).trim()}`)
-        .join('\n')
+      return listItems(node, () => '- ')
 
-    case 'orderedList': {
-      const start = typeof node.attrs?.start === 'number' ? node.attrs.start : 1
-
-      return (node.content ?? [])
-        .map(
-          (item, index) =>
-            `${indent}${start + index}. ${blocks(item.content ?? [], depth + 1).trim()}`,
-        )
-        .join('\n')
-    }
+    case 'orderedList':
+      return listItems(node, (index) => `${index + 1}. `)
 
     case 'taskList':
       return (node.content ?? [])
-        .map(
-          (item) =>
-            `${indent}- [${item.attrs?.checked === true ? 'x' : ' '}] ${blocks(item.content ?? [], depth + 1).trim()}`,
-        )
+        .map((item) => {
+          const checked = item.attrs?.checked === true
+
+          return `- [${checked ? 'x' : ' '}] ${blocks(item.content ?? []).trim()}`
+        })
         .join('\n')
 
     case 'blockquote':
-      return blocks(node.content ?? [], depth)
+      return blocks(node.content ?? [])
+        .trimEnd()
         .split('\n')
-        .map((line) => `> ${line}`)
+        .map((line) => (line ? `> ${line}` : '>'))
         .join('\n')
 
     case 'codeBlock': {
       const language =
         typeof node.attrs?.language === 'string' ? node.attrs.language : ''
+      const body = (node.content ?? []).map((child) => child.text ?? '').join('')
 
-      return `\`\`\`${language}\n${plain(node)}\n\`\`\``
+      return `\`\`\`${language}\n${body}\n\`\`\``
     }
 
     case 'horizontalRule':
       return '---'
 
-    case 'image': {
-      const src = typeof node.attrs?.src === 'string' ? node.attrs.src : ''
-      const alt = typeof node.attrs?.alt === 'string' ? node.attrs.alt : ''
-
-      return `![${alt}](${src})`
-    }
+    case 'image':
+      return inlineNode(node)
 
     case 'table': {
       const rows = node.content ?? []
 
       if (rows.length === 0) return ''
 
-      const toCells = (row: ProseMirrorNode) =>
-        (row.content ?? []).map((cell) =>
-          (cell.content ?? []).map(inline).join('').replace(/\|/g, '\\|'),
-        )
-
-      const [head, ...body] = rows
-      const headCells = head ? toCells(head) : []
+      const [head, ...rest] = rows
+      const columnCount = head?.content?.length ?? 0
+      const divider = `| ${Array(columnCount).fill('---').join(' | ')} |`
 
       return [
-        `| ${headCells.join(' | ')} |`,
-        `| ${headCells.map(() => '---').join(' | ')} |`,
-        ...body.map((row) => `| ${toCells(row).join(' | ')} |`),
-      ].join('\n')
+        head ? tableRow(head) : '',
+        divider,
+        ...rest.map(tableRow),
+      ]
+        .filter(Boolean)
+        .join('\n')
     }
 
     default:
-      return node.content ? blocks(node.content, depth) : ''
+      // Node asing: isinya tetap keluar, tanpa format.
+      return blocks(node.content ?? [])
   }
 }
 
-function blocks(nodes: ProseMirrorNode[], depth = 0): string {
+function blocks(nodes: ProseMirrorNode[]): string {
   return nodes
-    .map((node) => block(node, depth))
+    .map(block)
     .filter((text) => text.trim() !== '')
     .join('\n\n')
 }
 
 export function documentToMarkdown(doc: ProseMirrorDocument): string {
-  return blocks(doc.content ?? [])
+  return blocks(doc.content ?? []).trimEnd() + '\n'
 }

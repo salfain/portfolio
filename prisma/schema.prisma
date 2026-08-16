@@ -235,7 +235,11 @@ model Project {
   tags            ProjectTag[]
   knowledgeLinks ProjectKnowledgeLink[]
 
+  /** Sama seperti KnowledgeDocument.searchVector — lihat komentarnya. */
+  searchVector Unsupported("tsvector")?
+
   @@index([status, isFeatured, sortOrder])
+  @@index([searchVector], type: Gin)
 }
 
 // ─── Knowledge Base ──────────────────────────────────────
@@ -290,9 +294,20 @@ model KnowledgeDocument {
   tags          KnowledgeDocumentTag[]
   projectLinks  ProjectKnowledgeLink[]
 
+  /**
+   * Kolom GENERATED, ditulis tangan di migrasi — Prisma tidak bisa
+   * mengungkapkan `GENERATED ALWAYS AS ... STORED`. Didaftarkan di sini
+   * sebagai `Unsupported` supaya `prisma migrate` tidak menganggapnya
+   * penyimpangan dan mencoba menghapusnya di migrasi berikutnya.
+   *
+   * Tidak pernah dibaca lewat Prisma Client; pencarian memakai SQL mentah.
+   */
+  searchVector Unsupported("tsvector")?
+
   @@index([type, status, publishedAt])
   @@index([categoryId, status])
   @@index([status, isFeatured])
+  @@index([searchVector], type: Gin)
 }
 
 model KnowledgeRevision {

@@ -62,7 +62,12 @@ terbukti bekerja. Gate Fase 2 hijau karena `asChild` tidak pernah dirender.
 
 ---
 
-## N2 — `notFound()` mengembalikan 200 pada rute ber-`revalidate` (SELESAI)
+## N2 — `notFound()` mengembalikan 200 pada rute ber-`revalidate` (SEBABNYA KELIRU)
+
+> ⚠️ Gejalanya nyata, tapi sebabnya bukan `revalidate` maupun `dynamicParams`.
+> Penyebab sebenarnya `src/app/[locale]/loading.tsx`; lihat
+> [docs/phase-5/NOTES.md](../phase-5/NOTES.md) N1. `/projects/[slug]` sudah
+> dikembalikan ke `dynamicParams = true`.
 
 **Lokasi:** `src/app/[locale]/projects/[slug]/page.tsx`
 

@@ -9,18 +9,15 @@ import {
 } from '@/components/knowledge/document-detail'
 
 /**
- * `dynamicParams = false` — WAJIB.
+ * `dynamicParams = true` — slug yang baru terbit langsung bisa dibuka tanpa
+ * build ulang, dan slug draft atau tak dikenal tetap 404 sungguhan.
  *
- * Rute ber-`generateStaticParams()` dengan `dynamicParams: true`
- * menyajikan hasil `notFound()` lewat jalur prerender, yang selalu
- * membalas 200. Dokumen draft yang membalas 200 akan diindeks mesin
- * pencari sebagai halaman sah. Diuji juga dengan `force-dynamic`: tetap
- * 200. Hanya penolakan level router yang menghasilkan 404 sungguhan.
- *
- * KONSEKUENSI: dokumen yang baru terbit belum bisa dibuka sampai build
- * berikutnya. Lihat docs/phase-4/NOTES.md N2.
+ * Syaratnya satu, dan mutlak: TIDAK BOLEH ada `loading.tsx` di segmen mana
+ * pun di atas rute ini. Suspense boundary membuat shell halaman ter-flush
+ * lebih dulu, sehingga status respons sudah terkirim sebagai 200 sebelum
+ * `notFound()` sempat mengubahnya. Lihat docs/phase-5/NOTES.md N1.
  */
-export const dynamicParams = false
+export const dynamicParams = true
 
 export async function generateStaticParams() {
   const slugs = await getPublishedDocumentSlugs(typeForSegment('labs'))

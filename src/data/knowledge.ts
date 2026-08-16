@@ -13,6 +13,8 @@ import type {
 import { recordAudit } from './audit'
 import { requireAdmin, requireAdminPage } from './_guards'
 
+import { searchDocumentIds, searchRelatedDocumentIds } from './search'
+
 /**
  * Knowledge Base publik.
  *
@@ -72,6 +74,10 @@ const documentDetailSelect = {
       thumbnailUrl: true,
       width: true,
       height: true,
+      // Dipakai memisahkan bukti yang bisa dilihat dari yang diunduh
+      // (Fase 6), dan menampilkan ukuran berkas di daftar unduhan.
+      mimeType: true,
+      fileSize: true,
       altId: true,
       altEn: true,
       captionId: true,
@@ -128,29 +134,45 @@ export async function getPublishedDocuments(
     ...(difficulty ? { difficulty } : {}),
     ...(categorySlug ? { category: { slug: categorySlug } } : {}),
     ...(tagSlug ? { tags: { some: { tag: { slug: tagSlug } } } } : {}),
-    ...(query
-      ? {
-          OR: [
-            { titleId: { contains: query, mode: 'insensitive' } },
-            { titleEn: { contains: query, mode: 'insensitive' } },
-            { summaryId: { contains: query, mode: 'insensitive' } },
-            { summaryEn: { contains: query, mode: 'insensitive' } },
-            { documentCode: { contains: query, mode: 'insensitive' } },
-            { tools: { has: query } },
-          ],
-        }
-      : {}),
   }
 
-  return prisma.knowledgeDocument.findMany({
-    where,
+  /**
+   * Tanpa kata kunci: urutan editorial seperti biasa.
+   *
+   * Dengan kata kunci: urutan RELEVANSI dari full-text search. Mengurutkan
+   * hasil pencarian menurut "pilihan" dan `sortOrder` berarti dokumen
+   * unggulan selalu di atas meski kata kuncinya nyaris tidak menyinggungnya
+   * — dan pengunjung yang mengetik kata kunci sedang meminta yang paling
+   * cocok, bukan yang paling dipromosikan.
+   */
+  if (!query || query.trim() === '') {
+    return prisma.knowledgeDocument.findMany({
+      where,
+      select: documentCardSelect,
+      orderBy: [
+        { isFeatured: 'desc' },
+        { sortOrder: 'asc' },
+        { publishedAt: 'desc' },
+      ],
+    })
+  }
+
+  const rankedIds = await searchDocumentIds(query)
+
+  if (rankedIds.length === 0) return []
+
+  const documents = await prisma.knowledgeDocument.findMany({
+    where: { ...where, id: { in: rankedIds } },
     select: documentCardSelect,
-    orderBy: [
-      { isFeatured: 'desc' },
-      { sortOrder: 'asc' },
-      { publishedAt: 'desc' },
-    ],
   })
+
+  // Urutan relevansi hilang saat `findMany` mengambil ulang barisnya;
+  // dipasang kembali di sini, bukan diserahkan ke database.
+  const order = new Map(rankedIds.map((id, index) => [id, index]))
+
+  return documents.sort(
+    (a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0),
+  )
 }
 
 export const getFeaturedDocuments = unstable_cache(
@@ -234,22 +256,38 @@ export const getDocumentRevisions = unstable_cache(
  *
  * Peringkat yang sungguh-sungguh (berbasis tag bersama) ada di Fase 7.
  */
+/**
+ * Dokumen terkait, diperingkat menurut kemiripan isi (Fase 7).
+ *
+ * Sebelumnya "terkait" berarti berkategori sama lalu diurutkan tanggal —
+ * yang membuat dokumen terbaru di kategori itu selalu muncul, relevan atau
+ * tidak. Peringkatnya sekarang dihitung di `searchRelatedDocumentIds`.
+ *
+ * `categorySlug` tetap diterima supaya pemanggil tidak perlu berubah, tapi
+ * tidak lagi dipakai sebagai penyaring — kategori kini dorongan, bukan
+ * syarat.
+ */
 export const getRelatedDocuments = unstable_cache(
   async (
     documentId: string,
-    categorySlug: string | null,
+    _categorySlug: string | null,
     limit = 3,
-  ): Promise<DocumentCard[]> =>
-    prisma.knowledgeDocument.findMany({
-      where: {
-        ...PUBLISHED,
-        id: { not: documentId },
-        ...(categorySlug ? { category: { slug: categorySlug } } : {}),
-      },
+  ): Promise<DocumentCard[]> => {
+    const rankedIds = await searchRelatedDocumentIds(documentId, limit)
+
+    if (rankedIds.length === 0) return []
+
+    const documents = await prisma.knowledgeDocument.findMany({
+      where: { ...PUBLISHED, id: { in: rankedIds } },
       select: documentCardSelect,
-      orderBy: { publishedAt: 'desc' },
-      take: limit,
-    }),
+    })
+
+    const order = new Map(rankedIds.map((id, index) => [id, index]))
+
+    return documents.sort(
+      (a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0),
+    )
+  },
   ['knowledge:related'],
   { tags: ['knowledge'] },
 )

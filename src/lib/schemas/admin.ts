@@ -1,5 +1,7 @@
 import { z } from 'zod'
 
+import { documentSchema, isEmptyDocument } from '@/lib/prosemirror/types'
+
 /**
  * Skema untuk seluruh form admin.
  *
@@ -201,6 +203,146 @@ export const projectSchema = z.object({
   status: publishStatusSchema,
 })
 
+// ─── Knowledge Base ──────────────────────────────────────
+
+export const knowledgeTypeSchema = z.enum(['SOP', 'LAB', 'INCIDENT', 'ARTICLE'])
+export const difficultySchema = z.enum(['BEGINNER', 'INTERMEDIATE', 'ADVANCED'])
+
+export type KnowledgeTypeValue = z.infer<typeof knowledgeTypeSchema>
+export type DifficultyValue = z.infer<typeof difficultySchema>
+
+export const KNOWLEDGE_TYPE_LABEL: Record<KnowledgeTypeValue, string> = {
+  SOP: 'SOP',
+  LAB: 'Lab',
+  INCIDENT: 'Insiden',
+  ARTICLE: 'Artikel',
+}
+
+export const DIFFICULTY_LABEL: Record<DifficultyValue, string> = {
+  BEGINNER: 'Dasar',
+  INTERMEDIATE: 'Menengah',
+  ADVANCED: 'Mahir',
+}
+
+const slugField = z
+  .string()
+  .trim()
+  .min(3, 'Slug minimal 3 karakter.')
+  .max(120)
+  .regex(
+    /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+    'Slug hanya boleh huruf kecil, angka, dan tanda hubung.',
+  )
+
+/**
+ * Isi dokumen datang dari editor sebagai STRING JSON di input tersembunyi.
+ *
+ * Diparse dan divalidasi di sini, bukan disimpan mentah: apa pun yang masuk
+ * kolom `Json` akan dirender di halaman publik, jadi bentuknya harus sudah
+ * dipastikan dokumen ProseMirror sebelum menyentuh database.
+ *
+ * `documentSchema` sendiri sengaja permisif terhadap node yang tidak dikenal
+ * (lihat `src/lib/prosemirror/types.ts`) — yang ditolak di sini hanyalah
+ * nilai yang sama sekali bukan dokumen.
+ */
+const contentJson = (required: boolean) =>
+  z.preprocess(
+    (value) => {
+      if (typeof value !== 'string' || value.trim() === '') return null
+
+      try {
+        return JSON.parse(value)
+      } catch {
+        return 'INVALID_JSON'
+      }
+    },
+    z
+      .union([documentSchema, z.null()])
+      // Editor yang dibiarkan kosong tetap mengirim satu paragraf kosong.
+      // Disimpan apa adanya, isi EN "kosong tapi ada" mematikan fallback ke
+      // bahasa Indonesia di halaman publik.
+      .transform((value) =>
+        value !== null && isEmptyDocument(value) ? null : value,
+      )
+      .refine((value) => !required || value !== null, {
+        message: 'Isi dokumen wajib diisi.',
+      }),
+  )
+
+/** Nama tag dipisah koma; dinormalkan jadi daftar unik. */
+const tagNames = z.preprocess(
+  (value) =>
+    typeof value === 'string'
+      ? Array.from(
+          new Set(
+            value
+              .split(',')
+              .map((name) => name.trim())
+              .filter(Boolean),
+          ),
+        )
+      : [],
+  z.array(z.string().max(60)).max(20),
+)
+
+export const knowledgeDocumentSchema = z
+  .object({
+    id: optionalText(40),
+    type: knowledgeTypeSchema,
+    slug: slugField,
+    documentCode: optionalText(60),
+    version: z.string().trim().min(1).max(20).default('1.0'),
+    titleId: z.string().trim().min(3, 'Judul (ID) wajib diisi.').max(200),
+    titleEn: optionalText(200),
+    summaryId: z
+      .string()
+      .trim()
+      .min(20, 'Ringkasan (ID) minimal 20 karakter.')
+      .max(1000),
+    summaryEn: optionalText(1000),
+    contentIdJson: contentJson(true),
+    contentEnJson: contentJson(false),
+    categoryId: optionalText(40),
+    tags: tagNames,
+    difficulty: z.preprocess(
+      (value) => (value === '' || value === undefined ? null : value),
+      difficultySchema.nullable(),
+    ),
+    estimatedMinutes: z.preprocess(
+      (value) =>
+        typeof value === 'string' && value.trim() !== '' ? Number(value) : null,
+      z.number().int().min(1).max(1440).nullable(),
+    ),
+    tools: lines,
+    isFeatured: checkbox,
+    sortOrder,
+    status: publishStatusSchema,
+    /** Ringkasan perubahan — dipakai sebagai judul revisi. */
+    changeSummary: optionalText(300),
+    /**
+     * Konfirmasi redaksi. Wajib dicentang untuk menerbitkan, dan sengaja
+     * TIDAK disimpan: nilainya hanya berlaku untuk satu kali kirim, supaya
+     * penerbitan berikutnya tetap menuntut pemeriksaan ulang.
+     * Lihat docs/phase-0/02_REDACTION_CHECKLIST.md.
+     */
+    redactionConfirmed: checkbox,
+  })
+  .refine((data) => data.status !== 'PUBLISHED' || data.redactionConfirmed, {
+    message:
+      'Centang konfirmasi redaksi sebelum menerbitkan — tidak ada kredensial, IP publik, atau nama instansi tanpa izin di dokumen ini.',
+    path: ['redactionConfirmed'],
+  })
+
+export const knowledgeCategorySchema = z.object({
+  id: optionalText(40),
+  slug: slugField,
+  nameId: z.string().trim().min(2, 'Nama (ID) wajib diisi.').max(120),
+  nameEn: z.string().trim().min(2, 'Nama (EN) wajib diisi.').max(120),
+  descriptionId: optionalText(500),
+  descriptionEn: optionalText(500),
+  sortOrder,
+})
+
 // ─── Bagian naratif (SiteSetting) ────────────────────────
 
 /**
@@ -230,6 +372,8 @@ export type SkillInput = z.infer<typeof skillSchema>
 export type CertificateInput = z.infer<typeof certificateSchema>
 export type ProjectInput = z.infer<typeof projectSchema>
 export type NarrativeFormInput = z.infer<typeof narrativeFormSchema>
+export type KnowledgeDocumentInput = z.infer<typeof knowledgeDocumentSchema>
+export type KnowledgeCategoryInput = z.infer<typeof knowledgeCategorySchema>
 
 /** Bentuk hasil setiap server action admin. */
 export type AdminState =

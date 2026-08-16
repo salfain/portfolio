@@ -22,7 +22,7 @@ Fase yang sedang berjalan ada di [README.md](README.md).
 ## Disiplin fase
 
 ```
-0 ✅  1 ✅  2 ✅  3 ✅  3.5 🟡 DEPLOY  4 ✅  5 🟡  6 ⬜  7 ⬜  8 ⬜  9 ⬜
+0 ✅  1 ✅  2 ✅  3 ✅  3.5 🟡 DEPLOY  4 ✅  5 ✅  6 🟡 (struktur ✅ · konten ⬜)  7 ✅  8 🟡 (kode ✅ · rate limit & R2 ⬜)  9 ⬜
 ```
 
 **Kerjakan hanya fase yang sedang berjalan.** Sebelum menulis kode: ajukan rencana (berkas, dependency, risiko) dan tunggu persetujuan.
@@ -67,9 +67,11 @@ Menemukan sesuatu di luar cakupan? Catat di `docs/phase-N/NOTES.md`, jangan dike
 | `'use client'` di `page.tsx` | Dorong ke komponen daun |
 | `prisma.project.findMany()` di komponen | Fungsi di `src/data/` yang menyaring status |
 | Query publik tanpa `status: 'PUBLISHED'` | Kebocoran data, bukan bug tampilan |
+| `loading.tsx` di atas rute yang memanggil `notFound()` | `<Suspense>` di dalam halaman — boundary di atasnya membuat 404 terkirim sebagai 200 (fase-5 N1) |
 | Server action tanpa `requireAdmin()` | Baris pertama, selalu |
 | Kunci terjemahan hanya di `id.json` | Wajib di kedua berkas |
 | Draft menghasilkan 403 | Harus 404 |
+| Insiden tanpa `isLabReproduction` | Wajib dijawab — default apa pun mengarang asal insiden (fase-6 N1) |
 
 ---
 
@@ -77,6 +79,12 @@ Menemukan sesuatu di luar cakupan? Catat di `docs/phase-N/NOTES.md`, jangan dike
 
 ```bash
 npm run lint && npm run typecheck && npm run test && npm run build
+```
+
+Jalur kritis punya tes E2E tersendiri (butuh server yang berjalan):
+
+```bash
+E2E_BASE_URL=http://127.0.0.1:3000 npm run test:e2e
 ```
 
 Plus delapan pemeriksaan manual: ID · EN · terang · gelap (hard reload) · 375 px · 1440 px · keyboard · reduced motion.
