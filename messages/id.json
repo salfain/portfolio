@@ -147,7 +147,9 @@
     "issued": "Terbit",
     "validUntil": "Berlaku hingga",
     "openImage": "Lihat sertifikat {name} ukuran penuh",
-    "closeImage": "Tutup pratinjau sertifikat"
+    "closeImage": "Tutup pratinjau sertifikat",
+    "pageKicker": "Sertifikasi & Pembelajaran",
+    "pageTitle": "Sertifikat"
   },
   "projects": {
     "title": "Proyek",

@@ -147,7 +147,9 @@
     "issued": "Issued",
     "validUntil": "Valid until",
     "openImage": "View the {name} certificate at full size",
-    "closeImage": "Close certificate preview"
+    "closeImage": "Close certificate preview",
+    "pageKicker": "Certifications & Learning",
+    "pageTitle": "Certificates"
   },
   "projects": {
     "title": "Projects",
