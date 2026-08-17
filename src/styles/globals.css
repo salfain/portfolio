@@ -140,7 +140,11 @@
     text-wrap: pretty;
   }
 
+  /* Dipasang pada pembungkus (badan artikel) ATAU langsung pada satu
+     paragraf. Tetap dibatasi 768px ke atas: di bawah itu barisnya terlalu
+     pendek dan spasinya melebar jadi sungai putih. */
   @media (min-width: 768px) {
+    .prose-justify,
     .prose-justify p {
       text-align: justify;
       text-justify: inter-word;

@@ -29,7 +29,7 @@ export function PageHeader({
         {description ? (
           <p
             lang={descriptionLang}
-            className="mt-6 max-w-[62ch] leading-relaxed text-muted"
+            className="prose-justify mt-6 max-w-[62ch] leading-relaxed text-muted"
           >
             {description}
           </p>

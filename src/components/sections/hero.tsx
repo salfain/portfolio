@@ -116,7 +116,7 @@ export async function Hero({ profile, locale }: HeroProps) {
             {summary?.value ? (
               <p
                 lang={summary.lang}
-                className="mt-6 max-w-[58ch] text-[17px] leading-relaxed text-muted"
+                className="prose-justify mt-6 max-w-[58ch] text-[17px] leading-relaxed text-muted"
               >
                 {summary.value}
               </p>

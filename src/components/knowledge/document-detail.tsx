@@ -236,7 +236,10 @@ export async function DocumentDetail({
             {title.value}
           </h1>
 
-          <p lang={summary.lang} className="mt-4 leading-relaxed text-muted">
+          <p
+            lang={summary.lang}
+            className="prose-justify mt-4 leading-relaxed text-muted"
+          >
             {summary.value}
           </p>
 

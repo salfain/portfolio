@@ -161,7 +161,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
       <p
         lang={summary.lang}
-        className="mt-7 max-w-[62ch] text-lg leading-relaxed text-muted"
+        className="prose-justify mt-7 max-w-[62ch] text-lg leading-relaxed text-muted"
       >
         {summary.value}
       </p>

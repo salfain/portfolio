@@ -121,7 +121,10 @@ export default async function RecruiterPage({ params }: PageProps) {
         ) : null}
 
         {summary?.value ? (
-          <p lang={summary.lang} className="mt-8 leading-relaxed text-muted">
+          <p
+            lang={summary.lang}
+            className="prose-justify mt-8 leading-relaxed text-muted"
+          >
             {summary.value}
           </p>
         ) : null}
