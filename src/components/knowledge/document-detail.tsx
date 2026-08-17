@@ -251,7 +251,7 @@ export async function DocumentDetail({
           </div>
         </header>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_240px]">
+        <div className="mt-10 grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-14">
           <div className="min-w-0 lg:order-1">
             {content ? (
               <article lang={contentLang}>
@@ -325,14 +325,12 @@ export async function DocumentDetail({
           {/* Daftar isi setelah isi di DOM, dipindah ke kanan lewat
               `order` di layar besar: pembaca layar dan keyboard menemui
               isi utama lebih dulu, bukan navigasi sekunder. */}
-          <aside className="lg:order-2">
+          <aside className="flex flex-col gap-6 lg:sticky lg:top-28 lg:order-2">
             <TableOfContents headings={headings} />
 
             {document.tools.length > 0 ? (
               <div className="mt-10">
-                <h2 className="text-sm font-medium uppercase tracking-wide text-muted">
-                  {tDetail('tools')}
-                </h2>
+                <h2 className="kicker">{tDetail('tools')}</h2>
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {document.tools.map((tool) => (
                     <li
@@ -348,9 +346,7 @@ export async function DocumentDetail({
 
             {document.tags.length > 0 ? (
               <div className="mt-8">
-                <h2 className="text-sm font-medium uppercase tracking-wide text-muted">
-                  {tDetail('tags')}
-                </h2>
+                <h2 className="kicker">{tDetail('tags')}</h2>
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {document.tags.map(({ tag }) => (
                     <li key={tag.slug}>

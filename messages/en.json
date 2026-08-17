@@ -52,7 +52,9 @@
     "viewPortfolio": "View Portfolio",
     "exploreKnowledge": "Explore Knowledge Base",
     "getInTouch": "Get in Touch",
-    "downloadCv": "Download CV"
+    "downloadCv": "Download CV",
+    "infoLocation": "Location",
+    "infoAvailability": "Available"
   },
   "home": {
     "whyWorkWithMe": "Why Work With Me",
@@ -116,7 +118,9 @@
   "about": {
     "title": "About Me",
     "metaDescription": "Background, working approach, and technical skills of Muhammad Sya'ban Alfain.",
-    "storyTitle": "My Path"
+    "storyTitle": "My Path",
+    "howIWorkTitle": "How I work",
+    "beyondWorkTitle": "Beyond the technical work"
   },
   "expertise": {
     "title": "Expertise",
@@ -162,7 +166,13 @@
     "demo": "Demo",
     "problem": "Problem",
     "solution": "Solution",
-    "result": "Result"
+    "result": "Result",
+    "caseStudyKicker": "Case study",
+    "category": "Category",
+    "published": "Published",
+    "tools": "Tools & methods",
+    "links": "Links",
+    "discussSimilar": "Discuss a similar project"
   },
   "contactCta": {
     "title": "Let's Talk",

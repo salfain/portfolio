@@ -52,7 +52,9 @@
     "viewPortfolio": "Lihat Portofolio",
     "exploreKnowledge": "Jelajahi Knowledge Base",
     "getInTouch": "Hubungi Saya",
-    "downloadCv": "Unduh CV"
+    "downloadCv": "Unduh CV",
+    "infoLocation": "Lokasi",
+    "infoAvailability": "Tersedia"
   },
   "home": {
     "whyWorkWithMe": "Kenapa Bekerja dengan Saya",
@@ -116,7 +118,9 @@
   "about": {
     "title": "Tentang Saya",
     "metaDescription": "Latar belakang, cara kerja, dan kemampuan teknis Muhammad Sya'ban Alfain.",
-    "storyTitle": "Perjalanan Saya"
+    "storyTitle": "Perjalanan Saya",
+    "howIWorkTitle": "Cara kerja",
+    "beyondWorkTitle": "Di luar pekerjaan teknis"
   },
   "expertise": {
     "title": "Keahlian",
@@ -162,7 +166,13 @@
     "demo": "Demo",
     "problem": "Masalah",
     "solution": "Solusi",
-    "result": "Hasil"
+    "result": "Hasil",
+    "caseStudyKicker": "Studi kasus",
+    "category": "Kategori",
+    "published": "Terbit",
+    "tools": "Alat & metode",
+    "links": "Tautan",
+    "discussSimilar": "Diskusikan proyek serupa"
   },
   "contactCta": {
     "title": "Mari Bicara",

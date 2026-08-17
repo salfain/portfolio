@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { documentSchema, isEmptyDocument } from '@/lib/prosemirror/types'
+import { NARRATIVE_KEYS, type NarrativeKey } from '@/lib/schemas/site-settings'
 
 /**
  * Skema untuk seluruh form admin.
@@ -394,11 +395,12 @@ export const knowledgeCategorySchema = z.object({
  * cukup untuk tiga bagian naratif tanpa menarik dependency baru.
  */
 export const narrativeFormSchema = z.object({
-  key: z.enum([
-    'home.whyWorkWithMe',
-    'home.troubleshootingProcess',
-    'about.story',
-  ]),
+  // Diturunkan dari NARRATIVE_KEYS, bukan disalin: daftar yang digandakan
+  // membuat penambahan bagian baru gagal di tempat yang jauh dari
+  // perubahannya.
+  key: z.enum(
+    Object.values(NARRATIVE_KEYS) as [NarrativeKey, ...NarrativeKey[]],
+  ),
   blocksId: z.string().max(20000),
   blocksEn: z.string().max(20000),
 })

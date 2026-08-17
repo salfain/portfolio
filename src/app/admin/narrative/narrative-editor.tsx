@@ -3,13 +3,12 @@
 import { FormShell } from '@/components/admin/form-shell'
 import { TextAreaField } from '@/components/admin/form-fields'
 import { toNarrativeText } from '@/lib/narrative-format'
-import type { NarrativeBlock } from '@/lib/schemas/site-settings'
+import type { NarrativeBlock, NarrativeKey } from '@/lib/schemas/site-settings'
 
 import { saveNarrativeAction } from './actions'
 
 type NarrativeEditorProps = {
-  sectionKey:
-    'home.whyWorkWithMe' | 'home.troubleshootingProcess' | 'about.story'
+  sectionKey: NarrativeKey
   blocks: NarrativeBlock[]
 }
 

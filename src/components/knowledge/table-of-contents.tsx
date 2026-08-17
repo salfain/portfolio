@@ -50,11 +50,8 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
   if (headings.length === 0) return null
 
   return (
-    <nav aria-labelledby="toc-heading" className="lg:sticky lg:top-24">
-      <h2
-        id="toc-heading"
-        className="text-sm font-medium uppercase tracking-wide text-muted"
-      >
+    <nav aria-labelledby="toc-heading" className="lg:sticky lg:top-28">
+      <h2 id="toc-heading" className="kicker">
         {t('onThisPage')}
       </h2>
 

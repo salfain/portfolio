@@ -14,10 +14,18 @@ import { Button, EmptyState } from '@/components/ui'
 import { AdminShell } from '@/components/admin/admin-shell'
 import { StatusBadge } from '@/components/admin/form-fields'
 import { DeleteButton } from '@/components/admin/delete-button'
+import {
+  AdminTable,
+  AdminTableCell,
+  AdminTableRow,
+} from '@/components/admin/admin-table'
 
 import { deleteDocumentAction } from './actions'
 
 export const dynamic = 'force-dynamic'
+
+const COLUMNS = ['Dokumen', 'Tipe', 'Status', 'Diperbarui', 'Aksi']
+const TEMPLATE = 'minmax(0,1fr) 110px minmax(0,auto) 130px 200px'
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>
@@ -75,27 +83,12 @@ export default async function AdminKnowledgePage({ searchParams }: PageProps) {
           description="Dokumen pertama akan langsung muncul di Knowledge Base publik begitu diterbitkan."
         />
       ) : (
-        <ul className="space-y-3">
+        <AdminTable columns={COLUMNS} template={TEMPLATE}>
           {documents.map((document) => (
-            <li
-              key={document.id}
-              className="flex flex-wrap items-start justify-between gap-3 rounded-2xl border border-border bg-surface p-5"
-            >
-              <div className="min-w-0">
-                <div className="flex flex-wrap items-center gap-2">
-                  <p className="font-medium">{document.titleId}</p>
-                  <StatusBadge status={document.status as PublishStatusValue} />
-                  <span className="rounded-full bg-elevated px-2.5 py-0.5 text-xs text-muted">
-                    {KNOWLEDGE_TYPE_LABEL[document.type]}
-                  </span>
-                  {document.isFeatured ? (
-                    <span className="rounded-full bg-elevated px-2.5 py-0.5 text-xs text-muted">
-                      Pilihan
-                    </span>
-                  ) : null}
-                </div>
-
-                <p className="mt-1 truncate text-sm text-muted">
+            <AdminTableRow key={document.id} template={TEMPLATE}>
+              <AdminTableCell>
+                <p className="truncate font-medium">{document.titleId}</p>
+                <p className="mt-1 truncate font-mono text-xs text-faint">
                   {documentHref(document.type, document.slug)}
                   {document.documentCode ? ` · ${document.documentCode}` : ''}
                   {` · v${document.version}`}
@@ -103,13 +96,26 @@ export default async function AdminKnowledgePage({ searchParams }: PageProps) {
                     ? ` · ${document._count.revisions} revisi`
                     : ''}
                 </p>
+              </AdminTableCell>
 
-                <p className="mt-1 text-xs text-muted">
-                  Diperbarui {formatFullDate(document.updatedAt, 'id')}
-                </p>
-              </div>
+              <AdminTableCell className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+                {KNOWLEDGE_TYPE_LABEL[document.type]}
+              </AdminTableCell>
 
-              <div className="flex shrink-0 items-center gap-3">
+              <AdminTableCell className="flex flex-wrap items-center gap-2">
+                <StatusBadge status={document.status as PublishStatusValue} />
+                {document.isFeatured ? (
+                  <span className="rounded-full border border-border-med px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+                    Pilihan
+                  </span>
+                ) : null}
+              </AdminTableCell>
+
+              <AdminTableCell className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
+                {formatFullDate(document.updatedAt, 'id')}
+              </AdminTableCell>
+
+              <AdminTableCell className="flex items-center gap-3 md:justify-end">
                 <Link
                   href={`/admin/knowledge/${document.id}/preview`}
                   className="rounded-sm text-sm text-muted hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
@@ -127,10 +133,10 @@ export default async function AdminKnowledgePage({ searchParams }: PageProps) {
                   name={document.titleId}
                   action={deleteDocumentAction}
                 />
-              </div>
-            </li>
+              </AdminTableCell>
+            </AdminTableRow>
           ))}
-        </ul>
+        </AdminTable>
       )}
     </AdminShell>
   )

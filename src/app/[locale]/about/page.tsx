@@ -29,9 +29,11 @@ export default async function AboutPage({ params }: PageProps) {
 
   const t = await getTranslations('about')
 
-  const [profile, story, skills] = await Promise.all([
+  const [profile, story, howIWork, beyondWork, skills] = await Promise.all([
     getPublishedProfile(),
     getNarrativeSection(NARRATIVE_KEYS.aboutStory),
+    getNarrativeSection(NARRATIVE_KEYS.aboutHowIWork),
+    getNarrativeSection(NARRATIVE_KEYS.aboutBeyondWork),
     getPublishedSkills(),
   ])
 
@@ -51,6 +53,24 @@ export default async function AboutPage({ params }: PageProps) {
         id="story"
         title={t('storyTitle')}
         blocks={story}
+        locale={locale}
+      />
+
+      {/* "Cara kerja" dan "Di luar pekerjaan teknis" ada di handoff, tapi
+          isinya klaim tentang pemilik. Bagiannya disiapkan di sini dan di
+          `/admin/narrative`; selama belum diisi, keduanya tidak dirender. */}
+      <Narrative
+        id="how-i-work"
+        title={t('howIWorkTitle')}
+        blocks={howIWork}
+        locale={locale}
+        numbered
+      />
+
+      <Narrative
+        id="beyond-work"
+        title={t('beyondWorkTitle')}
+        blocks={beyondWork}
         locale={locale}
       />
 

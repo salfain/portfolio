@@ -42,11 +42,34 @@ export async function Hero({ profile, locale }: HeroProps) {
   const cvUrl = locale === 'en' ? profile?.cvEnUrl : profile?.cvIdUrl
 
   /**
-   * Kolom kanan grid hanya terisi kalau foto profil ada. Tanpa foto,
+   * Kolom kanan grid hanya terisi kalau ada foto profil atau baris info.
+   * Tanpa keduanya,
    * `max-w-prose` menyisakan sekitar 40% lebar layar kosong di kanan —
    * jadi teksnya dibiarkan memakai lebar Container penuh.
    */
-  const hasPortrait = Boolean(profile?.profileImageUrl)
+  type InfoRow = {
+    label: string
+    value: string
+    lang?: string
+    accent?: boolean
+  }
+
+  /**
+   * Handoff memuat tiga baris: Lokasi, Fokus, Tersedia.
+   *
+   * "Fokus" tidak punya kolom di `SiteProfile`, dan memakai `role` untuk
+   * mengisinya hanya mengulang teks yang sudah tercetak di atas judul.
+   * "Tersedia" dibaca dari `availability`, yang SUDAH tampil sebagai
+   * indikator bertitik di kiri — menampilkannya dua kali di satu layar
+   * membuat keduanya terbaca seperti dua status yang berbeda.
+   *
+   * Yang tersisa satu baris, dan itu memang seluruh data yang ada.
+   */
+  const infoRows: InfoRow[] = [
+    profile?.location
+      ? { label: t('infoLocation'), value: profile.location }
+      : null,
+  ].filter((row) => row !== null)
 
   return (
     <section className="pb-20 pt-20 md:pb-24 md:pt-28">
@@ -55,7 +78,9 @@ export async function Hero({ profile, locale }: HeroProps) {
           <Reveal
             className={cn(
               'animate-rise min-w-0',
-              hasPortrait ? 'max-w-prose' : 'max-w-none',
+              profile?.profileImageUrl || infoRows.length > 0
+                ? 'max-w-prose'
+                : 'max-w-none',
             )}
           >
             {/* Penanda ketersediaan: titik aksen dengan halo, lalu teks
@@ -138,18 +163,47 @@ export async function Hero({ profile, locale }: HeroProps) {
             </div>
           </Reveal>
 
-          {profile?.profileImageUrl ? (
-            <Reveal delay={0.1} className="order-first lg:order-none">
-              <div className="relative mx-auto h-48 w-48 overflow-hidden rounded-2xl border border-border bg-surface md:h-64 md:w-64 lg:h-72 lg:w-72">
-                <Image
-                  src={profile.profileImageUrl}
-                  alt={profile.name}
-                  fill
-                  sizes="(max-width: 768px) 192px, 288px"
-                  className="object-cover"
-                  priority
-                />
-              </div>
+          {profile?.profileImageUrl || infoRows.length > 0 ? (
+            <Reveal delay={0.1} className="lg:w-[320px]">
+              {profile?.profileImageUrl ? (
+                <div className="relative mx-auto h-48 w-48 overflow-hidden rounded-2xl border border-border bg-surface md:h-64 md:w-64 lg:h-72 lg:w-full">
+                  <Image
+                    src={profile.profileImageUrl}
+                    alt={profile.name}
+                    fill
+                    sizes="(max-width: 768px) 192px, 320px"
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              ) : null}
+
+              {infoRows.length > 0 ? (
+                <dl
+                  className={cn(
+                    'rounded-3xl border border-border bg-surface px-6',
+                    profile?.profileImageUrl && 'mt-5',
+                  )}
+                >
+                  {infoRows.map((row) => (
+                    <div
+                      key={row.label}
+                      className="flex flex-col gap-1.5 border-b border-border py-5 last:border-b-0"
+                    >
+                      <dt className="kicker">{row.label}</dt>
+                      <dd
+                        lang={row.lang}
+                        className={cn(
+                          'text-[15px]',
+                          row.accent ? 'text-primary' : 'text-text-2',
+                        )}
+                      >
+                        {row.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              ) : null}
             </Reveal>
           ) : null}
         </div>

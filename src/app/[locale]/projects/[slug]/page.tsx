@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Link } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/routing'
 import { isLocaleComplete, resolveLocalized } from '@/lib/i18n-content'
+import { formatFullDate } from '@/lib/format'
 import {
   PROJECT_REQUIRED_EN,
   getPublishedProjectBySlug,
@@ -78,11 +79,11 @@ function CaseStudyBlock({
   if (!body.trim()) return null
 
   return (
-    <section className="mt-10">
-      <h2 className="text-xl font-medium tracking-tight">{heading}</h2>
+    <section className="mt-12">
+      <h2 className="font-display text-[26px] leading-tight">{heading}</h2>
       <p
         lang={lang}
-        className="mt-3 hyphens-auto whitespace-pre-line text-justify text-base leading-relaxed text-muted"
+        className="mt-4 whitespace-pre-line leading-[1.75] text-muted"
       >
         {body}
       </p>
@@ -110,113 +111,165 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   const result = resolveLocalized(project, 'result', locale)
   const complete = isLocaleComplete(project, locale, PROJECT_REQUIRED_EN)
 
+  const category = project.category
+    ? locale === 'en' && project.category.nameEn
+      ? project.category.nameEn
+      : project.category.nameId
+    : null
+
+  /**
+   * Strip meta hanya memuat kolom yang benar-benar ada di `Project`.
+   *
+   * Handoff mencantumkan Peran / Durasi / Keluaran / Status, tapi tidak
+   * ada kolom durasi maupun keluaran di skema — dan mengarang keduanya
+   * lebih buruk daripada strip yang lebih pendek. Baris yang kosong
+   * dibuang, jadi strip ini menyusut, bukan menampilkan tanda hubung.
+   */
+  const meta = [
+    role.value
+      ? { label: t('role'), value: role.value, lang: role.lang }
+      : null,
+    category
+      ? { label: t('category'), value: category, lang: undefined }
+      : null,
+    project.publishedAt
+      ? {
+          label: t('published'),
+          value: formatFullDate(project.publishedAt, locale),
+          lang: undefined,
+        }
+      : null,
+  ].filter((row) => row !== null)
+
   return (
-    <Container as="article" className="py-10 md:py-12">
-      <div className="max-w-none">
-        <p className="text-sm">
-          <Link
-            href="/projects"
-            className="rounded-sm text-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-          >
-            ← {t('backToProjects')}
-          </Link>
-        </p>
-
-        <h1
-          lang={title.lang}
-          className="mt-6 font-display text-3xl tracking-tight md:text-4xl"
+    <Container as="article" className="pb-24 pt-12 md:pt-16">
+      <p>
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-2 rounded-full border border-border-med px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-muted transition-colors hover:border-border-hover hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         >
-          {title.value}
-        </h1>
+          <span aria-hidden>&larr;</span>
+          {t('backToProjects')}
+        </Link>
+      </p>
 
-        {project.category ? (
-          <p className="mt-3 text-sm text-muted">
-            {locale === 'en' && project.category.nameEn
-              ? project.category.nameEn
-              : project.category.nameId}
-          </p>
-        ) : null}
+      <p className="kicker mt-10">{t('caseStudyKicker')}</p>
 
-        <div className="mt-8">
-          <TranslationNotice locale={locale} show={!complete} />
+      <h1
+        lang={title.lang}
+        className="mt-5 max-w-[18ch] font-display text-[clamp(40px,5.2vw,68px)] leading-[1.02] tracking-[-0.02em]"
+      >
+        {title.value}
+      </h1>
+
+      <p
+        lang={summary.lang}
+        className="mt-7 max-w-[62ch] text-xl leading-relaxed text-muted"
+      >
+        {summary.value}
+      </p>
+
+      <div className="mt-8">
+        <TranslationNotice locale={locale} show={!complete} />
+      </div>
+
+      {meta.length > 0 ? (
+        <dl className="mt-12 grid gap-x-8 gap-y-6 border-y border-border py-7 sm:grid-cols-2 lg:grid-cols-4">
+          {meta.map((row) => (
+            <div key={row.label} className="flex flex-col gap-2">
+              <dt className="kicker">{row.label}</dt>
+              <dd lang={row.lang} className="text-[15px] text-text-2">
+                {row.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      ) : null}
+
+      <div className="mt-12 grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-16">
+        <div className="min-w-0">
+          <CaseStudyBlock
+            heading={t('problem')}
+            body={problem.value}
+            lang={problem.lang}
+          />
+          <CaseStudyBlock
+            heading={t('solution')}
+            body={solution.value}
+            lang={solution.lang}
+          />
+          <CaseStudyBlock
+            heading={t('result')}
+            body={result.value}
+            lang={result.lang}
+          />
+
+          {project.tags.length > 0 ? (
+            <ul className="mt-14 flex flex-wrap gap-2 border-t border-border pt-8">
+              {project.tags.map(({ tag }) => (
+                <li key={tag.slug}>
+                  <Badge>{tag.name}</Badge>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
 
-        <p
-          lang={summary.lang}
-          className="mt-8 hyphens-auto text-justify text-lg leading-relaxed text-muted"
-        >
-          {summary.value}
-        </p>
+        {/* `lg:sticky` saja, tanpa versi mobile: pada satu kolom sidebar
+            ini jatuh di bawah isi dan tidak ada yang perlu dilekatkan. */}
+        <aside className="flex flex-col gap-5 lg:sticky lg:top-28">
+          {project.tools.length > 0 ? (
+            <div className="rounded-3xl border border-border bg-surface p-6">
+              <h2 className="kicker">{t('tools')}</h2>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {project.tools.map((tool) => (
+                  <li key={tool}>
+                    <Badge>{tool}</Badge>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
 
-        {role.value ? (
-          <p className="mt-6 text-sm">
-            <span className="font-medium">{t('role')}:</span>{' '}
-            <span lang={role.lang} className="text-muted">
-              {role.value}
-            </span>
-          </p>
-        ) : null}
+          {project.repositoryUrl || project.demoUrl ? (
+            <div className="rounded-3xl border border-border bg-surface p-6">
+              <h2 className="kicker">{t('links')}</h2>
+              <ul className="mt-4 flex flex-col gap-3">
+                {project.repositoryUrl ? (
+                  <li>
+                    <a
+                      href={project.repositoryUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-sm text-[15px] text-text-2 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    >
+                      {t('repository')}
+                    </a>
+                  </li>
+                ) : null}
+                {project.demoUrl ? (
+                  <li>
+                    <a
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-sm text-[15px] text-text-2 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    >
+                      {t('demo')}
+                    </a>
+                  </li>
+                ) : null}
+              </ul>
+            </div>
+          ) : null}
 
-        {project.tools.length > 0 ? (
-          <ul className="mt-6 flex flex-wrap gap-2">
-            {project.tools.map((tool) => (
-              <li key={tool}>
-                <Badge>{tool}</Badge>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-
-        {project.repositoryUrl || project.demoUrl ? (
-          <div className="mt-8 flex flex-wrap gap-4 text-sm font-medium">
-            {project.repositoryUrl ? (
-              <a
-                href={project.repositoryUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-sm text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-              >
-                {t('repository')}
-              </a>
-            ) : null}
-            {project.demoUrl ? (
-              <a
-                href={project.demoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-sm text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-              >
-                {t('demo')}
-              </a>
-            ) : null}
-          </div>
-        ) : null}
-
-        <CaseStudyBlock
-          heading={t('problem')}
-          body={problem.value}
-          lang={problem.lang}
-        />
-        <CaseStudyBlock
-          heading={t('solution')}
-          body={solution.value}
-          lang={solution.lang}
-        />
-        <CaseStudyBlock
-          heading={t('result')}
-          body={result.value}
-          lang={result.lang}
-        />
-
-        {project.tags.length > 0 ? (
-          <ul className="mt-12 flex flex-wrap gap-2 border-t border-border pt-8">
-            {project.tags.map(({ tag }) => (
-              <li key={tag.slug}>
-                <Badge>{tag.name}</Badge>
-              </li>
-            ))}
-          </ul>
-        ) : null}
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-[15px] font-medium text-primary-foreground transition-colors hover:bg-primary-hi focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          >
+            {t('discussSimilar')}
+          </Link>
+        </aside>
       </div>
     </Container>
   )

@@ -25,6 +25,8 @@ export const NARRATIVE_KEYS = {
   whyWorkWithMe: 'home.whyWorkWithMe',
   troubleshootingProcess: 'home.troubleshootingProcess',
   aboutStory: 'about.story',
+  aboutHowIWork: 'about.howIWork',
+  aboutBeyondWork: 'about.beyondWork',
 } as const
 
 export type NarrativeKey = (typeof NARRATIVE_KEYS)[keyof typeof NARRATIVE_KEYS]

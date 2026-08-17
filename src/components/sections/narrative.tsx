@@ -1,4 +1,5 @@
 import type { Locale } from '@/i18n/routing'
+import { cn } from '@/lib/cn'
 import { resolveLocalized } from '@/lib/i18n-content'
 import type { NarrativeBlock } from '@/lib/schemas/site-settings'
 
@@ -48,11 +49,13 @@ export function Narrative({
           return (
             <StaggerItem key={`${id}-${index}`}>
               <Card className="h-full">
-                <CardBody>
+                <CardBody className="p-7">
+                  {/* Nomor serif besar warna aksen: penanda urutan yang
+                      terbaca sebagai hitungan, bukan sebagai judul. */}
                   {numbered ? (
                     <span
                       aria-hidden
-                      className="text-sm font-medium text-primary"
+                      className="block font-display text-[34px] leading-none text-primary"
                     >
                       {String(index + 1).padStart(2, '0')}
                     </span>
@@ -60,14 +63,17 @@ export function Narrative({
 
                   <h3
                     lang={blockTitle.lang}
-                    className="mt-2 text-base font-medium"
+                    className={cn(
+                      'text-[19px] font-medium leading-snug',
+                      numbered && 'mt-5',
+                    )}
                   >
                     {blockTitle.value}
                   </h3>
 
                   <p
                     lang={blockBody.lang}
-                    className="mt-2 hyphens-auto text-justify text-sm leading-relaxed text-muted"
+                    className="mt-3 text-[15px] leading-relaxed text-muted"
                   >
                     {blockBody.value}
                   </p>

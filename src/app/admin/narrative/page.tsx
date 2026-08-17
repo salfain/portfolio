@@ -23,10 +23,20 @@ const sections = [
     title: 'Perjalanan Saya',
     where: 'Halaman Tentang',
   },
+  {
+    key: NARRATIVE_KEYS.aboutHowIWork,
+    title: 'Cara Kerja',
+    where: 'Halaman Tentang — blok diberi nomor urut otomatis',
+  },
+  {
+    key: NARRATIVE_KEYS.aboutBeyondWork,
+    title: 'Di Luar Pekerjaan Teknis',
+    where: 'Halaman Tentang',
+  },
 ] as const
 
 /**
- * Ketiga bagian ini berisi klaim tentang cara kerja pemilik, jadi
+ * Seluruh bagian ini berisi klaim tentang cara kerja pemilik, jadi
  * teksnya tidak boleh ditulis developer (CLAUDE.md aturan mutlak §1).
  * Selama kosong, bagiannya tidak dirender sama sekali di situs.
  */
@@ -42,7 +52,7 @@ export default async function AdminNarrativePage() {
   return (
     <AdminShell
       title="Bagian Naratif"
-      description="Tiga bagian yang isinya hanya boleh datang dari Anda. Selama kosong, bagiannya tidak muncul di situs."
+      description="Bagian yang isinya hanya boleh datang dari Anda. Selama kosong, bagiannya tidak muncul di situs."
     >
       <div className="space-y-12">
         {editors.map((editor) => (
