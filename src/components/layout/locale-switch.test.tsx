@@ -3,12 +3,24 @@ import { describe, expect, it, vi, beforeEach } from 'vitest'
 // menambah dependency baru ke proyek.
 import { fireEvent, render, screen } from '@testing-library/react'
 
-const replace = vi.fn()
-let currentPathname = '/knowledge/sop'
+import { LocaleSwitch } from './locale-switch'
+
+/**
+ * `vi.hoisted` wajib di sini, bukan sekadar gaya penulisan.
+ *
+ * `vi.mock` diangkat ke atas berkas sebelum kode lain berjalan, jadi
+ * factory-nya tidak boleh merujuk variabel modul biasa. Vitest 4 memakai
+ * parser Rolldown yang menolak berkas ini dengan galat parse, bukan lagi
+ * diam-diam bekerja seperti Vitest 3.
+ */
+const mock = vi.hoisted(() => ({
+  replace: vi.fn(),
+  pathname: '/knowledge/sop',
+}))
 
 vi.mock('@/i18n/navigation', () => ({
-  usePathname: () => currentPathname,
-  useRouter: () => ({ replace }),
+  usePathname: () => mock.pathname,
+  useRouter: () => ({ replace: mock.replace }),
 }))
 
 vi.mock('next-intl', () => ({
@@ -17,16 +29,14 @@ vi.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
 }))
 
-import { LocaleSwitch } from './locale-switch'
-
 function setSearch(search: string) {
-  window.history.replaceState({}, '', `/id${currentPathname}${search}`)
+  window.history.replaceState({}, '', `/id${mock.pathname}${search}`)
 }
 
 describe('LocaleSwitch', () => {
   beforeEach(() => {
-    replace.mockClear()
-    currentPathname = '/knowledge/sop'
+    mock.replace.mockClear()
+    mock.pathname = '/knowledge/sop'
     setSearch('')
   })
 
@@ -37,7 +47,7 @@ describe('LocaleSwitch', () => {
 
     fireEvent.click(screen.getByRole('button'))
 
-    expect(replace).toHaveBeenCalledWith(
+    expect(mock.replace).toHaveBeenCalledWith(
       expect.any(String),
       expect.objectContaining({ scroll: false }),
     )
@@ -48,7 +58,7 @@ describe('LocaleSwitch', () => {
 
     fireEvent.click(screen.getByRole('button'))
 
-    expect(replace).toHaveBeenCalledWith(
+    expect(mock.replace).toHaveBeenCalledWith(
       expect.any(String),
       expect.objectContaining({ locale: 'en' }),
     )
@@ -63,7 +73,7 @@ describe('LocaleSwitch', () => {
 
     fireEvent.click(screen.getByRole('button'))
 
-    expect(replace).toHaveBeenCalledWith(
+    expect(mock.replace).toHaveBeenCalledWith(
       '/knowledge/sop?q=dhcp&tag=vlan',
       expect.anything(),
     )
@@ -74,7 +84,10 @@ describe('LocaleSwitch', () => {
 
     fireEvent.click(screen.getByRole('button'))
 
-    expect(replace).toHaveBeenCalledWith('/knowledge/sop', expect.anything())
+    expect(mock.replace).toHaveBeenCalledWith(
+      '/knowledge/sop',
+      expect.anything(),
+    )
   })
 
   it('memanggil onNavigate sebelum berpindah', async () => {
