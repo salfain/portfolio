@@ -15,6 +15,27 @@ export const dynamic = 'force-dynamic'
 export default async function AdminSkillsPage() {
   const skills = await getAdminSkills()
 
+  /**
+   * Dikelompokkan di sini, bukan lewat `groupSkillsByCategory`: helper itu
+   * bertipe `PublicSkill[]` dan sengaja tidak memuat `status`, sedangkan
+   * daftar admin justru harus menampilkan draf. Melebarkan tipe helper
+   * publik hanya demi halaman admin akan membuka jalan bagi kolom admin
+   * bocor ke rute publik.
+   */
+  const groups = Array.from(
+    skills
+      .reduce((map, skill) => {
+        const existing = map.get(skill.category)
+
+        if (existing) existing.push(skill)
+        else map.set(skill.category, [skill])
+
+        return map
+      }, new Map<string, typeof skills>())
+      .entries(),
+    ([category, items]) => ({ category, skills: items }),
+  )
+
   return (
     <AdminShell
       title="Keahlian"
@@ -31,39 +52,51 @@ export default async function AdminSkillsPage() {
           description="Tambahkan keahlian agar bagian Kemampuan muncul di situs."
         />
       ) : (
-        <ul className="space-y-3">
-          {skills.map((skill) => (
-            <li
-              key={skill.id}
-              className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-surface p-5"
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {groups.map((group) => (
+            <section
+              key={group.category}
+              className="rounded-3xl border border-border bg-surface p-7"
             >
-              <div className="min-w-0">
-                <div className="flex flex-wrap items-center gap-2">
-                  <p className="font-medium">{skill.name}</p>
-                  <StatusBadge status={skill.status as PublishStatusValue} />
-                </div>
-                <p className="mt-1 text-sm text-muted">
-                  {skill.category}
-                  {skill.level ? ` · ${skill.level}` : ''}
-                </p>
-              </div>
+              <h2 className="kicker text-primary">{group.category}</h2>
 
-              <div className="flex shrink-0 items-center gap-3">
-                <Link
-                  href={`/admin/skills/${skill.id}`}
-                  className="rounded-sm font-mono text-[11px] uppercase tracking-[0.12em] text-muted transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                >
-                  Ubah
-                </Link>
-                <DeleteButton
-                  id={skill.id}
-                  name={skill.name}
-                  action={deleteSkillAction}
-                />
-              </div>
-            </li>
+              <ul className="mt-5 flex flex-col">
+                {group.skills.map((skill) => (
+                  <li
+                    key={skill.id}
+                    className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b border-border py-3 last:border-b-0"
+                  >
+                    <div className="flex min-w-0 flex-wrap items-center gap-2">
+                      <span className="text-[15px]">{skill.name}</span>
+                      {skill.level ? (
+                        <span className="rounded-full border border-border-med px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+                          {skill.level}
+                        </span>
+                      ) : null}
+                      <StatusBadge
+                        status={skill.status as PublishStatusValue}
+                      />
+                    </div>
+
+                    <div className="flex shrink-0 items-center gap-2">
+                      <Link
+                        href={`/admin/skills/${skill.id}`}
+                        className="rounded-sm font-mono text-[11px] uppercase tracking-[0.12em] text-muted transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                      >
+                        Ubah
+                      </Link>
+                      <DeleteButton
+                        id={skill.id}
+                        name={skill.name}
+                        action={deleteSkillAction}
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
           ))}
-        </ul>
+        </div>
       )}
     </AdminShell>
   )
