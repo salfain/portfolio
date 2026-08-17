@@ -249,8 +249,8 @@ export function StatusBadge({ status }: { status: PublishStatusValue }) {
   return (
     <span
       className={cn(
-        'inline-flex shrink-0 items-center rounded-full px-3 py-1',
-        'font-mono text-[11px] uppercase tracking-[0.12em]',
+        'inline-flex shrink-0 items-center rounded-full px-2.5 py-1',
+        'font-mono text-[10px] uppercase tracking-[0.06em]',
         tone[status],
       )}
     >

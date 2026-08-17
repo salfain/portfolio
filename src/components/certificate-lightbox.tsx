@@ -125,7 +125,7 @@ export function CertificateLightbox({
                 {skills.map((skill) => (
                   <li
                     key={skill}
-                    className="rounded-full border border-border-med px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted"
+                    className="rounded-full border border-border-med px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.06em] text-muted"
                   >
                     {skill}
                   </li>

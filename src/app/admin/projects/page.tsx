@@ -52,12 +52,12 @@ export default async function AdminProjectsPage() {
               <AdminTableCell className="flex flex-wrap items-center gap-2">
                 <StatusBadge status={project.status as PublishStatusValue} />
                 {project.isFeatured ? (
-                  <span className="rounded-full border border-border-med px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+                  <span className="rounded-full border border-border-med px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.06em] text-muted">
                     Pilihan
                   </span>
                 ) : null}
                 {!project.titleEn ? (
-                  <span className="rounded-full border border-border-med px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+                  <span className="rounded-full border border-border-med px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.06em] text-muted">
                     ID saja
                   </span>
                 ) : null}

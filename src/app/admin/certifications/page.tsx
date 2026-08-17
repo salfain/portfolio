@@ -69,7 +69,7 @@ export default async function AdminCertificatesPage() {
                   status={certificate.status as PublishStatusValue}
                 />
                 {!certificate.credentialUrl ? (
-                  <span className="rounded-full border border-border-med px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+                  <span className="rounded-full border border-border-med px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.06em] text-muted">
                     Tanpa kredensial
                   </span>
                 ) : null}

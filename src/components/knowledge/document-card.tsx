@@ -48,7 +48,7 @@ export async function DocumentCard({
         {/* Badge tipe: aksen di atas latar aksen lembut — satu-satunya
             elemen berwarna di kartu, jadi tipe dokumen terbaca lebih dulu
             daripada judulnya saat memindai grid. */}
-        <span className="rounded-full bg-[var(--accent-soft)] px-3 py-1 text-primary">
+        <span className="rounded-full bg-[var(--accent-soft)] px-2.5 py-1 text-primary">
           {t(`types.${TYPE_KEYS[document.type]}.name`)}
         </span>
         {meta.map((item) => (

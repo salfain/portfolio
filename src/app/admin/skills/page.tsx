@@ -69,7 +69,7 @@ export default async function AdminSkillsPage() {
                     <div className="flex min-w-0 flex-wrap items-center gap-2">
                       <span className="text-[15px]">{skill.name}</span>
                       {skill.level ? (
-                        <span className="rounded-full border border-border-med px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+                        <span className="rounded-full border border-border-med px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.06em] text-muted">
                           {skill.level}
                         </span>
                       ) : null}
