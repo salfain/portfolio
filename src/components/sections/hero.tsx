@@ -72,7 +72,7 @@ export async function Hero({ profile, locale }: HeroProps) {
   ].filter((row) => row !== null)
 
   return (
-    <section className="pb-20 pt-20 md:pb-24 md:pt-28">
+    <section className="pb-16 pt-4 md:pb-20 md:pt-8">
       <Container>
         <div className="grid min-w-0 items-end gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
           <Reveal
@@ -86,7 +86,7 @@ export async function Hero({ profile, locale }: HeroProps) {
             {/* Penanda ketersediaan: titik aksen dengan halo, lalu teks
                 mono. Statusnya datang dari profil, bukan ditulis di sini. */}
             {availability?.value ? (
-              <p className="mb-7 flex items-center gap-3">
+              <p className="mb-5 flex items-center gap-3">
                 <span
                   aria-hidden
                   className="h-[7px] w-[7px] shrink-0 rounded-full bg-primary shadow-[0_0_0_4px_var(--accent-glow)]"
@@ -100,7 +100,7 @@ export async function Hero({ profile, locale }: HeroProps) {
               </p>
             ) : null}
 
-            <p lang={role.lang} className="kicker mb-5 text-primary">
+            <p lang={role.lang} className="kicker mb-4 text-primary">
               {role.value}
             </p>
 
@@ -114,13 +114,13 @@ export async function Hero({ profile, locale }: HeroProps) {
             {summary?.value ? (
               <p
                 lang={summary.lang}
-                className="mt-7 max-w-[52ch] text-[17px] leading-relaxed text-muted"
+                className="mt-6 max-w-[58ch] text-[17px] leading-relaxed text-muted"
               >
                 {summary.value}
               </p>
             ) : null}
 
-            <div className="mt-9 grid gap-3 sm:flex sm:flex-wrap">
+            <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href="/projects">{t('viewPortfolio')}</Link>
               </Button>

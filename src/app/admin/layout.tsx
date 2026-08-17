@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google'
 
 import idMessages from '../../../messages/id.json'
+import { ThemeProvider } from '@/components/theme-provider'
 
 // Admin merender <html> sendiri, jadi variabel font tidak diwarisi dari
 // rute publik dan harus dipasang di sini juga.
@@ -25,7 +26,12 @@ const fontMono = Geist_Mono({
 
 /**
  * Admin: tanpa segmen locale, nested layout (root layout pass-through).
- * Antarmuka hanya bahasa Indonesia. Tema terang default.
+ * Antarmuka hanya bahasa Indonesia.
+ *
+ * Tema panel admin dipisahkan dari tema situs publik lewat `storageKey`
+ * sendiri: keduanya dipakai dalam situasi berbeda, dan admin yang bekerja
+ * berjam-jam di panel gelap belum tentu ingin situs publiknya ikut gelap
+ * saat memeriksa hasil.
  *
  * `NextIntlClientProvider` dipasang BUKAN untuk menerjemahkan antarmuka
  * admin — teksnya memang ditulis langsung dalam bahasa Indonesia
@@ -38,12 +44,20 @@ const fontMono = Geist_Mono({
  */
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="id" data-theme="light" suppressHydrationWarning>
+    <html lang="id" suppressHydrationWarning>
       <body
         className={`${fontDisplay.variable} ${fontSans.variable} ${fontMono.variable} min-h-dvh bg-background text-foreground antialiased`}
       >
         <NextIntlClientProvider locale="id" messages={idMessages}>
-          {children}
+          <ThemeProvider
+            attribute="data-theme"
+            defaultTheme="light"
+            storageKey="msa-admin-theme"
+            enableSystem={false}
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

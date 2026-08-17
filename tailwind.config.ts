@@ -59,7 +59,7 @@ const config = {
          * supaya judul tidak menelan layar 375px.
          */
         display: [
-          'clamp(36px,5.2vw,64px)',
+          'clamp(30px,4vw,50px)',
           { lineHeight: '1.04', letterSpacing: '-0.02em', fontWeight: '400' },
         ],
         h1: [
