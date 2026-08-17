@@ -29,6 +29,12 @@ npx @next/codemod@canary next-lint-to-eslint-cli .
 ```
 Ditangguhkan — tidak menghambat Fase 2.
 
+**SELESAI saat upgrade ke Next 16.** `next lint` benar-benar dihapus, jadi
+gerbang lint memanggil `eslint .` dan konfigurasinya pindah ke
+`eslint.config.mjs` (flat config). Codemod di atas tidak dipakai; migrasi
+ditulis tangan dengan `FlatCompat` supaya seluruh aturan proyek — termasuk
+larangan impor dua arah antara rute publik dan admin — tersalin persis.
+
 ---
 
 ## N4 — Skeuomorphism ditambahkan lalu dicabut (1 Agustus 2026)

@@ -162,6 +162,14 @@ Fase 3b tetap bekerja apa adanya.
 
 **Ditinjau ulang di Fase 8** bersama audit performa.
 
+**Pembaruan Next 16.** `revalidateTag` kini menuntut argumen kedua berupa
+profil kedaluwarsa, dan untuk efek SEKETIKA di dalam Server Action
+disediakan `updateTag` dengan semantik read-your-own-writes. Seluruh server
+action pindah ke `updateTag`; route handler unggah gambar sertifikat —
+yang bukan Server Action, jadi tidak boleh memakainya — memakai
+`revalidateTag('certificates', { expire: 0 })`. `unstable_cache` sendiri
+tidak berubah.
+
 ---
 
 ## N6 — Q4–Q10 masih kosong 🔴 MENGHAMBAT ISI FASE 3
@@ -230,6 +238,8 @@ tidak menemukan sisa.
 Akan dihapus di Next.js 16. Migrasi: `npx @next/codemod@canary
 next-lint-to-eslint-cli .` Belum menghambat apa pun; dikerjakan saat naik ke
 Next 16.
+
+**SELESAI.** Lihat catatan yang sama di `docs/phase-2/NOTES.md`.
 
 ---
 
