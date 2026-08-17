@@ -110,7 +110,7 @@
   },
   "capabilities": {
     "title": "IT Support Capabilities",
-    "description": "Levels are written as words — no percentages, because no measurement was ever taken.",
+    "description": "Grouped by area. Only what I have actually worked on.",
     "viewAll": "View all skills",
     "emptyTitle": "No published skills yet",
     "emptyDescription": "Skills will appear here once they are published."
