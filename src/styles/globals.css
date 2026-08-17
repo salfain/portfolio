@@ -189,6 +189,25 @@
   animation: rise 0.7s ease both;
 }
 
+/* Denyut titik ketersediaan.
+   Yang berdenyut hanya HALO-nya, bukan titiknya: titik yang ikut membesar
+   dan mengecil menarik mata terus-menerus sepanjang halaman dibaca.
+   Aturan prefers-reduced-motion di @layer base memangkas durasinya jadi
+   0.01ms, jadi denyutnya berhenti sendiri dan titiknya tetap terlihat. */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+  50% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
 /* ─── Editor admin ────────────────────────────────────────
    Isi editor Tiptap adalah HTML yang dibuat ProseMirror, bukan JSX, jadi
    node-nya tidak bisa diberi className satu per satu seperti di renderer

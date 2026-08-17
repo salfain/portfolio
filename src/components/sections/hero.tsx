@@ -86,16 +86,18 @@ export async function Hero({ profile, locale }: HeroProps) {
             {/* Penanda ketersediaan: titik aksen dengan halo, lalu teks
                 mono. Statusnya datang dari profil, bukan ditulis di sini. */}
             {availability?.value ? (
-              <p className="mb-5 flex items-center gap-3">
-                <span
-                  aria-hidden
-                  className="h-[7px] w-[7px] shrink-0 rounded-full bg-primary shadow-[0_0_0_4px_var(--accent-glow)]"
-                />
-                <span
-                  lang={availability.lang}
-                  className="font-mono text-[11px] uppercase tracking-[0.12em] text-text-2"
-                >
-                  {availability.value}
+              <p className="mb-6">
+                <span className="inline-flex items-center gap-2.5 rounded-full border border-[var(--accent-line)] bg-[var(--accent-soft)] py-2 pl-3.5 pr-4">
+                  <span
+                    aria-hidden
+                    className="pulse-dot h-2 w-2 shrink-0 rounded-full bg-primary shadow-[0_0_0_4px_var(--accent-glow)]"
+                  />
+                  <span
+                    lang={availability.lang}
+                    className="font-mono text-xs uppercase tracking-[0.12em] text-foreground"
+                  >
+                    {availability.value}
+                  </span>
                 </span>
               </p>
             ) : null}
