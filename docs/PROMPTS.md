@@ -469,12 +469,12 @@ Setelah itu berhenti dan tunggu keputusan saya.
 
 ## 7. Kesalahan umum saat memberi prompt
 
-| ❌ | ✅ |
-|---|---|
-| "Kerjakan sampai selesai" | Satu fase per penugasan |
-| Menempelkan isi PRD ke prompt | Suruh baca dari repositori |
-| "Sekalian tambahkan fitur X" | Catat untuk fase berikutnya |
-| Menyetujui rencana tanpa membacanya | Rencana yang salah arah lebih murah diperbaiki di paragraf |
-| Percaya "sudah saya cek semua" | Jalankan Prompt Pemeriksaan |
-| Memeriksa di sesi yang sama dengan pengerjaan | Sesi terpisah menghasilkan penilaian lebih jujur |
-| Memberikan nilai rahasia lewat chat | Pemilik mengisinya sendiri di `.env.local` |
+| ❌                                            | ✅                                                         |
+| --------------------------------------------- | ---------------------------------------------------------- |
+| "Kerjakan sampai selesai"                     | Satu fase per penugasan                                    |
+| Menempelkan isi PRD ke prompt                 | Suruh baca dari repositori                                 |
+| "Sekalian tambahkan fitur X"                  | Catat untuk fase berikutnya                                |
+| Menyetujui rencana tanpa membacanya           | Rencana yang salah arah lebih murah diperbaiki di paragraf |
+| Percaya "sudah saya cek semua"                | Jalankan Prompt Pemeriksaan                                |
+| Memeriksa di sesi yang sama dengan pengerjaan | Sesi terpisah menghasilkan penilaian lebih jujur           |
+| Memberikan nilai rahasia lewat chat           | Pemilik mengisinya sendiri di `.env.local`                 |

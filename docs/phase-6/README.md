@@ -11,11 +11,11 @@ Kriteria terima `01_PHASES.md` menuntut **"satu lab dan satu insiden lengkap
 diterbitkan."** Itu tidak bisa dikerjakan tanpa isi dari pemilik, dan isinya
 tidak dikarang.
 
-| Kriteria | Status |
-|---|---|
-| Satu lab lengkap diterbitkan | ⬜ menunggu konten |
-| Satu insiden lengkap diterbitkan | ⬜ menunggu konten |
-| Berkas publik tersanitasi | ✅ ditegakkan lapisan media |
+| Kriteria                                        | Status                                    |
+| ----------------------------------------------- | ----------------------------------------- |
+| Satu lab lengkap diterbitkan                    | ⬜ menunggu konten                        |
+| Satu insiden lengkap diterbitkan                | ⬜ menunggu konten                        |
+| Berkas publik tersanitasi                       | ✅ ditegakkan lapisan media               |
 | Bukti asli/privat dipisah dari publik/teredaksi | ✅ ditegakkan di query dan penyaji berkas |
 
 Yang dikerjakan: **seluruh strukturnya**, siap diisi.
@@ -38,10 +38,10 @@ Fase 6 memperluasnya dengan blok bukti yang diminta `01_PHASES.md`.
 **Tidak ada perubahan skema** — kolom `KnowledgeDocument.metadata` sudah ada
 sejak Fase 1.
 
-| Berkas | Isi |
-|---|---|
-| `lib/knowledge-metadata.ts` | Parser tabel baris-per-entri, normalisasi status kasus uji |
-| `lib/schemas/knowledge-metadata.ts` | Zod per tipe dokumen, perakit dari form |
+| Berkas                              | Isi                                                        |
+| ----------------------------------- | ---------------------------------------------------------- |
+| `lib/knowledge-metadata.ts`         | Parser tabel baris-per-entri, normalisasi status kasus uji |
+| `lib/schemas/knowledge-metadata.ts` | Zod per tipe dokumen, perakit dari form                    |
 
 Kolom `Json` berarti bentuknya **tidak** dijaga database. Skema Zod inilah
 satu-satunya penjaganya, dan ia bekerja di kedua arah: saat menyimpan dari
@@ -91,12 +91,12 @@ bukan lagi halaman bukti — ia halaman klaim.
 
 ### Komponen publik
 
-| Berkas | Isi |
-|---|---|
-| `components/knowledge/evidence-table.tsx` | Tabel bukti + ringkasan label–nilai |
-| `components/knowledge/lab-blocks.tsx` | Seluruh blok lab |
-| `components/knowledge/incident-blocks.tsx` | Seluruh blok insiden + penanda skenario lab |
-| `components/knowledge/evidence-downloads.tsx` | Berkas pendukung yang boleh diunduh |
+| Berkas                                        | Isi                                         |
+| --------------------------------------------- | ------------------------------------------- |
+| `components/knowledge/evidence-table.tsx`     | Tabel bukti + ringkasan label–nilai         |
+| `components/knowledge/lab-blocks.tsx`         | Seluruh blok lab                            |
+| `components/knowledge/incident-blocks.tsx`    | Seluruh blok insiden + penanda skenario lab |
+| `components/knowledge/evidence-downloads.tsx` | Berkas pendukung yang boleh diunduh         |
 
 Bukti kini dipisah menurut cara pakainya: yang bisa dilihat masuk galeri,
 sisanya jadi daftar unduhan. Tanpa pemisahan itu arsip ZIP muncul di galeri
@@ -110,12 +110,12 @@ kosong.
 
 ## Gates
 
-| Gate | Hasil |
-|---|---|
-| lint | ✅ tanpa warning |
-| typecheck | ✅ |
-| test | ✅ 185/185 (naik dari 162) |
-| build | ✅ |
+| Gate      | Hasil                      |
+| --------- | -------------------------- |
+| lint      | ✅ tanpa warning           |
+| typecheck | ✅                         |
+| test      | ✅ 185/185 (naik dari 162) |
+| build     | ✅                         |
 
 Tes baru: `knowledge-metadata.test.ts` (13) dan
 `schemas/knowledge-metadata.test.ts` (11).
@@ -128,25 +128,25 @@ Build produksi di port 5322, dikendalikan Chromium sungguhan.
 
 ### Form insiden
 
-| Yang diuji | Hasil |
-|---|---|
-| Pilihan asal insiden dimulai kosong | ✅ |
-| Simpan tanpa menjawab asal insiden | ✅ ditolak |
-| Simpan setelah menjawab | ✅ tersimpan |
+| Yang diuji                          | Hasil        |
+| ----------------------------------- | ------------ |
+| Pilihan asal insiden dimulai kosong | ✅           |
+| Simpan tanpa menjawab asal insiden  | ✅ ditolak   |
+| Simpan setelah menjawab             | ✅ tersimpan |
 
 ### Halaman publik
 
-| Yang diuji | Hasil |
-|---|---|
-| Penanda skenario lab di halaman insiden | ✅ ID dan EN |
-| Nomor, prioritas, dampak, urgensi, waktu penyelesaian | ✅ |
-| Kronologi | ✅ |
-| Akar masalah dan pencegahan | ✅ |
-| Blok lab: topologi, perangkat, VLAN, rencana IP, kasus uji, gangguan | ✅ |
-| Status kasus uji tak terbaca | ✅ "Belum dicatat", tidak hijau |
-| Berkas publik di daftar unduhan | ✅ |
-| Berkas **privat** di HTML halaman | ✅ tidak muncul sama sekali |
-| Berkas privat diminta langsung tanpa sesi | ✅ 404 |
+| Yang diuji                                                           | Hasil                           |
+| -------------------------------------------------------------------- | ------------------------------- |
+| Penanda skenario lab di halaman insiden                              | ✅ ID dan EN                    |
+| Nomor, prioritas, dampak, urgensi, waktu penyelesaian                | ✅                              |
+| Kronologi                                                            | ✅                              |
+| Akar masalah dan pencegahan                                          | ✅                              |
+| Blok lab: topologi, perangkat, VLAN, rencana IP, kasus uji, gangguan | ✅                              |
+| Status kasus uji tak terbaca                                         | ✅ "Belum dicatat", tidak hijau |
+| Berkas publik di daftar unduhan                                      | ✅                              |
+| Berkas **privat** di HTML halaman                                    | ✅ tidak muncul sama sekali     |
+| Berkas privat diminta langsung tanpa sesi                            | ✅ 404                          |
 
 **Seluruh data uji sudah dihapus** — dokumen, media, dan audit kembali 0.
 

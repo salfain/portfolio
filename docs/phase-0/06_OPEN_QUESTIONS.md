@@ -11,12 +11,12 @@
 
 Mesin ini tidak punya PostgreSQL maupun Docker.
 
-| Opsi | Konsekuensi |
-|---|---|
+| Opsi                      | Konsekuensi                                                                                                         |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | **A. Neon** (rekomendasi) | Gratis, serverless, mendukung `pg_trgm`. Database dev sekaligus produksi. Perlu koneksi internet saat pengembangan. |
-| B. Supabase | Gratis, membawa fitur lain yang tidak kita pakai. |
-| C. PostgreSQL lokal | Bekerja offline. Perlu database produksi terpisah nanti. |
-| D. Docker Desktop | Paling mendekati produksi. Perlu instalasi ±1 GB. |
+| B. Supabase               | Gratis, membawa fitur lain yang tidak kita pakai.                                                                   |
+| C. PostgreSQL lokal       | Bekerja offline. Perlu database produksi terpisah nanti.                                                            |
+| D. Docker Desktop         | Paling mendekati produksi. Perlu instalasi ±1 GB.                                                                   |
 
 **Jawaban:** D. Docker Desktop (PostgreSQL via container, paling dekat produksi). Prasyarat: Docker Desktop + WSL2 terpasang sebelum Fase 1.
 
@@ -45,10 +45,10 @@ Mengganti domain setelah rilis berarti mengatur ulang canonical, sitemap, dan ve
 
 Apakah nama tempat kerja IT Support dan sekolah TKJ boleh disebut publik?
 
-| Tempat | Boleh disebut? | Jika tidak, deskripsi generik |
-|---|---|---|
-| Tempat kerja IT Support | _______ | _______ |
-| Sekolah TKJ | _______ | _______ |
+| Tempat                  | Boleh disebut? | Jika tidak, deskripsi generik |
+| ----------------------- | -------------- | ----------------------------- |
+| Tempat kerja IT Support | _______        | _______                       |
+| Sekolah TKJ             | _______        | _______                       |
 
 Periksa juga perjanjian kerja atau NDA yang berlaku. Kalau ragu, pakai deskripsi generik — nilainya bagi recruiter hampir sama.
 
@@ -56,10 +56,10 @@ Periksa juga perjanjian kerja atau NDA yang berlaku. Kalau ragu, pakai deskripsi
 
 Dua laporan insiden yang direncanakan (`insiden-apipa-dhcp`, `insiden-dns-gagal`) — berasal dari kejadian nyata di tempat kerja atau direproduksi di lab?
 
-| Insiden | Nyata / Lab |
-|---|---|
-| APIPA akibat DHCP gagal | _______ |
-| DNS gagal | _______ |
+| Insiden                 | Nyata / Lab |
+| ----------------------- | ----------- |
+| APIPA akibat DHCP gagal | _______     |
+| DNS gagal               | _______     |
 
 Jika nyata, berlaku `02_REDACTION_CHECKLIST.md` bagian G. Jika lab, wajib memakai penanda di bagian H. Tidak ada jalan tengah — menyajikan skenario lab sebagai insiden produksi adalah masalah integritas yang akan langsung terlihat oleh pewawancara teknis.
 
@@ -67,12 +67,12 @@ Jika nyata, berlaku `02_REDACTION_CHECKLIST.md` bagian G. Jika lab, wajib memaka
 
 Adakah angka yang benar-benar tercatat dan bisa Anda pertanggungjawabkan?
 
-| Metrik | Ada catatannya? | Nilai |
-|---|---|---|
-| Lama pengalaman IT Support | _______ | _______ |
-| Jumlah tiket ditangani | _______ | _______ |
-| Jumlah pengguna didukung | _______ | _______ |
-| Jumlah perangkat dikelola | _______ | _______ |
+| Metrik                     | Ada catatannya? | Nilai   |
+| -------------------------- | --------------- | ------- |
+| Lama pengalaman IT Support | _______         | _______ |
+| Jumlah tiket ditangani     | _______         | _______ |
+| Jumlah pengguna didukung   | _______         | _______ |
+| Jumlah perangkat dikelola  | _______         | _______ |
 
 **Kosongkan yang tidak ada catatannya.** Metrik tanpa sumber akan dihapus dari homepage, bukan diperkirakan. Bagian "Ringkasan" dirancang agar tetap rapi dengan tiga kartu maupun enam.
 
@@ -100,11 +100,11 @@ Draf ringkasan menulis "bekerja di bidang IT Support" (mengikuti PRD). Apakah ma
 
 Tampilkan email dan nomor telepon secara terbuka, atau hanya lewat form kontak?
 
-| Data | Publik / Form saja / Tidak ada |
-|---|---|
-| Email | _______ |
-| WhatsApp | _______ |
-| Nomor telepon | _______ |
+| Data          | Publik / Form saja / Tidak ada |
+| ------------- | ------------------------------ |
+| Email         | _______                        |
+| WhatsApp      | _______                        |
+| Nomor telepon | _______                        |
 
 Email publik akan dipanen bot. Form kontak lebih aman, tapi sebagian recruiter lebih suka mengirim email langsung. Jalan tengah: tampilkan email hanya di halaman Recruiter Mode.
 

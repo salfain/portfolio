@@ -23,8 +23,8 @@ export const motionTokens = {
   duration: { fast: 0.18, normal: 0.35, slow: 0.6, hero: 0.8 },
   ease: {
     standard: [0.22, 1, 0.36, 1],
-    enter:    [0.16, 1, 0.3, 1],
-    exit:     [0.4, 0, 1, 1],
+    enter: [0.16, 1, 0.3, 1],
+    exit: [0.4, 0, 1, 1],
   },
   distance: { small: 8, medium: 20, large: 36 },
 }
@@ -44,12 +44,12 @@ transition={{ duration: motionTokens.duration.normal, ease: motionTokens.ease.en
 
 Keduanya berjalan di compositor dan tidak memicu layout.
 
-| ✅ Aman | ❌ Hindari |
-|---|---|
-| `opacity` | `width`, `height` |
-| `x`, `y` | `top`, `left`, `margin`, `padding` |
-| `scale` | `box-shadow` (pakai lapisan opacity) |
-| `rotate` | `filter: blur` pada area luas |
+| ✅ Aman   | ❌ Hindari                           |
+| --------- | ------------------------------------ |
+| `opacity` | `width`, `height`                    |
+| `x`, `y`  | `top`, `left`, `margin`, `padding`   |
+| `scale`   | `box-shadow` (pakai lapisan opacity) |
+| `rotate`  | `filter: blur` pada area luas        |
 
 Animasi tinggi dilakukan lewat `layout` prop Motion, bukan menganimasikan `height` secara manual.
 
@@ -68,7 +68,9 @@ export function Reveal({ children }: { children: React.ReactNode }) {
 
   return (
     <motion.div
-      initial={reduced ? false : { opacity: 0, y: motionTokens.distance.medium }}
+      initial={
+        reduced ? false : { opacity: 0, y: motionTokens.distance.medium }
+      }
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: motionTokens.duration.normal }}
@@ -81,14 +83,14 @@ export function Reveal({ children }: { children: React.ReactNode }) {
 
 Yang harus terjadi saat reduced motion aktif:
 
-| Efek | Perilaku |
-|---|---|
-| Reveal saat scroll | Langsung tampil, tanpa gerakan |
-| Parallax | Mati total |
-| Kartu mengambang berulang | Mati total |
-| Transisi halaman | Fade sangat singkat, atau tidak sama sekali |
-| Hover scale | Mati |
-| Progress bar scroll | Tetap ada — ini informasi, bukan dekorasi |
+| Efek                      | Perilaku                                    |
+| ------------------------- | ------------------------------------------- |
+| Reveal saat scroll        | Langsung tampil, tanpa gerakan              |
+| Parallax                  | Mati total                                  |
+| Kartu mengambang berulang | Mati total                                  |
+| Transisi halaman          | Fade sangat singkat, atau tidak sama sekali |
+| Hover scale               | Mati                                        |
+| Progress bar scroll       | Tetap ada — ini informasi, bukan dekorasi   |
 
 **Cara menguji:** Windows → Settings → Accessibility → Visual effects → Animation effects → Off. Lalu buka ulang halaman.
 
@@ -123,12 +125,12 @@ Animasi masuk **tidak boleh** mengubah CLS. Ruang elemen sudah dipesan sebelum a
 
 Sudah tersedia di `@/components/motion/`. Pakai ini, jangan membuat sendiri:
 
-| Komponen | Kegunaan |
-|---|---|
-| `<Reveal>` | Satu elemen muncul saat masuk viewport |
-| `<StaggerGroup>` + `<StaggerItem>` | Sekelompok kartu muncul berurutan |
-| `<HoverLift>` | Kartu terangkat saat hover, mati di mobile |
-| `<PageTransition>` | Transisi antar halaman |
+| Komponen                           | Kegunaan                                   |
+| ---------------------------------- | ------------------------------------------ |
+| `<Reveal>`                         | Satu elemen muncul saat masuk viewport     |
+| `<StaggerGroup>` + `<StaggerItem>` | Sekelompok kartu muncul berurutan          |
+| `<HoverLift>`                      | Kartu terangkat saat hover, mati di mobile |
+| `<PageTransition>`                 | Transisi antar halaman                     |
 
 Stagger maksimal `0.06 s` per item dan maksimal 6 item. Lebih dari itu, item terakhir terasa tertinggal.
 

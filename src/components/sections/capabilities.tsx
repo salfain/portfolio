@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { groupSkillsByCategory, type PublicSkill } from '@/data/skill'
 
-import { Badge, Card, CardBody, EmptyState } from '@/components/ui'
+import { Card, CardBody, EmptyState } from '@/components/ui'
 import { StaggerContainer, StaggerItem } from '@/components/motion'
 
 import { Section } from './section'
@@ -61,11 +61,21 @@ export async function Capabilities({
                     {group.skills.map((skill) => (
                       <li
                         key={skill.id}
-                        className="flex items-center justify-between gap-3 text-[15px] text-text-2"
+                        className="flex items-baseline justify-between gap-4 text-[15px] text-text-2"
                       >
                         <span>{skill.name}</span>
+
+                        {/* Level ditulis sebagai teks mono redup, BUKAN chip
+                            berpil. Nilainya bisa sepanjang "Berpengalaman";
+                            dengan bingkai pil, huruf besar, dan tracking
+                            lebar, label itu menjadi lebih lebar daripada
+                            nama keahlian yang diterangkannya dan memaksa
+                            namanya membungkus. Level adalah keterangan,
+                            jadi harus kalah menonjol dari namanya. */}
                         {skill.level ? (
-                          <Badge className="shrink-0">{skill.level}</Badge>
+                          <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.06em] text-faint">
+                            {skill.level}
+                          </span>
                         ) : null}
                       </li>
                     ))}

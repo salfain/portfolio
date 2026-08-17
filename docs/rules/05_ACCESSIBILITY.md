@@ -16,14 +16,14 @@ Target: **WCAG 2.1 AA**. Ini persyaratan, bukan bonus.
 
 **Aturan ARIA pertama: jangan pakai ARIA kalau ada elemen HTML yang tepat.**
 
-| Butuh | Pakai |
-|---|---|
-| Berpindah halaman | `<a>` / `<Link>` |
-| Melakukan aksi | `<button>` |
-| Daftar item | `<ul>` / `<ol>` |
-| Data tabular | `<table>` dengan `<th scope>` |
-| Kelompok form | `<fieldset>` + `<legend>` |
-| Konten yang bisa dilipat | `<details>` / `<summary>` |
+| Butuh                    | Pakai                         |
+| ------------------------ | ----------------------------- |
+| Berpindah halaman        | `<a>` / `<Link>`              |
+| Melakukan aksi           | `<button>`                    |
+| Daftar item              | `<ul>` / `<ol>`               |
+| Data tabular             | `<table>` dengan `<th scope>` |
+| Kelompok form            | `<fieldset>` + `<legend>`     |
+| Konten yang bisa dilipat | `<details>` / `<summary>`     |
 
 ---
 
@@ -41,14 +41,14 @@ Sticky TOC di halaman Knowledge Base dibangun dari heading dokumen — struktur 
 
 **Setiap** hal yang bisa dilakukan dengan mouse harus bisa dilakukan dengan keyboard.
 
-| Tombol | Perilaku yang diharapkan |
-|---|---|
-| `Tab` | Maju ke elemen fokus berikutnya, urutannya mengikuti urutan visual |
-| `Shift + Tab` | Mundur |
-| `Enter` | Mengaktifkan tautan dan tombol |
-| `Space` | Mengaktifkan tombol, checkbox |
-| `Escape` | Menutup dialog, drawer, command palette |
-| `↑ ↓` | Berpindah di dalam daftar hasil pencarian |
+| Tombol        | Perilaku yang diharapkan                                           |
+| ------------- | ------------------------------------------------------------------ |
+| `Tab`         | Maju ke elemen fokus berikutnya, urutannya mengikuti urutan visual |
+| `Shift + Tab` | Mundur                                                             |
+| `Enter`       | Mengaktifkan tautan dan tombol                                     |
+| `Space`       | Mengaktifkan tombol, checkbox                                      |
+| `Escape`      | Menutup dialog, drawer, command palette                            |
+| `↑ ↓`         | Berpindah di dalam daftar hasil pencarian                          |
 
 **Uji cara ini:** buka halaman, taruh tangan menjauh dari mouse, dan telusuri seluruh halaman hanya dengan keyboard. Kalau tersangkut atau kehilangan jejak fokus, itu cacat.
 
@@ -56,7 +56,9 @@ Sticky TOC di halaman Knowledge Base dibangun dari heading dokumen — struktur 
 
 ```css
 /* ❌ dilarang keras */
-*:focus { outline: none; }
+*:focus {
+  outline: none;
+}
 
 /* ✅ */
 :focus-visible {
@@ -77,11 +79,11 @@ Tautan "Lompat ke konten utama" wajib ada sebagai elemen fokus pertama di setiap
 
 ## 4. Gambar dan media
 
-| Jenis gambar | `alt` |
-|---|---|
-| Bermakna (topologi, screenshot) | Deskripsikan isinya secara spesifik |
-| Dekoratif | `alt=""` — kosong, bukan dihilangkan |
-| Di dalam tautan tanpa teks | Deskripsikan tujuan tautannya |
+| Jenis gambar                    | `alt`                                |
+| ------------------------------- | ------------------------------------ |
+| Bermakna (topologi, screenshot) | Deskripsikan isinya secara spesifik  |
+| Dekoratif                       | `alt=""` — kosong, bukan dihilangkan |
+| Di dalam tautan tanpa teks      | Deskripsikan tujuan tautannya        |
 
 ```tsx
 // ❌
@@ -98,11 +100,11 @@ Alt text wajib ada dalam dua bahasa (`altId`, `altEn`). Aset tanpa `altId` tidak
 
 ## 5. Warna dan kontras
 
-| Elemen | Rasio minimum |
-|---|---|
-| Teks normal | 4.5 : 1 |
-| Teks besar (≥ 24 px) | 3 : 1 |
-| Batas komponen UI, ikon | 3 : 1 |
+| Elemen                  | Rasio minimum |
+| ----------------------- | ------------- |
+| Teks normal             | 4.5 : 1       |
+| Teks besar (≥ 24 px)    | 3 : 1         |
+| Batas komponen UI, ikon | 3 : 1         |
 
 Periksa di **kedua tema**. Pasangan token sudah dirancang lolos, tapi kombinasi baru harus diverifikasi.
 
@@ -147,10 +149,19 @@ Aturan:
 Rencana IP/VLAN dan test case sering lebar. Di mobile:
 
 ```tsx
-<div className="overflow-x-auto" tabIndex={0} role="region" aria-label={t('table.ipPlan')}>
+<div
+  className="overflow-x-auto"
+  tabIndex={0}
+  role="region"
+  aria-label={t('table.ipPlan')}
+>
   <table>
     <caption className="sr-only">{t('table.ipPlanCaption')}</caption>
-    <thead><tr><th scope="col">…</th></tr></thead>
+    <thead>
+      <tr>
+        <th scope="col">…</th>
+      </tr>
+    </thead>
   </table>
 </div>
 ```

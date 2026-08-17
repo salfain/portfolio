@@ -29,16 +29,16 @@ Conventional Commits:
 <tipe>: <deskripsi>
 ```
 
-| Tipe | Untuk |
-|---|---|
-| `feat` | Fitur baru |
-| `fix` | Perbaikan bug |
+| Tipe       | Untuk                                       |
+| ---------- | ------------------------------------------- |
+| `feat`     | Fitur baru                                  |
+| `fix`      | Perbaikan bug                               |
 | `refactor` | Perubahan struktur tanpa perubahan perilaku |
-| `style` | Format, spasi, tanpa perubahan logika |
-| `test` | Menambah atau memperbaiki tes |
-| `docs` | Dokumentasi |
-| `chore` | Perkakas, dependency, konfigurasi |
-| `perf` | Perbaikan performa |
+| `style`    | Format, spasi, tanpa perubahan logika       |
+| `test`     | Menambah atau memperbaiki tes               |
+| `docs`     | Dokumentasi                                 |
+| `chore`    | Perkakas, dependency, konfigurasi           |
+| `perf`     | Perbaikan performa                          |
 
 Aturan:
 
@@ -96,15 +96,15 @@ test: add vitest setup and ci workflow
 
 ## 4. Yang tidak boleh di-commit
 
-| ❌ | |
-|---|---|
-| `.env.local` atau berkas env apa pun berisi nilai asli | |
-| `node_modules/`, `.next/` | |
-| Berkas berisi kredensial, token, IP publik | |
-| Screenshot yang belum lolos checklist redaksi | |
-| `console.log` yang tertinggal | |
-| Kode yang dikomentari "untuk berjaga-jaga" | Hapus saja, git yang menyimpannya |
-| Berkas besar (> 5 MB) | Media masuk ke R2, bukan git |
+| ❌                                                     |                                   |
+| ------------------------------------------------------ | --------------------------------- |
+| `.env.local` atau berkas env apa pun berisi nilai asli |                                   |
+| `node_modules/`, `.next/`                              |                                   |
+| Berkas berisi kredensial, token, IP publik             |                                   |
+| Screenshot yang belum lolos checklist redaksi          |                                   |
+| `console.log` yang tertinggal                          |                                   |
+| Kode yang dikomentari "untuk berjaga-jaga"             | Hapus saja, git yang menyimpannya |
+| Berkas besar (> 5 MB)                                  | Media masuk ke R2, bukan git      |
 
 ---
 
@@ -148,10 +148,10 @@ Sertakan **screenshot terang dan gelap** untuk setiap perubahan yang terlihat. I
 
 ## 8. Yang tidak boleh dilakukan
 
-| ❌ | Kenapa |
-|---|---|
-| `git push --force` ke branch bersama | Menghapus pekerjaan orang lain |
-| Commit langsung ke `main` | Semua lewat PR |
-| Menggabungkan PR yang CI-nya merah | CI merah berarti ada yang rusak |
-| `git commit --no-verify` | Melewati hook yang ada untuk alasan tertentu |
-| Menggabungkan pekerjaan dua fase dalam satu PR | Tidak bisa diperiksa per fase |
+| ❌                                             | Kenapa                                       |
+| ---------------------------------------------- | -------------------------------------------- |
+| `git push --force` ke branch bersama           | Menghapus pekerjaan orang lain               |
+| Commit langsung ke `main`                      | Semua lewat PR                               |
+| Menggabungkan PR yang CI-nya merah             | CI merah berarti ada yang rusak              |
+| `git commit --no-verify`                       | Melewati hook yang ada untuk alasan tertentu |
+| Menggabungkan pekerjaan dua fase dalam satu PR | Tidak bisa diperiksa per fase                |

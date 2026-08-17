@@ -20,11 +20,11 @@ kosong, jadi tidak ada satu pun tanggal yang pernah dirender dua kali.
 
 **Ini bug Fase 3, bukan Fase 4.** Yang ikut terdampak:
 
-| Berkas | Baris |
-|---|---|
-| `src/components/sections/certifications-list.tsx` | `certificate.issueDate.toISOString()` |
+| Berkas                                            | Baris                                   |
+| ------------------------------------------------- | --------------------------------------- |
+| `src/components/sections/certifications-list.tsx` | `certificate.issueDate.toISOString()`   |
 | `src/components/sections/experience-timeline.tsx` | `formatPeriod(...)` dari data ber-cache |
-| `src/app/[locale]/recruiter/page.tsx` | `formatFullDate` & `formatPeriod` |
+| `src/app/[locale]/recruiter/page.tsx`             | `formatFullDate` & `formatPeriod`       |
 
 Artinya: begitu pemilik mengisi sertifikat atau pengalaman lalu halamannya
 dibuka dua kali, beranda dan Recruiter Mode akan **error di produksi**.
@@ -55,13 +55,13 @@ Lanjutan N2 Fase 3, dengan sebab yang akhirnya jelas.
 
 **Yang diuji:**
 
-| Konfigurasi | Status `notFound()` |
-|---|---|
-| `generateStaticParams` + `dynamicParams: true` | **200** (`x-nextjs-prerender: 1`) |
-| ditambah `export const dynamic = 'force-dynamic'` | **200** |
-| segmen dinamis + `searchParams` (dirender dinamis) | **200** |
-| `dynamicParams = false` | **404** ✅ |
-| rute tidak cocok sama sekali | **404** ✅ |
+| Konfigurasi                                        | Status `notFound()`               |
+| -------------------------------------------------- | --------------------------------- |
+| `generateStaticParams` + `dynamicParams: true`     | **200** (`x-nextjs-prerender: 1`) |
+| ditambah `export const dynamic = 'force-dynamic'`  | **200**                           |
+| segmen dinamis + `searchParams` (dirender dinamis) | **200**                           |
+| `dynamicParams = false`                            | **404** ✅                        |
+| rute tidak cocok sama sekali                       | **404** ✅                        |
 
 **Kesimpulan:** di aplikasi ini `notFound()` yang dipanggil DARI DALAM
 halaman tidak pernah menghasilkan 404. Hanya penolakan di **level router**
@@ -96,11 +96,11 @@ dan sekarang berlaku untuk seluruh isi situs. **Keputusannya menghambat
 Fase 5** (CMS yang tidak bisa menerbitkan tanpa build ulang kehilangan
 sebagian besar gunanya).
 
-| Opsi | Konsekuensi |
-|---|---|
-| A. Deploy hook — publikasi memicu build ulang | Jeda 1–2 menit; 404 tetap benar |
-| B. Terima 200 untuk slug tidak ada | **Ditolak** — mesin pencari mengindeks draft sebagai halaman sah |
-| C. Halaman 404 kustom yang mengeset status sendiri | Perlu riset; belum dicoba |
+| Opsi                                               | Konsekuensi                                                      |
+| -------------------------------------------------- | ---------------------------------------------------------------- |
+| A. Deploy hook — publikasi memicu build ulang      | Jeda 1–2 menit; 404 tetap benar                                  |
+| B. Terima 200 untuk slug tidak ada                 | **Ditolak** — mesin pencari mengindeks draft sebagai halaman sah |
+| C. Halaman 404 kustom yang mengeset status sendiri | Perlu riset; belum dicoba                                        |
 
 ---
 

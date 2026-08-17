@@ -7,11 +7,11 @@
 
 ## 1. Tiga tingkat klasifikasi
 
-| Tingkat | Arti | Penyimpanan |
-|---|---|---|
-| **PUBLIK** | Boleh diakses siapa pun tanpa login | Bucket publik R2, URL langsung, boleh di-cache CDN |
-| **PRIVAT** | Hanya admin yang login | Bucket privat, hanya lewat signed URL berumur pendek |
-| **TERLARANG** | Tidak boleh diunggah ke mana pun | — |
+| Tingkat       | Arti                                | Penyimpanan                                          |
+| ------------- | ----------------------------------- | ---------------------------------------------------- |
+| **PUBLIK**    | Boleh diakses siapa pun tanpa login | Bucket publik R2, URL langsung, boleh di-cache CDN   |
+| **PRIVAT**    | Hanya admin yang login              | Bucket privat, hanya lewat signed URL berumur pendek |
+| **TERLARANG** | Tidak boleh diunggah ke mana pun    | —                                                    |
 
 Aturan default: **setiap aset dianggap PRIVAT sampai lolos checklist redaksi** di `02_REDACTION_CHECKLIST.md`.
 
@@ -19,22 +19,22 @@ Aturan default: **setiap aset dianggap PRIVAT sampai lolos checklist redaksi** d
 
 ## 2. Klasifikasi per jenis aset
 
-| Jenis aset | Klasifikasi | Syarat |
-|---|---|---|
-| Foto profil sendiri | PUBLIK | Foto asli milik sendiri, bukan stok |
-| Screenshot proyek sendiri | PUBLIK | Data contoh, bukan data nyata pengguna |
-| Screenshot topologi PNETLab | PUBLIK | IP privat saja, tanpa nama perusahaan |
-| Output terminal lab | PUBLIK | Sudah disunting, hostname generik |
-| Diagram draw.io / Excalidraw | PUBLIK | Buatan sendiri |
-| Gambar sertifikat | PUBLIK | Sensor nomor kredensial jika bersifat rahasia |
-| Berkas lab `.unl` / konfigurasi | PUBLIK **setelah disanitasi** | Password dan IP publik dihapus |
-| Screenshot lingkungan kerja nyata | **PRIVAT** | Hanya versi tersunting yang boleh publik |
-| Tiket / percakapan pengguna nyata | **PRIVAT** | Hanya boleh dipakai sebagai narasi anonim |
-| Screenshot berisi kredensial | **TERLARANG** | Ambil ulang, jangan sensor lalu unggah |
-| Konfigurasi produksi perusahaan | **TERLARANG** | Termasuk yang "sudah tidak dipakai" |
-| Data pribadi orang lain | **TERLARANG** | Nama, foto, email, NIK, nomor telepon |
-| Aset dari situs referensi (Anara Travel) | **TERLARANG** | Logo, foto, ikon, teks, grafis |
-| Foto stok berlisensi tidak jelas | **TERLARANG** | Pakai aset berlisensi terbuka atau buatan sendiri |
+| Jenis aset                               | Klasifikasi                   | Syarat                                            |
+| ---------------------------------------- | ----------------------------- | ------------------------------------------------- |
+| Foto profil sendiri                      | PUBLIK                        | Foto asli milik sendiri, bukan stok               |
+| Screenshot proyek sendiri                | PUBLIK                        | Data contoh, bukan data nyata pengguna            |
+| Screenshot topologi PNETLab              | PUBLIK                        | IP privat saja, tanpa nama perusahaan             |
+| Output terminal lab                      | PUBLIK                        | Sudah disunting, hostname generik                 |
+| Diagram draw.io / Excalidraw             | PUBLIK                        | Buatan sendiri                                    |
+| Gambar sertifikat                        | PUBLIK                        | Sensor nomor kredensial jika bersifat rahasia     |
+| Berkas lab `.unl` / konfigurasi          | PUBLIK **setelah disanitasi** | Password dan IP publik dihapus                    |
+| Screenshot lingkungan kerja nyata        | **PRIVAT**                    | Hanya versi tersunting yang boleh publik          |
+| Tiket / percakapan pengguna nyata        | **PRIVAT**                    | Hanya boleh dipakai sebagai narasi anonim         |
+| Screenshot berisi kredensial             | **TERLARANG**                 | Ambil ulang, jangan sensor lalu unggah            |
+| Konfigurasi produksi perusahaan          | **TERLARANG**                 | Termasuk yang "sudah tidak dipakai"               |
+| Data pribadi orang lain                  | **TERLARANG**                 | Nama, foto, email, NIK, nomor telepon             |
+| Aset dari situs referensi (Anara Travel) | **TERLARANG**                 | Logo, foto, ikon, teks, grafis                    |
+| Foto stok berlisensi tidak jelas         | **TERLARANG**                 | Pakai aset berlisensi terbuka atau buatan sendiri |
 
 ---
 
@@ -91,13 +91,13 @@ Berkas dengan nama seperti `Screenshot 2026-03-11 143207.png` **tidak boleh diun
 
 ## 5. Format & ukuran
 
-| Kebutuhan | Format | Batas |
-|---|---|---|
-| Screenshot UI / terminal | PNG atau WebP | maks 1600 px sisi terpanjang, 500 KB |
-| Foto profil | JPEG atau WebP | maks 1200 px, 300 KB |
-| Diagram | SVG diutamakan, PNG cadangan | — |
-| Cover / OG | WebP | 1200×630 |
-| Berkas unduhan lab | ZIP | maks 10 MB |
+| Kebutuhan                | Format                       | Batas                                |
+| ------------------------ | ---------------------------- | ------------------------------------ |
+| Screenshot UI / terminal | PNG atau WebP                | maks 1600 px sisi terpanjang, 500 KB |
+| Foto profil              | JPEG atau WebP               | maks 1200 px, 300 KB                 |
+| Diagram                  | SVG diutamakan, PNG cadangan | —                                    |
+| Cover / OG               | WebP                         | 1200×630                             |
+| Berkas unduhan lab       | ZIP                          | maks 10 MB                           |
 
 Thumbnail dibuat otomatis saat unggah (Fase 5). Gambar publik dilayani lewat `next/image` dengan `width`/`height` eksplisit agar CLS tetap 0.
 

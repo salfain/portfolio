@@ -84,10 +84,11 @@ tanpa DB — sudah dipakai di CI.
 
 **Status: SELESAI (31 Juli 2026).** Docker PostgreSQL 16 live
 (`docker-compose.yml`). Dua migrasi diterapkan:
+
 - `20260731122535_init` — seluruh skema dari `07_SCHEMA_DECISIONS.md`
 - `20260731123121_better_auth_align` — koreksi skema Better Auth (lihat N3)
-Script `db:*` di `package.json` memakai `dotenv-cli` untuk memuat `.env.local`
-(Prisma CLI tidak memuat `.env.local` secara default, hanya `.env`).
+  Script `db:*` di `package.json` memakai `dotenv-cli` untuk memuat `.env.local`
+  (Prisma CLI tidak memuat `.env.local` secara default, hanya `.env`).
 
 ---
 

@@ -24,21 +24,31 @@ Berlaku juga untuk kelas warna bawaan Tailwind (`text-blue-600`, `bg-slate-50`).
 
 Didefinisikan sebagai CSS variable dan otomatis berganti saat tema berubah.
 
-| Token | Kegunaan | Terang | Gelap |
-|---|---|---|---|
-| `background` | Latar halaman | `#F5F8FC` | `#06111F` |
-| `surface` | Latar kartu | `#FFFFFF` | `#0C1B2D` |
-| `elevated` | Kartu di atas kartu | `#EEF4FA` | `#11253B` |
-| `foreground` | Teks utama | `#0B1F35` | `#F4F8FC` |
-| `muted` | Teks sekunder | `#5C6B7A` | `#A8B6C6` |
-| `border` | Garis & pembatas | `#DDE6EF` | `#213A54` |
-| `primary` | Aksi utama, tautan | `#176BFF` | `#5B9CFF` |
-| `cyan` | Aksen kedua | `#18BDEB` | `#36D4F4` |
-| `success` | Status berhasil | `#169B62` | `#42D392` |
-| `warning` | Peringatan | `#D99A13` | `#F2BE4E` |
-| `danger` | Error, tindakan merusak | `#D74646` | `#FF7070` |
+| Token                            | Kegunaan                         | Terang                 | Gelap                  |
+| -------------------------------- | -------------------------------- | ---------------------- | ---------------------- |
+| `background`                     | Latar halaman                    | `#faf9f7`              | `#0c0c0d`              |
+| `surface`                        | Latar kartu                      | `#ffffff`              | `#121214`              |
+| `elevated`                       | Kartu di atas kartu, baris aktif | `#edece8`              | `#19191c`              |
+| `input`                          | Latar kolom isian                | `#ffffff`              | `#0f0f11`              |
+| `foreground`                     | Teks utama                       | `#17171a`              | `#ededed`              |
+| `text-2`                         | Teks isi sekunder                | `#3a3a40`              | `#c9c9cc`              |
+| `text-3`                         | Teks isi tersier                 | `#4a4a51`              | `#a8a8ac`              |
+| `muted`                          | Keterangan                       | `#5c5c63`              | `#9a9a9d`              |
+| `faint`                          | Label mono, metadata             | `#7a7a81`              | `#6a6a6e`              |
+| `faint-2`                        | Teks footer                      | `#8b8b92`              | `#5f5f63`              |
+| `border`                         | Pemisah dekoratif                | 0.10 hitam             | 0.09 putih             |
+| `border-med`                     | Tepi kontrol sekunder, chip      | 0.13 hitam             | 0.12 putih             |
+| `border-strong`                  | **Tepi input** — dijaga ≥3:1     | `#767678`              | `#6a6a6e`              |
+| `border-hover`                   | Tepi saat disentuh               | 0.35 hitam             | 0.40 putih             |
+| `primary`                        | Aksen tunggal, aksi utama        | `oklch(0.55 0.15 255)` | `oklch(0.78 0.15 255)` |
+| `primary-hi`                     | Aksen saat disentuh              | `oklch(0.48 …)`        | `oklch(0.84 …)`        |
+| `success` / `warning` / `danger` | Status                           | —                      | —                      |
 
-Sumber: [`../02_DESIGN_AND_DATA.md`](../02_DESIGN_AND_DATA.md).
+Token garis disimpan sebagai warna SOLID hasil perataan nilai `rgba()` di handoff terhadap latar masing-masing tema. Itu disengaja: Tailwind memakai bentuk `rgb(var(--token) / <alpha>)`, yang menuntut tiga kanal angka, bukan `rgba()` utuh.
+
+**`border-strong` menyimpang dari handoff.** Nilai `line-strong` aslinya hanya mencapai ~1.2:1 di latar terang, sedangkan WCAG 1.4.11 menuntut 3:1 untuk batas kontrol yang bisa disentuh. Token ini dipakai KHUSUS untuk tepi input; garis dekoratif tetap memakai `border` atau `border-med`.
+
+Beberapa nilai tidak melewati Tailwind karena memang bukan warna datar, dan dipakai lewat `var()` langsung: `--glass-bg`, `--glass-line`, `--accent-soft`, `--accent-glow`, `--accent-line`, `--stripe-a/b`, `--shadow-nav`, `--shadow-modal`.
 
 **Butuh warna yang tidak ada di tabel ini? Berhenti dan tanya.** Menambah token adalah keputusan design system, bukan keputusan implementasi.
 
@@ -68,16 +78,20 @@ Kalau menemukan diri menulis banyak `dark:`, kemungkinan besar tokennya yang sal
 
 ## 4. Bentuk & jarak
 
-| Hal | Nilai |
-|---|---|
-| Radius kartu besar | `rounded-[28px]` |
-| Radius kartu standar | `rounded-3xl` (24px) atau `rounded-2xl` (20px) |
-| Radius tombol/badge | `rounded-full` |
-| Radius input | `rounded-xl` |
-| Lebar kontainer maks | `max-w-[1280px]` |
-| Lebar baca (artikel) | `max-w-[76ch]` |
-| Padding kontainer | `px-5 sm:px-8 lg:px-12` |
-| Jarak antar bagian | `py-20 md:py-28 lg:py-32` |
+| Hal                      | Nilai                                          |
+| ------------------------ | ---------------------------------------------- |
+| Radius kartu             | `rounded-3xl` (22px) atau `rounded-2xl` (20px) |
+| Radius modal             | `rounded-3xl` (22px)                           |
+| Radius navbar            | `rounded-2xl` (20px)                           |
+| Radius tombol/chip/badge | `rounded-full`                                 |
+| Radius input             | `rounded-md` (12px)                            |
+| Lebar kontainer maks     | `max-w-container` (1180px)                     |
+| Lebar baca (artikel)     | `max-w-prose` (76ch)                           |
+| Padding kontainer        | `px-5 sm:px-8 lg:px-12`                        |
+| Padding kartu            | `p-6` – `p-7`                                  |
+| Jarak antar bagian       | `border-t border-border py-14 md:py-16`        |
+
+Jarak antar bagian dibawa oleh komponen `Section`, lewat `border-t` + padding — bukan margin per elemen. Bagian pertama di satu halaman menghapus garisnya sendiri lewat `first:border-t-0`.
 
 Ruang kosong yang lega adalah bagian dari identitas visual situs ini. Kalau ragu antara dua nilai jarak, pilih yang lebih besar.
 
@@ -85,20 +99,27 @@ Ruang kosong yang lega adalah bagian dari identitas visual situs ini. Kalau ragu
 
 ## 5. Tipografi
 
-| Peran | Font | Kelas |
-|---|---|---|
-| Display / judul | Plus Jakarta Sans | `font-display` |
-| Isi | Geist / Inter | `font-sans` (default) |
-| Kode | JetBrains Mono | `font-mono` |
+| Peran                   | Font                 | Kelas                 |
+| ----------------------- | -------------------- | --------------------- |
+| Judul                   | Instrument Serif 400 | `font-display`        |
+| Isi                     | Geist 300–600        | `font-sans` (default) |
+| Label / metadata / kode | Geist Mono           | `font-mono`           |
 
 Skala judul:
 
 ```
-h1  text-4xl md:text-5xl lg:text-6xl  font-display font-semibold tracking-tight
-h2  text-3xl md:text-4xl              font-display font-semibold tracking-tight
-h3  text-xl  md:text-2xl              font-display font-medium
-p   text-base md:text-lg              leading-relaxed text-muted
+hero  font-display text-display   clamp(52px, 7.4vw, 104px)
+h1    font-display text-h1        clamp(44px, 6vw, 80px)
+h2    font-display text-h2        clamp(30px, 3.4vw, 38px)
+h3    text-[19px] font-medium     Geist, BUKAN serif
+p     text-body                   17px / 1.65
 ```
+
+**Instrument Serif hanya punya satu berat.** Jangan pernah memasangkan `font-display` dengan `font-semibold` atau `font-bold` — peramban akan mensintesis huruf tebal palsu dan bentuk serifnya rusak. Judul kartu berukuran `lg` ke bawah memakai Geist `font-medium`, bukan serif.
+
+Label dan metadata memakai kelas `.kicker`: mono 11px, huruf besar, `tracking-[0.12em]`, warna `faint`.
+
+Paragraf dirata kiri-kanan dengan pemenggalan kata lewat aturan dasar pada `p`. Aturan itu adalah selektor elemen, jadi ia MENGALAHKAN perataan yang diwariskan induk — blok `text-center` sudah ditangani oleh `.text-center p` di `globals.css`. Permukaan penyuntingan dikecualikan lewat `.prose-editor` / `.prose-admin`.
 
 Font dimuat lewat `next/font` dan di-host sendiri. **Jangan pernah** memuat font dari CDN Google — itu menambah koneksi pihak ketiga dan merusak target LCP.
 
@@ -179,12 +200,12 @@ Semua elemen yang bisa diklik minimal **44 × 44 px** di mobile. Ikon kecil dita
 
 ## 11. Yang dilarang
 
-| ❌ | Kenapa |
-|---|---|
-| Warna hex atau `text-blue-500` | Rusak di tema gelap |
-| `!important` / `!` di Tailwind | Menandakan ada masalah spesifisitas lain |
-| Berkas CSS terpisah per komponen | Pakai Tailwind |
-| Nilai `style={{ }}` inline | Kecuali nilai yang benar-benar dinamis, misal tinggi progress bar |
-| `w-[347px]` dan angka ajaib lain | Pakai skala jarak |
-| Font dari CDN | Pakai `next/font` |
-| `overflow-hidden` untuk menutupi layout yang bocor | Perbaiki penyebabnya |
+| ❌                                                 | Kenapa                                                            |
+| -------------------------------------------------- | ----------------------------------------------------------------- |
+| Warna hex atau `text-blue-500`                     | Rusak di tema gelap                                               |
+| `!important` / `!` di Tailwind                     | Menandakan ada masalah spesifisitas lain                          |
+| Berkas CSS terpisah per komponen                   | Pakai Tailwind                                                    |
+| Nilai `style={{ }}` inline                         | Kecuali nilai yang benar-benar dinamis, misal tinggi progress bar |
+| `w-[347px]` dan angka ajaib lain                   | Pakai skala jarak                                                 |
+| Font dari CDN                                      | Pakai `next/font`                                                 |
+| `overflow-hidden` untuk menutupi layout yang bocor | Perbaiki penyebabnya                                              |

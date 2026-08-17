@@ -20,37 +20,37 @@ Melanggar salah satu dari ini berarti PR ditolak tanpa diskusi.
 
 **Sebelum menulis kode (wajib, sekali):**
 
-| # | Dokumen | Isi |
-|---|---|---|
-| 1 | [00_WORKFLOW.md](00_WORKFLOW.md) | Cara mengerjakan satu fase dari awal sampai selesai |
-| 2 | [01_CODE_CONVENTIONS.md](01_CODE_CONVENTIONS.md) | Struktur folder, penamaan, Server vs Client, aturan TypeScript |
-| 3 | [09_DEFINITION_OF_DONE.md](09_DEFINITION_OF_DONE.md) | Kapan sebuah pekerjaan boleh disebut selesai |
-| 4 | [08_GIT_AND_PR.md](08_GIT_AND_PR.md) | Branch, commit, PR |
+| #   | Dokumen                                              | Isi                                                            |
+| --- | ---------------------------------------------------- | -------------------------------------------------------------- |
+| 1   | [00_WORKFLOW.md](00_WORKFLOW.md)                     | Cara mengerjakan satu fase dari awal sampai selesai            |
+| 2   | [01_CODE_CONVENTIONS.md](01_CODE_CONVENTIONS.md)     | Struktur folder, penamaan, Server vs Client, aturan TypeScript |
+| 3   | [09_DEFINITION_OF_DONE.md](09_DEFINITION_OF_DONE.md) | Kapan sebuah pekerjaan boleh disebut selesai                   |
+| 4   | [08_GIT_AND_PR.md](08_GIT_AND_PR.md)                 | Branch, commit, PR                                             |
 
 **Rujukan saat mengerjakan (buka sesuai kebutuhan):**
 
-| Dokumen | Buka ketika |
-|---|---|
-| [02_STYLING.md](02_STYLING.md) | Menulis Tailwind atau menyentuh warna |
-| [03_I18N.md](03_I18N.md) | Menambah teks apa pun |
-| [04_MOTION.md](04_MOTION.md) | Menambah animasi |
-| [05_ACCESSIBILITY.md](05_ACCESSIBILITY.md) | Membuat komponen interaktif |
-| [06_SECURITY.md](06_SECURITY.md) | Menyentuh auth, form, unggahan, atau server action |
-| [07_DATA_PRISMA.md](07_DATA_PRISMA.md) | Menulis query database |
-| [10_TROUBLESHOOTING.md](10_TROUBLESHOOTING.md) | Ada error yang membingungkan |
-| [11_GLOSSARY.md](11_GLOSSARY.md) | Ada istilah yang tidak dikenal |
+| Dokumen                                        | Buka ketika                                        |
+| ---------------------------------------------- | -------------------------------------------------- |
+| [02_STYLING.md](02_STYLING.md)                 | Menulis Tailwind atau menyentuh warna              |
+| [03_I18N.md](03_I18N.md)                       | Menambah teks apa pun                              |
+| [04_MOTION.md](04_MOTION.md)                   | Menambah animasi                                   |
+| [05_ACCESSIBILITY.md](05_ACCESSIBILITY.md)     | Membuat komponen interaktif                        |
+| [06_SECURITY.md](06_SECURITY.md)               | Menyentuh auth, form, unggahan, atau server action |
+| [07_DATA_PRISMA.md](07_DATA_PRISMA.md)         | Menulis query database                             |
+| [10_TROUBLESHOOTING.md](10_TROUBLESHOOTING.md) | Ada error yang membingungkan                       |
+| [11_GLOSSARY.md](11_GLOSSARY.md)               | Ada istilah yang tidak dikenal                     |
 
 ---
 
 ## Konteks proyek
 
-| Ingin tahu | Baca |
-|---|---|
-| Apa yang sedang dibangun | [`../00_MASTER_PRD.md`](../00_MASTER_PRD.md) |
-| Fase mana yang sedang berjalan | [`../../README.md`](../../README.md) |
-| Konten apa yang boleh terbit | [`../phase-0/00_CONTENT_INVENTORY.md`](../phase-0/00_CONTENT_INVENTORY.md) |
-| Bukti apa yang boleh publik | [`../phase-0/02_REDACTION_CHECKLIST.md`](../phase-0/02_REDACTION_CHECKLIST.md) |
-| Bentuk database | [`../phase-0/07_SCHEMA_DECISIONS.md`](../phase-0/07_SCHEMA_DECISIONS.md) |
+| Ingin tahu                          | Baca                                                                             |
+| ----------------------------------- | -------------------------------------------------------------------------------- |
+| Apa yang sedang dibangun            | [`../00_MASTER_PRD.md`](../00_MASTER_PRD.md)                                     |
+| Fase mana yang sedang berjalan      | [`../../README.md`](../../README.md)                                             |
+| Konten apa yang boleh terbit        | [`../phase-0/00_CONTENT_INVENTORY.md`](../phase-0/00_CONTENT_INVENTORY.md)       |
+| Bukti apa yang boleh publik         | [`../phase-0/02_REDACTION_CHECKLIST.md`](../phase-0/02_REDACTION_CHECKLIST.md)   |
+| Bentuk database                     | [`../phase-0/07_SCHEMA_DECISIONS.md`](../phase-0/07_SCHEMA_DECISIONS.md)         |
 | Aturan bahasa Inggris belum lengkap | [`../phase-0/08_I18N_FALLBACK_POLICY.md`](../phase-0/08_I18N_FALLBACK_POLICY.md) |
 
 ⚠️ Bila `phase-0/07_SCHEMA_DECISIONS.md` bertentangan dengan `../04_DATABASE_DRAFT.prisma`,

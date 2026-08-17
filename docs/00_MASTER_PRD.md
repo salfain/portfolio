@@ -20,9 +20,11 @@ The product must feel like a premium professional service website rather than a 
 ### Main positioning
 
 **Indonesian:**
+
 > IT Support profesional yang membantu pengguna, menyelesaikan masalah operasional, dan mendokumentasikan solusinya.
 
 **English:**
+
 > An IT Support professional who helps users, resolves operational issues, and documents the solution.
 
 ---
@@ -31,14 +33,14 @@ The product must feel like a premium professional service website rather than a 
 
 The referenced Anara Travel experience is translated into an original portfolio structure:
 
-| Reference pattern | Portfolio adaptation |
-|---|---|
-| Large travel hero | Professional IT Support positioning hero |
-| Trip search | Explore My Work search/filter panel |
-| Favorite destinations | Featured projects, SOPs, and labs |
-| Why choose us | Why work with me |
-| Services | IT Support capability areas |
-| Private-tour CTA | Recruiter/client contact CTA |
+| Reference pattern     | Portfolio adaptation                      |
+| --------------------- | ----------------------------------------- |
+| Large travel hero     | Professional IT Support positioning hero  |
+| Trip search           | Explore My Work search/filter panel       |
+| Favorite destinations | Featured projects, SOPs, and labs         |
+| Why choose us         | Why work with me                          |
+| Services              | IT Support capability areas               |
+| Private-tour CTA      | Recruiter/client contact CTA              |
 | Premium layered cards | Original project, evidence, and lab cards |
 
 Do not copy the reference site's logo, photographs, wording, exact layout, code, or proprietary assets. Use only broad experience principles: large visual hierarchy, whitespace, content discovery, trust sections, service categories, and smooth motion.

@@ -9,12 +9,14 @@
 ## Yang dibuat
 
 ### Fondasi aplikasi
+
 - Scaffold Next.js 15 App Router + TypeScript strict (manual, tanpa `create-next-app`)
 - Tailwind + design token CSS variable (terang/gelap dari `02_STYLING.md`)
 - Font self-hosted via `next/font`: Plus Jakarta Sans, Inter, JetBrains Mono
 - `cn()` helper (clsx + tailwind-merge)
 
 ### i18n (next-intl)
+
 - Rute bilingual `/id` · `/en`, `localePrefix: 'always'`
 - `src/i18n/{routing,navigation,request}.ts`
 - `middleware.ts` (matcher mengecualikan `/admin` dan `/api`)
@@ -23,10 +25,12 @@
 - Boundary terlokalisasi: `not-found.tsx`, `error.tsx`, `loading.tsx`
 
 ### Tema
+
 - `next-themes` dengan `attribute="data-theme"` — tanpa flash (script blocking)
 - `theme-toggle.tsx` — area sentuh 44×44, hydration-safe
 
 ### Prisma + PostgreSQL
+
 - `prisma/schema.prisma` — disalin dari `07_SCHEMA_DECISIONS.md` §2
 - `src/lib/prisma.ts` — singleton client
 - `src/data/_guards.ts` — `requireAdmin()` (`server-only`)
@@ -34,12 +38,14 @@
   (`init` + `better-auth-align`). Lihat NOTES N3 & N5.
 
 ### Better Auth (admin-only)
+
 - `src/lib/auth.ts` — email+password, tanpa sign-up, plugin admin
 - `src/app/api/auth/[...all]/route.ts`
 - `/admin/login` (teks Indonesia langsung) + `/admin` (cek sesi)
 - `prisma/seed.ts` — idempoten, kredensial dari env var
 
 ### Validasi & tes
+
 - `src/lib/env.ts` — Zod, throw bila invalid
 - `vitest` + `src/test/setup.ts`
 - Tes: `i18n-content.test.ts` (fallback logic), `messages-parity.test.ts` (kunci sinkron)

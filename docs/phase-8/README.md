@@ -7,13 +7,13 @@
 
 ## Kriteria terima
 
-| Kriteria | Status |
-|---|---|
-| Build produksi berhasil | ✅ |
-| Tes E2E kritis lolos | ✅ 26/26 |
-| Draft tidak bisa diakses tanpa otorisasi | ✅ dikunci tes, bukan pemeriksaan manual |
+| Kriteria                                   | Status                                           |
+| ------------------------------------------ | ------------------------------------------------ |
+| Build produksi berhasil                    | ✅                                               |
+| Tes E2E kritis lolos                       | ✅ 26/26                                         |
+| Draft tidak bisa diakses tanpa otorisasi   | ✅ dikunci tes, bukan pemeriksaan manual         |
 | Tidak ada isu berat yang diketahui tersisa | 🟡 satu sedang tersisa, tidak terbukti terdampak |
-| Backup dan rollback terdokumentasi | ✅ dan **diuji** |
+| Backup dan rollback terdokumentasi         | ✅ dan **diuji**                                 |
 
 ---
 
@@ -24,14 +24,14 @@
 `src/lib/security-headers.ts`, dipasang untuk semua rute lewat
 `next.config.ts`.
 
-| Header | Nilai |
-|---|---|
-| Content-Security-Policy | `default-src 'self'`, skrip hanya dari origin sendiri |
-| X-Frame-Options | `DENY` |
-| X-Content-Type-Options | `nosniff` |
-| Referrer-Policy | `strict-origin-when-cross-origin` |
-| Permissions-Policy | kamera, mikrofon, lokasi, pembayaran, USB semuanya ditutup |
-| Strict-Transport-Security | 2 tahun, produksi saja |
+| Header                    | Nilai                                                      |
+| ------------------------- | ---------------------------------------------------------- |
+| Content-Security-Policy   | `default-src 'self'`, skrip hanya dari origin sendiri      |
+| X-Frame-Options           | `DENY`                                                     |
+| X-Content-Type-Options    | `nosniff`                                                  |
+| Referrer-Policy           | `strict-origin-when-cross-origin`                          |
+| Permissions-Policy        | kamera, mikrofon, lokasi, pembayaran, USB semuanya ditutup |
+| Strict-Transport-Security | 2 tahun, produksi saja                                     |
 
 Dipisah ke modul tersendiri **supaya bisa diuji**: header keamanan yang
 salah ketik tidak menghasilkan galat apa pun, ia hanya diam-diam tidak
@@ -88,13 +88,13 @@ Seluruh umpan uji dihapus di `finally` — termasuk saat tes gagal.
 
 ## Temuan keamanan
 
-| # | Temuan | Tingkat | Status |
-|---|---|---|---|
-| 1 | Tidak ada header keamanan sama sekali | tinggi | ✅ diperbaiki |
-| 2 | `next-intl` open redirect (GHSA-8f24-v5vv-gm5j) | sedang | 🟡 tidak terbukti terdampak, perbaikan butuh lompatan mayor |
-| 3 | `postcss`, `sharp` lewat dependency Next.js | tinggi | 🟡 tidak bisa diperbaiki tanpa menurunkan Next enam versi mayor |
-| 4 | Pembatasan laju belum ada | tinggi | ⏳ menunggu keputusan pemilik |
-| 5 | Prototype pollution `next-intl` lewat `precompile` | sedang | ✅ tidak berlaku — `precompile` tidak dipakai |
+| #   | Temuan                                             | Tingkat | Status                                                          |
+| --- | -------------------------------------------------- | ------- | --------------------------------------------------------------- |
+| 1   | Tidak ada header keamanan sama sekali              | tinggi  | ✅ diperbaiki                                                   |
+| 2   | `next-intl` open redirect (GHSA-8f24-v5vv-gm5j)    | sedang  | 🟡 tidak terbukti terdampak, perbaikan butuh lompatan mayor     |
+| 3   | `postcss`, `sharp` lewat dependency Next.js        | tinggi  | 🟡 tidak bisa diperbaiki tanpa menurunkan Next enam versi mayor |
+| 4   | Pembatasan laju belum ada                          | tinggi  | ⏳ menunggu keputusan pemilik                                   |
+| 5   | Prototype pollution `next-intl` lewat `precompile` | sedang  | ✅ tidak berlaku — `precompile` tidak dipakai                   |
 
 Temuan 2 diuji langsung, tidak diasumsikan: tujuh vektor open redirect
 dicoba terhadap server yang berjalan, seluruhnya menghasilkan redirect
@@ -113,18 +113,17 @@ Yang diperiksa dan bersih:
 
 ## Tinjauan performa
 
-| Yang diukur | Hasil |
-|---|---|
+| Yang diukur                 | Hasil                                          |
+| --------------------------- | ---------------------------------------------- |
 | Bundel terbesar rute publik | 215 kB First Load JS (`/knowledge/tag/[slug]`) |
-| Listing Knowledge Base | 207 kB |
-| Detail dokumen | 152 kB |
-| Chunk bersama semua halaman | 103 kB |
-| Waktu tanggap lokal | 5–6 ms (halaman prerender, database kosong) |
+| Listing Knowledge Base      | 207 kB                                         |
+| Detail dokumen              | 152 kB                                         |
+| Chunk bersama semua halaman | 103 kB                                         |
+| Waktu tanggap lokal         | 5–6 ms (halaman prerender, database kosong)    |
 
 **Satu perbaikan nyata:** halaman detail dokumen sempat melakukan satu
 jalan-pulang database berurutan — `getPublishedProfile()` menunggu sendiri
-sebelum `Promise.all` berikutnya, tersisip saat JSON-LD ditambahkan di Fase
-7. Ketiganya kini berjalan bersamaan.
+sebelum `Promise.all` berikutnya, tersisip saat JSON-LD ditambahkan di Fase 7. Ketiganya kini berjalan bersamaan.
 
 **Yang tidak bisa saya pertanggungjawabkan:** chunk 55 kB pada rute listing
 tidak berhasil saya atribusikan dari keluaran terminifikasi. Alat yang tepat
@@ -147,13 +146,13 @@ Pengujiannya langsung menemukan satu kesalahan di runbook: `pg_dump` menolak
 di runbook itu akan gagal bagi siapa pun yang menyalinnya. Sudah diperbaiki
 dan diverifikasi ulang:
 
-| Yang diuji | Hasil |
-|---|---|
-| `pg_dump` format custom | ✅ 52 kB |
-| `pg_restore --list` | ✅ 42 objek |
-| Pulihkan ke database kosong | ✅ 21 tabel |
-| Indeks GIN ikut terpulihkan | ✅ 2 |
-| Kolom generated **tetap** generated | ✅ 2 |
+| Yang diuji                          | Hasil       |
+| ----------------------------------- | ----------- |
+| `pg_dump` format custom             | ✅ 52 kB    |
+| `pg_restore --list`                 | ✅ 42 objek |
+| Pulihkan ke database kosong         | ✅ 21 tabel |
+| Indeks GIN ikut terpulihkan         | ✅ 2        |
+| Kolom generated **tetap** generated | ✅ 2        |
 
 Yang terakhir yang paling mudah terlewat: pulihan yang mengubah
 `searchVector` menjadi kolom biasa akan membuat pencarian diam-diam basi.
@@ -162,13 +161,13 @@ Yang terakhir yang paling mudah terlewat: pulihan yang mengubah
 
 ## Gates
 
-| Gate | Hasil |
-|---|---|
-| lint | ✅ tanpa warning |
-| typecheck | ✅ |
-| test | ✅ 208/208 (naik dari 191) |
-| test:e2e | ✅ 26/26 |
-| build | ✅ |
+| Gate      | Hasil                      |
+| --------- | -------------------------- |
+| lint      | ✅ tanpa warning           |
+| typecheck | ✅                         |
+| test      | ✅ 208/208 (naik dari 191) |
+| test:e2e  | ✅ 26/26                   |
+| build     | ✅                         |
 
 ---
 

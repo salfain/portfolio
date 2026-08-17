@@ -7,19 +7,19 @@
 
 ## Ruang lingkup
 
-| Deliverable `01_PHASES.md` | Status |
-|---|---|
-| Command palette seluruh situs | ✅ |
-| Pencarian full-text PostgreSQL | ✅ |
-| Gambar Open Graph dinamis | ✅ |
-| Structured data & RSS | ✅ |
-| Peringkat konten terkait | ✅ |
-| Analitik sadar privasi | ⏭ dilewati atas keputusan pemilik |
-| Passkey & 2FA (opsional) | ⏭ ditandai opsional di PRD |
-| Ekspor PDF (opsional) | ⏭ ditandai opsional di PRD |
+| Deliverable `01_PHASES.md`     | Status                            |
+| ------------------------------ | --------------------------------- |
+| Command palette seluruh situs  | ✅                                |
+| Pencarian full-text PostgreSQL | ✅                                |
+| Gambar Open Graph dinamis      | ✅                                |
+| Structured data & RSS          | ✅                                |
+| Peringkat konten terkait       | ✅                                |
+| Analitik sadar privasi         | ⏭ dilewati atas keputusan pemilik |
+| Passkey & 2FA (opsional)       | ⏭ ditandai opsional di PRD        |
+| Ekspor PDF (opsional)          | ⏭ ditandai opsional di PRD        |
 
 Analitik dilewati dengan sengaja, dan halaman Kebijakan Privasi karenanya
-tetap benar apa adanya: *"situs ini tidak memakai layanan analitik apa pun."*
+tetap benar apa adanya: _"situs ini tidak memakai layanan analitik apa pun."_
 Menambahkan analitik tanpa memperbarui halaman itu berarti halaman privasi
 berbohong — dan itu jenis kesalahan yang paling merusak kepercayaan.
 
@@ -35,12 +35,12 @@ memakai stemming Indonesia sungguhan, bukan `simple`.
 
 Bedanya nyata:
 
-| Kata | `indonesian` | `simple` |
-|---|---|---|
-| pengaturan | atur | pengaturan |
-| pengguna | guna | pengguna |
-| penyelesaian | selesai | penyelesaian |
-| keamanan | aman | keamanan |
+| Kata                     | `indonesian`  | `simple`      |
+| ------------------------ | ------------- | ------------- |
+| pengaturan               | atur          | pengaturan    |
+| pengguna                 | guna          | pengguna      |
+| penyelesaian             | selesai       | penyelesaian  |
+| keamanan                 | aman          | keamanan      |
 | router, printer, koneksi | tidak berubah | tidak berubah |
 
 Artinya "mengatur", "pengaturan", dan "diatur" saling menemukan — yang justru
@@ -106,12 +106,12 @@ sampai seseorang membukanya.
 
 ## SEO
 
-| Yang dibuat | Catatan |
-|---|---|
-| `opengraph-image` per dokumen | Dibuat saat diminta, isinya hanya dari dokumen itu sendiri |
-| `TechArticle` + `BreadcrumbList` JSON-LD | Di halaman detail dokumen |
-| `Person` JSON-LD | Di beranda, hanya bila profil sudah diisi |
-| RSS per bahasa | `/id/knowledge/rss.xml` dan `/en/...` |
+| Yang dibuat                              | Catatan                                                    |
+| ---------------------------------------- | ---------------------------------------------------------- |
+| `opengraph-image` per dokumen            | Dibuat saat diminta, isinya hanya dari dokumen itu sendiri |
+| `TechArticle` + `BreadcrumbList` JSON-LD | Di halaman detail dokumen                                  |
+| `Person` JSON-LD                         | Di beranda, hanya bila profil sudah diisi                  |
+| RSS per bahasa                           | `/id/knowledge/rss.xml` dan `/en/...`                      |
 
 Aturan yang mengalahkan pertimbangan SEO mana pun di sini: **field yang
 datanya tidak ada tidak diisi.** Schema.org punya banyak properti menggoda —
@@ -126,12 +126,12 @@ warna solid.
 
 ## Gates
 
-| Gate | Hasil |
-|---|---|
-| lint | ✅ tanpa warning |
-| typecheck | ✅ |
-| test | ✅ 191/191 (naik dari 185) |
-| build | ✅ |
+| Gate      | Hasil                      |
+| --------- | -------------------------- |
+| lint      | ✅ tanpa warning           |
+| typecheck | ✅                         |
+| test      | ✅ 191/191 (naik dari 185) |
+| build     | ✅                         |
 
 ---
 
@@ -139,33 +139,33 @@ warna solid.
 
 ### Pencarian
 
-| Yang diuji | Hasil |
-|---|---|
-| "mengatur" menemukan dokumen berisi "pengaturan" | ✅ |
-| "guna" menemukan dokumen berisi "pengguna" | ✅ |
-| Judul (bobot A) menang atas isi (bobot C) | ✅ rank 0.61 vs 0.12 |
-| `((` , kutip tak tertutup, `' OR 1=1 --` | ✅ 200, bukan 500 |
+| Yang diuji                                       | Hasil                |
+| ------------------------------------------------ | -------------------- |
+| "mengatur" menemukan dokumen berisi "pengaturan" | ✅                   |
+| "guna" menemukan dokumen berisi "pengguna"       | ✅                   |
+| Judul (bobot A) menang atas isi (bobot C)        | ✅ rank 0.61 vs 0.12 |
+| `((` , kutip tak tertutup, `' OR 1=1 --`         | ✅ 200, bukan 500    |
 
 ### Command palette
 
-| Yang diuji | Hasil |
-|---|---|
-| Tombol terlihat di navbar | ✅ |
-| Ctrl+K membuka | ✅ |
-| Fokus langsung di kotak isian | ✅ |
-| `aria-activedescendant` menunjuk opsi yang ada | ✅ |
-| Panah bawah memindahkan pilihan | ✅ |
-| Enter membuka halaman hasil | ✅ |
-| Galat konsol | ✅ tidak ada |
+| Yang diuji                                     | Hasil        |
+| ---------------------------------------------- | ------------ |
+| Tombol terlihat di navbar                      | ✅           |
+| Ctrl+K membuka                                 | ✅           |
+| Fokus langsung di kotak isian                  | ✅           |
+| `aria-activedescendant` menunjuk opsi yang ada | ✅           |
+| Panah bawah memindahkan pilihan                | ✅           |
+| Enter membuka halaman hasil                    | ✅           |
+| Galat konsol                                   | ✅ tidak ada |
 
 ### SEO
 
-| Yang diuji | Hasil |
-|---|---|
-| OG dokumen terbit | ✅ 200 image/png |
-| OG slug tidak ada | ✅ tetap gambar, bukan galat |
+| Yang diuji                       | Hasil                           |
+| -------------------------------- | ------------------------------- |
+| OG dokumen terbit                | ✅ 200 image/png                |
+| OG slug tidak ada                | ✅ tetap gambar, bukan galat    |
 | JSON-LD terbaca sebagai JSON sah | ✅ TechArticle + BreadcrumbList |
-| RSS | ✅ 200, XML sah |
+| RSS                              | ✅ 200, XML sah                 |
 
 **Seluruh data uji sudah dihapus.**
 

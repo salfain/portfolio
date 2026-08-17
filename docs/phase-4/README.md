@@ -13,12 +13,12 @@ Isi dokumen disimpan sebagai JSON Tiptap. Kolom `contentIdHtml` **tidak
 pernah** dibaca untuk merender halaman publik — hanya untuk indeks
 pencarian (`07_SCHEMA_DECISIONS.md` §6).
 
-| Berkas | Isi |
-|---|---|
-| `types.ts` | Skema Zod permisif; node tak dikenal lolos parsing, diabaikan saat render |
-| `render.tsx` | JSON → React. Tanpa `dangerouslySetInnerHTML` sama sekali |
-| `headings.ts` | Slug anchor, id unik, ekstraksi teks polos |
-| `safe-url.ts` | Daftar-izin skema URL dan sumber gambar |
+| Berkas        | Isi                                                                       |
+| ------------- | ------------------------------------------------------------------------- |
+| `types.ts`    | Skema Zod permisif; node tak dikenal lolos parsing, diabaikan saat render |
+| `render.tsx`  | JSON → React. Tanpa `dangerouslySetInnerHTML` sama sekali                 |
+| `headings.ts` | Slug anchor, id unik, ekstraksi teks polos                                |
+| `safe-url.ts` | Daftar-izin skema URL dan sumber gambar                                   |
 
 Tiptap **tidak** ikut ke bundel publik — renderer ini menggantikannya.
 Editor Tiptap baru masuk di Fase 5, khusus admin, dimuat dinamis.
@@ -75,12 +75,12 @@ dan footer kini aktif.
 
 ## Gates
 
-| Gate | Hasil |
-|---|---|
-| lint | ✅ tanpa warning |
-| typecheck | ✅ |
-| test | ✅ 94/94 (naik dari 51) |
-| build | ✅ 43 halaman |
+| Gate      | Hasil                   |
+| --------- | ----------------------- |
+| lint      | ✅ tanpa warning        |
+| typecheck | ✅                      |
+| test      | ✅ 94/94 (naik dari 51) |
+| build     | ✅ 43 halaman           |
 
 Tes baru: `prosemirror.test.ts` (28), `knowledge-type.test.ts` (12),
 regresi tanggal ber-cache di `format.test.ts` (5).
@@ -94,37 +94,37 @@ sebagai umpan. **Seluruh data uji sudah dihapus** — semua tabel isi kembali 0.
 
 ### Kontrol akses
 
-| Yang diuji | Hasil |
-|---|---|
-| Dokumen terbit | ✅ 200 |
-| Dokumen **draft** | ✅ **404**, isinya tidak muncul sama sekali di HTML |
-| Slug benar tapi tipe salah | ✅ 404 |
-| Slug tidak ada | ✅ 404 |
-| Segmen tipe tidak dikenal | ✅ 404 |
-| Kategori & tag tidak ada | ✅ 404 |
-| Draft di `sitemap.xml` | ✅ tidak ada |
-| `/recruiter` di `sitemap.xml` | ✅ tidak ada (ber-`noindex`) |
+| Yang diuji                    | Hasil                                               |
+| ----------------------------- | --------------------------------------------------- |
+| Dokumen terbit                | ✅ 200                                              |
+| Dokumen **draft**             | ✅ **404**, isinya tidak muncul sama sekali di HTML |
+| Slug benar tapi tipe salah    | ✅ 404                                              |
+| Slug tidak ada                | ✅ 404                                              |
+| Segmen tipe tidak dikenal     | ✅ 404                                              |
+| Kategori & tag tidak ada      | ✅ 404                                              |
+| Draft di `sitemap.xml`        | ✅ tidak ada                                        |
+| `/recruiter` di `sitemap.xml` | ✅ tidak ada (ber-`noindex`)                        |
 
 ### Render isi
 
-| Yang diuji | Hasil |
-|---|---|
-| Tautan `javascript:` | ✅ href dibuang, teksnya tetap tampil |
-| Tautan https sah | ✅ `target="_blank" rel="noopener noreferrer"` |
-| Dua heading berjudul sama | ✅ `#validasi` dan `#validasi-2` |
-| Daftar isi menunjuk anchor yang benar | ✅ persis sama |
-| Tabel | ✅ pembungkus `overflow-x-auto`, halaman tidak bergulir mendatar |
-| Blok perintah | ✅ tampil, tombol salin ada |
-| Node tak dikenal | ✅ teks di dalamnya tetap dirender |
+| Yang diuji                            | Hasil                                                            |
+| ------------------------------------- | ---------------------------------------------------------------- |
+| Tautan `javascript:`                  | ✅ href dibuang, teksnya tetap tampil                            |
+| Tautan https sah                      | ✅ `target="_blank" rel="noopener noreferrer"`                   |
+| Dua heading berjudul sama             | ✅ `#validasi` dan `#validasi-2`                                 |
+| Daftar isi menunjuk anchor yang benar | ✅ persis sama                                                   |
+| Tabel                                 | ✅ pembungkus `overflow-x-auto`, halaman tidak bergulir mendatar |
+| Blok perintah                         | ✅ tampil, tombol salin ada                                      |
+| Node tak dikenal                      | ✅ teks di dalamnya tetap dirender                               |
 
 ### Filter di URL
 
-| Yang diuji | Hasil |
-|---|---|
-| `?kategori=` cocok / tidak cocok | ✅ 1 / 0 hasil |
-| `?q=` judul dan kode dokumen | ✅ keduanya menemukan |
-| `?tingkat=` cocok / tidak cocok | ✅ 1 / 0 hasil |
-| `?tingkat=DEWA&tag=../../etc` | ✅ 200, nilai tidak sah diabaikan diam-diam |
+| Yang diuji                       | Hasil                                       |
+| -------------------------------- | ------------------------------------------- |
+| `?kategori=` cocok / tidak cocok | ✅ 1 / 0 hasil                              |
+| `?q=` judul dan kode dokumen     | ✅ keduanya menemukan                       |
+| `?tingkat=` cocok / tidak cocok  | ✅ 1 / 0 hasil                              |
+| `?tingkat=DEWA&tag=../../etc`    | ✅ 200, nilai tidak sah diabaikan diam-diam |
 
 ---
 

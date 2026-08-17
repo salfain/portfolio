@@ -65,18 +65,18 @@ export const motionTokens = {
     fast: 0.18,
     normal: 0.35,
     slow: 0.6,
-    hero: 0.8
+    hero: 0.8,
   },
   ease: {
     standard: [0.22, 1, 0.36, 1],
     enter: [0.16, 1, 0.3, 1],
-    exit: [0.4, 0, 1, 1]
+    exit: [0.4, 0, 1, 1],
   },
   distance: {
     small: 8,
     medium: 20,
-    large: 36
-  }
+    large: 36,
+  },
 }
 ```
 

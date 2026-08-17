@@ -13,9 +13,11 @@ Tanda **[PERLU DIISI]** = hanya pemilik yang boleh mengisi.
 Dipakai apa adanya, tidak diubah.
 
 **Indonesia**
+
 > IT Support profesional yang membantu pengguna, menyelesaikan masalah operasional, dan mendokumentasikan solusinya.
 
 **English**
+
 > An IT Support professional who helps users, resolves operational issues, and documents the solution.
 
 ---
@@ -24,12 +26,12 @@ Dipakai apa adanya, tidak diubah.
 
 **[PERLU DIISI]** — pilih salah satu, atau tulis sendiri:
 
-| Opsi | Indonesia | English |
-|---|---|---|
-| A | Terbuka untuk peluang baru | Open to new opportunities |
-| B | Tersedia untuk posisi penuh waktu | Available for full-time roles |
-| C | Sedang bekerja, terbuka untuk diskusi | Currently employed, open to conversations |
-| D | Tidak menampilkan badge | — |
+| Opsi | Indonesia                             | English                                   |
+| ---- | ------------------------------------- | ----------------------------------------- |
+| A    | Terbuka untuk peluang baru            | Open to new opportunities                 |
+| B    | Tersedia untuk posisi penuh waktu     | Available for full-time roles             |
+| C    | Sedang bekerja, terbuka untuk diskusi | Currently employed, open to conversations |
+| D    | Tidak menampilkan badge               | —                                         |
 
 Badge ini harus mudah diubah dari CMS. Badge ketersediaan yang basi lebih merugikan daripada tidak ada badge sama sekali.
 
@@ -85,29 +87,29 @@ Ketiganya bebas klaim: tidak menyebut angka, lama pengalaman, atau prestasi.
 
 Kerangka disiapkan; isinya **[PERLU DIISI]** karena memuat riwayat pribadi.
 
-| Paragraf | Isi | Status |
-|---|---|---|
-| 1 | Siapa saya & apa yang saya kerjakan | [USULAN] tersedia di bagian 5 |
-| 2 | Latar belakang pendidikan | [PERLU DIISI] — kampus, tahun, fokus studi |
-| 3 | Perjalanan ke IT Support | [PERLU DIISI] |
-| 4 | Pengalaman mengajar TKJ dan pengaruhnya ke cara menjelaskan masalah teknis | [PERLU DIISI] |
-| 5 | Cara saya bekerja (proses troubleshooting) | [USULAN] bisa diturunkan dari SOP setelah ditulis |
-| 6 | Yang sedang dipelajari sekarang | [PERLU DIISI] |
-| 7 | Ajakan menghubungi | [USULAN] |
+| Paragraf | Isi                                                                        | Status                                            |
+| -------- | -------------------------------------------------------------------------- | ------------------------------------------------- |
+| 1        | Siapa saya & apa yang saya kerjakan                                        | [USULAN] tersedia di bagian 5                     |
+| 2        | Latar belakang pendidikan                                                  | [PERLU DIISI] — kampus, tahun, fokus studi        |
+| 3        | Perjalanan ke IT Support                                                   | [PERLU DIISI]                                     |
+| 4        | Pengalaman mengajar TKJ dan pengaruhnya ke cara menjelaskan masalah teknis | [PERLU DIISI]                                     |
+| 5        | Cara saya bekerja (proses troubleshooting)                                 | [USULAN] bisa diturunkan dari SOP setelah ditulis |
+| 6        | Yang sedang dipelajari sekarang                                            | [PERLU DIISI]                                     |
+| 7        | Ajakan menghubungi                                                         | [USULAN]                                          |
 
 ---
 
 ## 7. CTA
 
-| Konteks | Indonesia | English |
-|---|---|---|
-| CTA utama hero | Lihat Portofolio | View Portfolio |
-| CTA kedua hero | Jelajahi Knowledge Base | Explore Knowledge Base |
-| CTA kontak | Hubungi Saya | Get in Touch |
-| Unduh CV | Unduh CV | Download CV |
-| Mode recruiter | Ringkasan untuk Recruiter | Recruiter Summary |
-| Kartu proyek | Baca studi kasus | Read case study |
-| Kartu KB | Baca dokumen | Read document |
+| Konteks        | Indonesia                 | English                |
+| -------------- | ------------------------- | ---------------------- |
+| CTA utama hero | Lihat Portofolio          | View Portfolio         |
+| CTA kedua hero | Jelajahi Knowledge Base   | Explore Knowledge Base |
+| CTA kontak     | Hubungi Saya              | Get in Touch           |
+| Unduh CV       | Unduh CV                  | Download CV            |
+| Mode recruiter | Ringkasan untuk Recruiter | Recruiter Summary      |
+| Kartu proyek   | Baca studi kasus          | Read case study        |
+| Kartu KB       | Baca dokumen              | Read document          |
 
 ---
 
@@ -115,19 +117,19 @@ Kerangka disiapkan; isinya **[PERLU DIISI]** karena memuat riwayat pribadi.
 
 Sesuai urutan di PRD Fase 3.
 
-| # | Indonesia | English |
-|---|---|---|
-| 1 | *(hero)* | *(hero)* |
-| 2 | Jelajahi Pekerjaan Saya | Explore My Work |
-| 3 | Ringkasan | At a Glance |
-| 4 | Pekerjaan Pilihan | Featured Work |
-| 5 | Kenapa Bekerja dengan Saya | Why Work With Me |
-| 6 | Kemampuan IT Support | IT Support Capabilities |
-| 7 | Cara Saya Menangani Masalah | How I Troubleshoot |
-| 8 | Pengalaman | Experience |
-| 9 | Sertifikasi & Pembelajaran | Certifications & Learning |
-| 10 | Dari Knowledge Base | From the Knowledge Base |
-| 11 | Mari Bicara | Let's Talk |
+| #   | Indonesia                   | English                   |
+| --- | --------------------------- | ------------------------- |
+| 1   | _(hero)_                    | _(hero)_                  |
+| 2   | Jelajahi Pekerjaan Saya     | Explore My Work           |
+| 3   | Ringkasan                   | At a Glance               |
+| 4   | Pekerjaan Pilihan           | Featured Work             |
+| 5   | Kenapa Bekerja dengan Saya  | Why Work With Me          |
+| 6   | Kemampuan IT Support        | IT Support Capabilities   |
+| 7   | Cara Saya Menangani Masalah | How I Troubleshoot        |
+| 8   | Pengalaman                  | Experience                |
+| 9   | Sertifikasi & Pembelajaran  | Certifications & Learning |
+| 10  | Dari Knowledge Base         | From the Knowledge Base   |
+| 11  | Mari Bicara                 | Let's Talk                |
 
 Bagian 3 sengaja diberi judul "Ringkasan / At a Glance", bukan "Career Metrics". Judul bernuansa metrik menuntut angka; kalau angkanya tidak ada, judul netral tetap jujur dan tetap berfungsi.
 

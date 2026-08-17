@@ -7,10 +7,10 @@ konten, perlindungan kontak, dan uji pengiriman form
 
 Fase 3 dipecah dua langkah supaya bisa ditinjau lebih awal:
 
-| Langkah | Cakupan | Status |
-|---|---|---|
-| **3a** | Lapisan data + seluruh halaman publik | ✅ Selesai |
-| **3b** | Guard middleware admin + admin CRUD + `/admin/messages` | ✅ Kode selesai; uji form tertunda |
+| Langkah | Cakupan                                                 | Status                             |
+| ------- | ------------------------------------------------------- | ---------------------------------- |
+| **3a**  | Lapisan data + seluruh halaman publik                   | ✅ Selesai                         |
+| **3b**  | Guard middleware admin + admin CRUD + `/admin/messages` | ✅ Kode selesai; uji form tertunda |
 
 ---
 
@@ -21,16 +21,16 @@ Fase 3 dipecah dua langkah supaya bisa ditinjau lebih awal:
 Seluruhnya `import 'server-only'`, memakai `select` eksplisit, dan menyaring
 `status: 'PUBLISHED'` pada setiap query publik.
 
-| Berkas | Isi |
-|---|---|
-| `profile.ts` | `getPublishedProfile`, `getRecruiterProfile` — dua bentuk `select` berbeda |
-| `experience.ts` | `getPublishedExperiences`, `toAchievements` (normalisasi `Json?` → `string[]`) |
-| `project.ts` | `getPublishedProjects`, `getFeaturedProjects`, `getPublishedProjectBySlug`, `getPublishedProjectSlugs` |
-| `skill.ts` | `getPublishedSkills`, `groupSkillsByCategory` |
-| `certificate.ts` | `getPublishedCertificates` |
-| `stats.ts` | `getCareerStats` — seluruh angka dihitung dari database |
-| `settings.ts` | `getNarrativeSection` — bagian naratif dari `SiteSetting`, divalidasi Zod |
-| `contact.ts` | `createContactMessage`, `countRecentMessagesFrom` |
+| Berkas           | Isi                                                                                                    |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| `profile.ts`     | `getPublishedProfile`, `getRecruiterProfile` — dua bentuk `select` berbeda                             |
+| `experience.ts`  | `getPublishedExperiences`, `toAchievements` (normalisasi `Json?` → `string[]`)                         |
+| `project.ts`     | `getPublishedProjects`, `getFeaturedProjects`, `getPublishedProjectBySlug`, `getPublishedProjectSlugs` |
+| `skill.ts`       | `getPublishedSkills`, `groupSkillsByCategory`                                                          |
+| `certificate.ts` | `getPublishedCertificates`                                                                             |
+| `stats.ts`       | `getCareerStats` — seluruh angka dihitung dari database                                                |
+| `settings.ts`    | `getNarrativeSection` — bagian naratif dari `SiteSetting`, divalidasi Zod                              |
+| `contact.ts`     | `createContactMessage`, `countRecentMessagesFrom`                                                      |
 
 **Pemisahan kontak yang disengaja:** `publicProfileSelect` **tidak** memuat
 `email`, `phone`, dan `whatsapp`. Hanya `recruiterProfileSelect` yang memuatnya,
@@ -67,15 +67,15 @@ Knowledge Base) belum ada — dibuat di Fase 4.
 Q4–Q10 di `docs/phase-0/06_OPEN_QUESTIONS.md` belum dijawab. Tidak ada satu pun
 fakta yang dikarang untuk menutupinya:
 
-| Yang butuh data pemilik | Perilaku tanpa data |
-|---|---|
-| Profil, pengalaman, keahlian, sertifikat, proyek | Empty state, bukan isi karangan |
-| "Kenapa Bekerja dengan Saya" | Bagian **tidak dirender sama sekali** |
-| "Cara Saya Menangani Masalah" | Bagian **tidak dirender sama sekali** |
-| "Perjalanan Saya" di `/about` | Bagian **tidak dirender sama sekali** |
-| Metrik di "Ringkasan" | Hanya angka hasil hitung database; kartu bernilai 0 disembunyikan |
-| Tombol Unduh CV | Hanya muncul bila `cvIdUrl` / `cvEnUrl` terisi |
-| Penanda sertifikat terverifikasi | Hanya bila `credentialUrl` terisi |
+| Yang butuh data pemilik                          | Perilaku tanpa data                                               |
+| ------------------------------------------------ | ----------------------------------------------------------------- |
+| Profil, pengalaman, keahlian, sertifikat, proyek | Empty state, bukan isi karangan                                   |
+| "Kenapa Bekerja dengan Saya"                     | Bagian **tidak dirender sama sekali**                             |
+| "Cara Saya Menangani Masalah"                    | Bagian **tidak dirender sama sekali**                             |
+| "Perjalanan Saya" di `/about`                    | Bagian **tidak dirender sama sekali**                             |
+| Metrik di "Ringkasan"                            | Hanya angka hasil hitung database; kartu bernilai 0 disembunyikan |
+| Tombol Unduh CV                                  | Hanya muncul bila `cvIdUrl` / `cvEnUrl` terisi                    |
+| Penanda sertifikat terverifikasi                 | Hanya bila `credentialUrl` terisi                                 |
 
 Satu-satunya teks profil yang dipakai sebagai fallback hero adalah kutipan
 final dari PRD bab 1 dan `03_PROFILE_COPY.md` §1 & §3 — bukan karangan:
@@ -87,12 +87,12 @@ final dari PRD bab 1 dan `03_PROFILE_COPY.md` §1 & §3 — bukan karangan:
 
 ## Gates
 
-| Gate | Hasil |
-|---|---|
-| lint | ✅ tanpa warning |
-| typecheck | ✅ |
-| test | ✅ 32/32 (naik dari 13) |
-| build | ✅ 28/28 halaman |
+| Gate      | Hasil                   |
+| --------- | ----------------------- |
+| lint      | ✅ tanpa warning        |
+| typecheck | ✅                      |
+| test      | ✅ 32/32 (naik dari 13) |
+| build     | ✅ 28/28 halaman        |
 
 Tes baru: `format.test.ts` (7), `schemas/contact.test.ts` (8),
 `resolveLocalized` di `i18n-content.test.ts` (4).
@@ -105,22 +105,22 @@ Dijalankan terhadap build produksi di port 5321, memakai dua proyek uji
 sementara (`zz-uji-terbit` PUBLISHED, `zz-uji-draft` DRAFT) yang **sudah
 dihapus** setelah pengujian.
 
-| Yang diuji | Hasil |
-|---|---|
-| 11 rute publik × ID & EN | ✅ 200 |
-| Proyek PUBLISHED | ✅ 200 |
-| Proyek DRAFT | ✅ **404**, bukan 403, bukan 200 |
-| Slug tidak ada | ✅ 404 |
-| `/knowledge` (di balik flag) | ✅ 404, dan tidak ditaut dari mana pun |
-| `generateStaticParams` | ✅ hanya slug PUBLISHED yang dibangun |
-| `<html lang>` | ✅ `id` di `/id`, `en` di `/en` |
-| Banner terjemahan di `/en` | ✅ `role="note"` muncul |
-| `lang="id"` pada isi ID di halaman `/en` | ✅ |
-| Canonical `/en` belum lengkap → `/id` | ✅ |
-| Canonical `/id` → dirinya sendiri | ✅ |
-| `/recruiter` | ✅ `noindex, follow` |
-| Bagian naratif tanpa data | ✅ tidak dirender |
-| Jalur simpan form kontak + penghitung rate limit | ✅ (diuji lewat lapisan data) |
+| Yang diuji                                       | Hasil                                  |
+| ------------------------------------------------ | -------------------------------------- |
+| 11 rute publik × ID & EN                         | ✅ 200                                 |
+| Proyek PUBLISHED                                 | ✅ 200                                 |
+| Proyek DRAFT                                     | ✅ **404**, bukan 403, bukan 200       |
+| Slug tidak ada                                   | ✅ 404                                 |
+| `/knowledge` (di balik flag)                     | ✅ 404, dan tidak ditaut dari mana pun |
+| `generateStaticParams`                           | ✅ hanya slug PUBLISHED yang dibangun  |
+| `<html lang>`                                    | ✅ `id` di `/id`, `en` di `/en`        |
+| Banner terjemahan di `/en`                       | ✅ `role="note"` muncul                |
+| `lang="id"` pada isi ID di halaman `/en`         | ✅                                     |
+| Canonical `/en` belum lengkap → `/id`            | ✅                                     |
+| Canonical `/id` → dirinya sendiri                | ✅                                     |
+| `/recruiter`                                     | ✅ `noindex, follow`                   |
+| Bagian naratif tanpa data                        | ✅ tidak dirender                      |
+| Jalur simpan form kontak + penghitung rate limit | ✅ (diuji lewat lapisan data)          |
 
 **Belum diverifikasi:** pengiriman form kontak lewat HTTP sungguhan. Payload
 server action Next.js berformat internal dan tidak bisa dirakit dengan `curl`.
@@ -141,11 +141,11 @@ reduced motion. Tambahan untuk fase ini: **pratinjau cetak `/recruiter`**.
 
 ## Guard admin (dua lapisan)
 
-| Lapisan | Berkas | Sifat |
-|---|---|---|
-| Middleware | `src/middleware.ts` | Optimis — hanya cek keberadaan cookie. Edge tidak bisa memakai Prisma. |
-| Halaman | `requireAdminPage()` di `src/data/_guards.ts` | Menentukan — sesi divalidasi ke database, gagal → redirect ke login |
-| Server action | `requireAdmin()` di `src/data/_guards.ts` | Menentukan — gagal → melempar, action mengembalikan pesan ke form |
+| Lapisan       | Berkas                                        | Sifat                                                                  |
+| ------------- | --------------------------------------------- | ---------------------------------------------------------------------- |
+| Middleware    | `src/middleware.ts`                           | Optimis — hanya cek keberadaan cookie. Edge tidak bisa memakai Prisma. |
+| Halaman       | `requireAdminPage()` di `src/data/_guards.ts` | Menentukan — sesi divalidasi ke database, gagal → redirect ke login    |
+| Server action | `requireAdmin()` di `src/data/_guards.ts`     | Menentukan — gagal → melempar, action mengembalikan pesan ke form      |
 
 Setiap fungsi `getAdmin*` dan setiap mutasi memanggil guard-nya **di dalam
 dirinya sendiri**, bukan bergantung pada pemanggil (`07_DATA_PRISMA.md` §2).
@@ -182,12 +182,12 @@ Aturan yang ditegakkan skema:
 
 ## Gates 3b
 
-| Gate | Hasil |
-|---|---|
-| lint | ✅ tanpa warning |
-| typecheck | ✅ |
-| test | ✅ 43/43 (naik dari 32) |
-| build | ✅ 25 halaman publik + 16 rute admin |
+| Gate      | Hasil                                |
+| --------- | ------------------------------------ |
+| lint      | ✅ tanpa warning                     |
+| typecheck | ✅                                   |
+| test      | ✅ 43/43 (naik dari 32)              |
+| build     | ✅ 25 halaman publik + 16 rute admin |
 
 Tes baru: `narrative-format.test.ts` (11 tes untuk parser blok naratif).
 
@@ -195,17 +195,17 @@ Tes baru: `narrative-format.test.ts` (11 tes untuk parser blok naratif).
 
 Dijalankan terhadap build produksi di port 5322, memakai akun admin hasil seed.
 
-| Kondisi | Hasil |
-|---|---|
-| Tanpa cookie → 9 rute admin | ✅ 307 ke `/admin/login` |
-| Cookie palsu → 4 rute admin | ✅ 307 ke `/admin/login` (sebelum perbaikan: 500) |
-| `/admin/login` tanpa sesi | ✅ 200 — tidak ikut terkunci |
-| Login lewat API Better Auth | ✅ 200, cookie sesi diterbitkan |
-| Sesi sah → 9 rute admin | ✅ 200 |
-| Origin tidak cocok saat login | ✅ 403 `INVALID_ORIGIN` — proteksi CSRF bekerja |
-| Simpan bagian naratif → tampil di beranda | ✅ ID & EN |
-| Tiga kunci naratif tidak tertukar | ✅ masing-masing terisolasi |
-| Bagian naratif yang masih kosong | ✅ tetap tidak dirender |
+| Kondisi                                   | Hasil                                             |
+| ----------------------------------------- | ------------------------------------------------- |
+| Tanpa cookie → 9 rute admin               | ✅ 307 ke `/admin/login`                          |
+| Cookie palsu → 4 rute admin               | ✅ 307 ke `/admin/login` (sebelum perbaikan: 500) |
+| `/admin/login` tanpa sesi                 | ✅ 200 — tidak ikut terkunci                      |
+| Login lewat API Better Auth               | ✅ 200, cookie sesi diterbitkan                   |
+| Sesi sah → 9 rute admin                   | ✅ 200                                            |
+| Origin tidak cocok saat login             | ✅ 403 `INVALID_ORIGIN` — proteksi CSRF bekerja   |
+| Simpan bagian naratif → tampil di beranda | ✅ ID & EN                                        |
+| Tiga kunci naratif tidak tertukar         | ✅ masing-masing terisolasi                       |
+| Bagian naratif yang masih kosong          | ✅ tetap tidak dirender                           |
 
 Seluruh data uji sudah dihapus — database kembali kosong di semua tabel isi.
 
@@ -229,12 +229,12 @@ punya sesi tanpa memeriksa role. Perbaikan:
 
 Verifikasi produksi terisolasi:
 
-| Kondisi | Hasil |
-|---|---|
-| `/admin/login` tanpa sesi | ✅ 200 |
-| halaman admin tanpa sesi | ✅ 307 ke `/admin/login` |
-| halaman admin dengan cookie palsu | ✅ 307 ke `/admin/login` |
-| registrasi email/password publik | ✅ 400 `EMAIL_PASSWORD_SIGN_UP_DISABLED` |
+| Kondisi                           | Hasil                                    |
+| --------------------------------- | ---------------------------------------- |
+| `/admin/login` tanpa sesi         | ✅ 200                                   |
+| halaman admin tanpa sesi          | ✅ 307 ke `/admin/login`                 |
+| halaman admin dengan cookie palsu | ✅ 307 ke `/admin/login`                 |
+| registrasi email/password publik  | ✅ 400 `EMAIL_PASSWORD_SIGN_UP_DISABLED` |
 
 Gate terbaru: lint ✅ · typecheck ✅ · test ✅ **51/51** · build ✅ **25/25**.
 Fase 3 belum dinyatakan selesai karena N3, N6, dan N16 masih menghambat.

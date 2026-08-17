@@ -84,16 +84,16 @@ npm run build
 
 Lalu periksa manual — ini yang paling sering dilewatkan:
 
-| Periksa | Cara |
-|---|---|
-| Bahasa Indonesia | Buka `/id/...` |
-| Bahasa Inggris | Buka `/en/...` |
-| Tema terang | Toggle tema |
-| Tema gelap | Toggle tema, lalu **hard reload** untuk memastikan tidak ada flash |
-| Mobile | DevTools 375 px |
-| Desktop | 1440 px |
-| Keyboard | Tab dari atas ke bawah, pastikan fokus selalu terlihat |
-| Reduced motion | Aktifkan di OS, pastikan tidak ada gerakan berlebihan |
+| Periksa          | Cara                                                               |
+| ---------------- | ------------------------------------------------------------------ |
+| Bahasa Indonesia | Buka `/id/...`                                                     |
+| Bahasa Inggris   | Buka `/en/...`                                                     |
+| Tema terang      | Toggle tema                                                        |
+| Tema gelap       | Toggle tema, lalu **hard reload** untuk memastikan tidak ada flash |
+| Mobile           | DevTools 375 px                                                    |
+| Desktop          | 1440 px                                                            |
+| Keyboard         | Tab dari atas ke bawah, pastikan fokus selalu terlihat             |
+| Reduced motion   | Aktifkan di OS, pastikan tidak ada gerakan berlebihan              |
 
 Delapan-delapannya, setiap kali. Bukan hanya yang terasa relevan.
 
@@ -112,12 +112,12 @@ Laporan poin 3 wajib. Fase berikutnya dikerjakan berdasarkan laporan ini.
 
 ## Yang tidak boleh dilakukan
 
-| ❌ | Kenapa |
-|---|---|
-| Mengerjakan sebagian Fase 5 saat masih di Fase 4 | Merusak disiplin fase dan mempersulit pemeriksaan |
-| Merombak kode fase sebelumnya tanpa diminta | Fase sebelumnya sudah lolos pemeriksaan |
-| `// TODO: nanti` tanpa mencatatnya di NOTES.md | TODO yang tidak tercatat tidak akan pernah dikerjakan |
-| Menonaktifkan aturan ESLint agar build lolos | Perbaiki penyebabnya, atau tanya |
-| `npm run build -- --no-lint` | Sama seperti di atas |
-| Melakukan commit `.env.local` | Kebocoran kredensial |
-| Mengubah `prisma/schema.prisma` tanpa migrasi | Database dev dan skema jadi tidak sinkron |
+| ❌                                               | Kenapa                                                |
+| ------------------------------------------------ | ----------------------------------------------------- |
+| Mengerjakan sebagian Fase 5 saat masih di Fase 4 | Merusak disiplin fase dan mempersulit pemeriksaan     |
+| Merombak kode fase sebelumnya tanpa diminta      | Fase sebelumnya sudah lolos pemeriksaan               |
+| `// TODO: nanti` tanpa mencatatnya di NOTES.md   | TODO yang tidak tercatat tidak akan pernah dikerjakan |
+| Menonaktifkan aturan ESLint agar build lolos     | Perbaiki penyebabnya, atau tanya                      |
+| `npm run build -- --no-lint`                     | Sama seperti di atas                                  |
+| Melakukan commit `.env.local`                    | Kebocoran kredensial                                  |
+| Mengubah `prisma/schema.prisma` tanpa migrasi    | Database dev dan skema jadi tidak sinkron             |

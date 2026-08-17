@@ -7,12 +7,12 @@ disalin apa adanya.
 
 ## Yang perlu ada dulu
 
-| | Versi | Cek |
-|---|---|---|
-| Node.js | 20 atau lebih baru | `node -v` |
-| npm | ikut Node | `npm -v` |
-| Docker Desktop | untuk PostgreSQL | `docker -v` |
-| Git | | `git -v` |
+|                | Versi              | Cek         |
+| -------------- | ------------------ | ----------- |
+| Node.js        | 20 atau lebih baru | `node -v`   |
+| npm            | ikut Node          | `npm -v`    |
+| Docker Desktop | untuk PostgreSQL   | `docker -v` |
+| Git            |                    | `git -v`    |
 
 Docker dipakai hanya untuk databasenya. Kalau kamu sudah punya PostgreSQL
 sendiri, lewati langkah 3 dan arahkan `DATABASE_URL` ke sana.
@@ -123,10 +123,10 @@ npm run dev
 
 Buka:
 
-| Alamat | Isi |
-|---|---|
-| http://localhost:3000/id | Situs, bahasa Indonesia |
-| http://localhost:3000/en | Situs, bahasa Inggris |
+| Alamat                      | Isi                            |
+| --------------------------- | ------------------------------ |
+| http://localhost:3000/id    | Situs, bahasa Indonesia        |
+| http://localhost:3000/en    | Situs, bahasa Inggris          |
 | http://localhost:3000/admin | Panel admin (akan minta login) |
 
 > Situsnya akan terlihat **kosong**, dan itu memang benar. Belum ada isi
@@ -186,14 +186,14 @@ gagal.
 
 ## Kalau macet
 
-| Gejala | Sebab yang paling sering |
-|---|---|
-| `Can't reach database server` | Docker belum jalan — `docker compose up -d` |
-| `password authentication failed` | Kata sandi di `.env` dan `.env.local` berbeda |
+| Gejala                             | Sebab yang paling sering                                                |
+| ---------------------------------- | ----------------------------------------------------------------------- |
+| `Can't reach database server`      | Docker belum jalan — `docker compose up -d`                             |
+| `password authentication failed`   | Kata sandi di `.env` dan `.env.local` berbeda                           |
 | `Variabel environment tidak valid` | Ada baris yang belum diisi di `.env.local`; pesannya menyebut yang mana |
-| Login membalas 403 | `BETTER_AUTH_URL` tidak sama dengan alamat yang dibuka |
-| `Table does not exist` | Migrasi belum dijalankan — langkah 4 |
-| Port 3000 dipakai | `PORT=3001 npm run dev` |
+| Login membalas 403                 | `BETTER_AUTH_URL` tidak sama dengan alamat yang dibuka                  |
+| `Table does not exist`             | Migrasi belum dijalankan — langkah 4                                    |
+| Port 3000 dipakai                  | `PORT=3001 npm run dev`                                                 |
 
 Mengulang database dari nol (**semua isi hilang**):
 

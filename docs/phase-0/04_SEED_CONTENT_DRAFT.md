@@ -26,11 +26,11 @@ content/
     └── sop-knowledge-base.json
 ```
 
-| Fase | Peran berkas ini |
-|---|---|
-| 4 | Sumber `prisma/seed.ts` untuk mengisi database |
-| 5 | Format import & **export backup** CMS |
-| 8 | Bagian dari prosedur backup/rollback |
+| Fase | Peran berkas ini                               |
+| ---- | ---------------------------------------------- |
+| 4    | Sumber `prisma/seed.ts` untuk mengisi database |
+| 5    | Format import & **export backup** CMS          |
+| 8    | Bagian dari prosedur backup/rollback           |
 
 Berkas ini disimpan di repositori, jadi konten punya riwayat versi lewat git sejak awal.
 
@@ -40,7 +40,7 @@ Berkas ini disimpan di repositori, jadi konten punya riwayat versi lewat git sej
 
 ```jsonc
 {
-  "type": "SOP",                    // SOP | LAB | INCIDENT | ARTICLE
+  "type": "SOP", // SOP | LAB | INCIDENT | ARTICLE
   "slug": "sop-setup-laptop-baru",
   "documentCode": "SOP-002",
   "version": "1.0",
@@ -48,19 +48,19 @@ Berkas ini disimpan di repositori, jadi konten punya riwayat versi lewat git sej
   "category": "endpoint",
   "tags": ["windows", "onboarding", "endpoint"],
   "tools": ["Windows 11", "PNETLab"],
-  "difficulty": "BEGINNER",         // BEGINNER | INTERMEDIATE | ADVANCED
+  "difficulty": "BEGINNER", // BEGINNER | INTERMEDIATE | ADVANCED
   "estimatedMinutes": 12,
   "isFeatured": true,
 
   "titleId": "...",
-  "titleEn": null,                  // null = belum diterjemahkan
+  "titleEn": null, // null = belum diterjemahkan
   "summaryId": "...",
   "summaryEn": null,
 
-  "contentIdJson": { "type": "doc", "content": [] },   // dokumen Tiptap
+  "contentIdJson": { "type": "doc", "content": [] }, // dokumen Tiptap
   "contentEnJson": null,
 
-  "metadata": {},                   // lihat bagian 4
+  "metadata": {}, // lihat bagian 4
 
   "evidence": [
     {
@@ -71,9 +71,9 @@ Berkas ini disimpan di repositori, jadi konten punya riwayat versi lewat git sej
       "captionId": "...",
       "captionEn": null,
       "isPublic": true,
-      "redactionConfirmed": true
-    }
-  ]
+      "redactionConfirmed": true,
+    },
+  ],
 }
 ```
 
@@ -87,57 +87,57 @@ Diturunkan dari PRD bab 11. Ini menjadi template di editor Tiptap pada Fase 5.
 
 ### SOP
 
-| # | Blok | Wajib |
-|---|---|---|
-| 1 | Tujuan | ✔ |
-| 2 | Ruang lingkup | ✔ |
-| 3 | Definisi & istilah | |
-| 4 | Penanggung jawab | ✔ |
-| 5 | Prasyarat | ✔ |
-| 6 | Prosedur (langkah bernomor) | ✔ |
-| 7 | Validasi / cara memastikan berhasil | ✔ |
-| 8 | Eskalasi | ✔ |
-| 9 | Catatan keamanan | |
-| 10 | Risiko | |
-| 11 | Rollback | |
-| 12 | Bukti | |
-| 13 | Riwayat revisi | otomatis |
+| #   | Blok                                | Wajib    |
+| --- | ----------------------------------- | -------- |
+| 1   | Tujuan                              | ✔        |
+| 2   | Ruang lingkup                       | ✔        |
+| 3   | Definisi & istilah                  |          |
+| 4   | Penanggung jawab                    | ✔        |
+| 5   | Prasyarat                           | ✔        |
+| 6   | Prosedur (langkah bernomor)         | ✔        |
+| 7   | Validasi / cara memastikan berhasil | ✔        |
+| 8   | Eskalasi                            | ✔        |
+| 9   | Catatan keamanan                    |          |
+| 10  | Risiko                              |          |
+| 11  | Rollback                            |          |
+| 12  | Bukti                               |          |
+| 13  | Riwayat revisi                      | otomatis |
 
 ### Lab PNETLab
 
-| # | Blok | Wajib |
-|---|---|---|
-| 1 | Tujuan pembelajaran | ✔ |
-| 2 | Skenario | ✔ |
-| 3 | Topologi (gambar) | ✔ |
-| 4 | Daftar perangkat & interface | ✔ |
-| 5 | Rencana IP & VLAN (tabel) | ✔ |
-| 6 | Langkah konfigurasi | ✔ |
-| 7 | Blok perintah | ✔ |
-| 8 | Test case (harapan vs hasil) | ✔ |
-| 9 | Simulasi gangguan | |
-| 10 | Hasil & bukti | ✔ |
-| 11 | Pelajaran | ✔ |
-| 12 | Unduhan tersanitasi | |
+| #   | Blok                         | Wajib |
+| --- | ---------------------------- | ----- |
+| 1   | Tujuan pembelajaran          | ✔     |
+| 2   | Skenario                     | ✔     |
+| 3   | Topologi (gambar)            | ✔     |
+| 4   | Daftar perangkat & interface | ✔     |
+| 5   | Rencana IP & VLAN (tabel)    | ✔     |
+| 6   | Langkah konfigurasi          | ✔     |
+| 7   | Blok perintah                | ✔     |
+| 8   | Test case (harapan vs hasil) | ✔     |
+| 9   | Simulasi gangguan            |       |
+| 10  | Hasil & bukti                | ✔     |
+| 11  | Pelajaran                    | ✔     |
+| 12  | Unduhan tersanitasi          |       |
 
 ### Laporan insiden
 
-| # | Blok | Wajib |
-|---|---|---|
-| 0 | **Penanda skenario lab** (jika berlaku) | ✔ kondisional |
-| 1 | Nomor insiden | ✔ |
-| 2 | Dampak, urgensi, prioritas | ✔ |
-| 3 | Layanan terdampak | ✔ |
-| 4 | Gejala | ✔ |
-| 5 | Timeline | ✔ |
-| 6 | Investigasi | ✔ |
-| 7 | Akar masalah (RCA) | ✔ |
-| 8 | Workaround | |
-| 9 | Penyelesaian | ✔ |
-| 10 | Validasi | ✔ |
-| 11 | Pencegahan | ✔ |
-| 12 | Bukti | |
-| 13 | SOP terkait | |
+| #   | Blok                                    | Wajib         |
+| --- | --------------------------------------- | ------------- |
+| 0   | **Penanda skenario lab** (jika berlaku) | ✔ kondisional |
+| 1   | Nomor insiden                           | ✔             |
+| 2   | Dampak, urgensi, prioritas              | ✔             |
+| 3   | Layanan terdampak                       | ✔             |
+| 4   | Gejala                                  | ✔             |
+| 5   | Timeline                                | ✔             |
+| 6   | Investigasi                             | ✔             |
+| 7   | Akar masalah (RCA)                      | ✔             |
+| 8   | Workaround                              |               |
+| 9   | Penyelesaian                            | ✔             |
+| 10  | Validasi                                | ✔             |
+| 11  | Pencegahan                              | ✔             |
+| 12  | Bukti                                   |               |
+| 13  | SOP terkait                             |               |
 
 ### Artikel teknis
 
@@ -171,38 +171,38 @@ Isi teknisnya **[PERLU DIISI]** — hanya kerangka dan alasan pemilihan yang dis
 
 ### Proyek
 
-| Slug | Judul kerja | Kenapa dipilih | Bukti yang diperlukan |
-|---|---|---|---|
-| `it-support-operations` | Studi kasus operasional IT Support | Paling langsung menjawab target posisi | ⚠️ perlu bukti yang boleh dipublikasikan |
-| `lab-pnetlab-kantor` | Lab jaringan kantor di PNETLab | Menunjukkan pemahaman jaringan tanpa perlu data perusahaan | Screenshot topologi + output verifikasi |
-| `sop-knowledge-base` | SOP & Knowledge Base IT Support | Situs ini sendiri; menunjukkan kemampuan dokumentasi dan pengembangan | Screenshot CMS & halaman KB |
+| Slug                    | Judul kerja                        | Kenapa dipilih                                                        | Bukti yang diperlukan                    |
+| ----------------------- | ---------------------------------- | --------------------------------------------------------------------- | ---------------------------------------- |
+| `it-support-operations` | Studi kasus operasional IT Support | Paling langsung menjawab target posisi                                | ⚠️ perlu bukti yang boleh dipublikasikan |
+| `lab-pnetlab-kantor`    | Lab jaringan kantor di PNETLab     | Menunjukkan pemahaman jaringan tanpa perlu data perusahaan            | Screenshot topologi + output verifikasi  |
+| `sop-knowledge-base`    | SOP & Knowledge Base IT Support    | Situs ini sendiri; menunjukkan kemampuan dokumentasi dan pengembangan | Screenshot CMS & halaman KB              |
 
 Proyek ketiga bersifat meta dan baru bisa ditulis setelah Fase 5. Dijadwalkan di Fase 9.
 
 ### SOP
 
-| Slug | Kode | Fokus |
-|---|---|---|
-| `sop-setup-laptop-baru` | SOP-002 | Perangkat / endpoint |
-| `sop-onboarding-pengguna` | SOP-003 | Proses & akun |
-| `sop-troubleshooting-tanpa-internet` | SOP-006 | Diagnosis jaringan |
+| Slug                                 | Kode    | Fokus                |
+| ------------------------------------ | ------- | -------------------- |
+| `sop-setup-laptop-baru`              | SOP-002 | Perangkat / endpoint |
+| `sop-onboarding-pengguna`            | SOP-003 | Proses & akun        |
+| `sop-troubleshooting-tanpa-internet` | SOP-006 | Diagnosis jaringan   |
 
 ### Lab
 
-| Slug | Fokus | Tingkat |
-|---|---|---|
-| `lab-dua-lan-satu-router` | Routing dasar | Dasar |
-| `lab-vlan-departemen` | Segmentasi VLAN | Menengah |
-| `lab-inter-vlan-routing` | Routing antar-VLAN | Menengah |
+| Slug                      | Fokus              | Tingkat  |
+| ------------------------- | ------------------ | -------- |
+| `lab-dua-lan-satu-router` | Routing dasar      | Dasar    |
+| `lab-vlan-departemen`     | Segmentasi VLAN    | Menengah |
+| `lab-inter-vlan-routing`  | Routing antar-VLAN | Menengah |
 
 Ketiganya berbagi satu skema pengalamatan supaya terbaca sebagai satu rangkaian, bukan lab lepas.
 
 ### Insiden
 
-| Slug | Fokus | Sumber |
-|---|---|---|
+| Slug                 | Fokus          | Sumber             |
+| -------------------- | -------------- | ------------------ |
 | `insiden-apipa-dhcp` | Kegagalan DHCP | ⚠️ nyata atau lab? |
-| `insiden-dns-gagal` | Resolusi DNS | ⚠️ nyata atau lab? |
+| `insiden-dns-gagal`  | Resolusi DNS   | ⚠️ nyata atau lab? |
 
 ---
 
@@ -210,12 +210,12 @@ Ketiganya berbagi satu skema pengalamatan supaya terbaca sebagai satu rangkaian,
 
 **Kategori** (satu dokumen satu kategori):
 
-| Slug | ID | EN |
-|---|---|---|
-| `endpoint` | Perangkat & Endpoint | Devices & Endpoints |
-| `jaringan` | Jaringan | Networking |
-| `akun-identitas` | Akun & Identitas | Accounts & Identity |
-| `proses-layanan` | Proses & Layanan | Process & Service |
+| Slug             | ID                   | EN                  |
+| ---------------- | -------------------- | ------------------- |
+| `endpoint`       | Perangkat & Endpoint | Devices & Endpoints |
+| `jaringan`       | Jaringan             | Networking          |
+| `akun-identitas` | Akun & Identitas     | Accounts & Identity |
+| `proses-layanan` | Proses & Layanan     | Process & Service   |
 
 **Tag** (bebas, banyak per dokumen): `windows`, `mikrotik`, `vlan`, `dhcp`, `dns`, `vpn`, `printer`, `active-directory`, `pnetlab`, `onboarding`, `offboarding`, `troubleshooting`.
 

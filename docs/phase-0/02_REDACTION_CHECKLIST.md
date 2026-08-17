@@ -77,13 +77,13 @@ Di Fase 5, checklist ini menjadi dialog konfirmasi di CMS yang menulis `redactio
 
 **Boleh publik** — rentang privat & dokumentasi:
 
-| Rentang | Sumber |
-|---|---|
-| `10.0.0.0/8` | RFC 1918 |
-| `172.16.0.0/12` | RFC 1918 |
-| `192.168.0.0/16` | RFC 1918 |
+| Rentang                                             | Sumber                       |
+| --------------------------------------------------- | ---------------------------- |
+| `10.0.0.0/8`                                        | RFC 1918                     |
+| `172.16.0.0/12`                                     | RFC 1918                     |
+| `192.168.0.0/16`                                    | RFC 1918                     |
 | `192.0.2.0/24`, `198.51.100.0/24`, `203.0.113.0/24` | RFC 5737, khusus dokumentasi |
-| `2001:db8::/32` | RFC 3849, khusus dokumentasi |
+| `2001:db8::/32`                                     | RFC 3849, khusus dokumentasi |
 
 **Tidak boleh publik:**
 
@@ -143,10 +143,10 @@ Ini bukan sekadar kehati-hatian — pewawancara teknis yang mengetahui insiden l
 
 Setiap aset publik dicatat di `MediaAsset` dengan:
 
-| Field | Isi |
-|---|---|
+| Field                | Isi                                           |
+| -------------------- | --------------------------------------------- |
 | `redactionConfirmed` | `true` hanya setelah checklist ini dijalankan |
-| `isPublic` | `true` |
-| `sourceNote` | Ringkasan singkat apa yang disunting |
+| `isPublic`           | `true`                                        |
+| `sourceNote`         | Ringkasan singkat apa yang disunting          |
 
 Dan satu baris `AuditLog` dengan aksi `MEDIA_REDACTION_CONFIRMED`. Tanpa keduanya, aset tidak boleh berpindah ke bucket publik.

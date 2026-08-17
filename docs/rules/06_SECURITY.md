@@ -33,7 +33,7 @@ Kalau rahasia tidak sengaja ter-commit: rahasianya harus **diganti**, bukan cuku
 'use server'
 
 export async function updateProject(input: unknown) {
-  const user = await requireAdmin()      // ← wajib, baris pertama
+  const user = await requireAdmin() // ← wajib, baris pertama
   const data = updateProjectSchema.parse(input)
   // …
 }
@@ -45,7 +45,7 @@ export async function updateProject(input: unknown) {
 
 ```ts
 const doc = await prisma.knowledgeDocument.findFirst({
-  where: { slug, status: 'PUBLISHED' },   // ← selalu
+  where: { slug, status: 'PUBLISHED' }, // ← selalu
 })
 if (!doc) notFound()
 ```
@@ -64,8 +64,8 @@ Lihat [07_DATA_PRISMA.md](07_DATA_PRISMA.md). Query publik tanpa `status: 'PUBLI
 
 ```ts
 const contactSchema = z.object({
-  name:    z.string().trim().min(2).max(80),
-  email:   z.string().trim().email().max(160),
+  name: z.string().trim().min(2).max(80),
+  email: z.string().trim().email().max(160),
   message: z.string().trim().min(20).max(4000),
   company: z.string().trim().max(120).optional(),
 })
@@ -96,13 +96,13 @@ Kalau suatu saat HTML benar-benar harus dirender, harus melewati sanitizer allow
 
 Setiap unggahan wajib melewati:
 
-| Pemeriksaan | Aturan |
-|---|---|
-| Tipe MIME | Allowlist: `image/png`, `image/jpeg`, `image/webp`, `application/pdf`, `application/zip` |
-| Ukuran | Gambar ≤ 5 MB, arsip ≤ 10 MB |
-| Ekstensi | Harus cocok dengan MIME |
-| Nama berkas | **Dibuat ulang di server.** Jangan pernah memakai nama dari klien |
-| Isi | Verifikasi magic bytes, jangan percaya header MIME |
+| Pemeriksaan | Aturan                                                                                   |
+| ----------- | ---------------------------------------------------------------------------------------- |
+| Tipe MIME   | Allowlist: `image/png`, `image/jpeg`, `image/webp`, `application/pdf`, `application/zip` |
+| Ukuran      | Gambar ≤ 5 MB, arsip ≤ 10 MB                                                             |
+| Ekstensi    | Harus cocok dengan MIME                                                                  |
+| Nama berkas | **Dibuat ulang di server.** Jangan pernah memakai nama dari klien                        |
+| Isi         | Verifikasi magic bytes, jangan percaya header MIME                                       |
 
 Nama dari klien bisa berisi `../` atau karakter yang berbahaya bagi kunci penyimpanan. Selalu buat nama baru.
 

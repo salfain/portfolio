@@ -48,10 +48,10 @@ export async function getPublishedProjects(): Promise<ProjectCard[]> {
 
 **Konvensi penamaan yang wajib diikuti:**
 
-| Awalan | Arti | Boleh dipakai di |
-|---|---|---|
-| `getPublished*` / `findPublished*` | Sudah menyaring `PUBLISHED` | Rute publik |
-| `getAdmin*` | Semua status | Hanya `/admin/*` |
+| Awalan                             | Arti                        | Boleh dipakai di |
+| ---------------------------------- | --------------------------- | ---------------- |
+| `getPublished*` / `findPublished*` | Sudah menyaring `PUBLISHED` | Rute publik      |
+| `getAdmin*`                        | Semua status                | Hanya `/admin/*` |
 
 Fungsi `getAdmin*` **wajib** memanggil `requireAdmin()` di dalamnya, bukan hanya mengandalkan pemanggilnya.
 
@@ -65,9 +65,16 @@ prisma.knowledgeDocument.findMany({ where: { status: 'PUBLISHED' } })
 
 // ✅
 const documentCardSelect = {
-  id: true, slug: true, type: true, titleId: true, titleEn: true,
-  summaryId: true, summaryEn: true, difficulty: true,
-  estimatedMinutes: true, publishedAt: true,
+  id: true,
+  slug: true,
+  type: true,
+  titleId: true,
+  titleEn: true,
+  summaryId: true,
+  summaryEn: true,
+  difficulty: true,
+  estimatedMinutes: true,
+  publishedAt: true,
 } satisfies Prisma.KnowledgeDocumentSelect
 ```
 
@@ -166,7 +173,10 @@ Menerbitkan dokumen tanpa mencatat revisinya akan menghasilkan riwayat yang boho
 Kelengkapan bahasa Inggris **dihitung**, tidak disimpan:
 
 ```ts
-export function isLocaleComplete(doc: KnowledgeDocument, locale: 'id' | 'en'): boolean
+export function isLocaleComplete(
+  doc: KnowledgeDocument,
+  locale: 'id' | 'en',
+): boolean
 ```
 
 Kolom tersimpan akan basi setiap kali dokumen disunting.

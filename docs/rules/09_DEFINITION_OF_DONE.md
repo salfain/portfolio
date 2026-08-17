@@ -32,16 +32,16 @@ npm run build
 
 Dijalankan setiap kali, bukan hanya yang terasa relevan.
 
-| # | Periksa | Cara | Kriteria lolos |
-|---|---|---|---|
-| 1 | Bahasa Indonesia | Buka `/id/...` | Semua teks Indonesia, tata letak utuh |
-| 2 | Bahasa Inggris | Buka `/en/...` | Semua teks UI Inggris; konten belum diterjemahkan menampilkan banner |
-| 3 | Tema terang | Toggle | Kontras lolos, tanpa elemen tak terbaca |
-| 4 | Tema gelap | Toggle lalu **hard reload** | Tanpa kedipan putih |
-| 5 | Mobile | DevTools 375 px | **Tanpa scroll horizontal** |
-| 6 | Desktop | 1440 px | Konten tidak melebar berlebihan |
-| 7 | Keyboard | `Tab` dari atas ke bawah | Fokus selalu terlihat, tidak ada jebakan |
-| 8 | Reduced motion | Aktifkan di OS, reload | Tanpa parallax, tanpa gerakan berulang |
+| #   | Periksa          | Cara                        | Kriteria lolos                                                       |
+| --- | ---------------- | --------------------------- | -------------------------------------------------------------------- |
+| 1   | Bahasa Indonesia | Buka `/id/...`              | Semua teks Indonesia, tata letak utuh                                |
+| 2   | Bahasa Inggris   | Buka `/en/...`              | Semua teks UI Inggris; konten belum diterjemahkan menampilkan banner |
+| 3   | Tema terang      | Toggle                      | Kontras lolos, tanpa elemen tak terbaca                              |
+| 4   | Tema gelap       | Toggle lalu **hard reload** | Tanpa kedipan putih                                                  |
+| 5   | Mobile           | DevTools 375 px             | **Tanpa scroll horizontal**                                          |
+| 6   | Desktop          | 1440 px                     | Konten tidak melebar berlebihan                                      |
+| 7   | Keyboard         | `Tab` dari atas ke bawah    | Fokus selalu terlihat, tidak ada jebakan                             |
+| 8   | Reduced motion   | Aktifkan di OS, reload      | Tanpa parallax, tanpa gerakan berulang                               |
 
 Pemeriksaan 4 dan 5 adalah yang paling sering gagal.
 
@@ -86,9 +86,11 @@ Wajib. Fase berikutnya dikerjakan berdasarkan ini.
 **Dependency yang ditambah:** …
 
 **Keterbatasan yang tersisa:**
+
 - …
 
 **Dibutuhkan untuk fase berikutnya:**
+
 - …
 ```
 
@@ -96,29 +98,29 @@ Wajib. Fase berikutnya dikerjakan berdasarkan ini.
 
 ## F. Yang bukan berarti selesai
 
-| Kalimat | Kenyataan |
-|---|---|
-| "Jalan di mesin saya" | Belum diperiksa di 8 gerbang manual |
-| "Nanti saya rapikan" | Sekarang, bukan nanti |
-| "Cuma perlu diterjemahkan" | Belum selesai |
-| "Tema gelap agak aneh tapi jalan" | Belum selesai |
-| "Belum saya cek di mobile" | Belum selesai |
-| "Tesnya saya skip dulu" | Belum selesai |
-| "Buildnya jalan kalau lint dimatikan" | Belum selesai |
+| Kalimat                               | Kenyataan                           |
+| ------------------------------------- | ----------------------------------- |
+| "Jalan di mesin saya"                 | Belum diperiksa di 8 gerbang manual |
+| "Nanti saya rapikan"                  | Sekarang, bukan nanti               |
+| "Cuma perlu diterjemahkan"            | Belum selesai                       |
+| "Tema gelap agak aneh tapi jalan"     | Belum selesai                       |
+| "Belum saya cek di mobile"            | Belum selesai                       |
+| "Tesnya saya skip dulu"               | Belum selesai                       |
+| "Buildnya jalan kalau lint dimatikan" | Belum selesai                       |
 
 ---
 
 ## G. Gerbang tambahan per fase
 
-| Fase | Tambahan |
-|---|---|
-| 1 | `/` → `/id`; login admin berhasil; tidak ada endpoint registrasi |
-| 2 | Setiap komponen ada di dua tema × dua bahasa; fokus terlihat |
-| 3 | Kecocokan pekerjaan terbaca < 2 menit; Recruiter Mode bisa dicetak; form kontak terkirim |
-| 3.5 | Situs live; HTTPS; `robots.txt` memblokir `/admin`; sitemap valid |
-| 4 | Draft tidak bisa diakses publik; state filter ada di URL; tabel bisa di-scroll di mobile |
-| 5 | Setiap tipe dokumen bisa dibuat, dipratinjau, diterbitkan; edit membuat revisi |
-| 6 | Satu lab dan satu insiden lengkap; berkas publik sudah disanitasi |
-| 7 | Pencarian menemukan istilah Indonesia dan Inggris; palet perintah bisa lewat keyboard |
-| 8 | `npm audit` bersih dari severity tinggi; Core Web Vitals memenuhi target |
-| 9 | Tidak ada data yang dikarang; semua bukti lolos checklist redaksi |
+| Fase | Tambahan                                                                                 |
+| ---- | ---------------------------------------------------------------------------------------- |
+| 1    | `/` → `/id`; login admin berhasil; tidak ada endpoint registrasi                         |
+| 2    | Setiap komponen ada di dua tema × dua bahasa; fokus terlihat                             |
+| 3    | Kecocokan pekerjaan terbaca < 2 menit; Recruiter Mode bisa dicetak; form kontak terkirim |
+| 3.5  | Situs live; HTTPS; `robots.txt` memblokir `/admin`; sitemap valid                        |
+| 4    | Draft tidak bisa diakses publik; state filter ada di URL; tabel bisa di-scroll di mobile |
+| 5    | Setiap tipe dokumen bisa dibuat, dipratinjau, diterbitkan; edit membuat revisi           |
+| 6    | Satu lab dan satu insiden lengkap; berkas publik sudah disanitasi                        |
+| 7    | Pencarian menemukan istilah Indonesia dan Inggris; palet perintah bisa lewat keyboard    |
+| 8    | `npm audit` bersih dari severity tinggi; Core Web Vitals memenuhi target                 |
+| 9    | Tidak ada data yang dikarang; semua bukti lolos checklist redaksi                        |

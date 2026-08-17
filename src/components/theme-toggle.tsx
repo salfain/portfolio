@@ -22,22 +22,36 @@ export function ThemeToggle() {
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       aria-label={t('toggleAriaLabel')}
       title={isDark ? t('toLight') : t('toDark')}
+      /**
+       * Lingkaran yang TERLIHAT 34px sesuai handoff, tapi area sentuhnya
+       * 44px sesuai 02_STYLING §9. Tombol luarnya transparan tanpa garis;
+       * yang bergaris adalah lingkaran di dalamnya. Menyusutkan tombolnya
+       * sendiri ke 34px akan membuat target sentuh di mobile lebih kecil
+       * dari batas yang dipakai seluruh situs ini.
+       */
       className={cn(
-        'grid h-[34px] w-[34px] place-items-center rounded-full',
-        'border border-border-med bg-transparent text-muted',
-        'transition-colors hover:border-border-hover hover:text-foreground',
+        'group grid h-11 w-11 place-items-center rounded-full bg-transparent',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
       )}
     >
-      {mounted ? (
-        isDark ? (
-          <SunIcon className="h-4 w-4" />
+      <span
+        aria-hidden
+        className={cn(
+          'grid h-[34px] w-[34px] place-items-center rounded-full',
+          'border border-border-med text-muted transition-colors',
+          'group-hover:border-border-hover group-hover:text-foreground',
+        )}
+      >
+        {mounted ? (
+          isDark ? (
+            <SunIcon className="h-4 w-4" />
+          ) : (
+            <MoonIcon className="h-4 w-4" />
+          )
         ) : (
-          <MoonIcon className="h-4 w-4" />
-        )
-      ) : (
-        <span className="h-4 w-4" />
-      )}
+          <span className="h-4 w-4" />
+        )}
+      </span>
     </button>
   )
 }

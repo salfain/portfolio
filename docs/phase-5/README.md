@@ -7,11 +7,11 @@
 
 ## Ruang lingkup yang dikerjakan
 
-| Bagian | Isi | Status |
-|---|---|---|
-| 5a | CRUD dokumen, kategori & tag, alur terbit, revisi otomatis, jejak audit | ✅ |
-| 5b | Editor Tiptap, template, autosave, pratinjau ID/EN | ✅ |
-| 5c | Manajer bukti, unggahan berkas, ekspor JSON/Markdown | ✅ |
+| Bagian | Isi                                                                     | Status |
+| ------ | ----------------------------------------------------------------------- | ------ |
+| 5a     | CRUD dokumen, kategori & tag, alur terbit, revisi otomatis, jejak audit | ✅     |
+| 5b     | Editor Tiptap, template, autosave, pratinjau ID/EN                      | ✅     |
+| 5c     | Manajer bukti, unggahan berkas, ekspor JSON/Markdown                    | ✅     |
 
 Keputusan pemilik untuk 5c: **penyimpanan lokal dulu**, R2 menyusul.
 
@@ -27,11 +27,11 @@ menerbitkan**.
 Penyebabnya ternyata bukan prerender sama sekali — lihat
 [NOTES.md](NOTES.md) N1. Setelah diperbaiki:
 
-| Yang diuji | Sebelum | Sesudah |
-|---|---|---|
-| Dokumen terbit dibuka | 200 | 200 |
-| Dokumen **draft** | 404 | **404** |
-| Slug tidak ada | 404 | **404** |
+| Yang diuji                     | Sebelum                    | Sesudah          |
+| ------------------------------ | -------------------------- | ---------------- |
+| Dokumen terbit dibuka          | 200                        | 200              |
+| Dokumen **draft**              | 404                        | **404**          |
+| Slug tidak ada                 | 404                        | **404**          |
 | Slug yang belum ada saat build | **404 sampai build ulang** | **200 seketika** |
 
 Tujuh rute dikembalikan ke `dynamicParams = true`: empat rute detail
@@ -43,10 +43,10 @@ dokumen, kategori, tag, dan `/projects/[slug]`.
 
 ### Lapisan data (`src/data/`)
 
-| Berkas | Isi |
-|---|---|
+| Berkas               | Isi                                                               |
+| -------------------- | ----------------------------------------------------------------- |
 | `knowledge-admin.ts` | CRUD dokumen, kategori, tag. Guard di baris pertama setiap fungsi |
-| `audit.ts` | `recordAudit()`, `auditActionForStatus()`, `getAuditLog()` |
+| `audit.ts`           | `recordAudit()`, `auditActionForStatus()`, `getAuditLog()`        |
 
 `knowledge-admin.ts` sengaja **terpisah** dari `knowledge.ts`. Berkas publik
 menyaring `status: 'PUBLISHED'` di setiap query tanpa kecuali; begitu query
@@ -65,14 +65,14 @@ diredaksi tetap hidup di luar jangkauan checklist redaksi.
 
 ### Editor (`src/components/admin/editor/`)
 
-| Berkas | Isi |
-|---|---|
-| `extensions.ts` | Daftar ekstensi, dipilih agar cocok persis dengan node yang dikenal renderer publik |
-| `rich-text-editor.tsx` | Editor satu bahasa; isi dikirim sebagai string JSON di input tersembunyi |
-| `toolbar.tsx` | Tombol format berlabel teks, bukan ikon |
-| `templates.ts` | Kerangka SOP/Lab/Insiden/Artikel — judul bagian saja, tanpa satu pun kalimat isi |
-| `use-autosave.ts` | Pemulihan lokal ke `localStorage`, bukan draft server |
-| `index.tsx` | Pembungkus `next/dynamic` dengan `ssr: false` |
+| Berkas                 | Isi                                                                                 |
+| ---------------------- | ----------------------------------------------------------------------------------- |
+| `extensions.ts`        | Daftar ekstensi, dipilih agar cocok persis dengan node yang dikenal renderer publik |
+| `rich-text-editor.tsx` | Editor satu bahasa; isi dikirim sebagai string JSON di input tersembunyi            |
+| `toolbar.tsx`          | Tombol format berlabel teks, bukan ikon                                             |
+| `templates.ts`         | Kerangka SOP/Lab/Insiden/Artikel — judul bagian saja, tanpa satu pun kalimat isi    |
+| `use-autosave.ts`      | Pemulihan lokal ke `localStorage`, bukan draft server                               |
+| `index.tsx`            | Pembungkus `next/dynamic` dengan `ssr: false`                                       |
 
 Tiptap **tidak ada di satu pun entry chunk rute publik** — terverifikasi
 terhadap `app-build-manifest.json` setelah build. Ia hidup di dua chunk malas
@@ -84,14 +84,14 @@ perubahan isi terbit wajib lewat konfirmasi redaksi.
 
 ### Penyimpanan & bukti (5c)
 
-| Berkas | Isi |
-|---|---|
-| `lib/storage/types.ts` | Antarmuka driver — sengaja sekecil mungkin agar R2 bisa menggantikannya |
-| `lib/storage/key.ts` | Pembuatan dan pemeriksaan kunci objek |
-| `lib/storage/local.ts` | Driver disk lokal, di luar `public/` |
-| `lib/media-file.ts` | Jenis berkas dari magic bytes, dimensi gambar dari header |
-| `data/media.ts` | Unggah, ubah, hapus aset + jejak audit |
-| `app/media/[...key]/route.ts` | Penyaji berkas dengan kontrol akses |
+| Berkas                        | Isi                                                                     |
+| ----------------------------- | ----------------------------------------------------------------------- |
+| `lib/storage/types.ts`        | Antarmuka driver — sengaja sekecil mungkin agar R2 bisa menggantikannya |
+| `lib/storage/key.ts`          | Pembuatan dan pemeriksaan kunci objek                                   |
+| `lib/storage/local.ts`        | Driver disk lokal, di luar `public/`                                    |
+| `lib/media-file.ts`           | Jenis berkas dari magic bytes, dimensi gambar dari header               |
+| `data/media.ts`               | Unggah, ubah, hapus aset + jejak audit                                  |
+| `app/media/[...key]/route.ts` | Penyaji berkas dengan kontrol akses                                     |
 
 Nama berkas asli **tidak dipakai sama sekali** — bukan hanya karena bisa
 memuat path, tapi karena sering justru memuat yang harus diredaksi, seperti
@@ -133,12 +133,12 @@ penerbitan berikutnya menuntut pemeriksaan ulang.
 
 ## Gates
 
-| Gate | Hasil |
-|---|---|
-| lint | ✅ tanpa warning |
-| typecheck | ✅ |
-| test | ✅ 162/162 (naik dari 94) |
-| build | ✅ |
+| Gate      | Hasil                     |
+| --------- | ------------------------- |
+| lint      | ✅ tanpa warning          |
+| typecheck | ✅                        |
+| test      | ✅ 162/162 (naik dari 94) |
+| build     | ✅                        |
 
 Tes baru: `knowledge-document.test.ts` (14), `audit.test.ts` (5),
 `templates.test.ts` (12), `route-boundaries.test.ts` (2),
@@ -158,43 +158,43 @@ peramban; Fase 3 dan 4 menandainya sebagai belum terverifikasi.
 
 ### Editor
 
-| Yang diuji | Hasil |
-|---|---|
-| Dua editor ter-mount di halaman sunting | ✅ |
-| Toolbar tampil di keduanya | ✅ |
-| Tombol kerangka mengisi 7 bagian SOP | ✅ |
-| JSON tersalin ke input tersembunyi | ✅ |
-| Naskah masuk `localStorage` | ✅ |
-| Galat konsol | ✅ tidak ada |
+| Yang diuji                              | Hasil        |
+| --------------------------------------- | ------------ |
+| Dua editor ter-mount di halaman sunting | ✅           |
+| Toolbar tampil di keduanya              | ✅           |
+| Tombol kerangka mengisi 7 bagian SOP    | ✅           |
+| JSON tersalin ke input tersembunyi      | ✅           |
+| Naskah masuk `localStorage`             | ✅           |
+| Galat konsol                            | ✅ tidak ada |
 
 ### Alur terbit
 
-| Yang diuji | Hasil |
-|---|---|
-| Terbit tanpa konfirmasi redaksi | ✅ ditolak, pesannya menjelaskan sebabnya |
-| Terbit dengan konfirmasi | ✅ status `PUBLISHED`, `publishedAt` terisi |
-| Audit tercatat | ✅ `create → update → publish → update` |
-| Sunting dokumen terbit | ✅ revisi dibuat berisi isi **lama** |
-| Isi EN dibiarkan kosong | ✅ tersimpan `null`, bukan dokumen hampa |
-| Halaman publik ID & EN | ✅ 200 tanpa build ulang |
+| Yang diuji                      | Hasil                                       |
+| ------------------------------- | ------------------------------------------- |
+| Terbit tanpa konfirmasi redaksi | ✅ ditolak, pesannya menjelaskan sebabnya   |
+| Terbit dengan konfirmasi        | ✅ status `PUBLISHED`, `publishedAt` terisi |
+| Audit tercatat                  | ✅ `create → update → publish → update`     |
+| Sunting dokumen terbit          | ✅ revisi dibuat berisi isi **lama**        |
+| Isi EN dibiarkan kosong         | ✅ tersimpan `null`, bukan dokumen hampa    |
+| Halaman publik ID & EN          | ✅ 200 tanpa build ulang                    |
 
 ### Bukti & kontrol akses (5c)
 
-| Yang diuji | Hasil |
-|---|---|
-| Unggah PNG dari peramban | ✅ tersimpan, status privat |
-| Dimensi dibaca dari header berkas | ✅ 4×3 terbaca |
-| Terbitkan bukti tanpa konfirmasi redaksi | ✅ ditolak |
-| Terbitkan dengan konfirmasi | ✅ berhasil |
-| Aset **privat** tanpa sesi | ✅ **404**, bukan 403 |
-| Aset privat dengan sesi admin | ✅ 200 |
-| Aset publik tanpa sesi | ✅ 200 |
-| `../` di kunci berkas | ✅ 404 |
-| Aset yang tidak pernah publik lewat `/_next/image` | ✅ 400 (ditolak) |
-| `Cache-Control` aset privat | ✅ `private, no-store` |
-| Ekspor JSON & Markdown dengan sesi | ✅ 200 |
-| Ekspor tanpa sesi | ✅ dialihkan ke login |
-| `next/image` pada bukti publik | ✅ dioptimasi lewat `/_next/image` |
+| Yang diuji                                         | Hasil                              |
+| -------------------------------------------------- | ---------------------------------- |
+| Unggah PNG dari peramban                           | ✅ tersimpan, status privat        |
+| Dimensi dibaca dari header berkas                  | ✅ 4×3 terbaca                     |
+| Terbitkan bukti tanpa konfirmasi redaksi           | ✅ ditolak                         |
+| Terbitkan dengan konfirmasi                        | ✅ berhasil                        |
+| Aset **privat** tanpa sesi                         | ✅ **404**, bukan 403              |
+| Aset privat dengan sesi admin                      | ✅ 200                             |
+| Aset publik tanpa sesi                             | ✅ 200                             |
+| `../` di kunci berkas                              | ✅ 404                             |
+| Aset yang tidak pernah publik lewat `/_next/image` | ✅ 400 (ditolak)                   |
+| `Cache-Control` aset privat                        | ✅ `private, no-store`             |
+| Ekspor JSON & Markdown dengan sesi                 | ✅ 200                             |
+| Ekspor tanpa sesi                                  | ✅ dialihkan ke login              |
+| `next/image` pada bukti publik                     | ✅ dioptimasi lewat `/_next/image` |
 
 Satu temuan serius muncul dari uji ini dan sudah diperbaiki: bukti yang
 ditarik kembali dari publik tetap tersaji lewat pengoptimal gambar. Lihat

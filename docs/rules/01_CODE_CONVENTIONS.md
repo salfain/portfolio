@@ -22,12 +22,12 @@ src/
 
 **Aturan penempatan:**
 
-| Pertanyaan | Jawaban |
-|---|---|
-| Menyentuh database? | `src/data/` |
-| Fungsi murni tanpa React? | `src/lib/` |
-| Dipakai ≥ 2 tempat dan tanpa domain? | `src/components/ui/` |
-| Khusus satu halaman? | `src/components/sections/` |
+| Pertanyaan                           | Jawaban                    |
+| ------------------------------------ | -------------------------- |
+| Menyentuh database?                  | `src/data/`                |
+| Fungsi murni tanpa React?            | `src/lib/`                 |
+| Dipakai ≥ 2 tempat dan tanpa domain? | `src/components/ui/`       |
+| Khusus satu halaman?                 | `src/components/sections/` |
 
 Berkas di `src/app/` idealnya hanya merakit komponen dan mengambil data. Kalau `page.tsx` melebihi ±80 baris, ada yang harus dipindahkan.
 
@@ -35,16 +35,16 @@ Berkas di `src/app/` idealnya hanya merakit komponen dan mengambil data. Kalau `
 
 ## 2. Penamaan
 
-| Hal | Aturan | Contoh |
-|---|---|---|
-| Nama berkas | kebab-case | `theme-toggle.tsx` |
-| Komponen | PascalCase | `ThemeToggle` |
-| Hook | `use-` + kebab-case | `use-scroll-progress.ts` |
-| Fungsi & variabel | camelCase | `getPublishedProjects` |
-| Konstanta | SCREAMING_SNAKE | `MAX_UPLOAD_BYTES` |
-| Tipe & interface | PascalCase | `KnowledgeCardProps` |
-| Boolean | awali `is` / `has` / `should` | `isPublished`, `hasTranslation` |
-| Berkas tes | `*.test.ts` | `format-date.test.ts` |
+| Hal               | Aturan                        | Contoh                          |
+| ----------------- | ----------------------------- | ------------------------------- |
+| Nama berkas       | kebab-case                    | `theme-toggle.tsx`              |
+| Komponen          | PascalCase                    | `ThemeToggle`                   |
+| Hook              | `use-` + kebab-case           | `use-scroll-progress.ts`        |
+| Fungsi & variabel | camelCase                     | `getPublishedProjects`          |
+| Konstanta         | SCREAMING_SNAKE               | `MAX_UPLOAD_BYTES`              |
+| Tipe & interface  | PascalCase                    | `KnowledgeCardProps`            |
+| Boolean           | awali `is` / `has` / `should` | `isPublished`, `hasTranslation` |
+| Berkas tes        | `*.test.ts`                   | `format-date.test.ts`           |
 
 Satu komponen utama per berkas, dan nama berkasnya mengikuti nama komponen.
 
@@ -91,7 +91,7 @@ export default async function ProjectsPage() {
   return (
     <div>
       <h1>{t('projects.title')}</h1>
-      <ProjectExplorer projects={projects} />  {/* satu-satunya client */}
+      <ProjectExplorer projects={projects} /> {/* satu-satunya client */}
     </div>
   )
 }
@@ -125,10 +125,10 @@ function parse(data: unknown) {
 
 ```ts
 // ❌
-const doc = docs.find(d => d.slug === slug)!
+const doc = docs.find((d) => d.slug === slug)!
 
 // ✅
-const doc = docs.find(d => d.slug === slug)
+const doc = docs.find((d) => d.slug === slug)
 if (!doc) notFound()
 ```
 
@@ -191,13 +191,13 @@ Aturan:
 Urutan (ESLint akan menegakkannya):
 
 ```ts
-import { Suspense } from 'react'              // 1. eksternal
+import { Suspense } from 'react' // 1. eksternal
 import Image from 'next/image'
 
-import { getPublishedProjects } from '@/data/projects'   // 2. internal @/
+import { getPublishedProjects } from '@/data/projects' // 2. internal @/
 import { ProjectCard } from '@/components/ui/project-card'
 
-import type { ProjectCard as ProjectCardType } from '@/types'  // 3. tipe
+import type { ProjectCard as ProjectCardType } from '@/types' // 3. tipe
 ```
 
 Selalu pakai alias `@/`. Jangan pernah `../../../lib/utils`.
@@ -210,7 +210,7 @@ Selalu pakai alias `@/`. Jangan pernah `../../../lib/utils`.
 
 ```tsx
 const doc = await findPublishedDocument(slug, type)
-if (!doc) notFound()      // menghasilkan 404, bukan 403 — lihat 06_SECURITY.md
+if (!doc) notFound() // menghasilkan 404, bukan 403 — lihat 06_SECURITY.md
 ```
 
 ### Di server action
@@ -245,13 +245,13 @@ Bahasa komentar: Indonesia. Nama variabel dan fungsi: Inggris.
 
 ## 9. Yang dilarang
 
-| ❌ | ✅ |
-|---|---|
-| `console.log` tertinggal di kode | Hapus sebelum commit |
-| `// @ts-ignore` | Perbaiki tipenya, atau tanya |
-| `// eslint-disable-next-line` tanpa alasan | Sertakan komentar alasannya |
-| `dangerouslySetInnerHTML` di rute publik | Render dari JSON Tiptap |
-| `useEffect` untuk mengambil data awal | Ambil di Server Component |
-| Nilai warna hex langsung di kode | Pakai token, lihat [02_STYLING.md](02_STYLING.md) |
-| Teks langsung di JSX rute publik | Pakai kunci terjemahan, lihat [03_I18N.md](03_I18N.md) |
-| `export default` untuk komponen non-halaman | Pakai named export |
+| ❌                                          | ✅                                                     |
+| ------------------------------------------- | ------------------------------------------------------ |
+| `console.log` tertinggal di kode            | Hapus sebelum commit                                   |
+| `// @ts-ignore`                             | Perbaiki tipenya, atau tanya                           |
+| `// eslint-disable-next-line` tanpa alasan  | Sertakan komentar alasannya                            |
+| `dangerouslySetInnerHTML` di rute publik    | Render dari JSON Tiptap                                |
+| `useEffect` untuk mengambil data awal       | Ambil di Server Component                              |
+| Nilai warna hex langsung di kode            | Pakai token, lihat [02_STYLING.md](02_STYLING.md)      |
+| Teks langsung di JSX rute publik            | Pakai kunci terjemahan, lihat [03_I18N.md](03_I18N.md) |
+| `export default` untuk komponen non-halaman | Pakai named export                                     |

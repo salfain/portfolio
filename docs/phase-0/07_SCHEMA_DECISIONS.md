@@ -8,16 +8,16 @@
 
 ## 1. Ringkasan perubahan dari draf asli
 
-| # | Perubahan | Alasan |
-|---|---|---|
-| 1 | `ProjectMedia` + `KnowledgeEvidence` → satu model `MediaAsset` | Draf asli tidak punya pustaka media terpusat padahal PRD bab 12 memintanya |
-| 2 | Tambah `ProjectKnowledgeLink` | PRD bab 10 meminta "SOP/lab terkait" tapi draf tidak punya relasinya |
-| 3 | Tambah `categoryId` + tag pada `Project` | Panel "Explore My Work" memfilter lintas tipe konten |
-| 4 | Hapus `viewCount` dari `KnowledgeDocument` | Increment saat render memaksa halaman dinamis; bertabrakan dengan target LCP |
-| 5 | `isPublished: Boolean` → `PublishStatus` di semua entitas publik | Satu penjaga query, satu komponen badge, satu aturan |
-| 6 | Tambah tabel Better Auth | Draf asli tidak memilikinya sama sekali |
-| 7 | `difficulty` String → enum `Difficulty` | Mencegah nilai bebas yang merusak filter |
-| 8 | Tambah `metadata.isLabReproduction` pada insiden | Mencegah insiden lab tampil sebagai insiden produksi |
+| #   | Perubahan                                                        | Alasan                                                                       |
+| --- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| 1   | `ProjectMedia` + `KnowledgeEvidence` → satu model `MediaAsset`   | Draf asli tidak punya pustaka media terpusat padahal PRD bab 12 memintanya   |
+| 2   | Tambah `ProjectKnowledgeLink`                                    | PRD bab 10 meminta "SOP/lab terkait" tapi draf tidak punya relasinya         |
+| 3   | Tambah `categoryId` + tag pada `Project`                         | Panel "Explore My Work" memfilter lintas tipe konten                         |
+| 4   | Hapus `viewCount` dari `KnowledgeDocument`                       | Increment saat render memaksa halaman dinamis; bertabrakan dengan target LCP |
+| 5   | `isPublished: Boolean` → `PublishStatus` di semua entitas publik | Satu penjaga query, satu komponen badge, satu aturan                         |
+| 6   | Tambah tabel Better Auth                                         | Draf asli tidak memilikinya sama sekali                                      |
+| 7   | `difficulty` String → enum `Difficulty`                          | Mencegah nilai bebas yang merusak filter                                     |
+| 8   | Tambah `metadata.isLabReproduction` pada insiden                 | Mencegah insiden lab tampil sebagai insiden produksi                         |
 
 ---
 
@@ -484,11 +484,11 @@ PRD bab 17 melarang menyimpan IP pengunjung mentah. Kolom ini milik Better Auth 
 
 ## 4. Yang masih harus diverifikasi di Fase 1
 
-| Hal | Cara verifikasi |
-|---|---|
-| Bentuk tabel Better Auth | `npx @better-auth/cli generate` lalu bandingkan |
-| `@@map` huruf kecil pada tabel auth | Ikuti apa pun yang dihasilkan CLI |
+| Hal                                    | Cara verifikasi                                       |
+| -------------------------------------- | ----------------------------------------------------- |
+| Bentuk tabel Better Auth               | `npx @better-auth/cli generate` lalu bandingkan       |
+| `@@map` huruf kecil pada tabel auth    | Ikuti apa pun yang dihasilkan CLI                     |
 | Dukungan konfigurasi teks `indonesian` | `\dF` di psql; kalau tidak ada → `simple` + `pg_trgm` |
-| Ekstensi `pg_trgm` & `unaccent` | `CREATE EXTENSION` — pastikan penyedia mengizinkan |
+| Ekstensi `pg_trgm` & `unaccent`        | `CREATE EXTENSION` — pastikan penyedia mengizinkan    |
 
 Sampai keempatnya terverifikasi, skema ini adalah rancangan, bukan migrasi.

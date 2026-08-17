@@ -10,14 +10,14 @@ next-intl, jadi ini tidak bisa diabaikan begitu saja.
 
 **Diuji terhadap server produksi yang berjalan**, tujuh vektor:
 
-| Permintaan | Status | Location |
-|---|---|---|
-| `//penyerang.test` | 308 | `/penyerang.test` |
-| `/\/penyerang.test` | 308 | `/penyerang.test` |
-| `//penyerang.test/x` | 308 | `/penyerang.test/x` |
-| `/id//penyerang.test` | 308 | `/id/penyerang.test` |
-| `/%2F%2Fpenyerang.test` | 404 | — |
-| `/.penyerang.test` | 404 | — |
+| Permintaan              | Status | Location             |
+| ----------------------- | ------ | -------------------- |
+| `//penyerang.test`      | 308    | `/penyerang.test`    |
+| `/\/penyerang.test`     | 308    | `/penyerang.test`    |
+| `//penyerang.test/x`    | 308    | `/penyerang.test/x`  |
+| `/id//penyerang.test`   | 308    | `/id/penyerang.test` |
+| `/%2F%2Fpenyerang.test` | 404    | —                    |
+| `/.penyerang.test`      | 404    | —                    |
 
 Seluruhnya **relatif** — Next.js menormalkan garis miring ganda sebelum
 next-intl sempat menyusun redirect. Tidak ada satu pun yang mengarah ke host

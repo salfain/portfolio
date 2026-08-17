@@ -18,19 +18,19 @@ baru tidak bisa dibuka sampai build berikutnya.
 Diuji satu per satu pada Next.js 15.5.22, masing-masing dengan build produksi
 sungguhan:
 
-| Konfigurasi | Status |
-|---|---|
-| `dynamicParams = false` | 404 ✅ |
-| `dynamicParams = true` | 200 ❌ |
-| Tanpa `generateStaticParams` sama sekali (rute ƒ dinamis) | 200 ❌ |
-| `dynamicParams = false` di `[locale]/layout.tsx` | 200 ❌ |
-| Tanpa `generateStaticParams` di `[locale]/layout.tsx` | 200 ❌ |
-| Rute yang sama, middleware next-intl dilewati | 200 ❌ |
-| `[locale]/not-found.tsx` dihapus | 200 ❌ |
-| Rute di **luar** `[locale]` (segmen statis) | 404 ✅ |
-| Rute di luar `[locale]` dengan `<html>` di layout bersarang | 404 ✅ |
+| Konfigurasi                                                   | Status |
+| ------------------------------------------------------------- | ------ |
+| `dynamicParams = false`                                       | 404 ✅ |
+| `dynamicParams = true`                                        | 200 ❌ |
+| Tanpa `generateStaticParams` sama sekali (rute ƒ dinamis)     | 200 ❌ |
+| `dynamicParams = false` di `[locale]/layout.tsx`              | 200 ❌ |
+| Tanpa `generateStaticParams` di `[locale]/layout.tsx`         | 200 ❌ |
+| Rute yang sama, middleware next-intl dilewati                 | 200 ❌ |
+| `[locale]/not-found.tsx` dihapus                              | 200 ❌ |
+| Rute di **luar** `[locale]` (segmen statis)                   | 404 ✅ |
+| Rute di luar `[locale]` dengan `<html>` di layout bersarang   | 404 ✅ |
 | Segmen **dinamis** di luar `[locale]`, `dynamicParams = true` | 404 ✅ |
-| Layout next-intl lengkap di segmen statis | 404 ✅ |
+| Layout next-intl lengkap di segmen statis                     | 404 ✅ |
 
 Jadi bukan prerender, bukan `revalidate`, bukan segmen dinamis, bukan
 middleware, bukan next-intl, dan bukan layout `<html>` bersarang. Yang
@@ -54,16 +54,16 @@ mesin pencari.
 
 Setelah `loading.tsx` dihapus, `dynamicParams = true` bekerja seperti mestinya:
 
-| Yang diuji | Hasil |
-|---|---|
-| Dokumen terbit | ✅ 200 |
-| Dokumen draft | ✅ **404** |
-| Slug tidak ada | ✅ **404** |
-| Tipe salah untuk slug yang benar | ✅ 404 |
-| Kategori & tag tidak ada | ✅ 404 |
-| `/projects/[slug]` tidak ada | ✅ 404 |
+| Yang diuji                       | Hasil                                  |
+| -------------------------------- | -------------------------------------- |
+| Dokumen terbit                   | ✅ 200                                 |
+| Dokumen draft                    | ✅ **404**                             |
+| Slug tidak ada                   | ✅ **404**                             |
+| Tipe salah untuk slug yang benar | ✅ 404                                 |
+| Kategori & tag tidak ada         | ✅ 404                                 |
+| `/projects/[slug]` tidak ada     | ✅ 404                                 |
 | **Dokumen terbit setelah build** | ✅ **200 seketika, tanpa build ulang** |
-| Isi draft di HTML | ✅ tidak muncul sama sekali |
+| Isi draft di HTML                | ✅ tidak muncul sama sekali            |
 
 ### Yang berubah
 
@@ -209,11 +209,11 @@ Ditemukan saat menguji kontrol akses `/media/[...key]` dari peramban.
 
 **Yang terlihat:**
 
-| Yang diuji | Hasil |
-|---|---|
-| Aset privat, alamat langsung | ✅ 404 |
-| Aset yang **tidak pernah** publik, lewat `/_next/image` | ✅ 400 (ditolak) |
-| Aset yang **pernah** publik lalu ditarik, lewat `/_next/image` | ❌ **200** |
+| Yang diuji                                                     | Hasil            |
+| -------------------------------------------------------------- | ---------------- |
+| Aset privat, alamat langsung                                   | ✅ 404           |
+| Aset yang **tidak pernah** publik, lewat `/_next/image`        | ✅ 400 (ditolak) |
+| Aset yang **pernah** publik lalu ditarik, lewat `/_next/image` | ❌ **200**       |
 
 Jadi kontrol aksesnya tidak dilewati. Yang terjadi: pengoptimal gambar Next
 menyimpan hasilnya sesuai `Cache-Control` dari rute penyaji — dan rute itu

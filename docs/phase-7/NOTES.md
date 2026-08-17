@@ -13,9 +13,9 @@ Satu kasus yang meleset dan perlu diketahui:
 perangkat  →  angkat
 ```
 
-"Perangkat" adalah kata dasar yang berarti *device* — kosakata inti untuk
+"Perangkat" adalah kata dasar yang berarti _device_ — kosakata inti untuk
 Knowledge Base IT Support. Stemmer-nya mengira "per-" adalah imbuhan dan
-memangkasnya menjadi "angkat" (*to lift*).
+memangkasnya menjadi "angkat" (_to lift_).
 
 **Dampaknya terbatas, dan sengaja diterima:** mencari "perangkat" tetap
 menemukan dokumen yang memuat "perangkat", karena keduanya menjadi leksem

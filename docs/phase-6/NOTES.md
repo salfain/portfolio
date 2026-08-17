@@ -14,11 +14,11 @@ asli dan output terminal asli tidak boleh diterbitkan
 
 **Yang menghambat, berurut kepentingannya:**
 
-| # | Pertanyaan | Kenapa menentukan |
-|---|---|---|
-| Q5 | Insiden nyata atau reproduksi lab? | Menentukan checklist redaksi mana yang berlaku dan penanda apa yang wajib tampil |
-| Q4 | Nama perusahaan & sekolah boleh disebut? | Menentukan apakah bukti perlu diredaksi lebih dalam |
-| Q6 | Metrik yang benar-benar tercatat | `resolutionMinutes` hanya diisi bila waktunya tercatat |
+| #   | Pertanyaan                               | Kenapa menentukan                                                                |
+| --- | ---------------------------------------- | -------------------------------------------------------------------------------- |
+| Q5  | Insiden nyata atau reproduksi lab?       | Menentukan checklist redaksi mana yang berlaku dan penanda apa yang wajib tampil |
+| Q4  | Nama perusahaan & sekolah boleh disebut? | Menentukan apakah bukti perlu diredaksi lebih dalam                              |
+| Q6  | Metrik yang benar-benar tercatat         | `resolutionMinutes` hanya diisi bila waktunya tercatat                           |
 
 ---
 

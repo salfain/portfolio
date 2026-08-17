@@ -9,10 +9,12 @@
 ## Yang dibuat
 
 ### Design tokens & motion
+
 - `src/lib/motion.ts` — token durasi (`fast/normal/slow/hero`), easing (`standard/enter/exit`), jarak (`small/medium/large`), preset `transitions`
 - 4 komponen motion: `reveal.tsx` (scroll reveal), `stagger.tsx` (stagger container/item), `parallax.tsx` (scroll parallax), `hover.tsx` (hover scale) — semua mati saat `prefers-reduced-motion: reduce`
 
 ### UI components (14 file)
+
 - `button.tsx` — variants primary/secondary/ghost/danger, sizes sm/md/lg, `asChild` via Radix Slot, loading spinner, forwardRef
 - `card.tsx` — Card/CardHeader/CardBody/CardFooter, `rounded-3xl border bg-surface`
 - `badge.tsx` — variants default/primary/success/warning/danger
@@ -24,6 +26,7 @@
 - `index.ts` — barrel export
 
 ### Public shell
+
 - `navbar.tsx` — sticky top, logo "MSA", desktop nav (md+), LocaleSwitch (sm+), ThemeToggle, mobile menu trigger (md:hidden)
 - `mobile-drawer.tsx` — Radix Drawer, nav links, LocaleSwitch in footer, close on link click
 - `footer.tsx` — brand, nav links, copyright with year
@@ -32,6 +35,7 @@
 - `index.ts` — barrel export
 
 ### i18n keys
+
 - `nav.*` (siteName, home, projects, knowledge, menu, openMenu, closeMenu)
 - `footer.*` (name, role, home, projects, knowledge, rights)
 - `a11y.skipToContent`
@@ -50,6 +54,7 @@
   istilah teknis yang diterjemahkan justru memecah navigasi.
 
 ### Layout
+
 - Root layout → pass-through (tidak render `<html>`)
 - `[locale]/layout.tsx` → render `<html lang={locale}>` + `<body>` + Navbar/Footer/SkipLink
 - `admin/layout.tsx` → render `<html lang="id" data-theme="light">` + `<body>`
@@ -68,36 +73,36 @@
 
 ## Acceptance criteria
 
-| Kriteria | Status |
-|---|---|
-| Komponen bekerja di kedua bahasa dan tema | ✅ |
-| Focus visible | ✅ |
-| Mobile tidak bergantung hover | ✅ |
-| Reduced motion menghilangkan parallax/gerakan berlebih | ✅ |
-| Tidak ada layout shift dari entrance | ✅ |
+| Kriteria                                               | Status |
+| ------------------------------------------------------ | ------ |
+| Komponen bekerja di kedua bahasa dan tema              | ✅     |
+| Focus visible                                          | ✅     |
+| Mobile tidak bergantung hover                          | ✅     |
+| Reduced motion menghilangkan parallax/gerakan berlebih | ✅     |
+| Tidak ada layout shift dari entrance                   | ✅     |
 
 ---
 
 ## Gates
 
-| Gate | Hasil |
-|---|---|
-| typecheck | ✅ |
-| lint | ✅ |
-| test | ✅ 13/13 |
-| build | ✅ 8/8 pages |
+| Gate      | Hasil        |
+| --------- | ------------ |
+| typecheck | ✅           |
+| lint      | ✅           |
+| test      | ✅ 13/13     |
+| build     | ✅ 8/8 pages |
 
 ---
 
 ## Uji manual (8 titik)
 
-| Titik | Hasil |
-|---|---|
-| `/id` render navbar/footer/skip-link | ✅ |
-| `/en` render navbar/footer/skip-link | ✅ |
-| `<html lang>` dinamis (id/en) | ✅ |
-| Locale switch ID↔EN | ✅ |
-| Theme toggle + hard reload persist | ✅ |
-| Mobile 375px + drawer | ✅ |
-| Desktop 1440px desktop nav | ✅ |
-| Keyboard tab order + reduced motion | ✅ |
+| Titik                                | Hasil |
+| ------------------------------------ | ----- |
+| `/id` render navbar/footer/skip-link | ✅    |
+| `/en` render navbar/footer/skip-link | ✅    |
+| `<html lang>` dinamis (id/en)        | ✅    |
+| Locale switch ID↔EN                  | ✅    |
+| Theme toggle + hard reload persist   | ✅    |
+| Mobile 375px + drawer                | ✅    |
+| Desktop 1440px desktop nav           | ✅    |
+| Keyboard tab order + reduced motion  | ✅    |

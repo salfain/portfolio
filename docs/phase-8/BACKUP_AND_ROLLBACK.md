@@ -11,11 +11,11 @@
 
 ## 1. Apa yang perlu di-backup
 
-| Yang disimpan | Di mana | Hilang berarti |
-|---|---|---|
-| Isi situs | PostgreSQL | Seluruh dokumen, proyek, revisi, dan pesan hilang |
-| Bukti | `var/uploads/` (nanti R2) | Gambar dan berkas dukungan hilang; dokumennya tetap ada tapi rujukannya kosong |
-| Rahasia | `.env.local` di host | Tidak bisa masuk, tidak bisa buka database |
+| Yang disimpan | Di mana                   | Hilang berarti                                                                 |
+| ------------- | ------------------------- | ------------------------------------------------------------------------------ |
+| Isi situs     | PostgreSQL                | Seluruh dokumen, proyek, revisi, dan pesan hilang                              |
+| Bukti         | `var/uploads/` (nanti R2) | Gambar dan berkas dukungan hilang; dokumennya tetap ada tapi rujukannya kosong |
+| Rahasia       | `.env.local` di host      | Tidak bisa masuk, tidak bisa buka database                                     |
 
 Kode **tidak** perlu di-backup — ia ada di Git. Yang tidak ada di Git hanya
 tiga baris di atas.
@@ -123,12 +123,12 @@ penggantian nama. Keduanya membuat kode lama gagal menulis.
 
 ## 7. Jadwal yang disarankan
 
-| Kapan | Apa |
-|---|---|
-| Sebelum setiap `prisma migrate deploy` | Backup database |
-| Harian, otomatis | Backup database |
-| Sebelum menghapus dokumen atau bukti dalam jumlah banyak | Backup keduanya |
-| Bulanan | Uji pulihkan ke database sementara |
+| Kapan                                                    | Apa                                |
+| -------------------------------------------------------- | ---------------------------------- |
+| Sebelum setiap `prisma migrate deploy`                   | Backup database                    |
+| Harian, otomatis                                         | Backup database                    |
+| Sebelum menghapus dokumen atau bukti dalam jumlah banyak | Backup keduanya                    |
+| Bulanan                                                  | Uji pulihkan ke database sementara |
 
 Yang terakhir yang paling sering dilewati, dan yang paling menentukan.
 

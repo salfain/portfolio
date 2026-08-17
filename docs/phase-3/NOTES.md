@@ -23,11 +23,11 @@ middleware benar-benar terdaftar.
 
 **Yang selama ini tidak berjalan:**
 
-| Fitur | Akibat |
-|---|---|
-| Negosiasi `Accept-Language` | Kunjungan pertama tidak pernah mendeteksi bahasa peramban |
-| Cookie `NEXT_LOCALE` | Pilihan bahasa tidak pernah diingat antar-kunjungan |
-| Redirect `/` → `/id` | Masih jalan, tapi lewat `src/app/page.tsx` — bukan middleware |
+| Fitur                       | Akibat                                                        |
+| --------------------------- | ------------------------------------------------------------- |
+| Negosiasi `Accept-Language` | Kunjungan pertama tidak pernah mendeteksi bahasa peramban     |
+| Cookie `NEXT_LOCALE`        | Pilihan bahasa tidak pernah diingat antar-kunjungan           |
+| Redirect `/` → `/id`        | Masih jalan, tapi lewat `src/app/page.tsx` — bukan middleware |
 
 Redirect `/` yang tetap bekerja itulah yang menyamarkan masalahnya: sekilas
 middleware terlihat berfungsi.
@@ -91,11 +91,11 @@ diterbitkan lewat admin tidak muncul sampai build berikutnya** —
 
 Tiga jalan keluar, perlu keputusan pemilik di Fase 3b:
 
-| Opsi | Konsekuensi |
-|---|---|
-| A. Deploy hook — publikasi memicu build ulang | Paling sederhana di Vercel; jeda 1–2 menit sebelum proyek live |
+| Opsi                                               | Konsekuensi                                                       |
+| -------------------------------------------------- | ----------------------------------------------------------------- |
+| A. Deploy hook — publikasi memicu build ulang      | Paling sederhana di Vercel; jeda 1–2 menit sebelum proyek live    |
 | B. Rute detail dibuat dinamis (tanpa `revalidate`) | Proyek langsung live; LCP lebih lambat, halaman tidak lagi statis |
-| C. Tetap seperti sekarang | Terima jeda sampai build berikutnya |
+| C. Tetap seperti sekarang                          | Terima jeda sampai build berikutnya                               |
 
 ---
 
@@ -103,12 +103,12 @@ Tiga jalan keluar, perlu keputusan pemilik di Fase 3b:
 
 `06_SECURITY.md` §6 mensyaratkan empat lapisan. Yang aktif sekarang:
 
-| # | Lapisan | Status |
-|---|---|---|
-| 1 | Honeypot | ✅ |
-| 2 | Validasi Zod di server | ✅ |
-| 3 | Rate limit | ⚠️ **per email, bukan per IP** |
-| 4 | Cloudflare Turnstile | ❌ belum ada |
+| #   | Lapisan                | Status                         |
+| --- | ---------------------- | ------------------------------ |
+| 1   | Honeypot               | ✅                             |
+| 2   | Validasi Zod di server | ✅                             |
+| 3   | Rate limit             | ⚠️ **per email, bukan per IP** |
+| 4   | Cloudflare Turnstile   | ❌ belum ada                   |
 
 **Kenapa belum dikerjakan:**
 
@@ -177,15 +177,15 @@ tidak berubah.
 `docs/phase-0/06_OPEN_QUESTIONS.md`. Struktur kode sudah siap menerima isinya,
 tapi situs tetap kosong sampai dijawab:
 
-| | Pertanyaan | Menghambat |
-|---|---|---|
-| Q4 | Nama perusahaan & sekolah boleh disebut? | `/experience` |
-| Q5 | Insiden nyata atau reproduksi lab? | Integritas — Fase 6 |
-| Q6 | Metrik yang benar-benar ada catatannya | Bagian "Ringkasan" |
-| Q7 | Konfirmasi 3 proyek rilis | "Pekerjaan Pilihan" |
-| Q8 | Pilihan headline hero (usulan: Opsi B) | Hero |
-| Q9 | "bekerja di" vs "berpengalaman di" IT Support | Hero |
-| Q10 | Email/WA publik atau form saja | `/contact`, `/recruiter` |
+|     | Pertanyaan                                    | Menghambat               |
+| --- | --------------------------------------------- | ------------------------ |
+| Q4  | Nama perusahaan & sekolah boleh disebut?      | `/experience`            |
+| Q5  | Insiden nyata atau reproduksi lab?            | Integritas — Fase 6      |
+| Q6  | Metrik yang benar-benar ada catatannya        | Bagian "Ringkasan"       |
+| Q7  | Konfirmasi 3 proyek rilis                     | "Pekerjaan Pilihan"      |
+| Q8  | Pilihan headline hero (usulan: Opsi B)        | Hero                     |
+| Q9  | "bekerja di" vs "berpengalaman di" IT Support | Hero                     |
+| Q10 | Email/WA publik atau form saja                | `/contact`, `/recruiter` |
 
 Ditambah kolom ⚠️ di `00_CONTENT_INVENTORY.md` §1: kampus, tahun lulus,
 lokasi, LinkedIn, GitHub, foto profil, berkas CV.

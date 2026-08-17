@@ -74,8 +74,10 @@ export function LocaleSwitch({
       aria-label={label}
       title={label}
       className={cn(
-        'inline-flex items-center gap-0.5 rounded-md',
-        'border border-border-med p-1 font-mono text-xs',
+        // min-h-11: chip-nya terlihat ramping, tapi area sentuhnya tetap
+        // memenuhi batas 44px di 02_STYLING §9.
+        'inline-flex min-h-11 items-center gap-0.5 rounded-md',
+        'border border-border-med px-1 font-mono text-xs',
         'disabled:opacity-60',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
       )}
