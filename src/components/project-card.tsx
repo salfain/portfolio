@@ -39,7 +39,7 @@ export async function ProjectCard({ project, locale }: ProjectCardProps) {
           ) : null}
         </div>
 
-        <h3 className="mt-4 text-2xl font-medium leading-snug">
+        <h3 className="mt-4 text-lg font-medium leading-snug md:text-xl">
           {/* `after:` menutupi seluruh kartu supaya area kliknya lebar,
               tanpa menyarangkan elemen interaktif di dalam <a>. */}
           <Link

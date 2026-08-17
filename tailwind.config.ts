@@ -51,17 +51,24 @@ const config = {
       fontSize: {
         /* Skala redesign 2026. Judul memakai Instrument Serif, jadi berat
            font-nya tetap 400 — menebalkan serif ini merusak bentuknya. */
+        /**
+         * Ukuran handoff DITURUNKAN. Angka aslinya (hero 104px, h1 80px)
+         * mengasumsikan judul sependek sebuah nama; isi sebenarnya di
+         * basis data berupa kalimat penuh, dan pada ukuran itu satu
+         * kalimat memenuhi seluruh layar. Batas bawah juga diturunkan
+         * supaya judul tidak menelan layar 375px.
+         */
         display: [
-          'clamp(52px,7.4vw,104px)',
-          { lineHeight: '0.96', letterSpacing: '-0.02em', fontWeight: '400' },
+          'clamp(36px,5.2vw,64px)',
+          { lineHeight: '1.04', letterSpacing: '-0.02em', fontWeight: '400' },
         ],
         h1: [
-          'clamp(44px,6vw,80px)',
-          { lineHeight: '1', letterSpacing: '-0.02em', fontWeight: '400' },
+          'clamp(30px,4.2vw,52px)',
+          { lineHeight: '1.08', letterSpacing: '-0.02em', fontWeight: '400' },
         ],
         h2: [
-          'clamp(30px,3.4vw,38px)',
-          { lineHeight: '1.1', letterSpacing: '-0.01em', fontWeight: '400' },
+          'clamp(24px,2.6vw,32px)',
+          { lineHeight: '1.15', letterSpacing: '-0.01em', fontWeight: '400' },
         ],
         body: ['17px', { lineHeight: '1.65' }],
         label: ['11px', { lineHeight: '1.4', letterSpacing: '0.12em' }],

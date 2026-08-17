@@ -100,7 +100,7 @@ export function CertificateLightbox({
 
             {/* `pr-10` menyisakan ruang untuk tombol tutup bulat yang
                 diposisikan absolut di pojok kanan atas panel. */}
-            <DialogTitle className="pr-10 font-display text-[32px] leading-tight">
+            <DialogTitle className="pr-10 font-display text-[24px] leading-tight">
               {name}
             </DialogTitle>
 

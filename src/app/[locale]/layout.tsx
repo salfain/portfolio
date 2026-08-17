@@ -65,7 +65,7 @@ export async function generateMetadata({
     },
     description:
       locale === 'id'
-        ? 'Portofolio & Knowledge Base IT Support — Muhammad Sya’ban Alfain.'
+        ? 'Portofolio & Basis Pengetahuan IT Support — Muhammad Sya’ban Alfain.'
         : 'IT Support Portfolio & Knowledge Base — Muhammad Sya’ban Alfain.',
   }
 }

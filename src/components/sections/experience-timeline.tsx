@@ -75,7 +75,7 @@ export async function ExperienceTimeline({
                 </div>
 
                 <div className="min-w-0">
-                  <h3 lang={position.lang} className="text-[22px] font-medium">
+                  <h3 lang={position.lang} className="text-[19px] font-medium">
                     {position.value}
                   </h3>
 

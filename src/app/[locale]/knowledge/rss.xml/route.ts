@@ -53,7 +53,7 @@ export async function GET(
 
   const title =
     locale === 'id'
-      ? 'Knowledge Base — Muhammad Sya’ban Alfain'
+      ? 'Basis Pengetahuan — Muhammad Sya’ban Alfain'
       : 'Knowledge Base — Muhammad Sya’ban Alfain'
 
   const description =

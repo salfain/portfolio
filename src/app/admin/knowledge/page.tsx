@@ -46,7 +46,7 @@ export default async function AdminKnowledgePage({ searchParams }: PageProps) {
 
   return (
     <AdminShell
-      title="Knowledge Base"
+      title="Basis Pengetahuan"
       description="SOP, lab, insiden, dan artikel. Hanya dokumen Terbit yang punya halaman publik."
       action={
         <Button asChild>
@@ -80,7 +80,7 @@ export default async function AdminKnowledgePage({ searchParams }: PageProps) {
       {documents.length === 0 ? (
         <EmptyState
           title="Belum ada dokumen"
-          description="Dokumen pertama akan langsung muncul di Knowledge Base publik begitu diterbitkan."
+          description="Dokumen pertama akan langsung muncul di Basis Pengetahuan publik begitu diterbitkan."
         />
       ) : (
         <AdminTable columns={COLUMNS} template={TEMPLATE}>

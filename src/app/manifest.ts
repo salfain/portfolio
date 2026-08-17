@@ -16,7 +16,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Muhammad Sya'ban Alfain — IT Support",
     short_name: 'MSA',
     description:
-      'Portofolio dan Knowledge Base IT Support: SOP, lab jaringan, dan laporan insiden.',
+      'Portofolio dan Basis Pengetahuan IT Support: SOP, lab jaringan, dan laporan insiden.',
     start_url: '/id',
     display: 'standalone',
     background_color: '#0b1220',

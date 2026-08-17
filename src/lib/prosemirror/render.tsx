@@ -94,7 +94,7 @@ function renderNode(node: ProseMirrorNode, ctx: RenderContext): ReactNode {
 
     case 'paragraph':
       return (
-        <p className="my-4 hyphens-auto text-justify leading-relaxed">
+        <p className="my-4 leading-relaxed">
           {renderChildren(node.content, ctx)}
         </p>
       )

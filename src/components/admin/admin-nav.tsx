@@ -39,7 +39,7 @@ const groups: NavGroup[] = [
       { href: '/admin/experiences', label: 'Pengalaman' },
       { href: '/admin/skills', label: 'Keahlian' },
       { href: '/admin/certifications', label: 'Sertifikat' },
-      { href: '/admin/knowledge', label: 'Knowledge Base' },
+      { href: '/admin/knowledge', label: 'Basis Pengetahuan' },
       { href: '/admin/taxonomy', label: 'Taksonomi' },
     ],
   },

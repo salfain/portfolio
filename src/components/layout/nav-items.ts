@@ -13,11 +13,13 @@ export type NavItem = {
  *
  * `/knowledge` baru dibuka di Fase 4 (05_ROUTE_AND_PRIORITY_MAP §2).
  */
+/** Urutan menu mengikuti handoff redesign 2026. */
 export const navItems: NavItem[] = [
   { href: '/', key: 'home' },
   { href: '/about', key: 'about' },
   { href: '/projects', key: 'projects' },
   { href: '/experience', key: 'experience' },
+  { href: '/certifications', key: 'certifications' },
   ...(features.knowledgeBase ? [{ href: '/knowledge', key: 'knowledge' }] : []),
   { href: '/contact', key: 'contact' },
 ]
@@ -25,7 +27,6 @@ export const navItems: NavItem[] = [
 /** Tautan sekunder di footer. */
 export const footerItems: NavItem[] = [
   { href: '/expertise', key: 'expertise' },
-  { href: '/certifications', key: 'certifications' },
   { href: '/recruiter', key: 'recruiter' },
   { href: '/privacy', key: 'privacy' },
   { href: '/terms', key: 'terms' },

@@ -80,7 +80,7 @@ function CaseStudyBlock({
 
   return (
     <section className="mt-12">
-      <h2 className="font-display text-[26px] leading-tight">{heading}</h2>
+      <h2 className="font-display text-[22px] leading-tight">{heading}</h2>
       <p
         lang={lang}
         className="mt-4 whitespace-pre-line leading-[1.75] text-muted"
@@ -155,16 +155,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
       <p className="kicker mt-10">{t('caseStudyKicker')}</p>
 
-      <h1
-        lang={title.lang}
-        className="mt-5 max-w-[18ch] font-display text-[clamp(40px,5.2vw,68px)] leading-[1.02] tracking-[-0.02em]"
-      >
+      <h1 lang={title.lang} className="mt-5 max-w-[20ch] font-display text-h1">
         {title.value}
       </h1>
 
       <p
         lang={summary.lang}
-        className="mt-7 max-w-[62ch] text-xl leading-relaxed text-muted"
+        className="mt-7 max-w-[62ch] text-lg leading-relaxed text-muted"
       >
         {summary.value}
       </p>
@@ -187,7 +184,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       ) : null}
 
       <div className="mt-12 grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-16">
-        <div className="min-w-0">
+        <div className="prose-justify min-w-0">
           <CaseStudyBlock
             heading={t('problem')}
             body={problem.value}

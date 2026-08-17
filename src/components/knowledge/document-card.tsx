@@ -60,7 +60,7 @@ export async function DocumentCard({
 
       <h3
         lang={title.lang}
-        className="mt-5 text-[19px] font-medium leading-snug transition-colors group-hover:text-primary"
+        className="mt-5 text-[17px] font-medium leading-snug transition-colors group-hover:text-primary"
       >
         {title.value}
       </h3>

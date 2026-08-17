@@ -55,7 +55,7 @@ export function Narrative({
                   {numbered ? (
                     <span
                       aria-hidden
-                      className="block font-display text-[34px] leading-none text-primary"
+                      className="block font-display text-[28px] leading-none text-primary"
                     >
                       {String(index + 1).padStart(2, '0')}
                     </span>
@@ -64,7 +64,7 @@ export function Narrative({
                   <h3
                     lang={blockTitle.lang}
                     className={cn(
-                      'text-[19px] font-medium leading-snug',
+                      'text-[17px] font-medium leading-snug',
                       numbered && 'mt-5',
                     )}
                   >

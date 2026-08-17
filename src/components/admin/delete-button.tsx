@@ -78,7 +78,7 @@ export function DeleteButton({
           closeLabel="Tutup"
           className="max-w-[460px] rounded-3xl p-[30px]"
         >
-          <DialogTitle className="pr-10 font-display text-[28px] leading-tight">
+          <DialogTitle className="pr-10 font-display text-[22px] leading-tight">
             Hapus entri ini?
           </DialogTitle>
 

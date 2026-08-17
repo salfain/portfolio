@@ -98,7 +98,7 @@ export default async function AdminPage() {
           >
             {/* Angka serif besar dulu, label mono di bawahnya: dasbor ini
                 dibaca sekilas, dan yang dicari selalu angkanya. */}
-            <p className="font-display text-5xl tabular-nums leading-none">
+            <p className="font-display text-4xl tabular-nums leading-none">
               {summary.total}
             </p>
             <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">

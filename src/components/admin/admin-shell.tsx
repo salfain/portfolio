@@ -41,7 +41,9 @@ export async function AdminShell({
               {/* Remah roti mono: menandai bahwa yang dilihat adalah panel
                   admin, bukan halaman publik dengan judul yang sama. */}
               <p className="kicker mb-3">Admin · {title}</p>
-              <h1 className="font-display text-[42px] leading-none">{title}</h1>
+              <h1 className="font-display text-[28px] leading-tight md:text-[32px]">
+                {title}
+              </h1>
               {description ? (
                 <p className="mt-3 max-w-[62ch] text-sm text-muted">
                   {description}

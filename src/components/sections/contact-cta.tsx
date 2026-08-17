@@ -33,18 +33,11 @@ export async function ContactCta({ profile, locale }: ContactCtaProps) {
     >
       <Container>
         <Reveal>
-          <div className="rounded-[28px] border border-border bg-surface px-6 py-16 text-center sm:px-12 md:px-12 md:py-20">
-            <h2
-              id="contact-cta-heading"
-              className="font-display text-[clamp(38px,5vw,64px)] leading-[1.05] tracking-[-0.02em]"
-            >
+          <div className="rounded-[28px] border border-border bg-surface px-6 py-12 text-center sm:px-12 md:py-16">
+            <h2 id="contact-cta-heading" className="font-display text-h2">
               {t('title')}
             </h2>
-            {/* `text-center` diulang di sini, bukan diwarisi: aturan dasar
-                `p { text-align: justify }` mengalahkan perataan yang
-                diwariskan induk, jadi tanpa kelas ini paragraf akan
-                kembali rata kiri-kanan. */}
-            <p className="mx-auto mt-5 max-w-[54ch] text-center text-lg leading-relaxed text-muted">
+            <p className="mx-auto mt-5 max-w-[54ch] text-center leading-relaxed text-muted">
               {t('description')}
             </p>
 

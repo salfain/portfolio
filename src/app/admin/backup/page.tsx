@@ -13,12 +13,12 @@ export default async function AdminBackupPage() {
   return (
     <AdminShell
       title="Backup & Ekspor"
-      description="Unduh seluruh isi Knowledge Base. Berkas JSON memakai format yang sama dengan seed, jadi bisa dipakai memulihkan."
+      description="Unduh seluruh isi Basis Pengetahuan. Berkas JSON memakai format yang sama dengan seed, jadi bisa dipakai memulihkan."
     >
       <div className="grid gap-5 lg:grid-cols-2">
         <div className="rounded-3xl border border-border bg-surface p-7">
           <h2 className="kicker">Ekspor</h2>
-          <p className="mt-4 font-display text-5xl tabular-nums leading-none">
+          <p className="mt-4 font-display text-4xl tabular-nums leading-none">
             {documents.length}
           </p>
           <p className="mt-3 text-sm text-muted">

@@ -24,7 +24,7 @@
     "expertise": "Keahlian",
     "certifications": "Sertifikasi",
     "recruiter": "Mode Recruiter",
-    "knowledge": "Knowledge Base",
+    "knowledge": "Pengetahuan",
     "contact": "Kontak",
     "privacy": "Kebijakan Privasi",
     "terms": "Ketentuan",
@@ -50,7 +50,7 @@
     "fallbackRole": "IT Support · Dukungan Teknis · Dokumentasi",
     "fallbackHeadline": "IT Support profesional yang membantu pengguna, menyelesaikan masalah operasional, dan mendokumentasikan solusinya.",
     "viewPortfolio": "Lihat Portofolio",
-    "exploreKnowledge": "Jelajahi Knowledge Base",
+    "exploreKnowledge": "Jelajahi Basis Pengetahuan",
     "getInTouch": "Hubungi Saya",
     "downloadCv": "Unduh CV",
     "infoLocation": "Lokasi",
@@ -59,7 +59,7 @@
   "home": {
     "whyWorkWithMe": "Kenapa Bekerja dengan Saya",
     "troubleshootingProcess": "Cara Saya Menangani Masalah",
-    "fromKnowledgeBase": "Dari Knowledge Base"
+    "fromKnowledgeBase": "Dari Basis Pengetahuan"
   },
   "explore": {
     "title": "Jelajahi Pekerjaan Saya",
@@ -82,7 +82,7 @@
         "description": "Sertifikat yang dimiliki beserta tautan verifikasinya."
       },
       "knowledge": {
-        "title": "Knowledge Base",
+        "title": "Basis Pengetahuan",
         "description": "SOP, lab jaringan, dan laporan penanganan insiden."
       },
       "recruiter": {
@@ -261,7 +261,7 @@
   },
   "terms": {
     "title": "Ketentuan Penggunaan",
-    "metaDescription": "Ketentuan penggunaan isi situs portofolio dan Knowledge Base ini.",
+    "metaDescription": "Ketentuan penggunaan isi situs portofolio dan Basis Pengetahuan ini.",
     "description": "Ketentuan singkat mengenai penggunaan isi situs ini.",
     "lastUpdated": "Terakhir diperbarui: 31 Juli 2026.",
     "sections": {
@@ -305,7 +305,7 @@
     "loginRequired": "Masuk diperlukan"
   },
   "knowledge": {
-    "title": "Knowledge Base",
+    "title": "Basis Pengetahuan",
     "description": "SOP, lab jaringan, dan laporan insiden yang saya tulis sendiri. Setiap dokumen bisa ditelusuri langkah demi langkah.",
     "browseAll": "Lihat semua dokumen",
     "code": "kode",
@@ -380,7 +380,7 @@
     },
     "empty": {
       "title": "Belum ada dokumen",
-      "description": "Knowledge Base sedang diisi. Dokumen pertama akan muncul di sini."
+      "description": "Basis Pengetahuan sedang diisi. Dokumen pertama akan muncul di sini."
     },
     "emptyFiltered": {
       "title": "Tidak ada yang cocok",
@@ -478,7 +478,7 @@
     "idle": "Ketik minimal dua huruf untuk mulai mencari.",
     "resultCount": "{count, plural, =0 {Tidak ada hasil} one {# hasil} other {# hasil}}",
     "groups": {
-      "documents": "Knowledge Base",
+      "documents": "Basis Pengetahuan",
       "projects": "Proyek",
       "pages": "Halaman"
     }

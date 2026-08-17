@@ -232,17 +232,11 @@ export async function DocumentDetail({
             ))}
           </div>
 
-          <h1
-            lang={title.lang}
-            className="mt-3 font-display text-3xl tracking-tight md:text-4xl"
-          >
+          <h1 lang={title.lang} className="mt-3 font-display text-h1">
             {title.value}
           </h1>
 
-          <p
-            lang={summary.lang}
-            className="mt-4 hyphens-auto text-justify text-lg leading-relaxed text-muted"
-          >
+          <p lang={summary.lang} className="mt-4 leading-relaxed text-muted">
             {summary.value}
           </p>
 
@@ -254,7 +248,7 @@ export async function DocumentDetail({
         <div className="mt-10 grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-14">
           <div className="min-w-0 lg:order-1">
             {content ? (
-              <article lang={contentLang}>
+              <article lang={contentLang} className="prose-justify">
                 <ProseMirrorContent doc={content} />
               </article>
             ) : (

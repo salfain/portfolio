@@ -127,29 +127,29 @@
     @apply bg-background font-sans text-body text-foreground antialiased;
   }
 
-  /* Paragraf panjang dirata kiri-kanan dengan pemenggalan kata, sesuai
-     handoff. Dikecualikan di dalam `.prose-editor`/`.prose-admin` supaya
-     permukaan penyuntingan tetap rata kiri dan kursor mudah diikuti. */
+  /* Handoff meminta seluruh paragraf dirata kiri-kanan. Diterapkan
+     global, aturan itu MERUSAK: di kolom sempit — kartu grid, sidebar,
+     layar 375px — bahasa Indonesia yang kata-katanya panjang memaksa
+     spasi melebar sampai muncul sungai putih di tengah paragraf, dan
+     satu baris bisa berisi tiga kata yang berjauhan.
+     Rata kiri-kanan hanya masuk akal bila lebar barisnya cukup, jadi
+     pemakaiannya dipindahkan ke kelas `.prose-justify` yang dipasang
+     pada badan artikel saja, dan baru aktif dari 768px ke atas. */
   p {
-    text-align: justify;
-    text-justify: inter-word;
     hyphens: auto;
     text-wrap: pretty;
   }
 
-  .prose-editor p,
-  .prose-admin p,
-  .no-justify p {
-    text-align: left;
-    hyphens: manual;
+  @media (min-width: 768px) {
+    .prose-justify p {
+      text-align: justify;
+      text-justify: inter-word;
+    }
   }
 
-  /* Aturan `p` di atas adalah selektor elemen, jadi ia MENGALAHKAN
-     perataan yang diwariskan dari induk — tanpa baris ini, setiap blok
-     `text-center` (empty state, halaman galat, kartu CTA) akan tetap
-     merender paragrafnya rata kiri-kanan. */
-  .text-center p {
-    text-align: center;
+  .prose-editor p,
+  .prose-admin p {
+    hyphens: manual;
   }
 
   :focus-visible {

@@ -95,7 +95,7 @@ export async function CertificationsList({
                   <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
                     {certificate.issuer}
                   </p>
-                  <h3 className="mt-3 text-[19px] font-medium leading-snug">
+                  <h3 className="mt-3 text-[17px] font-medium leading-snug">
                     {certificate.name}
                   </h3>
 
