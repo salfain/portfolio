@@ -160,10 +160,24 @@ Butuh server yang sudah berjalan, dan `BETTER_AUTH_URL` server itu harus
 sama dengan alamat yang diuji:
 
 ```bash
+npm run db:seed
 npm run build
 BETTER_AUTH_URL=http://127.0.0.1:3000 npm run start &
 E2E_BASE_URL=http://127.0.0.1:3000 npm run test:e2e
 ```
+
+Ketiga baris itu saling terikat:
+
+- `db:seed` wajib lebih dulu. Tanpa pengguna admin, runner berhenti di
+  awal dengan "Tidak ada pengguna admin".
+- Host di `BETTER_AUTH_URL` dan `E2E_BASE_URL` harus **sama persis**.
+  Better Auth memeriksa header `Origin`, dan `localhost` dengan
+  `127.0.0.1` dianggap dua origin berbeda meski menunjuk mesin yang sama.
+  Kalau berbeda, login gagal dan tiga tes yang butuh sesi admin tidak
+  berjalan sama sekali — hasilnya terbaca 22/23 lolos, bukan 26/26.
+
+Hasil yang benar adalah **26/26**. Angka total yang lebih kecil berarti
+ada tes yang dilewati, bukan tes yang tidak ada.
 
 Tes ini membuat umpan uji di database lalu menghapusnya lagi, termasuk saat
 gagal.

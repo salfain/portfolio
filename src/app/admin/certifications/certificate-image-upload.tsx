@@ -88,6 +88,14 @@ export function CertificateImageUpload({
 
       {imageUrl ? (
         <div className="space-y-3">
+          {/*
+            Pratinjau setelah unggah, bukan gambar yang disajikan ke
+            pengunjung: dimensinya belum diketahui dan sumbernya bisa berupa
+            object URL dari berkas yang baru dipilih, yang tidak bisa
+            dioptimasi `next/image`. Halaman ini juga admin saja, jadi tidak
+            ada dampak LCP di rute publik.
+          */}
+          {/* eslint-disable-next-line @next/next/no-img-element -- tanpa dimensi */}
           <img
             src={imageUrl}
             alt="Pratinjau gambar sertifikat"

@@ -83,6 +83,22 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
 
   return (
     <html lang={locale} suppressHydrationWarning>
+      <head>
+        {/*
+          Motion menulis `opacity: 0` sebagai gaya inline pada render server,
+          lalu menghapusnya setelah elemen masuk viewport. Kalau JavaScript
+          gagal dimuat — diblokir korporat, jaringan putus di tengah, atau
+          ekstensi peramban — bagian di bawah hero tidak pernah terlihat
+          meskipun teksnya ADA di HTML.
+
+          `<noscript>` hanya diproses peramban saat skrip mati, jadi aturan
+          ini tidak berpengaruh apa pun pada kunjungan normal. Inline style
+          diizinkan `style-src` di src/lib/security-headers.ts.
+        */}
+        <noscript>
+          <style>{`[data-motion]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+      </head>
       <body
         className={`${fontDisplay.variable} ${fontSans.variable} ${fontMono.variable} min-h-dvh bg-background text-foreground antialiased`}
       >

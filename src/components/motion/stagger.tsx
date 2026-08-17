@@ -57,6 +57,7 @@ export function StaggerContainer({
 
   return (
     <motion.div
+      data-motion="stagger"
       variants={containerVariants(reduced, stagger, delay)}
       initial="hidden"
       whileInView="visible"
@@ -77,7 +78,11 @@ export function StaggerItem({ children, className }: StaggerItemProps) {
   const reduced = useReducedMotion()
 
   return (
-    <motion.div variants={itemVariants(reduced)} className={className}>
+    <motion.div
+      data-motion="stagger-item"
+      variants={itemVariants(reduced)}
+      className={className}
+    >
       {children}
     </motion.div>
   )

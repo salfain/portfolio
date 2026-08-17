@@ -81,11 +81,18 @@ Menemukan sesuatu di luar cakupan? Catat di `docs/phase-N/NOTES.md`, jangan dike
 npm run lint && npm run typecheck && npm run test && npm run build
 ```
 
-Jalur kritis punya tes E2E tersendiri (butuh server yang berjalan):
+Jalur kritis punya tes E2E tersendiri (butuh server yang berjalan dan
+`npm run db:seed` sudah dijalankan):
 
 ```bash
-E2E_BASE_URL=http://127.0.0.1:3000 npm run test:e2e
+E2E_BASE_URL=http://localhost:3000 npm run test:e2e
 ```
+
+**Host-nya harus sama persis dengan `BETTER_AUTH_URL` di `.env.local`.**
+Better Auth memeriksa header `Origin`, dan `localhost` dengan `127.0.0.1`
+dianggap dua origin berbeda meski menunjuk mesin yang sama. Kalau tidak
+cocok, login E2E gagal dan tiga tes yang butuh sesi admin tidak berjalan
+sama sekali — hasilnya terbaca 22/23 lolos, bukan 26/26.
 
 Plus delapan pemeriksaan manual: ID · EN · terang · gelap (hard reload) · 375 px · 1440 px · keyboard · reduced motion.
 

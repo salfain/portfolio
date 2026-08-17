@@ -415,3 +415,33 @@
 .skeleton-shimmer {
   animation: skeleton-beat 1.6s ease-in-out infinite;
 }
+
+/**
+ * Gerakan dikurangi — jaring pengaman.
+ *
+ * `Reveal` dan `Stagger` sudah memeriksa `useReducedMotion()`, tapi hook itu
+ * baru bernilai benar setelah hidrasi, sedangkan `initial` sudah dipakai
+ * pada render pertama. Akibatnya isi halaman tetap dirender `opacity: 0`
+ * dan `translateY(20px)` walau pengguna meminta gerakan dikurangi — persis
+ * sama seperti mode biasa.
+ *
+ * Aturan di bawah menimpa gaya inline yang ditulis Motion, jadi isinya
+ * langsung terlihat. Ini juga menyelamatkan halaman kalau JavaScript gagal
+ * dimuat: tanpa ini, seluruh bagian di bawah hero tidak pernah muncul.
+ *
+ * `!important` memang diperlukan di sini — gaya inline tidak bisa dikalahkan
+ * dengan cara lain.
+ */
+@media (prefers-reduced-motion: reduce) {
+  [data-motion] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .skeleton-shimmer {
+    animation: none;
+  }
+}

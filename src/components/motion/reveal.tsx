@@ -32,6 +32,9 @@ export function Reveal({
 
   return (
     <motion.div
+      /* Dipakai aturan reduced-motion di globals.css untuk menimpa gaya
+         inline yang ditulis Motion pada render pertama. */
+      data-motion="reveal"
       initial={reduced ? false : { opacity: 0, y: dist }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
