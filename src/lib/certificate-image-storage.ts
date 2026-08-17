@@ -99,7 +99,10 @@ export async function putCertificateImage(
   config: ObjectStorageConfig,
   key: string,
   bytes: Uint8Array,
-  contentType: CertificateImageType['mimeType'],
+  // Dilebarkan dari mime gambar saja: fungsi ini kini juga dipakai
+  // berkas profil, yang boleh berupa PDF. Jenisnya sudah ditentukan dari
+  // isi berkas oleh pemanggilnya, bukan dari nilai ini.
+  contentType: string,
 ) {
   await getClient(config).send(
     new PutObjectCommand({

@@ -6,6 +6,7 @@ import { FormShell } from '@/components/admin/form-shell'
 import { TextAreaField, TextField } from '@/components/admin/form-fields'
 
 import { saveProfileAction } from './actions'
+import { ProfileAssetUpload } from './profile-asset-upload'
 
 export function ProfileForm({ profile }: { profile: SiteProfile | null }) {
   return (
@@ -134,33 +135,31 @@ export function ProfileForm({ profile }: { profile: SiteProfile | null }) {
               Berkas & tautan
             </legend>
             <p className="text-xs text-muted">
-              Sampai penyimpanan objek dipasang di Fase 5, isi dengan path
-              berkas lokal di folder <code>public/</code>, mis.{' '}
-              <code>/cv/cv-id.pdf</code>. Tombol Unduh CV hanya muncul bila
-              terisi.
+              Berkas diunggah langsung ke penyimpanan dan tersimpan begitu
+              terpilih, terpisah dari tombol Simpan di bawah. Tombol Unduh CV di
+              situs hanya muncul bila berkasnya ada.
             </p>
 
             <div className="grid gap-6 sm:grid-cols-2">
-              <TextField
-                name="cvIdUrl"
+              <ProfileAssetUpload
+                kind="cvId"
                 label="Berkas CV (Indonesia)"
-                defaultValue={profile?.cvIdUrl}
-                error={errors.cvIdUrl}
+                currentUrl={profile?.cvIdUrl}
+                disabled={!profile}
               />
-              <TextField
-                name="cvEnUrl"
+              <ProfileAssetUpload
+                kind="cvEn"
                 label="Berkas CV (Inggris)"
-                defaultValue={profile?.cvEnUrl}
-                error={errors.cvEnUrl}
+                currentUrl={profile?.cvEnUrl}
+                disabled={!profile}
               />
             </div>
 
-            <TextField
-              name="profileImageUrl"
+            <ProfileAssetUpload
+              kind="photo"
               label="Foto profil"
-              hint="Path berkas, mis. /foto/profil.jpg. Kosongkan bila belum ada."
-              defaultValue={profile?.profileImageUrl}
-              error={errors.profileImageUrl}
+              currentUrl={profile?.profileImageUrl}
+              disabled={!profile}
             />
 
             <div className="grid gap-6 sm:grid-cols-2">

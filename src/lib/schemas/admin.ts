@@ -122,9 +122,15 @@ export const profileSchema = z.object({
   whatsapp: optionalText(40),
   availabilityId: optionalText(160),
   availabilityEn: optionalText(160),
-  profileImageUrl: optionalText(500),
-  cvIdUrl: optionalText(500),
-  cvEnUrl: optionalText(500),
+  /**
+   * `profileImageUrl`, `cvIdUrl`, dan `cvEnUrl` SENGAJA tidak ada di sini.
+   *
+   * Ketiganya kini dikelola Route Handler unggah berkas, bukan formulir.
+   * Kalau tetap didaftarkan, `optionalText` mengubah field yang TIDAK
+   * dikirim formulir menjadi `null`, dan `saveProfile` menulis `data:
+   * input` apa adanya — jadi setiap kali tombol Simpan ditekan, ketiga URL
+   * berkas yang sudah terunggah ikut terhapus tanpa peringatan apa pun.
+   */
   githubUrl: optionalUrl(),
   linkedinUrl: optionalUrl(),
 })
