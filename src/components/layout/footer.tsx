@@ -3,64 +3,50 @@ import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
 
 import { Container } from './container'
-import { footerItems, navItems } from './nav-items'
+import { footerItems } from './nav-items'
 
+/**
+ * Footer minimal sesuai handoff: satu baris mono, dua ujung.
+ *
+ * Blok merek dan dua kolom tautan navigasi dihapus — seluruh isinya sudah
+ * ada di navbar, dan mengulangnya di dasar setiap halaman hanya menambah
+ * satu layar penuh tanpa memberi jalan baru ke mana pun.
+ *
+ * Yang TIDAK ikut dihapus: tautan sekunder (Keahlian, Mode Recruiter,
+ * Kebijakan Privasi, Ketentuan). Empat rute itu tidak ada di navbar, jadi
+ * menghapusnya dari sini membuat keduanya tidak bisa dicapai dari
+ * halaman mana pun — dan halaman kebijakan yang tidak bisa dijangkau
+ * bukan sekadar kerugian tampilan. Bentuknya dipadatkan jadi satu baris
+ * mono, bukan dua kolom.
+ */
 export function Footer() {
   const t = useTranslations('footer')
   const tNav = useTranslations('nav')
   const year = new Date().getFullYear()
 
-  // Beranda sudah diwakili nama di kolom brand.
-  const primary = navItems.filter((item) => item.href !== '/')
-
   return (
     <footer className="border-t border-border print:hidden">
-      <Container className="py-10">
-        <div className="flex flex-col gap-10 md:flex-row md:justify-between">
-          {/* Brand */}
-          <div>
-            <p className="text-base font-medium">{t('name')}</p>
-            <p className="mt-1 text-sm text-muted">{t('role')}</p>
-          </div>
+      <Container className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 py-8 font-mono text-xs tracking-[0.08em] text-faint-2">
+        <p className="uppercase">
+          © {year} {t('name')}
+        </p>
 
-          <nav aria-label={t('navLabel')}>
-            <div className="flex flex-col gap-8 sm:flex-row sm:gap-16">
-              <ul className="space-y-2">
-                {primary.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="inline-flex min-h-6 items-center rounded-sm text-sm text-muted transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                    >
-                      {tNav(item.key)}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+        <nav aria-label={t('navLabel')}>
+          <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {footerItems.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="inline-flex min-h-6 items-center rounded-sm transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                >
+                  {tNav(item.key)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-              <ul className="space-y-2">
-                {footerItems.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="inline-flex min-h-6 items-center rounded-sm text-sm text-muted transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                    >
-                      {tNav(item.key)}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </nav>
-        </div>
-
-        {/* Baris penutup: mono, huruf besar, dua ujung. */}
-        <div className="mt-10 flex flex-wrap justify-between gap-3 border-t border-border pt-10 font-mono text-xs uppercase tracking-[0.08em] text-faint-2">
-          <p className="text-left">
-            © {year} {t('name')}
-          </p>
-          <p className="text-left">salfain.web.id</p>
-        </div>
+        <p className="uppercase">salfain.web.id</p>
       </Container>
     </footer>
   )

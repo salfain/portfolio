@@ -28,18 +28,21 @@ export function Badge({
   return (
     <span
       /**
-       * Ukurannya sengaja lebih kecil daripada teks di sekitarnya.
+       * TANPA `uppercase`, dan itu memang yang diminta handoff — chip di
+       * sana ditulis "Database design", bukan "DATABASE DESIGN".
        *
-       * Chip ini berisi nama alat dan keahlian yang bisa sepanjang
-       * "Network Laboratory Administration". Dengan huruf besar,
-       * `tracking` 0.12em, dan padding lebar, satu chip bisa memakan
-       * hampir setengah baris — barisnya jadi penuh oleh keterangan,
-       * bukan oleh isi. Tracking diturunkan ke 0.06em karena huruf besar
-       * sudah memberi jarak optiknya sendiri.
+       * Bukan sekadar selera. Isi chip ini bisa sepanjang "Administrasi
+       * sistem & layanan infrastruktur TI". Huruf besar melebarkannya
+       * sekitar 15% lagi, dan di kartu selebar sepertiga layar teksnya
+       * membungkus DI DALAM pil — satu pil berisi dua baris terbaca
+       * seperti kotak rusak, bukan seperti label.
+       *
+       * Huruf besar tetap dipakai untuk label pendek yang memang tetap:
+       * kicker, dan status Terbit/Draf di admin.
        */
       className={cn(
         'inline-flex items-center rounded-full px-2.5 py-1',
-        'font-mono text-[10px] uppercase leading-normal tracking-[0.06em]',
+        'font-mono text-[11px] leading-normal',
         variantClasses[variant],
         className,
       )}

@@ -105,7 +105,7 @@ export default async function AdminKnowledgePage({ searchParams }: PageProps) {
               <AdminTableCell className="flex flex-wrap items-center gap-2">
                 <StatusBadge status={document.status as PublishStatusValue} />
                 {document.isFeatured ? (
-                  <span className="rounded-full border border-border-med px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.06em] text-muted">
+                  <span className="rounded-full border border-border-med px-2.5 py-1 font-mono text-[11px] text-muted">
                     Pilihan
                   </span>
                 ) : null}
