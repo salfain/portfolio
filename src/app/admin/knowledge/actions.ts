@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 import type { ZodError } from 'zod'
@@ -29,7 +29,7 @@ const SESSION_ENDED: AdminState = {
 /**
  * Menyegarkan seluruh permukaan publik yang menampilkan dokumen.
  *
- * `revalidateTag('knowledge')` mengurus data ber-cache. `revalidatePath`
+ * `updateTag('knowledge')` mengurus data ber-cache. `revalidatePath`
  * untuk sitemap dan beranda, yang tidak ikut tag itu.
  *
  * Yang TIDAK perlu lagi: build ulang. Sejak `dynamicParams = true` bisa
@@ -37,7 +37,7 @@ const SESSION_ENDED: AdminState = {
  * dibuka tanpa menunggu deploy berikutnya.
  */
 function revalidateKnowledge() {
-  revalidateTag('knowledge')
+  updateTag('knowledge')
   revalidatePath('/[locale]', 'page')
   revalidatePath('/sitemap.xml')
 }

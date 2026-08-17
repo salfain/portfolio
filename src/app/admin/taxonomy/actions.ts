@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 
 import {
   knowledgeCategorySchema,
@@ -57,7 +57,7 @@ export async function saveCategoryAction(
 
   return runAdminMutation(async () => {
     await saveCategory(parsed.data)
-    revalidateTag('knowledge')
+    updateTag('knowledge')
     revalidatePath('/admin/taxonomy')
   }, 'Kategori tersimpan.')
 }
@@ -97,7 +97,7 @@ export async function deleteCategoryAction(id: string) {
   return deleteWithReason(
     async () => {
       await deleteCategory(id)
-      revalidateTag('knowledge')
+      updateTag('knowledge')
       revalidatePath('/admin/taxonomy')
     },
     {
@@ -111,7 +111,7 @@ export async function deleteTagAction(id: string) {
   return deleteWithReason(
     async () => {
       await deleteTag(id)
-      revalidateTag('knowledge')
+      updateTag('knowledge')
       revalidatePath('/admin/taxonomy')
     },
     { TAG_IN_USE: 'Tag ini masih menempel di dokumen atau proyek.' },

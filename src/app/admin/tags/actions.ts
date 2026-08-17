@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 
 import { toFieldErrors, type AdminState } from '@/lib/schemas/admin'
 import { tagSchema } from '@/lib/schemas/knowledge-admin'
@@ -31,7 +31,7 @@ export async function saveTagAction(
 
   return runAdminMutation(async () => {
     await saveTag(parsed.data)
-    revalidateTag('knowledge')
+    updateTag('knowledge')
     revalidatePath('/admin/tags')
   }, 'Tag tersimpan.')
 }
@@ -45,7 +45,7 @@ export async function deleteTagAction(id: string) {
 
   return runAdminDelete(async () => {
     await deleteTag(id)
-    revalidateTag('knowledge')
+    updateTag('knowledge')
     revalidatePath('/admin/tags')
   })
 }

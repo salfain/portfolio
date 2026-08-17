@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 import {
@@ -40,7 +40,7 @@ export async function saveExperienceAction(
 
   const result = await runAdminMutation(async () => {
     await saveExperience(parsed.data)
-    revalidateTag('experience')
+    updateTag('experience')
   }, 'Pengalaman tersimpan.')
 
   // Entri baru: kembali ke daftar supaya tidak tersimpan dua kali kalau
@@ -61,7 +61,7 @@ export async function deleteExperienceAction(id: string) {
 
   return runAdminDelete(async () => {
     await deleteExperience(id)
-    revalidateTag('experience')
+    updateTag('experience')
     // Menyegarkan cache router klien; tanpa ini baris yang dihapus
     // masih terlihat sampai halaman dimuat ulang penuh.
     revalidatePath('/admin/experiences')

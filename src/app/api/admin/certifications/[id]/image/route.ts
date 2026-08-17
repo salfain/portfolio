@@ -88,7 +88,7 @@ export async function POST(request: Request, { params }: RouteContext) {
     entityId: id,
     metadata: { image: true },
   })
-  revalidateTag('certificates')
+  revalidateTag('certificates', { expire: 0 })
 
   return NextResponse.json({ url: imageUrl })
 }
@@ -125,7 +125,7 @@ export async function DELETE(_request: Request, { params }: RouteContext) {
     entityId: id,
     metadata: { image: false },
   })
-  revalidateTag('certificates')
+  revalidateTag('certificates', { expire: 0 })
 
   return NextResponse.json({ ok: true })
 }

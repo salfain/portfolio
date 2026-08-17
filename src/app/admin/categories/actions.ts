@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 
 import { toFieldErrors, type AdminState } from '@/lib/schemas/admin'
 import { categorySchema } from '@/lib/schemas/knowledge-admin'
@@ -31,7 +31,7 @@ export async function saveCategoryAction(
 
   return runAdminMutation(async () => {
     await saveCategory(parsed.data)
-    revalidateTag('knowledge')
+    updateTag('knowledge')
     revalidatePath('/admin/categories')
   }, 'Kategori tersimpan.')
 }
@@ -45,7 +45,7 @@ export async function deleteCategoryAction(id: string) {
 
   try {
     await deleteCategory(id)
-    revalidateTag('knowledge')
+    updateTag('knowledge')
     revalidatePath('/admin/categories')
 
     return {}

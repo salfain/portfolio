@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 
 import { toFieldErrors, type AdminState } from '@/lib/schemas/admin'
 import { mediaUpdateSchema, mediaUploadSchema } from '@/lib/schemas/media'
@@ -37,7 +37,7 @@ const UPLOAD_MESSAGE: Record<UploadRejection, string> = {
 }
 
 function refresh(documentId: string) {
-  revalidateTag('knowledge')
+  updateTag('knowledge')
   revalidatePath(`/admin/knowledge/${documentId}/media`)
 }
 
@@ -124,7 +124,7 @@ export async function updateMediaAction(
 export async function deleteMediaAction(id: string) {
   return runAdminDelete(async () => {
     await deleteDocumentMedia(id)
-    revalidateTag('knowledge')
+    updateTag('knowledge')
     revalidatePath('/admin/knowledge')
   })
 }

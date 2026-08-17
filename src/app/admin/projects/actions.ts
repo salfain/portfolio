@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 import {
@@ -60,7 +60,7 @@ export async function saveProjectAction(
 
   const result = await runAdminMutation(async () => {
     await saveProject(parsed.data)
-    revalidateTag('projects')
+    updateTag('projects')
   }, 'Proyek tersimpan.')
 
   if (result.status === 'success' && isNew) {
@@ -79,7 +79,7 @@ export async function deleteProjectAction(id: string) {
 
   return runAdminDelete(async () => {
     await deleteProject(id)
-    revalidateTag('projects')
+    updateTag('projects')
     revalidatePath('/admin/projects')
   })
 }

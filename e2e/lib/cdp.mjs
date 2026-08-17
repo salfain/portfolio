@@ -34,9 +34,11 @@ export async function connect(wsUrl) {
       const { resolve, reject } = pending.get(message.id)
 
       pending.delete(message.id)
-      message.error
-        ? reject(new Error(JSON.stringify(message.error)))
-        : resolve(message.result)
+      if (message.error) {
+        reject(new Error(JSON.stringify(message.error)))
+      } else {
+        resolve(message.result)
+      }
     } else {
       listeners.forEach((fn) => fn(message))
     }

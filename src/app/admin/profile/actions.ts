@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidateTag } from 'next/cache'
+import { updateTag } from 'next/cache'
 
 import {
   profileSchema,
@@ -37,6 +37,6 @@ export async function saveProfileAction(
 
   return runAdminMutation(async () => {
     await saveProfile(parsed.data)
-    revalidateTag('profile')
+    updateTag('profile')
   }, 'Profil tersimpan.')
 }

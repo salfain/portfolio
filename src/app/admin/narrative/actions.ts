@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 
 import {
   narrativeFormSchema,
@@ -56,7 +56,7 @@ export async function saveNarrativeAction(
 
   return runAdminMutation(async () => {
     await saveNarrative(parsed.data.key, blocks)
-    revalidateTag('settings')
+    updateTag('settings')
     revalidatePath('/admin/narrative')
   }, `Tersimpan — ${blocks.length} blok.`)
 }

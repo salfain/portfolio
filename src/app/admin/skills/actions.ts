@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 import {
@@ -40,7 +40,7 @@ export async function saveSkillAction(
 
   const result = await runAdminMutation(async () => {
     await saveSkill(parsed.data)
-    revalidateTag('skills')
+    updateTag('skills')
   }, 'Keahlian tersimpan.')
 
   if (result.status === 'success' && isNew) {
@@ -59,7 +59,7 @@ export async function deleteSkillAction(id: string) {
 
   return runAdminDelete(async () => {
     await deleteSkill(id)
-    revalidateTag('skills')
+    updateTag('skills')
     revalidatePath('/admin/skills')
   })
 }

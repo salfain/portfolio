@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 import {
@@ -40,7 +40,7 @@ export async function saveCertificateAction(
 
   const result = await runAdminMutation(async () => {
     await saveCertificate(parsed.data)
-    revalidateTag('certificates')
+    updateTag('certificates')
   }, 'Sertifikat tersimpan.')
 
   if (result.status === 'success' && isNew) {
@@ -59,7 +59,7 @@ export async function deleteCertificateAction(id: string) {
 
   return runAdminDelete(async () => {
     await deleteCertificate(id)
-    revalidateTag('certificates')
+    updateTag('certificates')
     revalidatePath('/admin/certifications')
   })
 }

@@ -25,10 +25,11 @@ export default async function AdminBackupPage() {
             <Link> akan mem-prefetch dan menavigasi lewat router klien,
             yang membatalkan unduhannya.
 
-            eslint-disable diperlukan karena aturannya tidak bisa
-            membedakan Route Handler dari Page — keduanya terlihat sebagai
-            path di bawah app/. */}
-        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+            Dulu di sini ada eslint-disable karena aturan
+            no-html-link-for-pages tidak bisa membedakan Route Handler dari
+            Page. Sejak Next 16 aturannya tidak lagi menyalakan peringatan
+            untuk kasus ini, jadi disable-nya dihapus — ESLint melaporkan
+            direktif yang tidak terpakai sebagai peringatan tersendiri. */}
         <a
           href="/admin/backup/export?format=json"
           download
@@ -36,7 +37,6 @@ export default async function AdminBackupPage() {
         >
           Unduh JSON
         </a>
-        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a
           href="/admin/backup/export?format=markdown"
           download
