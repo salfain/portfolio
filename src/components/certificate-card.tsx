@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import type { Locale } from '@/i18n/routing'
 import { cn } from '@/lib/cn'
 import { formatFullDate, toIsoString } from '@/lib/format'
+import { resolveLocalized } from '@/lib/i18n-content'
 import type { PublicCertificate } from '@/data/certificate'
 
 import { CertificateLightbox } from '@/components/certificate-lightbox'
@@ -20,10 +21,10 @@ type CertificateCardProps = {
 /**
  * Satu kartu sertifikat.
  *
- * Handoff memuat satu paragraf deskripsi per sertifikat. `Certificate`
- * TIDAK punya kolom itu, jadi paragrafnya tidak dirender — daftar
- * keahlian yang memang tersimpan sudah menerangkan isinya, dan mengarang
- * kalimat deskripsi berarti mengarang klaim tentang isi kredensial.
+ * Deskripsi hanya dirender bila pemiliknya sudah mengisinya lewat admin.
+ * Kredensial lama yang belum punya deskripsi tetap tampil utuh, tanpa
+ * paragraf pengganti apa pun — kalimat karangan tentang isi sebuah
+ * kredensial adalah klaim yang tidak bisa dipertanggungjawabkan.
  */
 export async function CertificateCard({
   certificate,
@@ -32,11 +33,16 @@ export async function CertificateCard({
 }: CertificateCardProps) {
   const t = await getTranslations('certifications')
 
+  const description = resolveLocalized(certificate, 'description', locale)
+
   const year = certificate.issueDate
     ? new Date(certificate.issueDate).getFullYear()
     : null
 
   const meta = [
+    certificate.credentialId
+      ? { label: t('credentialId'), value: certificate.credentialId }
+      : null,
     certificate.issueDate
       ? {
           label: t('issued'),
@@ -58,6 +64,8 @@ export async function CertificateCard({
       imageUrl={certificate.imageUrl}
       skills={certificate.skills}
       credentialUrl={certificate.credentialUrl}
+      description={description.value || null}
+      descriptionLang={description.lang}
       meta={meta}
       labels={{
         open: t('openImage', { name: certificate.name }),
@@ -96,6 +104,18 @@ export async function CertificateCard({
       >
         {certificate.name}
       </h3>
+
+      {description.value ? (
+        <p
+          lang={description.lang}
+          className={cn(
+            'mt-3 text-[15px] leading-relaxed text-text-3',
+            wide && 'max-w-[48ch] text-[17px]',
+          )}
+        >
+          {description.value}
+        </p>
+      ) : null}
 
       {certificate.issueDate ? (
         <p className="mt-3 text-[15px] text-muted">

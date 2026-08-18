@@ -13,6 +13,9 @@ const certificateSelect = {
   id: true,
   name: true,
   issuer: true,
+  descriptionId: true,
+  descriptionEn: true,
+  credentialId: true,
   issueDate: true,
   expiryDate: true,
   credentialUrl: true,
@@ -23,6 +26,14 @@ const certificateSelect = {
 export type PublicCertificate = Prisma.CertificateGetPayload<{
   select: typeof certificateSelect
 }>
+
+/**
+ * Hanya deskripsi yang punya pasangan EN. `name` dan `issuer` sengaja
+ * berbahasa tunggal — nama kredensial dan nama penerbitnya adalah nama
+ * diri, dan menerjemahkan "Google IT Support Specialist" justru membuat
+ * kredensialnya tidak bisa dicocokkan dengan berkas aslinya.
+ */
+export const CERTIFICATE_REQUIRED_EN = ['description'] as const
 
 /**
  * `imageUrl` sengaja tidak diambil di Fase 3 — gambar sertifikat

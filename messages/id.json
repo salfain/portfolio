@@ -149,7 +149,8 @@
     "openImage": "Lihat sertifikat {name} ukuran penuh",
     "closeImage": "Tutup pratinjau sertifikat",
     "pageKicker": "Sertifikasi & Pembelajaran",
-    "pageTitle": "Sertifikat"
+    "pageTitle": "Sertifikat",
+    "credentialId": "Nomor"
   },
   "projects": {
     "title": "Proyek",

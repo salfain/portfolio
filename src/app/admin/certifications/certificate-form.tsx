@@ -7,6 +7,7 @@ import {
   DateField,
   ListField,
   StatusField,
+  TextAreaField,
   TextField,
 } from '@/components/admin/form-fields'
 import type { PublishStatusValue } from '@/lib/schemas/admin'
@@ -58,6 +59,33 @@ export function CertificateForm({
               error={errors.expiryDate}
             />
           </div>
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            <TextAreaField
+              name="descriptionId"
+              label="Deskripsi (Indonesia)"
+              rows={3}
+              hint="Satu atau dua kalimat tentang isi kredensialnya. Boleh dikosongkan."
+              defaultValue={certificate?.descriptionId}
+              error={errors.descriptionId}
+            />
+            <TextAreaField
+              name="descriptionEn"
+              label="Deskripsi (Inggris)"
+              rows={3}
+              hint="Kosongkan bila belum diterjemahkan; halaman /en akan memakai versi Indonesia."
+              defaultValue={certificate?.descriptionEn}
+              error={errors.descriptionEn}
+            />
+          </div>
+
+          <TextField
+            name="credentialId"
+            label="Nomor kredensial"
+            hint="Nomor yang tercetak di sertifikat, mis. GOOG-ITS-2025."
+            defaultValue={certificate?.credentialId}
+            error={errors.credentialId}
+          />
 
           <TextField
             name="credentialUrl"

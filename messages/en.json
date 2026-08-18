@@ -149,7 +149,8 @@
     "openImage": "View the {name} certificate at full size",
     "closeImage": "Close certificate preview",
     "pageKicker": "Certifications & Learning",
-    "pageTitle": "Certificates"
+    "pageTitle": "Certificates",
+    "credentialId": "Credential no."
   },
   "projects": {
     "title": "Projects",

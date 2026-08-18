@@ -23,6 +23,9 @@ type CertificateLightboxProps = {
   meta: CertificateMetaRow[]
   skills: string[]
   credentialUrl: string | null
+  /** Sudah diselesaikan per locale di server; null bila belum diisi. */
+  description?: string | null
+  descriptionLang?: string
   labels: {
     /** Label tombol pembuka, mis. "Lihat sertifikat ...". */
     open: string
@@ -49,6 +52,8 @@ export function CertificateLightbox({
   meta,
   skills,
   credentialUrl,
+  description,
+  descriptionLang,
   labels,
 }: CertificateLightboxProps) {
   const [open, setOpen] = useState(false)
@@ -78,8 +83,8 @@ export function CertificateLightbox({
 
       <DialogContent
         closeLabel={labels.close}
-        // Panel ini tidak punya paragraf deskripsi; tanpa baris ini Radix
-        // memperingatkan soal aria-describedby yang menunjuk ke nihil.
+        // Deskripsi panel ini opsional, dan Radix memperingatkan bila
+        // aria-describedby menunjuk ke elemen yang tidak dirender.
         aria-describedby={undefined}
         className="max-h-[88vh] max-w-[1040px] overflow-y-auto p-0"
       >
@@ -103,6 +108,15 @@ export function CertificateLightbox({
             <DialogTitle className="pr-10 font-display text-[24px] leading-tight">
               {name}
             </DialogTitle>
+
+            {description ? (
+              <p
+                lang={descriptionLang}
+                className="text-base leading-relaxed text-text-3"
+              >
+                {description}
+              </p>
+            ) : null}
 
             {meta.length > 0 ? (
               <dl className="flex flex-col">

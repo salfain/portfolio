@@ -191,6 +191,12 @@ model Certificate {
   id            String        @id @default(cuid())
   name          String
   issuer        String
+  // Prosa dua bahasa, mengikuti pola Project.summaryId/summaryEn.
+  // Opsional: kredensial lama tetap tampil walau belum ada deskripsinya.
+  descriptionId String?
+  descriptionEn String?
+  // Nomor kredensial yang tercetak di sertifikatnya, mis. GOOG-ITS-2025.
+  credentialId  String?
   issueDate     DateTime?
   expiryDate    DateTime?
   credentialUrl String?
